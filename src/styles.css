@@ -1,0 +1,125 @@
+/* You can add global styles to this file, and also import other style files */
+
+@font-face {
+  font-family: THSarabunPSK;
+  src: url('/assets/fonts/THSarabunPSK/THSarabunPSK.TTF') format('truetype');
+}
+
+@font-face {
+  font-family: 'SSpace';
+  src: url('/assets/fonts/Superspace/SuperspaceRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  }
+  @font-face {
+  font-family: 'SSpace';
+  src: url('/assets/fonts/Superspace/SuperspaceRegularItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+   }
+  @font-face {
+  font-family: 'SSpace';
+  src: url('/assets/fonts/Superspace/SuperspaceBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  }
+  @font-face {
+  font-family: 'SSpace';
+  src: url('/assets/fonts/Superspace/SuperspaceBoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+  }
+  @font-face {
+    font-family: 'SSpace';
+    src: url('/assets/fonts/Superspace/SuperspaceLight.ttf') format('truetype');
+    font-weight: lighter;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'SSpace';
+    src: url('/assets/fonts/Superspace/SuperspaceLightItalic.ttf') format('truetype');
+    font-weight: lighter;
+    font-style: italic;
+  }
+
+div.container-fixed {
+  width: 1200px !important;
+  margin: auto;
+}
+
+/* BEGIN PANELMENU */
+div.ui-panelmenu-content.ui-widget-content {
+  padding: 0px !important;
+}
+
+p-panelmenu {
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+span.ui-menuitem-text {
+  font-weight: lighter;
+}
+
+.ui-menuitem-link.ui-corner-all.ui-state-active {
+  background-color: black;
+}
+
+div.ui-panelmenu-content.ui-widget-content {
+  background-color: rgb(255, 255, 250);
+}
+/* END PANELMENU */
+
+/* BEGIN RADIOBUTTON */
+label.ui-radiobutton-label {
+  font-family: SSpace;
+  margin-bottom: -1px;
+  margin-right: 15px;
+}
+
+div.ui-radiobutton-box {
+  width: 1.5em;
+  height: 1.5em;
+  line-height: 1.5em;
+}
+/* END RADIOBUTTON */
+
+/* BEGIN AUTOCOMPLETE */
+li.ui-autocomplete-list-item.ui-corner-all.ui-state-highlight {
+  background-color: #3a8db7;
+}
+/* END AUTOCOMPLETE */
+
+/* BEGIN BUTTON */
+button.btn-positive.ui-button {
+  background-color: #3a8db7;
+}
+
+button.btn-positive.ui-button:enabled:hover {
+  background-color: #3a83c1;
+}
+
+button.btn-normal.ui-button {
+  background-color: #22468b;
+}
+
+button.btn-normal.ui-button:enabled:hover {
+  background-color: #1c3a74;
+}
+
+button.btn-negative.ui-button {
+  background-color: rgb(253, 212, 65);
+}
+
+button.btn-negative.ui-button:enabled:hover {
+  background-color: rgb(255, 201, 13);
+}
+
+label.btn-upload.ui-button {
+  background-color: #22468b;
+}
+
+label.btn-upload.ui-button:hover {
+  background-color: #1c3a74;
+}
+/* END BUTTON */

@@ -1,0 +1,15 @@
+.sidebar-header {
+  font-size: 25px;
+  font-family: SSpace;
+  color: #aa0000;
+  margin-bottom: 5px;
+}
+p{
+  margin-bottom: 0;
+}
+
+div.underline {
+  height: 1px;
+  width: 100%;
+  background-color: #aa0000;
+}

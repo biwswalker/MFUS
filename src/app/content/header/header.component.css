@@ -1,0 +1,39 @@
+h4 {
+  padding-right: 30px;
+  font-family: THSarabunPSK;
+  font-size: 20px;
+  color: #aa0000;
+}
+h1 {
+  font-family: THSarabunPSK;
+  color: #aa0000;
+}
+h3 {
+  font-family: THSarabunPSK;
+  color: #aa0000;
+}
+
+p {
+  font-family: sans-serif;
+  color: black;
+}
+
+a {
+  color: #aa0000;
+}
+
+a.active {
+  color: black;
+}
+
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+div.jumbotron {
+  background: transparent;
+  padding-top: 35px;
+  padding-bottom: 0;
+  margin: 0;
+}
