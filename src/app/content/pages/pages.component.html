@@ -1,6 +1,13 @@
-<div class="col-xs-3 menuside">
-  <app-sidebar></app-sidebar>
+<div *ngIf="authenService.isUserLogedIn()">
+  <div class="col-xs-3 menuside">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="col-xs-9 content">
+    <router-outlet></router-outlet>
+  </div>
 </div>
-<div class="col-xs-9 content">
-  <router-outlet></router-outlet>
+<div *ngIf="!authenService.isUserLogedIn()">
+  <div class="col-xs-12 content">
+    <router-outlet></router-outlet>
+  </div>
 </div>

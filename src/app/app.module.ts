@@ -25,9 +25,12 @@ import { SidebarComponent } from './content/menu/sidebar/sidebar.component';
 import { NavbarComponent } from './content/menu/navbar/navbar.component';
 import { PagesComponent } from './content/pages/pages.component';
 import { HomeComponent } from './content/pages/home/home.component';
+import { InputTextComponent } from './content/pages/tag/input-text/input-text.component';
+import { CalendarComponent } from './content/pages/tag/calendar/calendar.component';
 
 //Service
-
+import { UtilsService } from './services/utils.service';
+import { AuthenticationService } from './services/authentication.service';
 
 //Router
 const appRoutes: Routes = [
@@ -47,6 +50,8 @@ const appRoutes: Routes = [
     NavbarComponent,
     PagesComponent,
     HomeComponent,
+    InputTextComponent,
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +73,8 @@ const appRoutes: Routes = [
     PanelModule
   ],
   providers: [
+    AuthenticationService,
+    UtilsService
   ],
   bootstrap: [AppComponent]
 })
