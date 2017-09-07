@@ -123,3 +123,31 @@ label.btn-upload.ui-button:hover {
   background-color: #1c3a74;
 }
 /* END BUTTON */
+
+/* BEGIN CHECKBOX */
+label.ui-chkbox-label {
+  margin-bottom: 0px;
+  color: #3a8db7;
+  font-family: SSpace;
+  font-size: 15px;
+  font-weight: lighter
+}
+/* END CHECKBOX */
+
+/*  BEGIN UPLOAD FILE */
+p-fileupload {
+  display: inline-block;
+}
+div.ui-fileupload-buttonbar.ui-widget-header.ui-corner-top {
+  padding: 0px;
+  border: none;
+}
+
+div.ui-progressbar.ui-widget.ui-widget-content.ui-corner-all {
+  display: none;
+}
+
+div.ui-fileupload-content.ui-widget-content.ui-corner-bottom {
+  display: none;
+}
+/*  END UPLOAD FILE */

@@ -1,0 +1,33 @@
+<div class="col-xs-12">
+  <label for=""></label>
+  <div>
+    <!-- Filename Display -->
+    <input value="{{fileName}}"
+           type="text"
+           size="24"
+           pInputText
+           readonly>
+    <!-- Upload Button -->
+    <label pButton
+           class="btn-positive"
+           label="เลือกไฟล์"
+           (change)="onUpload($event)">
+     <input type="file" accept="image/*, application/pdf" class="display-none">
+   </label>
+    <!-- Delete Button -->
+    <button pButton
+            type="button"
+            class="btn-negative"
+            (click)="onDelete()"
+            label="ลบ"></button>
+  </div>
+</div>
+<!-- Picture -->
+=======================
+<div> Result : </div>
+<div class="col-xs-3">
+  <div class="row center">
+    <img src="{{ image }}"
+         class="image-preview">
+  </div>
+</div>

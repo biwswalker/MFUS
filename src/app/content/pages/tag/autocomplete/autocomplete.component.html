@@ -1,0 +1,22 @@
+<div class="col-xs-12">
+  <label class="normal">Autocomplete</label>
+  <div>
+    <p-autoComplete name="autocompleteName"
+                    field="autoName"
+                    [(ngModel)]="autocompleteObj"
+                    [suggestions]="autocompleteList"
+                    (completeMethod)="autocompleteMethod($event)"
+                    [size]="20"
+                    [dropdown]="true"
+                    forceSelection="true"
+                    (onDropdownClick)="handleCompleteClick($event)">
+      <ng-template let-obj
+                   pTemplate="item">
+        {{obj.autoName}}
+      </ng-template>
+    </p-autoComplete>
+  </div>
+</div>
+
+=======================
+<div> Result : {{ autocompleteObj.autoName }}</div>

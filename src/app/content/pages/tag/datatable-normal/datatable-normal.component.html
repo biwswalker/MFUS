@@ -1,0 +1,25 @@
+<div class="row">
+  <p-dataTable [value]="studentFormList"
+               selectionMode="single"
+               [(selection)]="selectedStudent"
+               [rows]="10"
+               [paginator]="true"
+               [rowsPerPageOptions]="[5,10,20]"
+               sortMode="multiple"
+               (onRowSelect)="onRowSelect($event)">
+
+    <p-column [sortable]="true"
+              field="student.studentRef"
+              header="เลขที่"></p-column>
+    <p-column [sortable]="true"
+              field="student.studentID"
+              header="ไอดี"></p-column>
+    <p-column [sortable]="true"
+              field="student.studentFName"
+              [sortable]="true"
+              header="ชื่อจริง"></p-column>
+    <p-column [sortable]="true"
+              field="student.studentLName"
+              header="นามสกุล"></p-column>
+  </p-dataTable>
+</div>

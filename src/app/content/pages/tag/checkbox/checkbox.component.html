@@ -1,0 +1,59 @@
+<div class="col-xs-12">
+  <label class="normal">Checkbox Boolean</label>
+  <div>
+    <p-checkbox name="checkboxBooleanName"
+                [(ngModel)]="checkedBool"
+                binary="true"
+                label="Boolean"></p-checkbox>
+  </div>
+</div>
+
+=======================
+<div> Result : {{ checkedBool }}
+</div>
+
+<div class="col-xs-12">
+  <label class="normal">Checkbox School List</label>
+  <div>
+    <p-checkbox name="checkboxList1"
+                value="IT"
+                label="Information Technology"
+                [(ngModel)]="selectedSchoolCheckbox"
+                (onChange)="onSelectSchool()"
+                inputId="IT"></p-checkbox>
+    <p-checkbox name="checkboxList2"
+                value="MA"
+                label="Management"
+                [(ngModel)]="selectedSchoolCheckbox"
+                (onChange)="onSelectSchool()"
+                inputId="MA"></p-checkbox>
+    <p-checkbox name="checkboxList3"
+                value="SCI"
+                label="Science"
+                [(ngModel)]="selectedSchoolCheckbox"
+                (onChange)="onSelectSchool()"
+                inputId="SCI"></p-checkbox>
+  </div>
+</div>
+
+=======================
+<div> Result : {{ selectedSchoolCheckbox }}
+</div>
+
+<div class="col-xs-12"
+     *ngIf="selectedSchoolCheckbox.length > 0">
+  <label class="normal">Checkbox Major List</label>
+  <div>
+    <div *ngFor="let major of majorCheckboxList; let i = index">
+      <p-checkbox name="checkboxList{{ i }}"
+                  [value]="major.value"
+                  [label]="major.name"
+                  [(ngModel)]="selectedMajorCheckbox"
+                  inputId="{{major.value}}"></p-checkbox>
+    </div>
+  </div>
+
+  =======================
+  <div> Result : {{ selectedMajorCheckbox }}
+  </div>
+</div>
