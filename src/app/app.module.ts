@@ -1,3 +1,4 @@
+import { StepService } from './services/tag/step.service';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,7 +20,7 @@ import { DataTableModule, SharedModule } from 'primeng/primeng';
 import { PanelModule } from 'primeng/primeng';
 import { InputTextareaModule } from 'primeng/primeng';
 import { SliderModule } from 'primeng/primeng';
-import { FileUploadModule } from 'primeng/primeng';
+import { FileUploadModule, StepsModule } from 'primeng/primeng';
 
 // Component
 import { HeaderComponent } from './content/header/header.component';
@@ -43,6 +44,10 @@ import { ButtonComponent } from './content/pages/tag/button/button.component';
 import { UploadFileComponent } from './content/pages/tag/upload-file/upload-file.component';
 import { ExampleComponent } from './content/pages/tag/example/example.component';
 import { DatatableNormalComponent } from './content/pages/tag/datatable-normal/datatable-normal.component';
+import { StepComponent } from './content/pages/tag/step/step.component';
+import { Step01Component } from './content/pages/tag/step/step01/step01.component';
+import { Step02Component } from './content/pages/tag/step/step02/step02.component';
+import { Step03Component } from './content/pages/tag/step/step03/step03.component';
 
 //Router
 const appRoutes: Routes = [
@@ -74,6 +79,10 @@ const appRoutes: Routes = [
     UploadFileComponent,
     ExampleComponent,
     DatatableNormalComponent,
+    StepComponent,
+    Step01Component,
+    Step02Component,
+    Step03Component,
   ],
   imports: [
     BrowserModule,
@@ -94,11 +103,13 @@ const appRoutes: Routes = [
     SharedModule,
     PanelModule,
     InputTextareaModule,
-    SliderModule
+    SliderModule,
+    StepsModule
   ],
   providers: [
     AuthenticationService,
-    UtilsService
+    UtilsService,
+    StepService
   ],
   bootstrap: [AppComponent]
 })
