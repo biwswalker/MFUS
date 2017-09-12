@@ -4,7 +4,7 @@ import { MenuItem, Message } from 'primeng/primeng';
 import { Component, OnInit,  ComponentFactoryResolver ,ViewContainerRef } from '@angular/core';
 
 
-let page: string = './step.component.html';
+var page: string;
 
 @Component({
   selector: 'app-step',
@@ -31,7 +31,7 @@ export class StepComponent implements OnInit {
   }
 
   ngOnInit() {
-    page = './step.component.html';
+  //  page = './step.component.html';
 
     this.items = [{
       label: 'Personal',
