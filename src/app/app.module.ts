@@ -20,6 +20,7 @@ import { PanelModule } from 'primeng/primeng';
 import { InputTextareaModule } from 'primeng/primeng';
 import { SliderModule } from 'primeng/primeng';
 import { FileUploadModule } from 'primeng/primeng';
+import { StepsModule } from 'primeng/primeng';
 
 // Component
 import { HeaderComponent } from './content/header/header.component';
@@ -30,10 +31,11 @@ import { PagesComponent } from './content/pages/pages.component';
 import { HomeComponent } from './content/pages/home/home.component';
 import { InputTextComponent } from './content/pages/tag/input-text/input-text.component';
 import { CalendarComponent } from './content/pages/tag/calendar/calendar.component';
-
-//Service
-import { UtilsService } from './services/utils.service';
-import { AuthenticationService } from './services/authentication.service';
+import { StepComponent } from './content/pages/tag/step/step.component';
+import { Step03Component } from './content/pages/tag/step/step03/step03.component';
+import { Step02Component } from './content/pages/tag/step/step02/step02.component';
+import { Step01Component } from './content/pages/tag/step/step01/step01.component';
+import { InterviewselectComponent } from './content/pages/interviewselect/interviewselect.component';
 import { AutocompleteComponent } from './content/pages/tag/autocomplete/autocomplete.component';
 import { DropdownComponent } from './content/pages/tag/dropdown/dropdown.component';
 import { TextareaComponent } from './content/pages/tag/textarea/textarea.component';
@@ -45,7 +47,12 @@ import { ExampleComponent } from './content/pages/tag/example/example.component'
 import { DatatableNormalComponent } from './content/pages/tag/datatable-normal/datatable-normal.component';
 import { OfficerComponent } from './content/pages/officer/officer.component';
 import { ReguserComponent } from './content/pages/reguser/reguser.component';
-import { InterviewselectComponent } from './content/pages/interviewselect/interviewselect.component';
+
+
+//Service
+import { UtilsService } from './services/utils.service';
+import { AuthenticationService } from './services/authentication.service';
+import { StepService } from './services/tag/step.service';
 
 
 
@@ -84,7 +91,10 @@ const appRoutes: Routes = [
     OfficerComponent,
     ReguserComponent,
     InterviewselectComponent,
-
+    StepComponent,
+    Step01Component,
+    Step02Component,
+    Step03Component
   ],
   imports: [
     BrowserModule,
@@ -105,11 +115,13 @@ const appRoutes: Routes = [
     SharedModule,
     PanelModule,
     InputTextareaModule,
-    SliderModule
+    SliderModule,
+    StepsModule
   ],
   providers: [
     AuthenticationService,
-    UtilsService
+    UtilsService,
+    StepService
   ],
   bootstrap: [AppComponent]
 })
