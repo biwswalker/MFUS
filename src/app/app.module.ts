@@ -43,6 +43,11 @@ import { ButtonComponent } from './content/pages/tag/button/button.component';
 import { UploadFileComponent } from './content/pages/tag/upload-file/upload-file.component';
 import { ExampleComponent } from './content/pages/tag/example/example.component';
 import { DatatableNormalComponent } from './content/pages/tag/datatable-normal/datatable-normal.component';
+import { OfficerComponent } from './content/pages/officer/officer.component';
+import { ReguserComponent } from './content/pages/reguser/reguser.component';
+import { InterviewselectComponent } from './content/pages/interviewselect/interviewselect.component';
+
+
 
 //Router
 const appRoutes: Routes = [
@@ -50,6 +55,8 @@ const appRoutes: Routes = [
   { path: 'example', component: ExampleComponent },
   {
     path: 'pages', component: PagesComponent, children: [
+      { path: 'officer', component: OfficerComponent },
+      { path: 'reguser', component: ReguserComponent },
     ]
   }
 ];
@@ -74,6 +81,10 @@ const appRoutes: Routes = [
     UploadFileComponent,
     ExampleComponent,
     DatatableNormalComponent,
+    OfficerComponent,
+    ReguserComponent,
+    InterviewselectComponent,
+
   ],
   imports: [
     BrowserModule,
