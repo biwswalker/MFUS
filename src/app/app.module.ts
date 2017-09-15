@@ -43,6 +43,9 @@ import { ButtonComponent } from './content/pages/tag/button/button.component';
 import { UploadFileComponent } from './content/pages/tag/upload-file/upload-file.component';
 import { ExampleComponent } from './content/pages/tag/example/example.component';
 import { DatatableNormalComponent } from './content/pages/tag/datatable-normal/datatable-normal.component';
+import { SponsorsComponent } from './content/pages/sponsors/sponsors.component';
+import { ScholarshipAnnouncementComponent } from './content/pages/scholarship-announcement/scholarship-announcement.component';
+import { ApplyforscholarshipComponent } from './content/pages/applyforscholarship/applyforscholarship.component';
 
 //Router
 const appRoutes: Routes = [
@@ -50,6 +53,9 @@ const appRoutes: Routes = [
   { path: 'example', component: ExampleComponent },
   {
     path: 'pages', component: PagesComponent, children: [
+      { path: 'sponsors', component: SponsorsComponent },
+      { path: 'scholarship-announcement', component: ScholarshipAnnouncementComponent },
+      { path: 'apply-scholarship', component: ApplyforscholarshipComponent }
     ]
   }
 ];
@@ -74,6 +80,9 @@ const appRoutes: Routes = [
     UploadFileComponent,
     ExampleComponent,
     DatatableNormalComponent,
+    SponsorsComponent,
+    ScholarshipAnnouncementComponent,
+    ApplyforscholarshipComponent,
   ],
   imports: [
     BrowserModule,

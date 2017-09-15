@@ -1,13 +1,14 @@
 export class SmDocumentRequest {
-  public documentRequestRef: number;
- public applicationRef: number;
+
+ public document_request_ref: string;
+ public application_ref: string;
  public seq: number;
- public dueDate: Date;
- public replyFlag: string;
+ public due_date: Date;
+ public reply_flag: string;
  public message: string;
- public createUser: string;
- public createDatetime: Date;
- public updateUser: string;
- public updateDatetime: Date;
+ public create_user: string;
+ public create_datetime: Date;
+ public update_user: string;
+ public update_datetime: Date;
 
 }

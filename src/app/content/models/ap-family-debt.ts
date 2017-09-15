@@ -1,12 +1,11 @@
 export class ApFamilyDebt {
-  public familyDebtRef: number;
-  public familyFinancialRef: number;
-  public seq: number;
-  public debtDetail: string;
-  public debtAmount: number;
-  public createUser: string;
-  public createDatetime: Date;
-  public updateUser: string;
-  public updateDatetime: Date;
-
+ public family_debt_ref: string;
+ public family_financial_ref: string;
+ public seq: number;
+ public debt_detail: string;
+ public debt_amount: number;
+ public create_user: string;
+ public create_datetime: Date;
+ public update_user: string;
+ public update_datetime: Date;
 }

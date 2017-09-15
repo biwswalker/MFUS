@@ -1,11 +1,13 @@
 export class SmConditionSchool {
-  public conditionSchoolRef: number;
- public announcementRef: number;
- public schoolRef: number;
- public createUser: string;
- public createDatetime: Date;
- public updateUser: string;
- public updateDatetime: Date;
+
+public  condition_school_ref: string;
+public  announcement_ref: string;
+public  school_ref: string;
+public  create_user: string;
+public  create_datetime: Date;
+public  update_user: string;
+public  update_datetime: Date;
+
 
 
 }
