@@ -1,0 +1,26 @@
+<div>
+  <p-steps
+    [model]="items"
+    [(activeIndex)]="activeIndex"
+    [readonly]="false"
+    styleClass="steps-custom">
+
+  </p-steps>
+  <div *ngIf="activeIndex == 0">
+    <p>step1</p>
+    <app-step01></app-step01>
+  </div>
+
+
+  <div *ngIf="activeIndex == 1">
+    <p>step2</p>
+    <app-step02></app-step02>
+  </div>
+
+
+  <div *ngIf="activeIndex == 2">
+    <p>step3</p>
+    <app-step03></app-step03>
+  </div>
+
+</div>
