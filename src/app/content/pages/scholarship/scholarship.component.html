@@ -1,0 +1,228 @@
+<div class="content">
+  <div class="content-header-blue">
+    <p>ทุนการศึกษา</p>
+    <div class="underline-blue"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <label class="normal">ผู้ให้ทุนการศึกษา</label>
+      <div>
+        <p-autoComplete name="autocompleteName"
+                        field="autoName"
+                        [(ngModel)]="autocompleteObj"
+                        [suggestions]="autocompleteList"
+                        (completeMethod)="autocompleteMethod($event)"
+                        [size]="20"
+                        [dropdown]="true"
+                        forceSelection="true"
+                        (onDropdownClick)="handleCompleteClick($event)">
+          <ng-template let-obj
+                       pTemplate="item">
+            {{obj.autoName}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+
+    <div class="col-xs-2 col-sm-offset-1">
+      <label class="normal">สถานะ</label>
+      <div>
+        <p-dropdown name="dropdownName"
+                    [options]="dropdownList"
+                    [(ngModel)]="dropdownValue"
+                    [style]="{'width':'200px'}">
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6">
+
+      <label class="normal">ชื่อทุนการศึกษา *</label>
+      <div>
+        <input [(ngModel)]="textStr"
+               name="inputTextName"
+               type="text"
+               size="45"
+               pInputText>
+      </div>
+    </div>
+
+    <div class="col-xs-3 col-sm-offset-1">
+      <label class="normal">ประเภททุนการศึกษา</label>
+      <div>
+        <p-dropdown name="dropdownName"
+                    [options]="dropdownList"
+                    [(ngModel)]="dropdownValue"
+                    [style]="{'width':'200px'}">
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <label class="normal">รายระเอียด</label>
+      <div>
+        <textarea pInputTextarea
+                  name="textareaName"
+                  [(ngModel)]="textareaValue"
+                  autoResize="autoResize"
+                  cols="100"
+                  rows="5">
+          </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-3">
+      <label class="normal">จำนวนทุน *</label>
+      <div>
+        <input [(ngModel)]="textStr"
+               name="inputTextName"
+               type="text"
+               size="20"
+               pInputText>
+      </div>
+    </div>
+
+    <div class="col-xs-3">
+      <label class="normal">จำนวนเงิน/ทุน (บาท) *</label>
+      <div>
+        <input [(ngModel)]="textStr"
+               name="inputTextName"
+               type="text"
+               size="25"
+               pInputText>
+      </div>
+    </div>
+  </div>
+
+  <div class="row formFooter">
+    <button pButton
+            type="submit"
+            class="btn-positive"
+            label="บันทึก"></button>
+    <button pButton
+            type="button"
+            class="btn-normal"
+            label="รีเซ็ท"></button>
+    <button pButton
+            type="button"
+            style="float:right;"
+            class="btn-negative"
+            label="กลับ"></button>
+  </div>
+</div>
+
+<div class="content">
+  <div class="content-header-blue">
+    <p>ทุนการศึกษา</p>
+    <div class="underline-blue"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-9">
+      <label class="normal">ผู้ให้ทุนการศึกษา</label>
+      <div>
+        <p-autoComplete name="autocompleteName"
+                        field="autoName"
+                        [(ngModel)]="autocompleteObj"
+                        [suggestions]="autocompleteList"
+                        (completeMethod)="autocompleteMethod($event)"
+                        [size]="20"
+                        [dropdown]="true"
+                        forceSelection="true"
+                        (onDropdownClick)="handleCompleteClick($event)">
+          <ng-template let-obj
+                       pTemplate="item">
+            {{obj.autoName}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+
+    <div class="col-xs-2">
+      <label class="normal">สถานะ</label>
+      <div>
+        <p-dropdown name="dropdownName"
+                    [options]="dropdownList"
+                    [(ngModel)]="dropdownValue"
+                    [style]="{'width':'110px'}">
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-xs-3 ">
+      <label class="normal">ประเภททุนการศึกษา</label>
+      <div>
+        <p-dropdown name="dropdownName"
+                    [options]="dropdownList"
+                    [(ngModel)]="dropdownValue"
+                    [style]="{'width':'200px'}">
+        </p-dropdown>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-offset-1">
+      <label class="normal">ชื่อทุนการศึกษา *</label>
+      <div>
+        <input [(ngModel)]="textStr"
+               name="inputTextName"
+               type="text"
+               size="60"
+               pInputText>
+      </div>
+    </div>
+  </div>
+  <div class="space"></div>
+  <div class="row">
+      <button pButton
+              type="submit"
+              class="btn-positive"
+              label="บันทึก"></button>
+      <button pButton
+              type="button"
+              class="btn-normal"
+              label="รีเซ็ท"></button>
+      <button pButton
+              type="button"
+              style="float:right;"
+              class="btn-negative"
+              label="กลับ"></button>
+  </div>
+            <div class="space"></div>
+  <div class="row">
+    <p-dataTable [value]="sponsorsFormList"
+                 selectionMode="single"
+                 [(selection)]="selectedSponsors"
+                 [rows]="10"
+                 [paginator]="true"
+                 [rowsPerPageOptions]="[5,10,20]"
+                 sortMode="multiple"
+                 (onRowSelect)="onRowSelect($event)">
+
+      <p-column [sortable]="true"
+                field="SmSponsors.sponsersRef"
+                header="เลขที่"></p-column>
+      <p-column [sortable]="true"
+                field="SmSponsors.sponsersID"
+                header="ชื่อผู้ให้ทุน"></p-column>
+      <p-column [sortable]="true"
+                field="student.studentFName"
+                [sortable]="true"
+                header="ประเภททุนการศึกษา"></p-column>
+      <p-column [sortable]="true"
+                field="student.studentLName"
+                header="ชื่อทุนการศึกษา"></p-column>
+      <p-column [sortable]="true"
+                field="student.studentLName"
+                header="สถานะ"></p-column>
+    </p-dataTable>
+  </div>
+
+</div>
