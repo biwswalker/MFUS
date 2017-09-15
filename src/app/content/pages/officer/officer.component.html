@@ -1,0 +1,370 @@
+<div class="content">
+	<div class="content-header-blue">
+		<p>จัดการข้อมูลเจ้าหน้าที่</p>
+		<div class="underline-blue"></div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-9">
+			<div class="row">
+				<div class="col-xs-6">
+					<label class="normal"> รหัสเจ้าหน้าที่ *</label>
+					<div>
+						<input [(ngModel)]="officerEditForm.acOfficer.officerCode"
+						name="inputOfficerCode"
+						type="text"
+						size="15"
+						pInputText>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<label class="normal"> สถานะ</label>
+					<div>
+						<p-dropdown name="Status"
+						[options]="statusList"
+						[(ngModel)]="officerEditForm.acOfficer.activeFlag"
+						[style]="{'width':'150px'}"
+						disabled>
+					</p-dropdown>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<label class="normal">เพศ</label>
+				<div class="col-xs-12">
+					<p-radioButton name="gender"
+					value="M"
+					label="ชาย"
+					[(ngModel)]="officerEditForm.acOfficer.gender"
+					inputId="opt1"></p-radioButton>
+					<p-radioButton name="gender"
+					value="F"
+					label="หญิง"
+					[(ngModel)]="officerEditForm.acOfficer.gender"
+					inputId="opt2"></p-radioButton>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6">
+				<label class="normal">คำนำหน้า *</label>
+				<div>
+					<p-dropdown name="title"
+					[options]="titleList"
+					[(ngModel)]="officerEditForm.acOfficer.titleRef"
+					[style]="{'width':'150px'}">
+				</p-dropdown>
+			</div>
+		</div>
+		<div class="col-xs-6">
+			<label class="normal"> เลขประชาชน/พาสปอร์ต *</label>
+			<div>
+				<input [(ngModel)]="officerEditForm.acOfficer.personalId"
+				name="inputPersonalId"
+				type="text"
+				size="20"
+				pInputText>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-6">
+			<label class="normal"> ชื่อ *</label>
+			<div>
+				<input [(ngModel)]="officerEditForm.acOfficer.firstName"
+				name="inputFirstName"
+				type="text"
+				size="25"
+				pInputText>
+			</div>
+		</div>
+		<div class="col-xs-6">
+			<label class="normal"> นามสกุล *</label>
+			<div>
+				<input [(ngModel)]="officerEditForm.acOfficer.lastName"
+				name="inputLastName"
+				type="text"
+				size="25"
+				pInputText>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<label class="normal"> Address *</label>
+			<div>
+				<input [(ngModel)]="officerEditForm.acOfficer.Address"
+				name="inputAddress"
+				type="text"
+				size="70"
+				pInputText>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-6">
+			<label class="normal">จังหวัด</label>
+			<div>
+				<p-autoComplete name="province"
+				field="provinceNameT"
+				[(ngModel)]="officerEditForm.rftProvince"
+				[suggestions]="provinceList"
+				(completeMethod)="provinceMethod($event)"
+				[size]="20"
+				[dropdown]="true"
+				forceSelection="true"
+				(onDropdownClick)="handleCompleteClickProvince($event)">
+				<ng-template let-obj
+				pTemplate="item">
+				{{obj.provinceNameT}}
+			</ng-template>
+		</p-autoComplete>
+	</div>
+</div>
+<div class="col-xs-6">
+	<label class="normal">อำเภอ</label>
+	<div>
+		<p-autoComplete name="district"
+		field="districtNameT"
+		[(ngModel)]="officerEditForm.rftDistrict"
+		[suggestions]="districtList"
+		(completeMethod)="districtMethod($event)"
+		[size]="20"
+		[dropdown]="true"
+		forceSelection="true"
+		(onDropdownClick)="handleCompleteClickDistrict($event)">
+		<ng-template let-obj
+		pTemplate="item">
+		{{obj.districtNameT}}
+	</ng-template>
+</p-autoComplete>
+</div>
+</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-6">
+		<label class="normal">ตำบล</label>
+		<div>
+			<p-autoComplete name="SubDistrict"
+			field="subDistrictNameT"
+			[(ngModel)]="officerEditForm.rftSubDistrict"
+			[suggestions]="subDistrictList"
+			(completeMethod)="subDistrictMethod($event)"
+			[size]="20"
+			[dropdown]="true"
+			forceSelection="true"
+			(onDropdownClick)="handleCompleteClickSubDistrict($event)">
+			<ng-template let-obj
+			pTemplate="item">
+			{{obj.subDistrictNameT}}
+		</ng-template>
+	</p-autoComplete>
+</div>
+</div>
+<div class="col-xs-6">
+	<label class="normal"> รหัสไปรษณีย์ </label>
+	<div>
+		<input [(ngModel)]="officerEditForm.acOfficer.postCode"
+		name="inputPostCode"
+		type="text"
+		size="15"
+		pInputText
+		disabled>
+	</div>
+</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-6">
+		<label class="normal"> เบอร์โทรศัพท์ *</label>
+		<div>
+			<input [(ngModel)]="officerEditForm.acOfficer.phoneNo"
+			name="inputPhoneNo"
+			type="text"
+			size="15"
+			pInputText>
+		</div>
+	</div>
+	<div class="col-xs-6">
+		<label class="normal"> อีเมล *</label>
+		<div>
+			<input [(ngModel)]="officerEditForm.acOfficer.email"
+			name="inputEmail"
+			type="text"
+			size="25"
+			pInputText>
+		</div>
+	</div>
+</div>
+</div>
+<div class="col-xs-3">	
+	<div class="row center">
+		<img src="{{ image }}"
+		class="image-preview">
+	</div>
+	<div class="row center">
+		<label pButton
+           class="btn-positive"
+           label="เลือกไฟล์"
+           (change)="onUpload($event)">
+     		<input type="file" accept="image/*, application/pdf" class="display-none">
+   		</label>
+	</div>
+	<div class="row center">
+		<div>
+    			<p-checkbox name="checkboxManageOfficer"
+                [(ngModel)]="officerEditForm.acOfficer.manageOfficerFlag"
+                binary="true"
+                label="สามารถจัดการเจ้าหน้าที่"></p-checkbox>
+  		</div>
+	</div>
+</div>
+</div>
+<div class="space"></div>
+<div class="row">
+	<div class="col-xs-12">
+	
+  <button pButton
+          type="submit"
+          class="btn-positive"
+          label="สร้าง"></button>
+  <button pButton
+          type="button"
+          class="btn-normal"
+          label="รีเซ็ท"></button>
+
+  <button pButton
+          type="button"
+          style="float: right;" 
+          class="btn-negative"
+          label="กลับ"></button>
+   
+</div>
+</div>
+</div>
+
+
+
+
+<div class="content">
+	<div class="content-header-blue">
+		<p>จัดการข้อมูลเจ้าหน้าที่</p>
+		<div class="underline-blue"></div>
+	</div>
+	<div class="row">
+		<div class="col-xs-8">
+			<label class="normal"> รหัสเจ้าหน้าที่</label>
+			<div>
+			<input [(ngModel)]="officerSearchForm.acOfficer.officerCode"
+			name="inputOfficerCode"
+			type="text"
+			size="25"
+			pInputText>
+			</div>
+		</div>
+		<div class="col-xs-4">
+			<label class="normal" > สถานะ</label>
+					<div>
+						<p-dropdown name="Status"
+						[options]="statusList"
+						[(ngModel)]="officerSearchForm.acOfficer.activeFlag"
+						[style]="{'width':'150px'}">
+					</p-dropdown>
+				</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4">
+			<label class="normal"> ชื่อ</label>
+			<div>
+			<input [(ngModel)]="officerSearchForm.acOfficer.firstName"
+			name="inputFirstName"
+			type="text"
+			size="25"
+			pInputText>
+			</div>
+		</div>
+		<div class="col-xs-4">
+				<label class="normal"> นามสกุล</label>
+			<div>
+			<input [(ngModel)]="officerSearchForm.acOfficer.lastName"
+			name="inputFirstName"
+			type="text"
+			size="25"
+			pInputText>
+			</div>
+		</div>
+		<div class="col-xs-4">
+				<label class="normal"> เลขประชาชน/พาสปอร์ต</label>
+			<div>
+			<input [(ngModel)]="officerSearchForm.acOfficer.personalId"
+			name="inputPersonalId"
+			type="text"
+			size="25"
+			pInputText>
+			</div>
+		</div>
+	</div>
+<div class="space"></div>
+<div class="row">
+	<div class="col-xs-12">
+	
+  	<button pButton
+          type="submit"
+          class="btn-positive"
+          label="ค้นหา"></button>
+  	<button pButton
+          type="button"
+          class="btn-normal"
+          label="รีเซ็ท"></button>
+
+  	<button pButton
+          type="button"
+          style="float: right;" 
+          class="btn-negative"
+          label="สร้างใหม่"></button>
+   
+	</div>
+</div>
+<div class="space"></div>
+<div class="row">
+  <p-dataTable [value]="formList"
+               selectionMode="single"
+               [(selection)]="selectedStudent"
+               [rows]="10"
+               [paginator]="true"
+               [rowsPerPageOptions]="[5,10,20]"
+               sortMode="multiple"
+               (onRowSelect)="onRowSelect($event)">
+
+    <p-column [sortable]="true"
+              field="acOfficer.officerCode"
+              header="รหัสเจ้าหน้าที่"
+              ></p-column>
+    <p-column [sortable]="true"
+              field="acOfficer.name"
+              header="ชื่อเจ้าหน้าที่"></p-column>
+    <p-column [sortable]="true"
+              field="acOfficer.personalId"
+              [sortable]="true"
+              header="เลขประชาชน/พาสปอร์ต"></p-column>
+    <p-column [sortable]="true"
+              field="acOfficer.phoneNo"
+              header="เบอร์โทรศัพท์"></p-column>
+    <p-column [sortable]="true"
+              field="acOfficer.email"
+              header="อีเมล"></p-column>
+    <p-column [sortable]="true"
+              field="acOfficer.activeFlag"
+              header="สถานะ"></p-column>
+  </p-dataTable>
+</div>
+
+</div>

@@ -1,0 +1,334 @@
+<div class="content">
+  <div class="content-header-blue">
+    <p>ประกาศทุนการศึกษา</p>
+    <div class="underline-blue"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-8">
+      <label class="normal">ผู้ให้ทุนการศึกษา</label>
+      <div>
+        <p-autoComplete name="autocompleteName"
+                        field="autoName"
+                        [(ngModel)]="autocompleteObj"
+                        [suggestions]="autocompleteList"
+                        (completeMethod)="autocompleteMethod($event)"
+                        [size]="20"
+                        [dropdown]="true"
+                        forceSelection="true"
+                        (onDropdownClick)="handleCompleteClick($event)">
+          <ng-template let-obj
+                       pTemplate="item">
+            {{obj.autoName}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+
+    <div class="col-xs-3">
+      <label class="normal">เลขที่เอกสารอ้างอิง *</label>
+      <div>
+        <input [(ngModel)]="textStr"
+               name="inputTextName"
+               type="text"
+               size="15"
+               pInputText>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-2">
+      <label class="normal">ปีการศึกษา *</label>
+      <div>
+        <input [(ngModel)]="textStr"
+               name="inputTextName"
+               type="text"
+               size="10"
+               pInputText>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <label class="normal">ชื่อทุนการศึกษา *</label>
+      <div>
+        <p-autoComplete name="autocompleteName"
+                        field="autoName"
+                        [(ngModel)]="autocompleteObj"
+                        [suggestions]="autocompleteList"
+                        (completeMethod)="autocompleteMethod($event)"
+                        [size]="45"
+                        [dropdown]="true"
+                        forceSelection="true"
+                        (onDropdownClick)="handleCompleteClick($event)">
+          <ng-template let-obj
+                       pTemplate="item">
+            {{obj.autoName}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+    <div class="col-xs-3 col-xs-offset-1">
+      <label class="normal">รอบที่ *</label>
+      <div>
+        <input [(ngModel)]="textStr"
+               name="inputTextName"
+               type="text"
+               size="5"
+               pInputText>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-3">
+      <label class="normal">ประเภททุนการศึกษา</label>
+      <div>
+        <input [(ngModel)]="textStr"
+               name="inputTextName"
+               type="text"
+               size="20"
+               pInputText>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-3">
+      <label class="normal">จำนวนทุน *</label>
+      <div>
+        <input [(ngModel)]="textStr"
+               name="inputTextName"
+               type="text"
+               size="10"
+               pInputText>
+      </div>
+    </div>
+    <div class="col-xs-3">
+      <label class="normal">จำนวนเงิน/ทุน *</label>
+      <div>
+        <input [(ngModel)]="textStr"
+               name="inputTextName"
+               type="text"
+               size="20"
+               pInputText>
+      </div>
+    </div>
+  </div>
+
+  <div class="space"></div>
+
+  <div class="content-header-blue">
+    <p>เงื่อนไข</p>
+    <div class="underline-blue"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3">
+      <label class="normal">เกรดเฉลี่ยต่ำสุด *</label>
+      <div>
+        <input [(ngModel)]="textStr"
+               name="inputTextName"
+               type="text"
+               size="10"
+               pInputText>
+      </div>
+    </div>
+    <div class="col-xs-3">
+      <label class="normal"><div> ปีการศึกษา: {{ rangeValues[0] + ' - ' + rangeValues[1] }}</div> </label>
+
+      <div>
+        <p-slider name="sliderName"
+                  [(ngModel)]="rangeValues"
+                  [style]="{'width':'200px'}"
+                  [min]="1"
+                  [max]="8"
+                  [range]="true"></p-slider>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <label class="normal">สำนักวิชา</label>
+      <div>
+        <p-checkbox name="checkboxList1"
+                    value="IT"
+                    label="Information Technology"
+                    [(ngModel)]="selectedSchoolCheckbox"
+                    (onChange)="onSelectSchool()"
+                    inputId="IT"></p-checkbox>
+        &nbsp;
+        <p-checkbox name="checkboxList2"
+                    value="MA"
+                    label="Management"
+                    [(ngModel)]="selectedSchoolCheckbox"
+                    (onChange)="onSelectSchool()"
+                    inputId="MA"></p-checkbox>
+        &nbsp;
+        <p-checkbox name="checkboxList3"
+                    value="SCI"
+                    label="Science"
+                    [(ngModel)]="selectedSchoolCheckbox"
+                    (onChange)="onSelectSchool()"
+                    inputId="SCI"></p-checkbox>
+      </div>
+    </div>
+
+    <div class="col-xs-12"
+         *ngIf="selectedSchoolCheckbox.length > 0">
+      <label class="normal">สาขา  </label>
+      <div>
+        <div class="col-xs-3"
+             *ngFor="let major of majorCheckboxList; let i = index">
+          <p-checkbox name="checkboxList{{ i }}"
+                      [value]="major.value"
+                      [label]="major.name"
+                      [(ngModel)]="selectedMajorCheckbox"
+                      inputId="{{major.value}}"></p-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="space"></div>
+  <div class="content-header-blue">
+    <p>รายละเอียดช่วงเวลา</p>
+    <div class="underline-blue"></div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-xs-6">
+      <label class="normal">วันที่ประกาศทุน</label>
+      <div>
+        <p-calendar name="dateOfBirth"
+                    [inputStyle]="{'width':'100px'}"
+                    [(ngModel)]="dateOfBirth"
+                    [showIcon]="true"
+                    dateFormat="dd/mm/yy"
+                    (onSelect)="onDateSelected()"></p-calendar>
+      </div>
+    </div>
+
+    <div class="col-xs-6">
+      <label class="normal">วันที่เปิดรับสมัคร</label>
+      <div>
+        <p-calendar name="dateOfBirth"
+                    [inputStyle]="{'width':'100px'}"
+                    [(ngModel)]="dateOfBirth"
+                    [showIcon]="true"
+                    dateFormat="dd/mm/yy"
+                    (onSelect)="onDateSelected()"></p-calendar>
+
+        <span style="padding-left: 3em"> to &nbsp;</span>
+        <p-calendar name="dateOfBirth"
+                    [inputStyle]="{'width':'100px'}"
+                    [(ngModel)]="dateOfBirth"
+                    [showIcon]="true"
+                    dateFormat="dd/mm/yy"
+                    (onSelect)="onDateSelected()"></p-calendar>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-xs-6">
+      <label class="normal">วันประกาศรายชื่อผู้มีสิทธิ์สัมภาษณ์</label>
+      <div>
+        <p-calendar name="dateOfBirth"
+                    [inputStyle]="{'width':'100px'}"
+                    [(ngModel)]="dateOfBirth"
+                    [showIcon]="true"
+                    dateFormat="dd/mm/yy"
+                    (onSelect)="onDateSelected()"></p-calendar>
+      </div>
+    </div>
+
+    <div class="col-xs-6">
+      <label class="normal">วันเปิดรับสัมภาษณ์</label>
+      <div>
+        <p-calendar name="dateOfBirth"
+                    [inputStyle]="{'width':'100px'}"
+                    [(ngModel)]="dateOfBirth"
+                    [showIcon]="true"
+                    dateFormat="dd/mm/yy"
+                    (onSelect)="onDateSelected()"></p-calendar>
+
+        <span style="padding-left: 3em"> to &nbsp;</span>
+        <p-calendar name="dateOfBirth"
+                    [inputStyle]="{'width':'100px'}"
+                    [(ngModel)]="dateOfBirth"
+                    [showIcon]="true"
+                    dateFormat="dd/mm/yy"
+                    (onSelect)="onDateSelected()"></p-calendar>
+
+      </div>
+    </div>
+
+
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <label class="normal">วันที่ประกาศผล</label>
+      <div>
+        <p-calendar name="dateOfBirth"
+                    [inputStyle]="{'width':'100px'}"
+                    [(ngModel)]="dateOfBirth"
+                    [showIcon]="true"
+                    dateFormat="dd/mm/yy"
+                    (onSelect)="onDateSelected()"></p-calendar>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="space"></div>3
+  <div class="content-header-blue">
+    <p>ไฟล์ประกาศ</p>
+    <div class="underline-blue"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <label for=""></label>
+      <div>
+        <!-- Filename Display -->
+        <input value="{{fileName}}"
+               type="text"
+               size="24"
+               pInputText
+               readonly>
+        <!-- Upload Button -->
+        <label pButton
+               class="btn-positive"
+               label="เลือกไฟล์"
+               (change)="onUpload($event)">
+     <input type="file" accept="image/*, application/pdf" class="display-none">
+   </label>
+        <!-- Delete Button -->
+        <button pButton
+                type="button"
+                class="btn-negative"
+                (click)="onDelete()"
+                label="ลบ"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row formFooter">
+    <button pButton
+            type="submit"
+            class="btn-positive"
+            label="บันทึก"></button>
+    <button pButton
+            type="button"
+            class="btn-normal"
+            label="รีเซ็ท"></button>
+    <button pButton
+            type="button"
+            style="float:right;"
+            class="btn-negative"
+            label="กลับ"></button>
+  </div>
+
+</div>

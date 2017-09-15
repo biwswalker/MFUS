@@ -20,6 +20,7 @@ import { PanelModule } from 'primeng/primeng';
 import { InputTextareaModule } from 'primeng/primeng';
 import { SliderModule } from 'primeng/primeng';
 import { FileUploadModule } from 'primeng/primeng';
+import { StepsModule } from 'primeng/primeng';
 
 // Component
 import { HeaderComponent } from './content/header/header.component';
@@ -30,10 +31,11 @@ import { PagesComponent } from './content/pages/pages.component';
 import { HomeComponent } from './content/pages/home/home.component';
 import { InputTextComponent } from './content/pages/tag/input-text/input-text.component';
 import { CalendarComponent } from './content/pages/tag/calendar/calendar.component';
-
-//Service
-import { UtilsService } from './services/utils.service';
-import { AuthenticationService } from './services/authentication.service';
+import { StepComponent } from './content/pages/tag/step/step.component';
+import { Step03Component } from './content/pages/tag/step/step03/step03.component';
+import { Step02Component } from './content/pages/tag/step/step02/step02.component';
+import { Step01Component } from './content/pages/tag/step/step01/step01.component';
+import { InterviewselectComponent } from './content/pages/interviewselect/interviewselect.component';
 import { AutocompleteComponent } from './content/pages/tag/autocomplete/autocomplete.component';
 import { DropdownComponent } from './content/pages/tag/dropdown/dropdown.component';
 import { TextareaComponent } from './content/pages/tag/textarea/textarea.component';
@@ -46,6 +48,18 @@ import { DatatableNormalComponent } from './content/pages/tag/datatable-normal/d
 import { SponsorsComponent } from './content/pages/sponsors/sponsors.component';
 import { ScholarshipAnnouncementComponent } from './content/pages/scholarship-announcement/scholarship-announcement.component';
 import { ApplyforscholarshipComponent } from './content/pages/applyforscholarship/applyforscholarship.component';
+import { ScholarshipComponent } from './content/pages/scholarship/scholarship.component';
+import { AnnoucncementComponent } from './content/pages/annoucncement/annoucncement.component';
+import { OfficerComponent } from './content/pages/officer/officer.component';
+import { ReguserComponent } from './content/pages/reguser/reguser.component';
+
+
+//Service
+import { UtilsService } from './services/utils.service';
+import { AuthenticationService } from './services/authentication.service';
+import { StepService } from './services/tag/step.service';
+
+
 
 //Router
 const appRoutes: Routes = [
@@ -55,7 +69,11 @@ const appRoutes: Routes = [
     path: 'pages', component: PagesComponent, children: [
       { path: 'sponsors', component: SponsorsComponent },
       { path: 'scholarship-announcement', component: ScholarshipAnnouncementComponent },
-      { path: 'apply-scholarship', component: ApplyforscholarshipComponent }
+      { path: 'apply-scholarship', component: ApplyforscholarshipComponent },
+      { path: 'scholarship', component: ScholarshipComponent },
+      { path: 'annoucncement', component: AnnoucncementComponent },
+      { path: 'officer', component: OfficerComponent },
+      { path: 'reguser', component: ReguserComponent },
     ]
   }
 ];
@@ -83,6 +101,15 @@ const appRoutes: Routes = [
     SponsorsComponent,
     ScholarshipAnnouncementComponent,
     ApplyforscholarshipComponent,
+    ScholarshipComponent,
+    AnnoucncementComponent,
+    OfficerComponent,
+    ReguserComponent,
+    InterviewselectComponent,
+    StepComponent,
+    Step01Component,
+    Step02Component,
+    Step03Component
   ],
   imports: [
     BrowserModule,
@@ -103,11 +130,13 @@ const appRoutes: Routes = [
     SharedModule,
     PanelModule,
     InputTextareaModule,
-    SliderModule
+    SliderModule,
+    StepsModule
   ],
   providers: [
     AuthenticationService,
-    UtilsService
+    UtilsService,
+    StepService
   ],
   bootstrap: [AppComponent]
 })
