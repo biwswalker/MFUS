@@ -122,6 +122,23 @@ label.btn-upload.ui-button {
 label.btn-upload.ui-button:hover {
   background-color: #1c3a74;
 }
+
+button.btn-icon-positive.ui-button {
+  background-color: #34b728;
+}
+
+button.btn-icon-positive.ui-button:enabled:hover {
+  background-color: #22A513;
+}
+
+button.btn-icon-negative.ui-button {
+  background-color: rgb(253, 212, 65);
+}
+
+button.btn-icon-negative.ui-button:enabled:hover {
+  background-color: rgb(255, 201, 13);
+}
+
 /* END BUTTON */
 
 /* BEGIN CHECKBOX */
