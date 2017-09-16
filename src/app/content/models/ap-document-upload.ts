@@ -1,15 +1,14 @@
 export class ApDocumentUpload {
-  public uploadDocumentRef: number;
-  public applicationRef: number;
-  public documentRef: number;
-  public Seq: number;
-  public documentName: string;
-  public documentType: string;
-  public documentImage: any;
-  public createUser: string;
-  public createDatetime: Date;
-  public updateUser: string;
-  public updateDatetime: Date;
-
+public upload_document_ref: string;
+public application_ref: string;
+public document_ref: string;
+public seq: number;
+public document_name: string;
+public document_type: string;
+public document_image: any;
+public create_user: string;
+public create_datetime: Date;
+public update_user: string;
+public update_datetime: Date;
 
 }

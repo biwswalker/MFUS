@@ -1,10 +1,11 @@
 export class ApStudentLoanFund {
-  public slfRef: number;
-  public applicationRef: number;
-  public year: string;
-  public MoneyAmount: number;
-  public createUser: string;
-  public createDatetime: Date;
-  public updateUser: string;
-  public updateDatetime: Date;
+ public slf_ref: string;
+ public application_ref: string;
+ public year: string;
+ public money_amount: string;
+ public create_user: string;
+ public create_datetime: Date;
+ public update_user: string;
+ public update_datetime: Date;
+
 }

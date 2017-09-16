@@ -1,11 +1,11 @@
 export class ApFamilyFinancial {
-  public family_financialRef: number;
-  public applicationRef: number;
-  public incomeMonthly: number;
-  public expenseMonthly: number;
-  public createUser: string;
-  public createDatetime: Date;
-  public updateUser: string;
-  public updateDatetime: Date;
+public family_financial_ref: string;
+public application_ref: string;
+public income_monthly: number;
+public expense_monthly: number;
+public create_user: string;
+public create_datetime: Date;
+public update_user: string;
+public update_datetime: Date;
 
 }

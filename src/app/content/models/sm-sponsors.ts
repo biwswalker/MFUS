@@ -1,20 +1,22 @@
 export class SmSponsors {
-public sponsorsRef: number;
-public sponsorsName: string;
-public address: string;
-public province: string;
-public district: string;
-public subDistrict: string;
-public postcode: string;
-public phoneNo: string;
-public email: string;
-public website: string;
-public profileName: string;
-public profileType: string;
-public profileImage: any;
-public activeFlag: string;
-public createUser: string;
-public createDatetime: Date;
-public updateUser: string;
-public updateDatetime: Date;
+
+ public sponsors_ref: string;
+ public sponsors_name: string;
+ public address: string;
+ public province: string;
+ public district: string;
+ public sub_district: string;
+ public postcode: string;
+ public phone_no: string;
+ public email: string;
+ public website: string;
+ public profile_name: string;
+ public profile_type: string;
+ public profile_image: any;
+ public active_flag: string;
+ public create_user: string;
+ public create_datetime: Date;
+ public update_user: string;
+ public update_datetime: Date;
+
 }
