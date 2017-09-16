@@ -1,3 +1,4 @@
+import { SchoolService } from './services/school.service';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -55,6 +56,7 @@ import { ReguserComponent } from './content/pages/reguser/reguser.component';
 import { UtilsService } from './services/utils.service';
 import { AuthenticationService } from './services/authentication.service';
 import { StepService } from './services/tag/step.service';
+import { SchoolComponent } from './content/pages/school/school.component';
 
 
 
@@ -68,6 +70,7 @@ const appRoutes: Routes = [
       { path: 'annoucncement', component: AnnoucncementComponent },
       { path: 'officer', component: OfficerComponent },
       { path: 'reguser', component: ReguserComponent },
+      { path: 'school', component: SchoolComponent}
     ]
   }
 ];
@@ -100,7 +103,8 @@ const appRoutes: Routes = [
     StepComponent,
     Step01Component,
     Step02Component,
-    Step03Component
+    Step03Component,
+    SchoolComponent
   ],
   imports: [
     BrowserModule,
@@ -127,7 +131,8 @@ const appRoutes: Routes = [
   providers: [
     AuthenticationService,
     UtilsService,
-    StepService
+    StepService,
+    SchoolService
   ],
   bootstrap: [AppComponent]
 })
