@@ -1,26 +1,35 @@
-<div class="content">
+<div class="content" *ngIf="mode !== 'S'">
   <div class="content-header-blue">
     <p>ข้อมูลสำนักวิชา</p>
     <div class="underline-blue"></div>
   </div>
 
 
+  <p-growl [(value)]="msgs" ></p-growl>
 
-  <form #f="ngForm" (ngSubmit)="onAddSchool(f)" >
-    <div class="row">
+  <form [formGroup]="schoolFg" (ngSubmit)="onAddSchool()" >
+    <div class="row" >
       <div class="col-xs-8">
         <label class="normal">รหัสสำนักวิชา</label>
         <div>
           <input
             class="normal"
             type="text"
-            name="school_ref"
-            id="schoolRef"
+            formControlName="school_code"
+            name="school_code"
+            id="schoolCode"
             size="15"
-            required
             maxlength="10"
-            [(ngModel)]="schoolForm.rftSchool.school_ref"
+            [(ngModel)]="schoolForm.rftSchool.school_code"
+            pTooltip="กรุณากรอกรหัสสำนักวิชาเป็นตัวเลข"
+            tooltipEvent="focus"
+            showDelay="500"
+            hideDelay="100"
             pInputText>
+        </div>
+        <div style="margin-top: 5px">
+          <span class="ui-message ui-messages-error ui-corner-all"
+          *ngIf="!schoolFg.get('school_code').valid  && schoolFg.get('school_code').dirty && schoolFg.get('school_code').value != ''" >รหัสสำนักวิชาต้องเป็นตัวเลขเท่านั้น</span>
         </div>
       </div>
       <div class="col-xs-4">
@@ -28,10 +37,10 @@
         <div>
           <p-dropdown
             name="active_flag"
+            formControlName="active_flag"
             [options]="statusList"
 						[(ngModel)]="schoolForm.rftSchool.active_flag"
-						[style]="{'width':'150px'}"
-						disabled>
+						[style]="{'width':'150px'}">
           </p-dropdown>
         </div>
       </div>
@@ -44,11 +53,10 @@
           <input
             class="normal"
             type="text"
+            formControlName="school_name_t"
             name="school_name_t"
             id="schoolNameT"
             size="50"
-            maxlength="50"
-            required
             [(ngModel)]="schoolForm.rftSchool.school_name_t"
             pInputText>
         </div>
@@ -63,6 +71,7 @@
             class="normal"
             type="text"
             name="school_name_e"
+            formControlName="school_name_e"
             id="schoolNameE"
             size="50"
             maxlength="50"
@@ -79,17 +88,19 @@
           type="submit"
           class="btn-positive"
           label="บันทึก"
-          [disabled]="!f.valid">
+          [disabled]="!schoolFg.valid">
         </button>
         <button pButton
           type="button"
           class="btn-normal"
+          (click)="onResetEdit();"
           label="เริ่มใหม่"></button>
 
         <button pButton
           type="button"
           style="float: right;"
           class="btn-negative"
+          (click)="onPageSearch()"
           label="กลับ"></button>
       </div>
     </div>
@@ -100,9 +111,10 @@
 
 
 
+
 <!-- mode search -->
-<div class="content">
-  <div class="content-header-blue">
+<div class="content"  *ngIf="mode === 'S'">
+  <div class="content-header-blue" >
     <p>ค้นหาข้อมูลสำนักวิชา</p>
     <div class="underline-red"></div>
   </div>
@@ -114,11 +126,11 @@
         <input
           class="normal"
           type="text"
-          name="schoolRef"
-          id="schoolRef"
+          name="school_code"
+          id="schoolCode"
           size="15"
           maxlength="10"
-          [(ngModel)]="schoolCriteriaForm.rftSchool.school_ref"
+          [(ngModel)]="schoolCriteriaForm.rftSchool.school_code"
           pInputText>
       </div>
     </div>
@@ -173,12 +185,14 @@
       <button pButton
         type="button"
         class="btn-normal"
+        (click)="onResetSearch()"
         label="รีเซ็ท">
       </button>
       <button pButton
         type="button"
         style="float: right;"
         class="btn-negative"
+        (click)="onPageInsert()"
         label="สร้างใหม่">
       </button>
     </div>
@@ -187,7 +201,7 @@
   <div class="space"></div>
   <div class="row">
     <p-dataTable
-      [value]="schoolList"
+      [value]="rftSchoolList"
       selectionMode="single"
       [(selection)]="selectSchool"
       [rows]="10"
@@ -195,9 +209,9 @@
       [rowsPerPageOptions]="[5,10,20]"
       dataKey="rftSchool.school_ref"
       sortMode="multiple">
-      <p-column [sortable]="true" field="rftSchool.school_ref" header="รหัสสำนักวิชา"></p-column>
-      <p-column [sortable]="true" field="rftSchool.school_name_t" header="ชื่อสำนักวิชา (ภาษาไทย)"></p-column>
-      <p-column [sortable]="true" field="rftSchool.school_name_e" header="ชื่อสำนักวิชา (ภาษาอังกฤษ)"></p-column>
+      <p-column [sortable]="true" field="school_code" header="รหัสสำนักวิชา"></p-column>
+      <p-column [sortable]="true" field="school_name_t" header="ชื่อสำนักวิชา (ภาษาไทย)"></p-column>
+      <p-column [sortable]="true" field="school_name_e" header="ชื่อสำนักวิชา (ภาษาอังกฤษ)"></p-column>
     </p-dataTable>
   </div>
 

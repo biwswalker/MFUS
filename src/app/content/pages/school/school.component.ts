@@ -1,9 +1,9 @@
 import { RftSchool } from './../../models/rft-school';
 import { Response } from '@angular/http';
 import { SchoolService } from './../../../services/school.service';
-import { SelectItem } from 'primeng/primeng';
+import { SelectItem, Message } from 'primeng/primeng';
 import { SchoolForm } from './../../form/school-form';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { NgForm, FormGroup, Validators, FormControl } from "@angular/forms";
 
@@ -13,6 +13,10 @@ import { NgForm, FormGroup, Validators, FormControl } from "@angular/forms";
   styleUrls: ['./school.component.css', '../pages.component.css']
 })
 export class SchoolComponent implements OnInit {
+
+  mode: string = 'S'; // I-insert, U-update, S-search
+  schoolFg: FormGroup;
+  msgs: Message[] = [];
 
   schoolForm: SchoolForm = new SchoolForm();
   statusList: SelectItem[];
@@ -31,9 +35,9 @@ export class SchoolComponent implements OnInit {
 
   ngOnInit() {
     this.initEditData();
-    this.schoolCriteriaForm = new SchoolForm();
+    this.initSearchData();
+    //autocomplete
     this.schoolList = [];
-    this.selectSchool = new SchoolForm();
   //  this.getSchoolList();
 
   }
@@ -63,7 +67,37 @@ export class SchoolComponent implements OnInit {
   initEditData() {
     this.schoolForm = new SchoolForm();
     this.schoolForm.rftSchool.active_flag = 'Y';
+    this.schoolForm.rftSchool.create_user = 'poteii'
+    this.schoolForm.rftSchool.update_user = 'poteii'
     this.getStatusList();
+
+    this.validatorEditForm();
+
+
+  }
+
+  validatorEditForm() {
+    this.schoolFg = new FormGroup({
+      'school_code': new FormControl(this.schoolForm.rftSchool.school_code,
+        Validators.compose([Validators.required, Validators.pattern('[0-9]+')])),
+      'active_flag': new FormControl(this.schoolForm.rftSchool.active_flag, Validators.required ),
+      'school_name_t': new FormControl(this.schoolForm.rftSchool.school_name_t,
+        Validators.compose([Validators.required, Validators.maxLength(50)])),
+      'school_name_e': new FormControl(this.schoolForm.rftSchool.school_name_e),
+      'create_user': new FormControl(this.schoolForm.rftSchool.create_user),
+      'update_user': new FormControl(this.schoolForm.rftSchool.update_user)
+    });
+
+    if(this.mode == 'I') {
+      this.schoolFg.controls['active_flag'].disable();
+    }
+  }
+
+  initSearchData() {
+    this.schoolCriteriaForm = new SchoolForm();
+    this.selectSchool = new SchoolForm();
+    this.schoolList = [];
+    this.rftSchoolList = [];
   }
 
 
@@ -82,11 +116,6 @@ export class SchoolComponent implements OnInit {
           console.log(result);
           this.rftSchools = result;
           results = result;
-          for(let data of result){
-            console.log(data);
-            console.log(data.school_ref);
-            console.log(data.school_name_t);
-          }
           console.log(this.rftSchools);
         }
       );
@@ -94,43 +123,100 @@ export class SchoolComponent implements OnInit {
       return results;
   }
 
-  onAddSchool(form: NgForm) {
-    console.log(form.value);
-    form.value.active_flag = this.schoolForm.rftSchool.active_flag;
-    this.schoolService.addSchool(form.value)
+  onAddSchool() {
+
+    console.log(this.schoolFg.value);
+    const value = this.schoolFg.value;
+    value.active_flag = 'Y';
+    this.schoolService.addSchool(value)
     .subscribe(
       (res: Response) => {
+        let school_ref = res.json().school_ref;
         console.log(res.json());
+        console.log(res.json().school_ref);
+        console.log(res.statusText);
+
+        this.schoolFg.reset()
+
+        this.initEditData();
+
+        this.showSuccess('บันทึกข้อมูลสำนักวิชาเรียบร้อยแล้ว รหัสอ้างอิงคือ' + school_ref);
+
       },
-      (error) => console.log(error)
+      (error) =>{
+        console.log(error);
+        let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        if(error.status == 409) {
+          message = 'มีการใช้รหัสสำนักวิชานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        }
+        this.showError(message);
+        return;
+      }
     );
-    form.reset()
+
   }
 
   onSearch() {
     this.schoolList = [];
     this.rftSchoolList = [];
     console.log(this.schoolCriteriaForm);
+    this.searchSchool();
+
+  }
+
+  searchSchool(): SchoolForm[] {
+    let resultList: SchoolForm[] = [];
     this.schoolService.searchSchool(this.schoolCriteriaForm)
     .subscribe(
       result => {
-        let schoolForm : SchoolForm = new SchoolForm();
         this.rftSchoolList = result;
+        let schoolForm : SchoolForm;
+        console.log('1.length = ' + result.length);
         for(let data of result){
           schoolForm = new SchoolForm();
+          console.log('data = ' + data.school_code);
           schoolForm.rftSchool = data;
-          console.log(schoolForm.rftSchool);
-          console.log(schoolForm.rftSchool.school_name_t);
+          console.log('schoolForm.rftSchool = ' + schoolForm.rftSchool.school_code);
           this.schoolList.push(schoolForm);
         }
-
-        console.log(this.schoolList.length);
-        for(let data of this.schoolList){
-          console.log(data);
-        }
+        console.log('3.this.schoolList = ' + this.schoolList.length);
       },
-      (error) => console.log(error)
+      (error) =>{
+        console.log(error);
+        this.showError(error);
+      }
     );
+
+    return resultList;
   }
+
+  //changPage
+  onPageSearch() {
+    this.mode = 'S';
+  }
+
+  onPageInsert() {
+    this.mode = 'I';
+    this.initEditData();
+  }
+
+  onResetEdit(){
+    this.initEditData();
+  }
+
+  onResetSearch() {
+    this.initSearchData();
+  }
+
+  showError(message: string) {
+    this.msgs = [];
+    this.msgs.push({severity:'error', summary:'ไม่สามารถบันทึกข้อมูลได้', detail: message});
+  }
+
+  showSuccess(message: string) {
+    this.msgs = [];
+    this.msgs.push({severity:'success', summary:'บันทีกข้อมูลสำเร็จ', detail: message});
+  }
+
 
 }
