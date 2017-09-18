@@ -45,7 +45,7 @@ export class ScholarshipComponent implements OnInit {
     let objList: SmSponsors[] = [];
     for (let obj of objList) {
       // Filter By string event
-      if (obj.sponsorsName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+      if (obj.sponsors_name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         this.autocompleteList.push(obj);
       }
     }

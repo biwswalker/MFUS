@@ -47,10 +47,10 @@ image: any = './assets/images/empty_profile.png';
         // Get List
     this.getStatusList();
     this.getTitleList();
-    this.officerEditForm.acOfficer.activeFlag = 'Y';
+    this.officerEditForm.acOfficer.active_flag = 'Y';
     this.officerEditForm.acOfficer.gender ='M';
-    this.officerEditForm.acOfficer.titleRef='';
-  	this.officerSearchForm.acOfficer.activeFlag ='';
+    this.officerEditForm.acOfficer.title_ref = '';
+    this.officerSearchForm.acOfficer.active_flag = '';
   }
 
   // Make Data List
@@ -76,7 +76,7 @@ image: any = './assets/images/empty_profile.png';
     let objList: RftProvince[] = [];
     for (let obj of objList) {
       // Filter By string event
-      if (obj.provinceNameT.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+      if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         this.provinceList.push(obj);
       }
     }
@@ -98,7 +98,7 @@ image: any = './assets/images/empty_profile.png';
     let objList: RftDistrict[] = [];
     for (let obj of objList) {
       // Filter By string event
-      if (obj.districtNameT.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+      if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         this.districtList.push(obj);
       }
     }
@@ -120,7 +120,7 @@ image: any = './assets/images/empty_profile.png';
     let objList: RftSubDistrict[] = [];
     for (let obj of objList) {
       // Filter By string event
-      if (obj.subDistrictNameT.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+      if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         this.subDistrictList.push(obj);
       }
     }
@@ -144,7 +144,7 @@ onUpload(event) {
         let reader = new FileReader();
         reader.onload = this.handleReaderLoaded.bind(this);
         reader.readAsBinaryString(this.file);
-      } 
+      }
     }
   }
 
