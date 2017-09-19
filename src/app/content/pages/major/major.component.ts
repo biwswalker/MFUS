@@ -236,8 +236,11 @@ export class MajorComponent implements OnInit {
     }else if (this.mode == 'U') {
       this.majorForm = new MajorForm();
       this.majorForm = this.selectMajor;
-      this.validatorEditForm();
+      this.rftSchool = new RftSchool();
+      console.log(this.majorForm.rftSchool);
       this.rftSchool = this.majorForm.rftSchool;
+      console.log(this.rftSchool);
+      this.validatorEditForm();
     }
   }
 
