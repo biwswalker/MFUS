@@ -1,26 +1,50 @@
 <div class="content" *ngIf="mode !== 'S'">
   <div class="content-header-blue">
-    <p>ข้อมูลสำนักวิชา</p>
+    <p>ข้อมูลสาขาวิชา</p>
     <div class="underline-blue"></div>
   </div>
 
 
   <p-growl [(value)]="msgs" ></p-growl>
 
-  <form [formGroup]="schoolFg" (ngSubmit)="onSubmit()" >
+  <form [formGroup]="majorFormGroup" (ngSubmit)="onSubmit()" >
+
+    <div class="row">
+      <div class="col-xs-12">
+        <label class="normal">สำนักวิชา</label>
+        <div>
+          <p-autoComplete
+            formControlName="school_ref"
+            name="school_name_t"
+            field="school_name_t"
+            [(ngModel)]="rftSchool"
+            [suggestions]="rftSchools"
+            (completeMethod)="autocompleteMethod($event)"
+            [size]="50"
+            [dropdown]="true"
+            (onDropdownClick)="handleCompleteClick($event)">
+            <ng-template let-obj
+                    pTemplate="item">
+            {{obj.school_name_t}}
+            </ng-template>
+          </p-autoComplete>
+        </div>
+      </div>
+    </div>
+
     <div class="row" >
       <div class="col-xs-8">
-        <label class="normal">รหัสสำนักวิชา</label>
+        <label class="normal">รหัสสาขาวิชา</label>
         <div>
           <input
             class="normal"
             type="text"
-            formControlName="school_code"
-            name="school_code"
-            id="schoolCode"
+            formControlName="major_code"
+            name="major_code"
+            id="majorCode"
             size="15"
             maxlength="10"
-            pTooltip="กรุณากรอกรหัสสำนักวิชาเป็นตัวเลข"
+            pTooltip="กรุณากรอกรหัสสาขาวิชาเป็นตัวเลข"
             tooltipEvent="focus"
             showDelay="500"
             hideDelay="100"
@@ -28,7 +52,7 @@
         </div>
         <div style="margin-top: 5px">
           <span class="ui-message ui-messages-error ui-corner-all"
-          *ngIf="!schoolFg.get('school_code').valid  && schoolFg.get('school_code').dirty && schoolFg.get('school_code').value != ''" >รหัสสำนักวิชาต้องเป็นตัวเลขเท่านั้น</span>
+          *ngIf="!majorFormGroup.get('major_code').valid  && majorFormGroup.get('major_code').dirty && majorFormGroup.get('major_code').value != ''" >รหัสสาขาวิชาต้องเป็นตัวเลขเท่านั้น</span>
         </div>
       </div>
       <div class="col-xs-4">
@@ -46,14 +70,14 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <label class="normal">ชื่อสำนักวิชา (ภาษาไทย)</label>
+        <label class="normal">ชื่อสาขาวิชา (ภาษาไทย)</label>
         <div>
           <input
             class="normal"
             type="text"
-            formControlName="school_name_t"
-            name="school_name_t"
-            id="schoolNameT"
+            formControlName="major_name_t"
+            name="major_name_t"
+            id="majorNameT"
             size="50"
             maxlength="50"
             pInputText>
@@ -63,20 +87,22 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <label class="normal">ชื่อสำนักวิชา (ภาษาอังกฤษ)</label>
+        <label class="normal">ชื่อสาขาวิชา (ภาษาอังกฤษ)</label>
         <div>
           <input
             class="normal"
             type="text"
-            name="school_name_e"
-            formControlName="school_name_e"
-            id="schoolNameE"
+            name="major_name_e"
+            formControlName="major_name_e"
+            id="majorNameE"
             size="50"
             maxlength="50"
             pInputText>
         </div>
       </div>
     </div>
+
+
 
     <div class="space"></div>
     <div class="row">
@@ -85,7 +111,7 @@
           type="submit"
           class="btn-positive"
           label="บันทึก"
-          [disabled]="!schoolFg.valid">
+          [disabled]="!majorFormGroup.valid">
         </button>
         <button pButton
           type="button"
@@ -112,25 +138,11 @@
 <!-- mode search -->
 <div class="content"  *ngIf="mode === 'S'">
   <div class="content-header-blue" >
-    <p>ค้นหาข้อมูลสำนักวิชา</p>
+    <p>ค้นหาข้อมูลสาขาวิชา</p>
     <div class="underline-red"></div>
   </div>
 
   <div class="row">
-    <div class="col-xs-6">
-      <label class="normal">รหัสสำนักวิชา</label>
-      <div>
-        <input
-          class="normal"
-          type="text"
-          name="school_code"
-          id="schoolCode"
-          size="15"
-          maxlength="10"
-          [(ngModel)]="schoolCriteriaForm.rftSchool.school_code"
-          pInputText>
-      </div>
-    </div>
     <div class="col-xs-6">
       <label class="normal">ชื่อสำนักวิชา (ภาษาไทย)</label>
       <div>
@@ -141,10 +153,25 @@
           id="schoolNameT"
           size="50"
           maxlength="50"
-          [(ngModel)]="schoolCriteriaForm.rftSchool.school_name_t"
+          [(ngModel)]="majorCriteriaForm.rftSchool.school_name_t"
           pInputText>
       </div>
     </div>
+
+    <div class="col-xs-6">
+        <label class="normal">ชื่อสาขาวิชา (ภาษาไทย)</label>
+        <div>
+          <input
+            class="normal"
+            type="text"
+            name="major_name_t"
+            id="majorNameT"
+            size="50"
+            maxlength="50"
+            [(ngModel)]="majorCriteriaForm.rftMajor.major_name_t"
+            pInputText>
+        </div>
+      </div>
   </div>
 
   <div class="space"></div>
@@ -175,21 +202,20 @@
   <div class="space"></div>
   <div class="row">
     <p-dataTable
-      [value]="schoolList"
+      [value]="majorFormList"
       selectionMode="single"
-      [(selection)]="selectSchool"
+      [(selection)]="selectMajor"
       [rows]="10"
       [paginator]="true"
       [rowsPerPageOptions]="[5,10,20]"
       (onRowSelect)="onRowSelect($event)"
-      dataKey="rftSchool.school_ref"
+      dataKey="rftMajor.major_ref"
       sortMode="multiple">
-      <p-column [sortable]="true" field="rftSchool.school_code" header="รหัสสำนักวิชา"></p-column>
+      <p-column [sortable]="true" field="rftMajor.major_code" header="รหัสสาขาวิชา"></p-column>
       <p-column [sortable]="true" field="rftSchool.school_name_t" header="ชื่อสำนักวิชา (ภาษาไทย)"></p-column>
-      <p-column [sortable]="true" field="rftSchool.school_name_e" header="ชื่อสำนักวิชา (ภาษาอังกฤษ)"></p-column>
+      <p-column [sortable]="true" field="rftMajor.major_name_t" header="ชื่อสาขาวิชา (ภาษาไทย)"></p-column>
+      <p-column [sortable]="true" field="rftMajor.major_name_e" header="ชื่อสาขาวิชา (ภาษาอังกฤษ)"></p-column>
     </p-dataTable>
   </div>
-
-
-
 </div>
+

@@ -24,12 +24,8 @@ export class SchoolComponent implements OnInit {
   //search
   schoolCriteriaForm: SchoolForm = new SchoolForm();
   schoolList: SchoolForm[] = [];
-  rftSchoolList : RftSchool[] = [];
   selectSchool: SchoolForm = new SchoolForm();
 
-  //autocomplete
-  rftSchools: RftSchool[] = [];
-  rftSchool: RftSchool = new RftSchool();
 
   constructor(private schoolService: SchoolService) { }
 
@@ -38,30 +34,7 @@ export class SchoolComponent implements OnInit {
     this.initSearchData();
     //autocomplete
     this.schoolList = [];
-  //  this.getSchoolList();
 
-  }
-
-  // Autocomplete Method // On key wording
-  autocompleteMethod(event) {
-    let query = event.query;
-    this.rftSchools = [];
-    let objList: RftSchool[] = this.getSchoolList()
-    for (let obj of objList) {
-      // Filter By string event
-      if (obj.school_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        this.rftSchools.push(obj);
-      }
-    }
-  }
-
-  // On Click Autocomplete Dropdown Button
-  handleCompleteClick() {
-    this.rftSchools = [];
-    //mimic remote call
-    setTimeout(() => {
-      this.rftSchools = this.getSchoolList();
-    }, 100)
   }
 
   initEditData() {
@@ -76,6 +49,10 @@ export class SchoolComponent implements OnInit {
 
   }
 
+  getUser() {
+    return 'poteii';
+  }
+
   validatorEditForm() {
     this.schoolFg = new FormGroup({
       'school_code': new FormControl(this.schoolForm.rftSchool.school_code,
@@ -85,11 +62,14 @@ export class SchoolComponent implements OnInit {
         Validators.compose([Validators.required, Validators.maxLength(50)])),
       'school_name_e': new FormControl(this.schoolForm.rftSchool.school_name_e),
       'create_user': new FormControl(this.schoolForm.rftSchool.create_user),
-      'update_user': new FormControl(this.schoolForm.rftSchool.update_user)
+      'update_user': new FormControl(this.schoolForm.rftSchool.update_user),
+      'school_ref': new FormControl(this.schoolForm.rftSchool.school_ref)
     });
 
     if(this.mode == 'I') {
       this.schoolFg.controls['active_flag'].disable();
+    }else if (this.mode == 'U') {
+      this.schoolFg.controls['active_flag'].enable();
     }
   }
 
@@ -97,7 +77,6 @@ export class SchoolComponent implements OnInit {
     this.schoolCriteriaForm = new SchoolForm();
     this.selectSchool = new SchoolForm();
     this.schoolList = [];
-    this.rftSchoolList = [];
   }
 
 
@@ -108,19 +87,13 @@ export class SchoolComponent implements OnInit {
     this.statusList.push({ label: 'ไม่ใช้งาน', value: 'N' });
   }
 
-  getSchoolList(): RftSchool[] {
-    let results = []
-    this.schoolService.getSchools()
-      .subscribe(
-        result => {
-          console.log(result);
-          this.rftSchools = result;
-          results = result;
-          console.log(this.rftSchools);
-        }
-      );
-      console.log(results);
-      return results;
+  onSubmit() {
+    console.log('onSubmit mode ' + this.mode)
+    if (this.mode == 'I') {
+      this.onAddSchool();
+    }else if (this.mode == 'U') {
+      this.onUpdateSchool();
+    }
   }
 
   onAddSchool() {
@@ -140,7 +113,37 @@ export class SchoolComponent implements OnInit {
 
         this.initEditData();
 
-        this.showSuccess('บันทึกข้อมูลสำนักวิชาเรียบร้อยแล้ว รหัสอ้างอิงคือ' + school_ref);
+        this.showSuccess('บันทึกข้อมูลสำนักวิชาเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + school_ref);
+
+      },
+      (error) =>{
+        console.log(error);
+        let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        if(error.status == 409) {
+          message = 'มีการใช้รหัสสำนักวิชานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        }
+        this.showError(message);
+        return;
+      }
+    );
+
+  }
+
+  onUpdateSchool() {
+
+    console.log(this.schoolFg.value);
+    const value = this.schoolFg.value;
+    this.schoolService.updateSchool(value, this.schoolForm.rftSchool.school_ref)
+    .subscribe(
+      (res: Response) => {
+        let school_ref = res.json().school_ref;
+        console.log(res.statusText);
+
+        this.schoolFg.reset()
+
+        this.initEditData();
+
+        this.showSuccess('แก้ไขข้อมูลสำนักวิชาเรียบร้อยแล้ว');
 
       },
       (error) =>{
@@ -158,7 +161,6 @@ export class SchoolComponent implements OnInit {
 
   onSearch() {
     this.schoolList = [];
-    this.rftSchoolList = [];
     console.log(this.schoolCriteriaForm);
     this.searchSchool();
 
@@ -166,20 +168,12 @@ export class SchoolComponent implements OnInit {
 
   searchSchool(): SchoolForm[] {
     let resultList: SchoolForm[] = [];
+
     this.schoolService.searchSchool(this.schoolCriteriaForm)
     .subscribe(
       result => {
-        this.rftSchoolList = result;
-        let schoolForm : SchoolForm;
-        console.log('1.length = ' + result.length);
-        for(let data of result){
-          schoolForm = new SchoolForm();
-          console.log('data = ' + data.school_code);
-          schoolForm.rftSchool = data;
-          console.log('schoolForm.rftSchool = ' + schoolForm.rftSchool.school_code);
-          this.schoolList.push(schoolForm);
-        }
-        console.log('3.this.schoolList = ' + this.schoolList.length);
+        console.log(result.length);
+        this.schoolList = result;
       },
       (error) =>{
         console.log(error);
@@ -190,9 +184,25 @@ export class SchoolComponent implements OnInit {
     return resultList;
   }
 
+  onRowSelect(event) {
+    console.log(this.selectSchool);
+    console.log(event.data);
+    this.mode = 'U';
+    this.schoolForm = new SchoolForm();
+    this.schoolForm = this.selectSchool;
+    this.schoolForm.rftSchool.create_user = this.getUser();
+    this.schoolForm.rftSchool.update_user = this.getUser();
+
+
+    this.validatorEditForm();
+
+    console.log(this.mode);
+  }
+
   //changPage
   onPageSearch() {
     this.mode = 'S';
+    this.initSearchData();
   }
 
   onPageInsert() {
@@ -201,7 +211,15 @@ export class SchoolComponent implements OnInit {
   }
 
   onResetEdit(){
-    this.initEditData();
+    console.log(this.selectSchool);
+    console.log(this.mode);
+    if (this.mode == 'I') {
+      this.initEditData();
+    }else if (this.mode == 'U') {
+      this.schoolForm = new SchoolForm();
+      this.schoolForm = this.selectSchool;
+      this.validatorEditForm();
+    }
   }
 
   onResetSearch() {

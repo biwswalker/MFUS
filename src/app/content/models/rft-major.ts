@@ -1,13 +1,13 @@
 export class RftMajor {
-  public major_ref: String;
-  public Major_code: String;
-  public major_name_t: String;
-  public major_name_e: String;
-  public school_ref: String;
-  public active_flag: String;
-  public create_user: String;
+  public major_ref: string;
+  public major_code: string;
+  public major_name_t: string;
+  public major_name_e: string;
+  public school_ref: string;
+  public active_flag: string;
+  public create_user: string;
   public create_datetime: Date;
-  public update_user: String;
+  public update_user: string;
   public update_datetime: Date;
 
 

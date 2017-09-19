@@ -29,11 +29,11 @@ export class SchoolService {
     return this.http.post(url, body, {headers: headers});
   }
 
-  searchSchool(school: SchoolForm): Observable<RftSchool[]> {
-    const url = 'http://restfulapi.dev/school/';
+  searchSchool(school: SchoolForm): Observable<SchoolForm[]> {
+    const url = 'http://restfulapi.dev/school';
     const headers = new Headers({'Content-Type': 'application/json'});
     const body = JSON.stringify(school);
-    let criteria = '';
+    let criteria = '/';
     if(school.rftSchool.school_code != null
         && school.rftSchool.school_code != '') {
       criteria = criteria + 'school_code=' + school.rftSchool.school_code + '&';
@@ -46,6 +46,8 @@ export class SchoolService {
     console.log(criteria);
     if(criteria.length > 1){
       criteria = criteria.substr(0,criteria.length-1);
+    }else{
+      criteria = '';
     }
     console.log(body);
     console.log(criteria);
@@ -53,10 +55,29 @@ export class SchoolService {
     return this.http.get(url+criteria, {headers: headers})
     .map(
       (res: Response) => {
+        let results: SchoolForm[] = [];
+        let form: SchoolForm = new SchoolForm();
         console.log('res.json() = ' + res.json());
-        return res.json();
+        for (let data of res.json()) {
+          console.log('data.school_ref = ' + data.school_ref);
+          console.log('data.school_name_t = ' + data.school_name_t);
+          form = new SchoolForm();
+          form.rftSchool = data;
+          results.push(form);
+        }
+        return results;
       }
     );
+  }
+
+
+  updateSchool(school: SchoolForm, ref: string) {
+    console.log('ref' + ref);
+    const url = 'http://restfulapi.dev/school/' + ref;
+    const body = JSON.stringify(school);
+    console.log(body);
+    const headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.put(url, body, {headers: headers});
   }
 
 }

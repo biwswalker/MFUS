@@ -1,3 +1,4 @@
+import { MajorService } from './services/major.service';
 import { SchoolService } from './services/school.service';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -61,6 +62,7 @@ import { UtilsService } from './services/utils.service';
 import { AuthenticationService } from './services/authentication.service';
 import { StepService } from './services/tag/step.service';
 import { SchoolComponent } from './content/pages/school/school.component';
+import { MajorComponent } from './content/pages/major/major.component';
 
 
 
@@ -77,7 +79,8 @@ const appRoutes: Routes = [
       { path: 'annoucncement', component: AnnoucncementComponent },
       { path: 'officer', component: OfficerComponent },
       { path: 'reguser', component: ReguserComponent },
-      { path: 'school', component: SchoolComponent}
+      { path: 'school', component: SchoolComponent},
+      { path: 'major', component: MajorComponent}
     ]
   }
 ];
@@ -114,7 +117,8 @@ const appRoutes: Routes = [
     Step01Component,
     Step02Component,
     Step03Component,
-    SchoolComponent
+    SchoolComponent,
+    MajorComponent
   ],
   imports: [
     BrowserModule,
@@ -144,7 +148,8 @@ const appRoutes: Routes = [
     AuthenticationService,
     UtilsService,
     StepService,
-    SchoolService
+    SchoolService,
+    MajorService
   ],
   bootstrap: [AppComponent]
 })
