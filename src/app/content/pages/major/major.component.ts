@@ -1,3 +1,4 @@
+import { RftMajor } from './../../models/rft-major';
 import { element } from 'protractor';
 import { Response } from '@angular/http';
 import { MajorService } from './../../../services/major.service';
@@ -157,11 +158,6 @@ export class MajorComponent implements OnInit {
       result => {
         console.log(result.length);
         this.majorFormList = result;
-        for (let data of this.majorFormList) {
-          console.log('====================');
-          console.log(data.rftSchool.school_name_t);
-          console.log(data.rftMajor.major_name_t);
-        }
       },
       (error) =>{
         console.log(error);
@@ -181,12 +177,18 @@ export class MajorComponent implements OnInit {
     this.majorForm.rftSchool.create_user = this.getUser();
     this.majorForm.rftSchool.update_user = this.getUser();
     this.validatorEditForm();
+    console.log(this.majorForm.rftSchool);
+    this.rftSchool = new RftSchool();
+    this.rftSchool = this.majorForm.rftSchool;
+    console.log(this.rftSchool);
     console.log(this.mode);
   }
 
   onUpdateMajor() {
     console.log(this.majorFormGroup.value);
     const value = this.majorFormGroup.value;
+    console.log(this.rftSchool.school_ref);
+    value.school_ref = this.rftSchool.school_ref;
     this.majorService.updateMajor(value, this.majorForm.rftMajor.major_ref)
     .subscribe(
       (res: Response) => {
@@ -235,6 +237,7 @@ export class MajorComponent implements OnInit {
       this.majorForm = new MajorForm();
       this.majorForm = this.selectMajor;
       this.validatorEditForm();
+      this.rftSchool = this.majorForm.rftSchool;
     }
   }
 
