@@ -23,7 +23,7 @@ import { InputTextareaModule } from 'primeng/primeng';
 import { SliderModule } from 'primeng/primeng';
 import { FileUploadModule } from 'primeng/primeng';
 import { StepsModule } from 'primeng/primeng';
-import { GrowlModule, TooltipModule } from 'primeng/primeng';
+import { GrowlModule, TooltipModule, DialogModule } from 'primeng/primeng';
 
 // Component
 import { HeaderComponent } from './content/header/header.component';
@@ -142,7 +142,8 @@ const appRoutes: Routes = [
     SliderModule,
     StepsModule,
     GrowlModule,
-    TooltipModule
+    TooltipModule,
+    DialogModule
   ],
   providers: [
     AuthenticationService,
