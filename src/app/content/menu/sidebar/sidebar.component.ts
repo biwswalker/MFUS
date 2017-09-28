@@ -28,6 +28,20 @@ export class SidebarComponent implements OnInit {
           { label: 'ข้อมูลผู้มีสิทธิ์สัมภาษณ์' },
           { label: 'ข้อมูลผู้ได้รับทุนการศึกษา' }
         ]
+      },
+      {
+        label: 'ข้อมูลพื้นฐาน',
+        items: [
+          {
+            label: 'ข้อมูลสำนักวิชา',
+            routerLink: ['/pages/school']
+          },
+          {
+            label: 'ข้อมูลสาขาวิชา',
+            routerLink: ['/pages/major']
+          }
+
+        ]
       }
     ];
   }
