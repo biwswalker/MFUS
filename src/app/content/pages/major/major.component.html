@@ -1,3 +1,4 @@
+<!-- mode insert -->
 <div class="content" *ngIf="mode !== 'S'">
   <div class="content-header-blue">
     <p>ข้อมูลสาขาวิชา</p>
@@ -6,7 +7,7 @@
 
 
   <p-growl [(value)]="msgs" ></p-growl>
-
+  <!-- mode insert -->
   <form [formGroup]="majorFormGroup" (ngSubmit)="onSubmit()" >
 
     <div class="row">

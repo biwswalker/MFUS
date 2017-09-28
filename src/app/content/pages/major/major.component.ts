@@ -29,6 +29,7 @@ export class MajorComponent implements OnInit {
 
   //search
   majorCriteriaForm: MajorForm = new MajorForm();
+  //for datatable
   majorFormList: MajorForm[] = [];
   selectMajor: MajorForm = new MajorForm();
 
@@ -50,7 +51,6 @@ export class MajorComponent implements OnInit {
     //autocomplete
     this.rftSchool = new RftSchool();
     this.getStatusList();
-    this.getSchoolList();
   }
 
   initEditData() {
@@ -70,14 +70,21 @@ export class MajorComponent implements OnInit {
   validatorEditForm() {
     this.majorFormGroup = new FormGroup({
       'major_ref': new FormControl(this.majorForm.rftMajor.major_ref),
+
       'major_code': new FormControl(this.majorForm.rftMajor.major_code,
         Validators.compose([Validators.required, Validators.pattern('[0-9]+')])),
+
       'active_flag': new FormControl(this.majorForm.rftMajor.active_flag, Validators.required ),
+
       'major_name_t': new FormControl(this.majorForm.rftMajor.major_name_t,
         Validators.compose([Validators.required, Validators.maxLength(50)])),
+
       'major_name_e': new FormControl(this.majorForm.rftMajor.major_name_e),
+
       'create_user': new FormControl(this.majorForm.rftMajor.create_user),
+
       'update_user': new FormControl(this.majorForm.rftMajor.update_user),
+
       'school_ref': new FormControl(this.majorForm.rftMajor.school_ref, Validators.required)
     });
 
@@ -122,14 +129,14 @@ export class MajorComponent implements OnInit {
         console.log(res.json().major_ref);
         console.log(res.statusText);
 
-        this.majorFormGroup.reset()
+        this.majorFormGroup.reset();
 
         this.initEditData();
 
         this.showSuccess('บันทึกข้อมูลสาขาวิชาเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + major_ref);
 
       },
-      (error) =>{
+      (error) => {
         console.log(error);
         let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
         if(error.status == 409) {
@@ -150,7 +157,25 @@ export class MajorComponent implements OnInit {
     this.searchMajor();
   }
 
-  searchMajor(): MajorForm[] {
+  // searchMajor(): MajorForm[] {
+  //   let resultList: MajorForm[] = [];
+
+  //   this.majorService.searchMajor(this.majorCriteriaForm)
+  //   .subscribe(
+  //     result => {
+  //       console.log(result.length);
+  //       this.majorFormList = result;
+  //     },
+  //     (error) =>{
+  //       console.log(error);
+  //       this.showError(error);
+  //     }
+  //   );
+
+  //   return resultList;
+  // }
+
+  searchMajor() {
     let resultList: MajorForm[] = [];
 
     this.majorService.searchMajor(this.majorCriteriaForm)
@@ -165,7 +190,6 @@ export class MajorComponent implements OnInit {
       }
     );
 
-    return resultList;
   }
 
   onRowSelect(event) {

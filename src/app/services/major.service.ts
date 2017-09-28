@@ -19,8 +19,9 @@ export class MajorService {
 
   searchMajor(major: MajorForm): Observable<MajorForm[]> {
     const url = 'http://restfulapi.dev/major';
-    const headers = new Headers({'Content-Type': 'application/json'});
     const body = JSON.stringify(major);
+    const headers = new Headers({'Content-Type': 'application/json'});
+
     let criteria = '/';
 
     if(major.rftSchool.school_name_t != null
