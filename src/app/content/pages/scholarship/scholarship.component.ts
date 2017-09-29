@@ -1,3 +1,4 @@
+import { ScholarshipForm } from './../../form/scholarship-form';
 import { SmSponsors } from './../../models/sm-sponsors';
 import { AutoCompleteObjectModel } from './../tag/autocomplete/autocomplete.component';
 import { SelectItem } from 'primeng/primeng';
@@ -9,11 +10,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./scholarship.component.css', '../pages.component.css']
 })
 export class ScholarshipComponent implements OnInit {
-  // Datatable
+  scholarshipName: string;
+  detail: string;
+  sponsorsName: string;
   sponsorsFormList: SmSponsors[] = [];
   selectedSponsors: SmSponsors = new SmSponsors();
-  textStr: string;
-  textareaValue: string;
+
+
   // Dropdown List
   dropdownList: SelectItem[];
   // Value

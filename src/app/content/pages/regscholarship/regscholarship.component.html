@@ -1,0 +1,297 @@
+<div class="content">
+  <div class="content-header-blue">
+    <p>เลือกทุนการศึกษา</p>
+    <div class="underline-blue"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-3">
+      <label class="normal">ปีการศึกษา</label>
+      <div>
+        <input [(ngModel)]="textStr"
+               name="inputYear"
+               type="text"
+               size="10"
+               pInputText>
+      </div>
+    </div>
+
+    <div class="col-xs-7">
+      <label class="normal">ทุนการศึกษา</label>
+      <div>
+        <p-autoComplete name="autocompleteScholarship"
+                        field="autoYear"
+                        [(ngModel)]="autocompleteObj"
+                        [suggestions]="autocompleteList"
+                        (completeMethod)="autocompleteMethod($event)"
+                        [size]="50"
+                        [dropdown]="true"
+                        forceSelection="true"
+                        (onDropdownClick)="handleCompleteClick($event)">
+          <ng-template let-obj
+                       pTemplate="item">
+            {{obj.autoScholarship}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+    <div class="col-xs-2">
+      <label class="normal">รอบที่</label>
+      <div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-5">
+      <label class="normal">ประเภทของทุนการศึกษา</label>
+    </div>
+    <div class="col-xs-5">
+      <label class="normal">ผู้ให้ทุน</label>
+    </div>
+
+    <div class="col-xs-2">
+      <label class="normal">เกรดเฉลี่ยต่ำสุด</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <label class="normal">รายละเอียดทุนการศึกษา</label>
+    </div>
+
+  </div>
+
+
+  <div class="space"></div>
+  <div class="content-header-blue">
+    <p>ประวัติการได้รับทุน (ทุกประเภท)</p>
+    <div class="underline-blue"></div>
+
+    <div class="row">
+      <div class="col-xs-1"></div>
+      <div class="col-xs-11">
+        <div>
+          <p-dataTable [value]="">
+            <p-column [style]="{'width':'65px'}"
+                      field="No"
+                      header="ลำดับที่"></p-column>
+            <p-column [style]="{'width':'400px'}"
+                      field="detail"
+                      header="ชื่อทุนการศึกษา"></p-column>
+            <p-column field="year"
+                      header="ปีการศึกษา"></p-column>
+
+            <p-column field="amount"
+                      header="จำนวน(บาท)"></p-column>
+            <p-column [style]="{'width':'50px'}">
+              <ng-template pTemplate="header">
+                <button pButton
+                        type="button"
+                        class="btn-icon-positive"
+                        icon="fa fa-plus"></button>
+              </ng-template>
+            </p-column>
+
+            <p-row> </p-row>
+          </p-dataTable>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="space"></div>
+  <div class="content-header-blue">
+    <p>กองทุนกู้ยืมเพื่อการศึกษา</p>
+    <div class="underline-blue"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1"></div>
+    <div class="col-xs-8">
+      <div>
+        <p-dataTable [value]="">
+          <p-column [style]="{'width':'70px'}"
+                    field="No"
+                    header="ครั้งที่"></p-column>
+          <p-column field="detail"
+                    header="ปีการศึกษา"></p-column>
+          <p-column field="amount"
+                    header="จำนวน(บาท)"></p-column>
+          <p-column [style]="{'width':'50px'}">
+            <ng-template pTemplate="header">
+              <button pButton
+                      type="button"
+                      class="btn-icon-positive"
+                      icon="fa fa-plus"></button>
+            </ng-template>
+          </p-column>
+
+          <p-row> </p-row>
+        </p-dataTable>
+      </div>
+    </div>
+  </div>
+
+  <div class="space"></div>
+  <div class="content-header-blue">
+    <p>แผนการใช้จ่านเงิน</p>
+    <div class="underline-blue"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <label class="normal">โปรดระบุเเผนการใช้จ่ายเงินของท่าน</label>
+      <div style="text-align:center">
+        <textarea pInputTextarea
+                  name="textareaName"
+                  [(ngModel)]="textareaValue"
+                  autoResize="autoResize"
+                  cols="100"
+                  rows="15">
+          </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row formFooter">
+
+    <button pButton
+            type="button"
+            style="float:right;"
+            class="btn-negative"
+            label="กลับ"></button>
+    <button pButton
+            type="button"
+            style="float:right; margin-right:10px"
+            class="btn-normal"
+            label="ต่อไป"></button>
+  </div>
+</div>
+
+<div class="content">
+  <div class="content-header-blue">
+    <p>รายได้ครอบรัว</p>
+    <div class="underline-blue"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-3">
+      <label class="normal">รายได้ต่อเดือน *</label>
+      <div>
+        <input [(ngModel)]="textStr"
+               name="inputYear"
+               type="text"
+               size="10"
+               pInputText>
+      </div>
+    </div>
+    <div class="col-xs-3">
+      <label class="normal">ค่าใช้จ่ายต่อเดือน *</label>
+      <div>
+        <input [(ngModel)]="textStr"
+               name="inputYear"
+               type="text"
+               size="10"
+               pInputText>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <label class="normal">ภาระหนี้สินครอบครัว</label>
+      <div>
+        <p-dataTable [value]="debtList">
+          <p-column [style]="{'width':'70px'}"
+                    field=""
+                    header="ครั้งที่"></p-column>
+          <p-column [style]="{'width':'500px'}"
+                    field="detail"
+                    header="รายละเอียด"></p-column>
+          <p-column field="amount"
+                    header="จำนวน(บาท)"></p-column>
+          <p-column [style]="{'width':'50px'}">
+            <ng-template pTemplate="header">
+              <button pButton
+                      type="button"
+                      class="btn-icon-positive"
+                      icon="fa fa-plus"></button>
+            </ng-template>
+          </p-column>
+
+          <p-row> </p-row>
+        </p-dataTable>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row formFooter">
+
+    <button pButton
+            type="button"
+            style="float:right;"
+            class="btn-negative"
+            label="กลับ"></button>
+    <button pButton
+            type="button"
+            style="float:right; margin-right:10px"
+            class="btn-normal"
+            label="ต่อไป"></button>
+  </div>
+</div>
+
+<div class="content">
+  <div class="content-header-blue">
+    <p>อัปโหลดรายการเอกสาร</p>
+    <div class="underline-blue"></div>
+  </div>
+  <div class="space"></div>
+  <div class="row">
+    <div class="col-xs-1"></div>
+    <div class="col-xs-10">
+      <div>
+        <p-checkbox name="checkboxList1"
+                    [(ngModel)]="checkedDoc1"
+                    binary="true"
+                    label="หนังสือรับรองสถานะภาพครอบครัว"
+                    inputId="IT"></p-checkbox>
+        <label *ngIf="!checkedDoc1"
+                pButton
+               class="btn-positive"
+               label="เลือกไฟล์"
+               (change)="onUpload($event)">
+              <input type="file" accept="image/*, application/pdf" class="display-none">
+            </label>
+        <button *ngIf="checkedDoc1"
+                pButton
+                type="button"
+                class="btn-negative"
+                (click)="onDelete()"
+                label="ลบ"></button></div>
+      <div>
+        <p-checkbox name="checkboxList2"
+                    value=""
+                    label="หนังสือรับรองรายได้ของครอบครัว"
+                    inputId="MA"></p-checkbox>
+        <label pButton
+               class="btn-positive"
+               label="เลือกไฟล์"
+               (change)="onUpload($event)">
+              <input type="file" accept="image/*, application/pdf" class="display-none">
+            </label>
+      </div>
+      =======================
+      <div> Result : </div>
+      <div class="col-xs-3">
+        <div class="row center">
+          <img src="{{ image }}"
+               class="image-preview">
+        </div>
+
+    </div>
+
+
+  </div>
+
+</div>
