@@ -1,12 +1,12 @@
 export class RftProvince {
-  public provinceRef: number;
-  public provinceCode: string;
-  public provinceNameT: string;
-  public provinceNameE: string;
-  public activeFlag: string;
-  public createUser: string;
-  public createDatetime: Date;
-  public updateUser: string;
-  public updateDatetime: Date;
+  public province_ref: string;
+  public province_code: string;
+  public province_name_t: string;
+  public province_name_e: string;
+  public active_flag: string;
+  public create_user: string;
+  public create_datetime: Date;
+  public update_user: string;
+  public update_datetime: Date;
 
 }

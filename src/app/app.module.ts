@@ -1,3 +1,5 @@
+import { MajorService } from './services/major.service';
+import { SchoolService } from './services/school.service';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,6 +23,7 @@ import { InputTextareaModule } from 'primeng/primeng';
 import { SliderModule } from 'primeng/primeng';
 import { FileUploadModule } from 'primeng/primeng';
 import { StepsModule } from 'primeng/primeng';
+import { GrowlModule, TooltipModule, DialogModule } from 'primeng/primeng';
 
 // Component
 import { HeaderComponent } from './content/header/header.component';
@@ -45,6 +48,9 @@ import { ButtonComponent } from './content/pages/tag/button/button.component';
 import { UploadFileComponent } from './content/pages/tag/upload-file/upload-file.component';
 import { ExampleComponent } from './content/pages/tag/example/example.component';
 import { DatatableNormalComponent } from './content/pages/tag/datatable-normal/datatable-normal.component';
+import { SponsorsComponent } from './content/pages/sponsors/sponsors.component';
+import { ScholarshipAnnouncementComponent } from './content/pages/scholarship-announcement/scholarship-announcement.component';
+import { ApplyforscholarshipComponent } from './content/pages/applyforscholarship/applyforscholarship.component';
 import { ScholarshipComponent } from './content/pages/scholarship/scholarship.component';
 import { AnnoucncementComponent } from './content/pages/annoucncement/annoucncement.component';
 import { OfficerComponent } from './content/pages/officer/officer.component';
@@ -55,6 +61,8 @@ import { RegscholarshipComponent } from './content/pages/regscholarship/regschol
 import { UtilsService } from './services/utils.service';
 import { AuthenticationService } from './services/authentication.service';
 import { StepService } from './services/tag/step.service';
+import { SchoolComponent } from './content/pages/school/school.component';
+import { MajorComponent } from './content/pages/major/major.component';
 
 
 
@@ -65,11 +73,16 @@ const appRoutes: Routes = [
   { path: 'example', component: ExampleComponent },
   {
     path: 'pages', component: PagesComponent, children: [
+      { path: 'sponsors', component: SponsorsComponent },
+      { path: 'scholarship-announcement', component: ScholarshipAnnouncementComponent },
+      { path: 'apply-scholarship', component: ApplyforscholarshipComponent },
       { path: 'scholarship', component: ScholarshipComponent },
       { path: 'annoucncement', component: AnnoucncementComponent },
       { path: 'officer', component: OfficerComponent },
       { path: 'reguser', component: ReguserComponent },
       { path: 'regscholarship', component: RegscholarshipComponent },
+      { path: 'school', component: SchoolComponent},
+      { path: 'major', component: MajorComponent}
     ]
   }
 ];
@@ -94,6 +107,9 @@ const appRoutes: Routes = [
     UploadFileComponent,
     ExampleComponent,
     DatatableNormalComponent,
+    SponsorsComponent,
+    ScholarshipAnnouncementComponent,
+    ApplyforscholarshipComponent,
     ScholarshipComponent,
     AnnoucncementComponent,
     OfficerComponent,
@@ -103,7 +119,9 @@ const appRoutes: Routes = [
     Step01Component,
     Step02Component,
     Step03Component,
-    RegscholarshipComponent
+    RegscholarshipComponent,
+    SchoolComponent,
+    MajorComponent
   ],
   imports: [
     BrowserModule,
@@ -125,12 +143,17 @@ const appRoutes: Routes = [
     PanelModule,
     InputTextareaModule,
     SliderModule,
-    StepsModule
+    StepsModule,
+    GrowlModule,
+    TooltipModule,
+    DialogModule
   ],
   providers: [
     AuthenticationService,
     UtilsService,
-    StepService
+    StepService,
+    SchoolService,
+    MajorService
   ],
   bootstrap: [AppComponent]
 })

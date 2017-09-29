@@ -1,12 +1,12 @@
 export class ApScholarshipHistory {
-  public scholarship_historyRef: number;
-  public applicationRef: number;
-  public scholarshipName: string;
+  public scholarship_history_ref: string;
+  public application_ref: string;
+  public scholarship_name: string;
   public year: string;
-  public createUser: string;
-  public createDatetime: Date;
-  public updateUser: string;
-  public updateDatetime: Date;
+  public create_user: string;
+  public create_datetime: Date;
+  public update_user: string;
+  public update_datetime: Date;
 
 
 }

@@ -1,10 +1,10 @@
 export class SmDocumentRequestDetail {
-  public documentRequestDetailRef: number;
-  public documentRequestRef: number;
-  public documentRef: number;
-  public createUser: string;
-  public createDatetime: Date;
-  public updateUser: string;
-  public updateDatetime: Date;
+ public document_request_detail_ref: string;
+ public document_request_ref: string;
+ public document_ref: string;
+ public create_user: string;
+ public create_datetime: Date;
+ public update_user: string;
+ public update_datetime: Date;
 
 }

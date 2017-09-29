@@ -1,12 +1,13 @@
 export class RftDistrict {
-  public districtRef: number;
-  public districtCode: string;
-  public districtNameT: string;
-  public districtNameE: string;
-  public provinceRef: number;
-  public actieFlag: string;
-  public createUser: string;
-  public createDatetime: Date;
-  public updateUser: string;
-  public updateDatetime: Date;
+  public district_ref: string;
+  public district_code: string;
+  public district_name_t: string;
+  public district_name_e: string;
+  public province_ref: string;
+  public active_flag: string;
+  public create_user: string;
+  public create_datetime: Date;
+  public update_user: string;
+  public update_datetime: Date;
+
 }
