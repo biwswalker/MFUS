@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content"  *ngIf="mode !== 'S'">
   <div class="content-header-blue">
     <p>ทุนการศึกษา</p>
     <div class="underline-blue"></div>
@@ -117,8 +117,8 @@
             label="กลับ"></button>
   </div>
 </div>
-
-<div class="content">
+<!-- Mode insert!-->
+<div class="content" *ngIf="mode === 'S'">
   <div class="content-header-blue">
     <p>ทุนการศึกษา</p>
     <div class="underline-blue"></div>
