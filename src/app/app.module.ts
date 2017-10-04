@@ -56,7 +56,7 @@ import { ScholarshipComponent } from './content/pages/scholarship/scholarship.co
 import { AnnoucncementComponent } from './content/pages/annoucncement/annoucncement.component';
 import { OfficerComponent } from './content/pages/officer/officer.component';
 import { ReguserComponent } from './content/pages/reguser/reguser.component';
-
+import { RegscholarshipComponent } from './content/pages/regscholarship/regscholarship.component';
 
 //Service
 import { UtilsService } from './services/utils.service';
@@ -64,6 +64,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { StepService } from './services/tag/step.service';
 import { SchoolComponent } from './content/pages/school/school.component';
 import { MajorComponent } from './content/pages/major/major.component';
+
 
 
 
@@ -80,6 +81,7 @@ const appRoutes: Routes = [
       { path: 'annoucncement', component: AnnoucncementComponent },
       { path: 'officer', component: OfficerComponent },
       { path: 'reguser', component: ReguserComponent },
+      { path: 'regscholarship', component: RegscholarshipComponent },
       { path: 'school', component: SchoolComponent},
       { path: 'major', component: MajorComponent}
     ]
@@ -118,6 +120,7 @@ const appRoutes: Routes = [
     Step01Component,
     Step02Component,
     Step03Component,
+    RegscholarshipComponent,
     SchoolComponent,
     MajorComponent
   ],
