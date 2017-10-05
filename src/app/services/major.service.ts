@@ -1,3 +1,4 @@
+import { config } from './../app.config';
 import { RftSchool } from './../content/models/rft-school';
 import { Observable } from 'rxjs';
 import { MajorForm } from './../content/form/major-form';
@@ -7,7 +8,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class MajorService {
 
-  private mainUrl: string = 'http://dev-server:8000/';
+//  private mainUrl: string = 'http://dev-server:8000/';
+  private mainUrl: string = config.backendUrl;
   constructor(private http: Http) { }
 
   //insert => post
