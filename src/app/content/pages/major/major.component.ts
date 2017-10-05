@@ -24,7 +24,9 @@ export class MajorComponent implements OnInit {
   msgs: Message[] = [];
 
   //insert
+  //init
   majorForm: MajorForm = new MajorForm();
+  // รับค่าจากหน้าจอ
   majorFormGroup: FormGroup;
 
   //search
@@ -54,6 +56,7 @@ export class MajorComponent implements OnInit {
   }
 
   initEditData() {
+    //set value first
     this.majorForm = new MajorForm();
     this.majorForm.rftMajor.active_flag = 'Y';
     this.majorForm.rftMajor.create_user = this.getUser();
@@ -68,6 +71,7 @@ export class MajorComponent implements OnInit {
   }
 
   validatorEditForm() {
+    //ชื่อ formControlName : field
     this.majorFormGroup = new FormGroup({
       'major_ref': new FormControl(this.majorForm.rftMajor.major_ref),
 

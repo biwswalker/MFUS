@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content"  *ngIf="mode !== 'S'">
   <div class="content-header-blue">
     <p>ทุนการศึกษา</p>
     <div class="underline-blue"></div>
@@ -7,6 +7,7 @@
   <div class="row">
     <div class="col-xs-6">
       <label class="normal">ผู้ให้ทุนการศึกษา</label>
+      
       <div>
         <p-autoComplete name="autocompleteName"
                         field="autoName"
@@ -117,8 +118,8 @@
             label="กลับ"></button>
   </div>
 </div>
-
-<div class="content">
+<!-- Mode insert!-->
+<div class="content" *ngIf="mode === 'S'">
   <div class="content-header-blue">
     <p>ทุนการศึกษา</p>
     <div class="underline-blue"></div>
