@@ -1,0 +1,137 @@
+<div class="content-header-blue">
+    <p>บันทึกข่าวสาร</p>
+    <div class="underline-blue"></div>
+</div>
+
+<form [formGroup]="newsFormGroup" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-10">
+            <div>
+                <label class="normal">News Subject*</label>
+            </div>
+            <input pInputText
+              formControlName="news_topic"
+              [(ngModel)]="newsForm.smNews.news_topic"
+              type="text">
+        </div>
+        <div class="col-xs-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-10">
+            <div>
+                <label class="normal">News Detail*</label>
+            </div>
+            <p-editor
+              formControlName="news_detail"
+              [(ngModel)]="newsForm.smNews.news_detail"
+              [style]="{'height':'240px'}">
+            </p-editor>
+        </div>
+        <div class="col-xs-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-10">
+            <div>
+                <label class="normal">Header Image</label>
+            </div>
+            <label pButton
+              class="btn-positive"
+              label="Upload"
+              (change)="onUpload($event)">
+              <input type="file"
+                formControlName="news_image"
+                accept="image/*, application/pdf"
+                class="display-none">
+            </label>
+            <label>* The image's width choose be 870px</label>
+        </div>
+        <div class="col-xs-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-2">
+            <div>
+                <label for="" class="normal">Publish Date*</label>
+            </div>
+            <p-calendar
+              [(ngModel)]="newsForm.smNews.publish_date"
+              formControlName="publish_date"
+              [showIcon]="true">
+            </p-calendar>
+        </div>
+        <div class="col-xs-1"></div>
+        <div class="col-xs-2">
+            <div>
+                <label class="normal">Status</label>
+            </div>
+            <p-dropdown
+              name="active_flag"
+              [options]="statusList"
+              [style]="{'width':'150px'}"
+              formControlName="active_flag">
+            </p-dropdown>
+
+        </div>
+        <div class="col-xs-5"></div>
+        <div class="col-xs-1"></div>
+    </div>
+    <div class="space"></div>
+    <div class="row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-8">
+            <button pButton
+              type="submit"
+              class="btn-positive"
+              label="Save">
+            </button>
+            <button pButton
+              type="button"
+              class="btn-positive"
+              label="Reset">
+            </button>
+            <button pButton
+              type="button"
+              class="btn-positive"
+              label="Preview">
+            </button>
+        </div>
+        <div class="col-xs-2">
+            <div style="text-align:right">
+                <button pButton
+                  type="button"
+                  class="btn-positive"
+                  label="Back">
+                </button>
+            </div>
+        </div>
+        <div class="col-xs-1"></div>
+    </div>
+  </form>
+
+  <div class="row">
+    <div class="col-xs-1"></div>
+    <div class="col-xs-10">
+      <div>
+        {{newsForm.smNews.news_topic}}
+      </div>
+      <div class="underline-blue"></div>
+     </div>
+    <div class="col-xs-1"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1"></div>
+    <div class="col-xs-10">
+      {{newsForm.smNews.news_image}}
+    </div>
+    <div class="col-xs-1"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1"></div>
+    <div class="col-xs-10">
+      {{newsForm.smNews.news_detail}}
+    </div>
+    <div class="col-xs-1"></div>
+  </div>

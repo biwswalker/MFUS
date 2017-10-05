@@ -1,7 +1,7 @@
 export class SmNews {
  public news_ref: string;
  public news_topic: string;
- public news_detail: string;
+ public news_detail: any;
  public news_name: string;
  public news_type: string;
  public news_image: any;

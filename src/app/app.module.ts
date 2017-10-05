@@ -1,3 +1,4 @@
+import { NewsService } from './services/news.service';
 import { MajorService } from './services/major.service';
 import { SchoolService } from './services/school.service';
 import { RouterModule, Routes } from '@angular/router';
@@ -24,6 +25,8 @@ import { SliderModule } from 'primeng/primeng';
 import { FileUploadModule } from 'primeng/primeng';
 import { StepsModule } from 'primeng/primeng';
 import { GrowlModule, TooltipModule, DialogModule } from 'primeng/primeng';
+import { EditorModule } from 'primeng/primeng';
+import { TabViewModule } from 'primeng/primeng';
 
 // Component
 import { HeaderComponent } from './content/header/header.component';
@@ -63,6 +66,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { StepService } from './services/tag/step.service';
 import { SchoolComponent } from './content/pages/school/school.component';
 import { MajorComponent } from './content/pages/major/major.component';
+import { NewsComponent } from './content/pages/news/news.component';
 
 
 
@@ -79,8 +83,9 @@ const appRoutes: Routes = [
       { path: 'annoucncement', component: AnnoucncementComponent },
       { path: 'officer', component: OfficerComponent },
       { path: 'reguser', component: ReguserComponent },
-      { path: 'school', component: SchoolComponent},
-      { path: 'major', component: MajorComponent}
+      { path: 'school', component: SchoolComponent },
+      { path: 'major', component: MajorComponent },
+      { path: 'news', component: NewsComponent }
     ]
   }
 ];
@@ -118,7 +123,8 @@ const appRoutes: Routes = [
     Step02Component,
     Step03Component,
     SchoolComponent,
-    MajorComponent
+    MajorComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
@@ -143,14 +149,18 @@ const appRoutes: Routes = [
     StepsModule,
     GrowlModule,
     TooltipModule,
-    DialogModule
+    DialogModule,
+    EditorModule,
+    TabViewModule,
+    FileUploadModule
   ],
   providers: [
     AuthenticationService,
     UtilsService,
     StepService,
     SchoolService,
-    MajorService
+    MajorService,
+    NewsService
   ],
   bootstrap: [AppComponent]
 })
