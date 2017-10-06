@@ -38,7 +38,7 @@ export class ScholarshipComponent implements OnInit {
 
     //autocomplete
     this.sponsors = new SmSponsors();
-    this.getStatusList();
+   // this.getStatusList();
   }
 
   validatorEditForm() {
@@ -80,7 +80,7 @@ export class ScholarshipComponent implements OnInit {
     if (this.mode == 'I') {
       this.onAddScholarship();
     } else if (this.mode == 'U') {
-      this.onUpdateScholarship();
+     // this.onUpdateScholarship();
     }
   }
 
@@ -92,9 +92,10 @@ export class ScholarshipComponent implements OnInit {
     value.sponsors_ref = this.sponsors.sponsors_ref;
 
     console.log(this.scholarshipFormGroup.value);
-
+ /*
     this.scholarshipService.addScholarship(value)
     .subscribe(
+
       (res: Response) => {
         let major_ref = res.json().major_ref;
         console.log(res.json());
@@ -122,9 +123,9 @@ export class ScholarshipComponent implements OnInit {
 
   onRowSelect(event) {
   }
+*/
 
-
-
+/*
   //dropdown
   getStatusList() {
     this.statusList = [];
@@ -152,6 +153,7 @@ export class ScholarshipComponent implements OnInit {
       this.sponsorsList = this.getSponsorsList();
     }, 100)
   }
+*/
 
   /*
   getSponsorsList(): SmSponsors[] {
@@ -165,7 +167,7 @@ export class ScholarshipComponent implements OnInit {
       );
     return results;
   }
-  */
+
 
   //message
   showError(message: string) {
@@ -177,5 +179,6 @@ export class ScholarshipComponent implements OnInit {
     this.msgs = [];
     this.msgs.push({ severity: 'success', summary: 'บันทีกข้อมูลสำเร็จ', detail: message });
   }
-
+  */
+}
 }
