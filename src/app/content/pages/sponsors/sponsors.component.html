@@ -1,296 +1,190 @@
 <!-- mode insert -->
-<div class="content" *ngIf="mode !== 'S'">
+<div class="content">
   <div class="content-header-blue">
     <p>ผู้ให้การสนับสนุนทุนการศึกษา</p>
     <div class="underline-blue"></div>
-
   </div>
 
-  <p-growl [(value)]="msgs" ></p-growl>
+  <p-growl [(value)]="msgs"></p-growl>
   <!-- mode insert -->
-  <form [formGroup]="sponsorsFormGroup" (ngSubmit)="onSubmit()" >
+  <form [formGroup]="sponsorsFormGroup" (ngSubmit)="onSubmit()">
 
-<div class="row">
-  <div class="col-xs-9">
-    <div class="col-xs-9">
-      <label class="normal">ชื่อผู้สนับสนุน *</label>
-      <div>
-        <input
-        formControlName="sponsors_name"
-        name="sponsors_name"
-        type="text"
-        id="sponsorsName"
-        maxlength="40"
-        size="40"
-        pInputText>
-      </div>
-    </div>
-
-    <div class="col-xs-3">
-      <label class="normal">สถานะ *</label>
-      <div>
-        <p-dropdown name="status"
-        [options]="statusList"
-        [style]="{'width':'120px'}">
-        </p-dropdown>
-      </div>
-    </div>
-
-
-    <div class="col-xs-12">
-      <label class="normal">ที่อยู่ *</label>
-      <div>
-        <input
-        address="inputTextAddress"
-        type="text"
-        size="74"
-        maxlength="74"
-        id="address"
-        formControlName="address"
-        pInputText>
-      </div>
-    </div>
-
-    <div class="col-xs-6 normal">
-      <label class="normal">จังหวัด *</label>
-        <div>
-          <p-autoComplete
-            formControlName="province"
-            name="province"
-            field="province"
-            [(ngModel)]="rftProvince"
-            [suggestions]="rftProvinces"
-            (completeMethod)="autocompleteMethod($event)"
-            [size]="50"
-            [dropdown]="true"
-            (onDropdownClick)="handleCompleteClick($event)">
-            <ng-template let-obj
-                    pTemplate="item">
-            {{obj.province}}
-            </ng-template>
-          </p-autoComplete>
+    <div class="row" *ngIf="mode !== 'S'">
+      <div class="col-xs-9">
+        <div class="col-xs-9">
+          <label class="normal">ชื่อผู้สนับสนุน *</label>
+          <div>
+            <input formControlName="sponsors_name" name="sponsors_name" type="text" id="sponsorsName" maxlength="40" size="40" pInputText>
+          </div>
         </div>
-    </div>
 
-    <div class="col-xs-6 normal">
-      <label class="normal">อำเภอ *</label>
-      <div>
-          <p-autoComplete
-            formControlName="district"
-            name="district"
-            field="district"
-            [(ngModel)]="rftDistrict"
-            [suggestions]="rftDistricts"
-            (completeMethod)="autocompleteMethod($event)"
-            [size]="50"
-            [dropdown]="true"
-            (onDropdownClick)="handleCompleteClick($event)">
-            <ng-template let-obj
-                    pTemplate="item">
-            {{obj.district}}
-            </ng-template>
-          </p-autoComplete>
+        <div class="col-xs-3">
+          <label class="normal">สถานะ *</label>
+          <div>
+            <p-dropdown name="status" [options]="statusList" [style]="{'width':'120px'}">
+            </p-dropdown>
+          </div>
         </div>
-    </div>
 
-    <div class="col-xs-6 normal">
-      <label class="normal">ตำบล *</label>
-      <div>
-          <p-autoComplete
-            formControlName="sub_district"
-            name="sub_district"
-            field="sub_district"
-            [(ngModel)]="rftSubDistrict"
-            [suggestions]="rftSubDistrict"
-            (completeMethod)="autocompleteMethod($event)"
-            [size]="50"
-            [dropdown]="true"
-            (onDropdownClick)="handleCompleteClick($event)">
-            <ng-template let-obj
-                    pTemplate="item">
-            {{obj.sub_district}}
-            </ng-template>
-          </p-autoComplete>
+
+        <div class="col-xs-12">
+          <label class="normal">ที่อยู่ *</label>
+          <div>
+            <input address="inputTextAddress" type="text" size="74" maxlength="74" id="address" formControlName="address" pInputText>
+          </div>
         </div>
-    </div>
-    <div class="col-xs-6 normal">
-      <label class="normal">รหัสไปรษณีย์</label>
-      <div>
-        <input
-        name="postcode"
-        id="postcode"
-        maxlength="20"
-        type="text"
-        size="20"
-        pInputText>
+
+        <div class="col-xs-6 normal">
+          <label class="normal">จังหวัด *</label>
+          <div>
+            <p-autoComplete formControlName="province" name="province" field="province" [(ngModel)]="rftProvince" [suggestions]="rftProvinces"
+              (completeMethod)="autocompleteMethod($event)" [size]="50" [dropdown]="true" (onDropdownClick)="handleCompleteClick($event)">
+              <ng-template let-obj pTemplate="item">
+                {{obj.province}}
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+
+        <div class="col-xs-6 normal">
+          <label class="normal">อำเภอ *</label>
+          <div>
+            <p-autoComplete formControlName="district" name="district" field="district" [(ngModel)]="rftDistrict" [suggestions]="rftDistricts"
+              (completeMethod)="autocompleteMethod($event)" [size]="50" [dropdown]="true" (onDropdownClick)="handleCompleteClick($event)">
+              <ng-template let-obj pTemplate="item">
+                {{obj.district}}
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+
+        <div class="col-xs-6 normal">
+          <label class="normal">ตำบล *</label>
+          <div>
+            <p-autoComplete formControlName="sub_district" name="sub_district" field="sub_district" [(ngModel)]="rftSubDistrict" [suggestions]="rftSubDistrict"
+              (completeMethod)="autocompleteMethod($event)" [size]="50" [dropdown]="true" (onDropdownClick)="handleCompleteClick($event)">
+              <ng-template let-obj pTemplate="item">
+                {{obj.sub_district}}
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-xs-6 normal">
+          <label class="normal">รหัสไปรษณีย์</label>
+          <div>
+            <input name="postcode" id="postcode" maxlength="20" type="text" size="20" pInputText>
+          </div>
+        </div>
+
+
+        <div class="col-xs-6 normal">
+          <label class="normal">เบอร์โทรศัพท์ *</label>
+          <div>
+            <input type="text" name="phone_no" formControlName="phone_no" size="25" maxlength="25" pInputText>
+          </div>
+        </div>
+
+        <div class="col-xs-6 normal">
+          <label class="normal">อีเมลล์</label>
+          <div>
+            <input type="text" name="email" id="email" maxlength="33" size="33" pInputText>
+          </div>
+        </div>
+
+        <div class="col-xs-12 normal">
+          <label class="normal">เว็บไซต์ที่ติดต่อได้</label>
+          <div>
+            <input name="website" type="text" size="31" maxlength="31" id="website" formControlName="website" pInputText>
+          </div>
+        </div>
+
+
       </div>
-    </div>
 
 
-    <div class="col-xs-6 normal">
-      <label class="normal">เบอร์โทรศัพท์ *</label>
-      <div>
-        <input
-        type="text"
-        name="phone_no"
-        formControlName="phone_no"
-        size="25"
-        maxlength="25"
-        pInputText>
-      </div>
-    </div>
-
-    <div class="col-xs-6 normal">
-      <label class="normal">อีเมลล์</label>
-      <div>
-        <input
-        type="text"
-        name="email"
-        id="email"
-        maxlength="33"
-        size="33"
-        pInputText>
-      </div>
-    </div>
-
-    <div class="col-xs-12 normal">
-      <label class="normal">เว็บไซต์ที่ติดต่อได้</label>
-      <div>
-        <input
-        name="website"
-        type="text"
-        size="31"
-        maxlength="31"
-        id="website"
-        formControlName="website"
-        pInputText>
-      </div>
-    </div>
-
-
-  </div>
-
-
-  <div class="col-xs-3">
-    <div class="col-xs-12">
-      <img src="{{ image }}" class="image-preview">
-    </div>
-    <div class="col-xs-12" style="text-align:center;" >
-      <label pButton class="btn-positive" label="เลือกไฟล์" (change)="onUpload($event)">
+      <div class="col-xs-3">
+        <div class="col-xs-12">
+          <img src="{{ image }}" class="image-preview">
+        </div>
+        <div class="col-xs-12" style="text-align:center;">
+          <label pButton class="btn-positive" label="เลือกไฟล์" (change)="onUpload($event)">
   <input type="file" accept="image/*, application/pdf" class="display-none">
       </label>
+        </div>
+
+      </div>
+
+
+
+
+      <div class="row"></div>
+      <div class="row formFooter">
+        <div class="col-xs-9">
+          <button pButton type="submit" class="btn-primary" label="บันทึก" [disabled]="!sponsorsFormGroup.valid"></button>
+          <button pButton type="button" class="btn-primary" (click)="onResetEdit();" label="ล้างข้อมูล"></button>
+          <button pButton type="button" class="btn-primary" (click)="onPageSearch()" label="กลับ" style="float:right;"></button>
+        </div>
+      </div>
+
     </div>
-
-  </div>
-
-
-
-
-  <div class="row"></div>
-  <div class="row formFooter">
-    <div class="col-xs-9">
-      <button pButton type="submit"
-      class="btn-primary"
-      label="บันทึก"
-      [disabled]="!sponsorsFormGroup.valid"></button>
-      <button pButton type="button"
-      class="btn-primary" (click)="onResetEdit();"
-      label="ล้างข้อมูล"></button>
-      <button pButton type="button"
-      class="btn-primary"
-      (click)="onPageSearch()"
-      label="กลับ"
-      style="float:right;"></button>
-    </div>
-  </div>
-
+  </form>
 </div>
 
+
+
+
+
+
+
+<!--  -->
 <!--mode search -->
-<div class="content"  *ngIf="mode === 'S'" >
-    <div class="content-header-blue">
-      <p>ผู้ให้การสนับสนุนทุนการศึกษา</p>
-      <div class="underline-blue"></div>
-</div>
-
-<div class="row">
-  <div class="col-xs-12">
-  <div class="col-xs-12">
-      <div class="col-xs-7">
-        <label class="normal">ชื่อผู้สนับสนุน</label>
-        <div>
-          <input
-          name="sponsorsName"
-          type="text"
-          id="sponsorsName"
-          maxlength="40"
-          size="40"
-          [(ngModel)]="sponsorsCriteriaForm.smSponsors.sponsors_name"
-          pInputText>
+<div class="content" *ngIf="mode === 'S'">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="col-xs-12">
+        <div class="col-xs-7">
+          <label class="normal">ชื่อผู้สนับสนุน</label>
+          <div>
+            <input name="sponsorsName" type="text" id="sponsorsName" maxlength="40" size="40" [(ngModel)]="sponsorsCriteriaForm.smSponsors.sponsors_name"
+              pInputText>
+          </div>
+        </div>
+        <div class="col-xs-5">
+          <label class="normal">สถานะ *</label>
+          <div>
+            <p-dropdown name="status" [options]="statusList" [style]="{'width':'150px'}">
+            </p-dropdown>
+          </div>
         </div>
       </div>
-      <div class="col-xs-5">
-        <label class="normal">สถานะ *</label>
-        <div>
-          <p-dropdown name="status"
-          [options]="statusList"
-          [style]="{'width':'150px'}">
-          </p-dropdown>
+
+      <div class="row"></div>
+      <div class="row formFooter">
+        <div class="col-xs-12">
+          <button pButton type="submit" class="btn-primary" label="บันทึก" [disabled]="!sponsorsFormGroup.valid"></button>
+          <button pButton type="button" class="btn-primary" (click)="onResetEdit()" label="ล้างข้อมูล"></button>
+          <button pButton type="button" class="btn-primary" (click)="onAddSponsors()" label="เพิ่ม" style="float:right;"></button>
         </div>
       </div>
-</div>
+    </div>
 
-<div class="row"></div>
-<div class="row formFooter">
-  <div class="col-xs-12">
-      <button pButton type="submit"
-      class="btn-primary"
-      label="บันทึก"
-      [disabled]="!sponsorsFormGroup.valid"></button>
-      <button pButton type="button"
-      class="btn-primary" (click)="onResetEdit();"
-      label="ล้างข้อมูล"></button>
-      <button pButton type="button"
-      class="btn-primary" label="เพิ่ม"
-      style="float:right;"></button>
+    <div class="row"></div>
+    <div class="col-xs-12">
+      <p-dataTable [value]="sponsorsFormList" selectionMode="single" [(selection)]="selectSponsors" [rows]="10" [paginator]="true"
+        [rowsPerPageOptions]="[5,10,20]" sortMode="multiple" dataKey="sponsors.sponsors_ref" (onRowSelect)="onRowSelect($event)">
+
+        <p-column [sortable]="true" [style]="{'width':'80px'}" field="sponsors.sponsors_ref" header="ลำดับ"></p-column>
+        <p-column [sortable]="true" [style]="{'width':'150px'}" field="sponsors.sponsors_name" header="ชื่อผู้สนับสนุน"></p-column>
+        <p-column [sortable]="true" [style]="{'width':'300px'}" field="sponsors.address" header="ที่อยู่"></p-column>
+        <p-column [sortable]="true" [style]="{'width':'110px'}" field="sponsors.phone_no" header="เบอร์โทรศัพท์"></p-column>
+        <p-column [sortable]="true" [style]="{'width':'80px'}" field="sponsors.active_flag" header="สถานะ"></p-column>
+      </p-dataTable>
+    </div>
+
+
+
+
+
+
   </div>
-</div>
-</div>
-
-<div class="row"></div>
-<div class="col-xs-12">
-    <p-dataTable [value]="sponsorsFormList"
-                 selectionMode="single"
-                 [(selection)]="selectSponsors"
-                 [rows]="10"
-                 [paginator]="true"
-                 [rowsPerPageOptions]="[5,10,20]"
-                 sortMode="multiple"
-                 dataKey="sponsors.sponsors_ref"
-                 (onRowSelect)="onRowSelect($event)">
-
-      <p-column [sortable]="true" [style]="{'width':'80px'}"
-                field="sponsors.sponsors_ref"
-                header="ลำดับ"></p-column>
-      <p-column [sortable]="true" [style]="{'width':'150px'}"
-                field="sponsors.sponsors_name"
-                header="ชื่อผู้สนับสนุน"></p-column>
-      <p-column [sortable]="true" [style]="{'width':'300px'}"
-                field="sponsors.address"
-                header="ที่อยู่"></p-column>
-      <p-column [sortable]="true" [style]="{'width':'110px'}"
-                field="sponsors.phone_no"
-                header="เบอร์โทรศัพท์"></p-column>
-      <p-column [sortable]="true" [style]="{'width':'80px'}"
-                field="sponsors.active_flag"
-                header="สถานะ"></p-column>
-    </p-dataTable>
-  </div>
-
-
-
-
-
-
-</div>
 </div>

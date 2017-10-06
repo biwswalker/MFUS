@@ -5,6 +5,7 @@ import { ScholarshipService } from './../../../services/scholarship.service';
 import { AutoCompleteObjectModel } from './../tag/autocomplete/autocomplete.component';
 import { SelectItem, Message } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-scholarship',
@@ -80,7 +81,7 @@ export class ScholarshipComponent implements OnInit {
     if (this.mode == 'I') {
       this.onAddScholarship();
     } else if (this.mode == 'U') {
-      this.onUpdateScholarship();
+    //  this.onUpdateScholarship();
     }
   }
 
@@ -105,7 +106,7 @@ export class ScholarshipComponent implements OnInit {
 
        // this.initEditData();
 
-        this.showSuccess('บันทึกข้อมูลเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + scholarship_ref);
+       // this.showSuccess('บันทึกข้อมูลเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + scholarship_ref);
 
       },
       (error) => {
@@ -136,21 +137,21 @@ export class ScholarshipComponent implements OnInit {
   autocompleteMethod(event) {
     let query = event.query;
     this.sponsorsList = [];
-    let objList: SmSponsors[] = this.getSponsorsList()
-    for (let obj of objList) {
-      // Filter By string event
-      if (obj.sponsors_name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        this.sponsorsList.push(obj);
-      }
-    }
+    // let objList: SmSponsors[] = this.getSponsorsList()
+    // for (let obj of objList) {
+    //   // Filter By string event
+    //   if (obj.sponsors_name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+    //     this.sponsorsList.push(obj);
+    //   }
+    // }
   }
   // On Click Autocomplete Dropdown Button
   handleCompleteClick() {
     this.sponsorsList = [];
     //mimic remote call
-    setTimeout(() => {
-      this.sponsorsList = this.getSponsorsList();
-    }, 100)
+    // setTimeout(() => {
+    //   this.sponsorsList = this.getSponsorsList();
+    // }, 100)
   }
 
   /*

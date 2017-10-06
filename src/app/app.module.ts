@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 import { NewsService } from './services/news.service';
-=======
 import { SponsorsService } from './services/sponsors.service';
->>>>>>> 0c61679d0e084ce9092e86af4bf49e2bcc7f22e6
 import { MajorService } from './services/major.service';
 import { SchoolService } from './services/school.service';
 import { RouterModule, Routes } from '@angular/router';
@@ -88,15 +85,10 @@ const appRoutes: Routes = [
       { path: 'annoucncement', component: AnnoucncementComponent },
       { path: 'officer', component: OfficerComponent },
       { path: 'reguser', component: ReguserComponent },
-<<<<<<< HEAD
-      { path: 'school', component: SchoolComponent },
-      { path: 'major', component: MajorComponent },
-      { path: 'news', component: NewsComponent }
-=======
+      { path: 'news', component: NewsComponent },
       { path: 'regscholarship', component: RegscholarshipComponent },
       { path: 'school', component: SchoolComponent},
       { path: 'major', component: MajorComponent}
->>>>>>> 0c61679d0e084ce9092e86af4bf49e2bcc7f22e6
     ]
   }
 ];
@@ -172,11 +164,8 @@ const appRoutes: Routes = [
     StepService,
     SchoolService,
     MajorService,
-<<<<<<< HEAD
-    NewsService
-=======
+    NewsService,
     SponsorsService
->>>>>>> 0c61679d0e084ce9092e86af4bf49e2bcc7f22e6
   ],
   bootstrap: [AppComponent]
 })
