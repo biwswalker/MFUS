@@ -7,10 +7,12 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class SchoolService {
 
+  private mainUrl: string = 'http://dev-server:8000/';
+
   constructor(private http: Http) { }
 
   getSchools(): Observable<RftSchool[]> {
-    const url = 'http://restfulapi.dev/school';
+    const url = this.mainUrl + 'school';
     const headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     return this.http.get(url, options)
@@ -22,7 +24,7 @@ export class SchoolService {
   }
 
   addSchool(school: SchoolForm) {
-    const url = 'http://restfulapi.dev/school';
+    const url = this.mainUrl + 'school';
     const body = JSON.stringify(school);
     console.log(body);
     const headers = new Headers({'Content-Type': 'application/json'});
@@ -30,7 +32,7 @@ export class SchoolService {
   }
 
   searchSchool(school: SchoolForm): Observable<SchoolForm[]> {
-    const url = 'http://restfulapi.dev/school';
+    const url = this.mainUrl + 'school';
     const headers = new Headers({'Content-Type': 'application/json'});
     const body = JSON.stringify(school);
     let criteria = '/';
@@ -73,7 +75,7 @@ export class SchoolService {
 
   updateSchool(school: SchoolForm, ref: string) {
     console.log('ref' + ref);
-    const url = 'http://restfulapi.dev/school/' + ref;
+    const url = this.mainUrl + 'school/' + ref;
     const body = JSON.stringify(school);
     console.log(body);
     const headers = new Headers({'Content-Type': 'application/json'});

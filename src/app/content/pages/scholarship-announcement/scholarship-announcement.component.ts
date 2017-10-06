@@ -18,8 +18,7 @@ export class ScholarshipAnnouncementComponent implements OnInit {
   schoolList: SmConditionSchool[] = [];
   majorList: SmConditionMajor[] = [];
 
-
-  constructor() { }
+   constructor() { }
 
   ngOnInit() {
     this.getScholarshipAnnouncementList();
@@ -34,6 +33,5 @@ export class ScholarshipAnnouncementComponent implements OnInit {
   getSponsorsList() {}
   getSchoolList() {}
   getMajorList() {}
-
 
 }

@@ -1,3 +1,4 @@
+import { config } from './../app.config';
 import { RftSchool } from './../content/models/rft-school';
 import { Observable } from 'rxjs';
 import { MajorForm } from './../content/form/major-form';
@@ -7,18 +8,26 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class MajorService {
 
+//  private mainUrl: string = 'http://dev-server:8000/';
+  private mainUrl: string = config.backendUrl;
   constructor(private http: Http) { }
 
+  //insert => post
+  //search => get
+  //update => put
+
   addMajor(major: MajorForm) {
-    const url = 'http://restfulapi.dev/major';
+    const url = this.mainUrl + 'major';
     const body = JSON.stringify(major);
-    console.log(body);
     const headers = new Headers({'Content-Type': 'application/json'});
+
+
+    console.log(body);
     return this.http.post(url, body, {headers: headers});
   }
 
   searchMajor(major: MajorForm): Observable<MajorForm[]> {
-    const url = 'http://restfulapi.dev/major';
+    const url = this.mainUrl + 'major';
     const body = JSON.stringify(major);
     const headers = new Headers({'Content-Type': 'application/json'});
 
@@ -74,10 +83,10 @@ export class MajorService {
 
   updateMajor(major: MajorForm, ref: string) {
     console.log('ref' + ref);
-    const url = 'http://restfulapi.dev/major/' + ref;
+    const url = this.mainUrl + 'major/' + ref;
     const body = JSON.stringify(major);
-    console.log(body);
     const headers = new Headers({'Content-Type': 'application/json'});
+    console.log(body);
     return this.http.put(url, body, {headers: headers});
   }
 
