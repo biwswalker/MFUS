@@ -80,7 +80,7 @@ export class ScholarshipComponent implements OnInit {
     if (this.mode == 'I') {
       this.onAddScholarship();
     } else if (this.mode == 'U') {
-      this.onUpdateScholarship();
+      // this.onUpdateScholarship();
     }
   }
 
@@ -93,31 +93,31 @@ export class ScholarshipComponent implements OnInit {
 
     console.log(this.scholarshipFormGroup.value);
 
-    this.scholarshipService.addScholarship(value)
-    .subscribe(
-      (res: Response) => {
-        let major_ref = res.json().major_ref;
-        console.log(res.json());
-        console.log(res.json().major_ref);
-        console.log(res.statusText);
+    // this.scholarshipService.addScholarship(value)
+    // .subscribe(
+    //   (res: Response) => {
+    //     let major_ref = res.json().major_ref;
+    //     console.log(res.json());
+    //     console.log(res.json().major_ref);
+    //     console.log(res.statusText);
 
-        this.scholarshipFormGroup.reset();
+    //     this.scholarshipFormGroup.reset();
 
-       // this.initEditData();
+    //    // this.initEditData();
 
-        this.showSuccess('บันทึกข้อมูลเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + scholarship_ref);
+    //     this.showSuccess('บันทึกข้อมูลเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + scholarship_ref);
 
-      },
-      (error) => {
-        console.log(error);
-        let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
-        if (error.status == 409) {
-          message = 'มีการใช้รหัสสาขาวิชานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
-        }
-        this.showError(message);
-        return;
-      }
-      );
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //     let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+    //     if (error.status == 409) {
+    //       message = 'มีการใช้รหัสสาขาวิชานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+    //     }
+    //     this.showError(message);
+    //     return;
+    //   }
+    //   );
   }
 
   onRowSelect(event) {
@@ -136,21 +136,21 @@ export class ScholarshipComponent implements OnInit {
   autocompleteMethod(event) {
     let query = event.query;
     this.sponsorsList = [];
-    let objList: SmSponsors[] = this.getSponsorsList()
-    for (let obj of objList) {
-      // Filter By string event
-      if (obj.sponsors_name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        this.sponsorsList.push(obj);
-      }
-    }
+    // let objList: SmSponsors[] = this.getSponsorsList()
+    // for (let obj of objList) {
+    //   // Filter By string event
+    //   if (obj.sponsors_name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+    //     this.sponsorsList.push(obj);
+    //   }
+    // }
   }
   // On Click Autocomplete Dropdown Button
   handleCompleteClick() {
     this.sponsorsList = [];
     //mimic remote call
-    setTimeout(() => {
-      this.sponsorsList = this.getSponsorsList();
-    }, 100)
+    // setTimeout(() => {
+    //   this.sponsorsList = this.getSponsorsList();
+    // }, 100)
   }
 
   /*
