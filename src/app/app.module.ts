@@ -91,7 +91,7 @@ const appRoutes: Routes = [
       { path: 'school', component: SchoolComponent },
       { path: 'major', component: MajorComponent },
       { path: 'news', component: NewsComponent },
-      { path: 'regscholarship', component: RegscholarshipComponent }
+      { path: 'regscholarship', component: RegscholarshipComponent },
     ]
   }
 ];
@@ -171,7 +171,6 @@ const appRoutes: Routes = [
     MajorService,
     NewsService,
     SponsorsService
-
   ],
   bootstrap: [AppComponent]
 })
