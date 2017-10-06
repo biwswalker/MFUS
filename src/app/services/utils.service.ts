@@ -1,9 +1,17 @@
+import { RftSubDistrict } from './../content/models/rft-sub-district';
+import { RftDistrict } from './../content/models/rft-district';
+import { RequestOptions, Headers, Http, Response } from '@angular/http';
+import { RftProvince } from './../content/models/rft-province';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
+
+const url: string = 'http://127.0.0.1:8000/';
 
 @Injectable()
 export class UtilsService {
 
-  constructor() { }
+  constructor(private http: Http) { }
 
   // 20/08/2017
   public displayStringDate(dateParam: Date): string {
@@ -41,6 +49,38 @@ export class UtilsService {
     return (num < 10 ? '0' : '') + num;
   }
 
+  getProvinces(): Observable<RftProvince[]> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(url+'province', options)
+      .map(
+      (res: Response) => {
+        return res.json();
+      }
+      );
+  }
+
+  getDistricts(): Observable<RftDistrict[]> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(url+'district', options)
+      .map(
+      (res: Response) => {
+        return res.json();
+      }
+      );
+  }
+
+  getSubDistricts(): Observable<RftSubDistrict[]> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(url+'subdistrict', options)
+      .map(
+      (res: Response) => {
+        return res.json();
+      }
+      );
+  }
 
 
 }
