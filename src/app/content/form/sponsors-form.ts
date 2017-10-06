@@ -5,6 +5,7 @@ import { RftProvince } from './../models/rft-province';
 
 export class SponsorsForm {
 
+  index :number;
   public smSponsors: SmSponsors;
 
   public rftProvince: RftProvince;

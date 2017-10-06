@@ -179,7 +179,6 @@ export class SponsorsComponent implements OnInit {
     this.sponsorsService.searchSponsors(this.sponsorsCriteriaForm)
       .subscribe(
       result => {
-        console.log(result.length);
         this.sponsorsFormList = result;
       },
       (error) => {
