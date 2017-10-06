@@ -1,3 +1,4 @@
+import { ScholarshipService } from './services/scholarship.service';
 import { MajorService } from './services/major.service';
 import { SchoolService } from './services/school.service';
 import { RouterModule, Routes } from '@angular/router';
@@ -153,6 +154,7 @@ const appRoutes: Routes = [
     UtilsService,
     StepService,
     SchoolService,
+    ScholarshipService,
     MajorService
   ],
   bootstrap: [AppComponent]
