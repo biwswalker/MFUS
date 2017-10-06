@@ -1,3 +1,6 @@
+
+import { ScholarshipService } from './services/scholarship.service';
+
 import { NewsService } from './services/news.service';
 import { SponsorsService } from './services/sponsors.service';
 import { MajorService } from './services/major.service';
@@ -85,10 +88,10 @@ const appRoutes: Routes = [
       { path: 'annoucncement', component: AnnoucncementComponent },
       { path: 'officer', component: OfficerComponent },
       { path: 'reguser', component: ReguserComponent },
+      { path: 'school', component: SchoolComponent },
+      { path: 'major', component: MajorComponent },
       { path: 'news', component: NewsComponent },
       { path: 'regscholarship', component: RegscholarshipComponent },
-      { path: 'school', component: SchoolComponent},
-      { path: 'major', component: MajorComponent}
     ]
   }
 ];
@@ -163,6 +166,8 @@ const appRoutes: Routes = [
     UtilsService,
     StepService,
     SchoolService,
+
+    ScholarshipService,
     MajorService,
     NewsService,
     SponsorsService
