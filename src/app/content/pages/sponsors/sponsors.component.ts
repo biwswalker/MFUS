@@ -127,7 +127,6 @@ export class SponsorsComponent implements OnInit {
   }
 
   onAddSponsors() {
-    console.log(this.sponsorsFormGroup.value);
     const value = this.sponsorsFormGroup.value;
     value.active_flag = 'Y';
     value.province = '1';
@@ -221,10 +220,10 @@ export class SponsorsComponent implements OnInit {
         console.log(res.statusText);
 
         this.sponsorsFormGroup.reset()
-        this.initEditData();
-        this.showSuccess('แก้ไขข้อมูลผู้ให้ทุนการศึกษาเรียบร้อยแล้ว');
 
-        return;
+        this.initEditData();
+
+        this.showSuccess('แก้ไขข้อมูลผู้ให้ทุนการศึกษาเรียบร้อยแล้ว');
 
       },
       (error) => {
@@ -399,8 +398,11 @@ export class SponsorsComponent implements OnInit {
     this.msgs.push({ severity: 'success', summary: 'บันทีกข้อมูลสำเร็จ', detail: message });
   }
 
+<<<<<<< HEAD
   onUpload(event) {
 
   }
+=======
+>>>>>>> f703a991d66875c5302ae7fc8301616ab81ea192
 
 }
