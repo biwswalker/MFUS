@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class MajorService {
 
-  private mainUrl: string = 'http://dev-server:8000/';
+  private mainUrl: string = 'http://localhost:8000/';
   constructor(private http: Http) { }
 
   //insert => post
