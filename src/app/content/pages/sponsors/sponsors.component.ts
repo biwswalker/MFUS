@@ -9,6 +9,7 @@ import { RftDistrict } from './../../models/rft-district';
 import { RftProvince } from './../../models/rft-province';
 import { SmSponsors } from './../../models/sm-sponsors';
 import { Component, OnInit } from '@angular/core';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-sponsors',
@@ -57,6 +58,7 @@ export class SponsorsComponent implements OnInit {
     this.initSearchData();
     this.image = '../../../../assets/images/empty_profile.png';
     this.sponsorsFormList = [];
+
 
     //autocomplete
     this.smSponsors = new SmSponsors();
@@ -117,7 +119,9 @@ export class SponsorsComponent implements OnInit {
     }
   }
 
-  onAddSponsors(){console.log(this.sponsorsFormGroup.value);
+  onAddSponsors(){
+    this.mode = 'I';
+    console.log(this.sponsorsFormGroup.value);
     const value = this.sponsorsFormGroup.value;
 
     value.active_flag = 'Y';
@@ -207,10 +211,10 @@ export class SponsorsComponent implements OnInit {
         console.log(res.statusText);
 
         this.sponsorsFormGroup.reset()
-
         this.initEditData();
-
         this.showSuccess('แก้ไขข้อมูลผู้ให้ทุนการศึกษาเรียบร้อยแล้ว');
+
+        return;
 
       },
       (error) =>{
@@ -312,5 +316,8 @@ export class SponsorsComponent implements OnInit {
     this.msgs.push({severity:'success', summary:'บันทีกข้อมูลสำเร็จ', detail: message});
   }
 
+  onUpload(event){
+
+  }
 
 }
