@@ -1,3 +1,4 @@
+import { UtilsService } from './../../../services/utils.service';
 import { SponsorsService } from './../../../services/sponsors.service';
 import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
@@ -9,11 +10,12 @@ import { RftDistrict } from './../../models/rft-district';
 import { RftProvince } from './../../models/rft-province';
 import { SmSponsors } from './../../models/sm-sponsors';
 import { Component, OnInit } from '@angular/core';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-sponsors',
   templateUrl: './sponsors.component.html',
-  styleUrls: ['./sponsors.component.css','../pages.component.css']
+  styleUrls: ['./sponsors.component.css', '../pages.component.css']
 })
 export class SponsorsComponent implements OnInit {
 
@@ -33,12 +35,15 @@ export class SponsorsComponent implements OnInit {
   selectSponsors: SponsorsForm = new SponsorsForm();
 
   //autocomplete
+  rftProvinceList: RftProvince[] = [];
   rftProvinces: RftProvince[] = [];
   rftProvince: RftProvince = new RftProvince();
 
+  rftDistrictList: RftDistrict[] = [];
   rftDistricts: RftDistrict[] = [];
   rftDistrict: RftDistrict = new RftDistrict();
 
+  rftSubDistrictList: RftSubDistrict[] = [];
   rftSubDistricts: RftSubDistrict[] = [];
   rftSubDistrict: RftSubDistrict = new RftSubDistrict();
 
@@ -50,14 +55,18 @@ export class SponsorsComponent implements OnInit {
   smSponsorsList: SmSponsors[] = [];
   smSponsors: SmSponsors = new SmSponsors();
 
-  constructor( private sponsorsService: SponsorsService) { }
+
+  constructor(private sponsorsService: SponsorsService,
+    private utilsService: UtilsService) { }
 
   ngOnInit() {
     this.initEditData();
     this.initSearchData();
     this.image = '../../../../assets/images/empty_profile.png';
     this.sponsorsFormList = [];
-
+    this.getProvinceList();
+    this.getDistrictList();
+    this.getSubDistrictList();
     //autocomplete
     this.smSponsors = new SmSponsors();
     this.getStatusList();
@@ -80,23 +89,23 @@ export class SponsorsComponent implements OnInit {
   validatorEditForm() {
     this.sponsorsFormGroup = new FormGroup({
       'sponsors_ref': new FormControl(this.sponsorsForm.smSponsors.sponsors_ref),
-      'sponsors_name': new FormControl(this.sponsorsForm.smSponsors.sponsors_name,Validators.compose([Validators.required, Validators.maxLength(50)])),
-      'active_flag': new FormControl(this.sponsorsForm.smSponsors.active_flag, Validators.required ),
-      'address': new FormControl(this.sponsorsForm.smSponsors.address, Validators.required ),
-      'province': new FormControl(this.sponsorsForm.smSponsors.province, Validators.required ),
-      'district': new FormControl(this.sponsorsForm.smSponsors.district, Validators.required ),
-      'sub_district': new FormControl(this.sponsorsForm.smSponsors.sub_district, Validators.required ),
-      'postcode': new FormControl(this.sponsorsForm.smSponsors.postcode, Validators.required ),
-      'phone_no': new FormControl(this.sponsorsForm.smSponsors.phone_no, Validators.required ),
-      'email': new FormControl(this.sponsorsForm.smSponsors.email, Validators.required ),
-      'website':new FormControl(this.sponsorsForm.smSponsors.website, Validators.required ),
-      'create_user': new FormControl(this.sponsorsForm.smSponsors.create_user, Validators.required ),
-      'update_user': new FormControl(this.sponsorsForm.smSponsors.update_user, Validators.required )
+      'sponsors_name': new FormControl(this.sponsorsForm.smSponsors.sponsors_name, Validators.compose([Validators.required, Validators.maxLength(50)])),
+      'active_flag': new FormControl(this.sponsorsForm.smSponsors.active_flag, Validators.required),
+      'address': new FormControl(this.sponsorsForm.smSponsors.address, Validators.required),
+      'province': new FormControl(this.sponsorsForm.smSponsors.province, Validators.required),
+      'district': new FormControl(this.sponsorsForm.smSponsors.district, Validators.required),
+      'sub_district': new FormControl(this.sponsorsForm.smSponsors.sub_district, Validators.required),
+      'postcode': new FormControl(this.sponsorsForm.smSponsors.postcode, Validators.required),
+      'phone_no': new FormControl(this.sponsorsForm.smSponsors.phone_no, Validators.required),
+      'email': new FormControl(this.sponsorsForm.smSponsors.email, Validators.required),
+      'website': new FormControl(this.sponsorsForm.smSponsors.website, Validators.required),
+      'create_user': new FormControl(this.sponsorsForm.smSponsors.create_user, Validators.required),
+      'update_user': new FormControl(this.sponsorsForm.smSponsors.update_user, Validators.required)
     });
 
-    if(this.mode == 'I') {
+    if (this.mode == 'I') {
       this.sponsorsFormGroup.controls['active_flag'].disable();
-    }else if (this.mode == 'U') {
+    } else if (this.mode == 'U') {
       this.sponsorsFormGroup.controls['active_flag'].enable();
     }
   }
@@ -112,17 +121,21 @@ export class SponsorsComponent implements OnInit {
     console.log('onSubmit mode ' + this.mode)
     if (this.mode == 'I') {
       this.onAddSponsors();
-    }else if (this.mode == 'U') {
+    } else if (this.mode == 'U') {
       this.onUpdateSponsors();
     }
   }
 
-  onAddSponsors(){console.log(this.sponsorsFormGroup.value);
+  onAddSponsors() {
     const value = this.sponsorsFormGroup.value;
-
     value.active_flag = 'Y';
+    value.province = '1';
+    value.district = '1';
+    value.sub_district = '1'
+    value.postcode = '57100'
     value.sponsors_ref = this.smSponsors.sponsors_ref;
-
+    value.create_user = 'Anda';
+    value.update_user = 'Anda';
     console.log(this.sponsorsFormGroup.value);
 
     // this.sponsorsService.addSponsors(value)
@@ -153,7 +166,6 @@ export class SponsorsComponent implements OnInit {
 
   }
 
-
   onSearch() {
     this.sponsorsFormList = [];
     console.log(this.sponsorsCriteriaForm);
@@ -163,17 +175,17 @@ export class SponsorsComponent implements OnInit {
   searchSponsors() {
     let resultList: SponsorsForm[] = [];
 
+
     this.sponsorsService.searchSponsors(this.sponsorsCriteriaForm)
-    .subscribe(
+      .subscribe(
       result => {
-        console.log(result.length);
         this.sponsorsFormList = result;
       },
-      (error) =>{
+      (error) => {
         console.log(error);
         this.showError(error);
       }
-    );
+      );
 
   }
 
@@ -236,11 +248,11 @@ export class SponsorsComponent implements OnInit {
     this.initEditData();
   }
 
-  onResetEdit(){
+  onResetEdit() {
     console.log(this.mode);
     if (this.mode == 'I') {
       this.initEditData();
-    }else if (this.mode == 'U') {
+    } else if (this.mode == 'U') {
       this.sponsorsForm = new SponsorsForm();
       this.sponsorsForm = this.selectSponsors;
       this.smSponsors = new SmSponsors();
@@ -264,26 +276,69 @@ export class SponsorsComponent implements OnInit {
     this.statusList.push({ label: 'ไม่ใช้งาน', value: 'N' });
   }
 
- //autocomplete
+  //autocomplete
   // Autocomplete Method // On key wording
-  autocompleteMethod(event) {
+  autocompleteMethodProvince(event) {
     let query = event.query;
-    this.smSponsorsList = [];
-    let objList: SmSponsors[] = this.getSponsorsList()
-    for (let obj of objList) {
+    this.rftProvinces = [];
+    for (let obj of this.rftProvinceList) {
       // Filter By string event
-      if (obj.sponsors_name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        this.smSponsorsList.push(obj);
+      if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        this.rftProvinces.push(obj);
+      }
+    }
+  }
+
+  autocompleteMethodDistrict(event) {
+    let query = event.query;
+    this.rftDistricts = [];
+    for (let obj of this.rftDistrictList) {
+      // Filter By string event
+      if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        this.rftDistricts.push(obj);
+      }
+    }
+  }
+
+  autocompleteMethodSubDistrict(event) {
+    let query = event.query;
+    this.rftSubDistricts = [];
+    for (let obj of this.rftSubDistrictList) {
+      // Filter By string event
+      if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        this.rftSubDistricts.push(obj);
       }
     }
   }
 
   // On Click Autocomplete Dropdown Button
-  handleCompleteClick() {
+  handleSponsorsClick() {
     this.smSponsorsList = [];
     //mimic remote call
     setTimeout(() => {
       this.smSponsorsList = this.getSponsorsList();
+    }, 100)
+  }
+
+  handleProvinceClick() {
+    this.rftProvinces = [];
+    //mimic remote call
+    setTimeout(() => {
+      this.rftProvinces = this.rftProvinceList;
+    }, 100)
+  }
+  handleDistrictClick() {
+    this.rftDistricts = [];
+    //mimic remote call
+    setTimeout(() => {
+      this.rftDistricts = this.rftDistrictList;
+    }, 100)
+  }
+  handleSubDistrictClick() {
+    this.rftSubDistricts = [];
+    //mimic remote call
+    setTimeout(() => {
+      this.rftSubDistricts = this.rftSubDistrictList;
     }, 100)
   }
 
@@ -292,25 +347,58 @@ export class SponsorsComponent implements OnInit {
     let results = []
     this.sponsorsService.getSponsors()
       .subscribe(
-        result => {
-          this.smSponsorsList = result;
-          results = result;
-        }
+      result => {
+        this.smSponsorsList = result;
+        results = result;
+      }
       );
-      return results;
+    return results;
   }
 
+  getProvinceList() {
+    this.rftProvinces = []
+    this.utilsService.getProvinces()
+      .subscribe(
+      (result) => {
+        this.rftProvinceList = result;
+      }
+      );
+  }
+
+  getDistrictList() {
+    this.rftDistrictList = [];
+    this.utilsService.getDistricts()
+      .subscribe(
+      result => {
+        this.rftDistrictList = result;
+      }
+      );
+  }
+
+  getSubDistrictList() {
+    this.rftSubDistrictList = []
+    this.utilsService.getSubDistricts()
+      .subscribe(
+      result => {
+        console.log(result.length)
+        this.rftSubDistrictList = result;
+      }
+      );
+  }
 
   // message
   showError(message: string) {
     this.msgs = [];
-    this.msgs.push({severity:'error', summary:'ไม่สามารถบันทึกข้อมูลได้', detail: message});
+    this.msgs.push({ severity: 'error', summary: 'ไม่สามารถบันทึกข้อมูลได้', detail: message });
   }
 
   showSuccess(message: string) {
     this.msgs = [];
-    this.msgs.push({severity:'success', summary:'บันทีกข้อมูลสำเร็จ', detail: message});
+    this.msgs.push({ severity: 'success', summary: 'บันทีกข้อมูลสำเร็จ', detail: message });
   }
 
+  onUpload(event) {
+
+  }
 
 }

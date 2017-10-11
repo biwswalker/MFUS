@@ -5,6 +5,7 @@ import { ScholarshipService } from './../../../services/scholarship.service';
 import { AutoCompleteObjectModel } from './../tag/autocomplete/autocomplete.component';
 import { SelectItem, Message } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-scholarship',
@@ -152,6 +153,7 @@ export class ScholarshipComponent implements OnInit {
   //     this.sponsorsList = this.getSponsorsList();
   //   }, 100)
   }
+*/
 
   /*
   getSponsorsList(): SmSponsors[] {
@@ -165,7 +167,7 @@ export class ScholarshipComponent implements OnInit {
       );
     return results;
   }
-  */
+
 
   //message
   showError(message: string) {
@@ -177,5 +179,6 @@ export class ScholarshipComponent implements OnInit {
     this.msgs = [];
     this.msgs.push({ severity: 'success', summary: 'บันทีกข้อมูลสำเร็จ', detail: message });
   }
-
+  */
 }
+
