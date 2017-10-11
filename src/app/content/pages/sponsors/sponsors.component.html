@@ -1,15 +1,18 @@
+<div class="content-header-blue">
+  <p>ผู้ให้การสนับสนุนทุนการศึกษา</p>
+  <div class="underline-blue"></div>
+
+</div>
+
 <!-- mode insert -->
-<div class="content">
-  <div class="content-header-blue">
-    <p>ผู้ให้การสนับสนุนทุนการศึกษา</p>
-    <div class="underline-blue"></div>
-  </div>
+<div class="content" *ngIf="mode !== 'S'">
+
 
   <p-growl [(value)]="msgs"></p-growl>
   <!-- mode insert -->
   <form [formGroup]="sponsorsFormGroup" (ngSubmit)="onSubmit()">
 
-    <div class="row" *ngIf="mode !== 'S'">
+    <div class="row">
       <div class="col-xs-9">
         <div class="col-xs-9">
           <label class="normal">ชื่อผู้สนับสนุน *</label>
@@ -21,7 +24,7 @@
         <div class="col-xs-3">
           <label class="normal">สถานะ *</label>
           <div>
-            <p-dropdown name="status" [options]="statusList" [style]="{'width':'120px'}">
+            <p-dropdown name="status" [options]="statusList" [style]="{'width':'110px'}">
             </p-dropdown>
           </div>
         </div>
@@ -37,10 +40,10 @@
         <div class="col-xs-6 normal">
           <label class="normal">จังหวัด *</label>
           <div>
-            <p-autoComplete formControlName="province" name="province" field="province" [(ngModel)]="rftProvince" [suggestions]="rftProvinces"
-              (completeMethod)="autocompleteMethod($event)" [size]="50" [dropdown]="true" (onDropdownClick)="handleCompleteClick($event)">
-              <ng-template let-obj pTemplate="item">
-                {{obj.province}}
+            <p-autoComplete formControlName="province" name="province" field="province_name_t" [(ngModel)]="rftProvince" [suggestions]="rftProvinces"
+              (completeMethod)="autocompleteMethodProvince($event)" [size]="28" [dropdown]="true" (onDropdownClick)="handleProvinceClick($event)">
+              <ng-template let-obj pTemplate="obj">
+                {{obj.province_name_t}}
               </ng-template>
             </p-autoComplete>
           </div>
@@ -49,10 +52,10 @@
         <div class="col-xs-6 normal">
           <label class="normal">อำเภอ *</label>
           <div>
-            <p-autoComplete formControlName="district" name="district" field="district" [(ngModel)]="rftDistrict" [suggestions]="rftDistricts"
-              (completeMethod)="autocompleteMethod($event)" [size]="50" [dropdown]="true" (onDropdownClick)="handleCompleteClick($event)">
-              <ng-template let-obj pTemplate="item">
-                {{obj.district}}
+            <p-autoComplete formControlName="district" name="district" field="district_name_t" [(ngModel)]="rftDistrict" [suggestions]="rftDistricts"
+              (completeMethod)="autocompleteMethodDistrict($event)" [size]="28" [dropdown]="true" (onDropdownClick)="handleDistrictClick($event)">
+              <ng-template let-obj pTemplate="obj">
+                {{obj.district_name_t}}
               </ng-template>
             </p-autoComplete>
           </div>
@@ -61,10 +64,11 @@
         <div class="col-xs-6 normal">
           <label class="normal">ตำบล *</label>
           <div>
-            <p-autoComplete formControlName="sub_district" name="sub_district" field="sub_district" [(ngModel)]="rftSubDistrict" [suggestions]="rftSubDistrict"
-              (completeMethod)="autocompleteMethod($event)" [size]="50" [dropdown]="true" (onDropdownClick)="handleCompleteClick($event)">
-              <ng-template let-obj pTemplate="item">
-                {{obj.sub_district}}
+            <p-autoComplete formControlName="sub_district" name="sub_district" field="sub_district_name_t" [(ngModel)]="rftSubDistrict"
+              [suggestions]="rftSubDistrict" (completeMethod)="autocompleteMethodSubDistrict($event)" [size]="28" [dropdown]="true"
+              (onDropdownClick)="handleSubDistrictClick($event)">
+              <ng-template let-obj pTemplate="obj">
+                {{obj.sub_district_name_t}}
               </ng-template>
             </p-autoComplete>
           </div>
@@ -75,7 +79,6 @@
             <input name="postcode" id="postcode" maxlength="20" type="text" size="20" pInputText>
           </div>
         </div>
-
 
         <div class="col-xs-6 normal">
           <label class="normal">เบอร์โทรศัพท์ *</label>
@@ -114,18 +117,14 @@
 
       </div>
 
-
-
-
       <div class="row"></div>
       <div class="row formFooter">
         <div class="col-xs-9">
-          <button pButton type="submit" class="btn-primary" label="บันทึก" [disabled]="!sponsorsFormGroup.valid"></button>
+          <button pButton type="submit" class="btn-primary" label="บันทึก"></button>
           <button pButton type="button" class="btn-primary" (click)="onResetEdit();" label="ล้างข้อมูล"></button>
           <button pButton type="button" class="btn-primary" (click)="onPageSearch()" label="กลับ" style="float:right;"></button>
         </div>
       </div>
-
     </div>
   </form>
 </div>
@@ -136,7 +135,7 @@
 
 
 
-<!--  -->
+
 <!--mode search -->
 <div class="content" *ngIf="mode === 'S'">
   <div class="row">
@@ -158,33 +157,26 @@
         </div>
       </div>
 
-      <div class="row"></div>
-      <div class="row formFooter">
+      <div class="col-xs-12 formFooter">
         <div class="col-xs-12">
-          <button pButton type="submit" class="btn-primary" label="บันทึก" [disabled]="!sponsorsFormGroup.valid"></button>
-          <button pButton type="button" class="btn-primary" (click)="onResetEdit()" label="ล้างข้อมูล"></button>
-          <button pButton type="button" class="btn-primary" (click)="onAddSponsors()" label="เพิ่ม" style="float:right;"></button>
+          <button pButton type="button" (click)="onSearch()" class="btn-primary" label="ค้นหา"></button>
+          <button pButton type="button" class="btn-primary" (click)="onResetSearch()" label="ล้างข้อมูล"></button>
+          <button pButton type="button" class="btn-primary" (click)="onPageInsert()" label="เพิ่ม" style="float:right;"></button>
+        </div>
+        <div class="row space"></div>
+        <div class="col-xs-12">
+          <p-dataTable [value]="sponsorsFormList" selectionMode="single" [(selection)]="selectSponsors" [rows]="10" [paginator]="true"
+            [rowsPerPageOptions]="[5,10,20]" sortMode="multiple" dataKey="smSponsors.sponsors_ref" (onRowSelect)="onRowSelect($event)">
+
+            <p-column [sortable]="true" [style]="{'width':'80px'}" field="index" header="ลำดับ"></p-column>
+            <p-column [sortable]="true" [style]="{'width':'150px'}" field="smSponsors.sponsors_name" header="ชื่อผู้สนับสนุน"></p-column>
+            <p-column [sortable]="true" [style]="{'width':'300px'}" field="smSponsors.address" header="ที่อยู่"></p-column>
+            <p-column [sortable]="true" [style]="{'width':'110px'}" field="smSponsors.phone_no" header="เบอร์โทรศัพท์"></p-column>
+            <p-column [sortable]="true" [style]="{'width':'80px'}" field="smSponsors.active_flag" header="สถานะ"></p-column>
+          </p-dataTable>
         </div>
       </div>
+
     </div>
-
-    <div class="row"></div>
-    <div class="col-xs-12">
-      <p-dataTable [value]="sponsorsFormList" selectionMode="single" [(selection)]="selectSponsors" [rows]="10" [paginator]="true"
-        [rowsPerPageOptions]="[5,10,20]" sortMode="multiple" dataKey="sponsors.sponsors_ref" (onRowSelect)="onRowSelect($event)">
-
-        <p-column [sortable]="true" [style]="{'width':'80px'}" field="sponsors.sponsors_ref" header="ลำดับ"></p-column>
-        <p-column [sortable]="true" [style]="{'width':'150px'}" field="sponsors.sponsors_name" header="ชื่อผู้สนับสนุน"></p-column>
-        <p-column [sortable]="true" [style]="{'width':'300px'}" field="sponsors.address" header="ที่อยู่"></p-column>
-        <p-column [sortable]="true" [style]="{'width':'110px'}" field="sponsors.phone_no" header="เบอร์โทรศัพท์"></p-column>
-        <p-column [sortable]="true" [style]="{'width':'80px'}" field="sponsors.active_flag" header="สถานะ"></p-column>
-      </p-dataTable>
-    </div>
-
-
-
-
-
-
   </div>
 </div>

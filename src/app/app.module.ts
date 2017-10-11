@@ -1,4 +1,4 @@
-
+import { ScholarshipannouncementService } from './services/scholarshipannouncement.service';
 import { ScholarshipService } from './services/scholarship.service';
 
 import { NewsService } from './services/news.service';
@@ -166,7 +166,7 @@ const appRoutes: Routes = [
     UtilsService,
     StepService,
     SchoolService,
-
+    ScholarshipannouncementService,
     ScholarshipService,
     MajorService,
     NewsService,

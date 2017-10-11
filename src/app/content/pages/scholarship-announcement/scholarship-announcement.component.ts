@@ -1,3 +1,8 @@
+import { MajorService } from './../../../services/major.service';
+import { SchoolService } from './../../../services/school.service';
+import { ScholarshipannouncementService } from './../../../services/scholarshipannouncement.service';
+import { SponsorsService } from './../../../services/sponsors.service';
+import { ScholarshipService } from './../../../services/scholarship.service';
 import { SmSponsors } from './../../models/sm-sponsors';
 import { SmConditionMajor } from './../../models/sm-condition-major';
 import { SmConditionSchool } from './../../models/sm-condition-school';
@@ -12,26 +17,47 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScholarshipAnnouncementComponent implements OnInit {
 
-  sholarshipAnnouncementList: SmScholarshipAnnouncement[] = [];
-  scholarshipList: SmScholarship[] = [];
-  sponsorsList: SmSponsors[] = [];
+  //mode
+  mode: string = 'S'; // I-insert, U-update, S-search
+
+  scholarshipAnnouncementList: SmScholarshipAnnouncement[] = [];
+  scholarshipAnnouncements: SmScholarshipAnnouncement = new SmScholarshipAnnouncement();
+
+  scholarships: SmScholarship = new SmScholarship();
+
+
+  smSponsorsList: SmSponsors[] = [];
   schoolList: SmConditionSchool[] = [];
   majorList: SmConditionMajor[] = [];
 
-   constructor() { }
+   constructor(private scholarshipService: ScholarshipService,
+               private sponsorsService: SponsorsService,
+               private scholarshipannouncementService: ScholarshipannouncementService,
+               private schoolService: SchoolService,
+               private majorService: MajorService) { }
 
   ngOnInit() {
     this.getScholarshipAnnouncementList();
-    this.getScholarshipList();
-    this.getSponsorsList();
-    this.getSchoolList();
-    this.getMajorList();
   }
 
-  getScholarshipAnnouncementList() {}
-  getScholarshipList() {}
-  getSponsorsList() {}
-  getSchoolList() {}
-  getMajorList() {}
+   getScholarshipAnnouncementList(): SmScholarshipAnnouncement[] {
+      let results = []
+    this.scholarshipannouncementService.getScholarshipAnnouncementList()
+     .subscribe(
+       results => {
+         this.scholarshipAnnouncementList = results;
+         results = results;
+       }
+     );
+    return results;
+   }
 
-}
+    //changePage
+    onPageSearch() {
+      this.mode = 'S';
+    }
+
+    onPageDetail() {
+      this.mode = 'I';
+    }
+  }
