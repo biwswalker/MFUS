@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-=======
 import { ScholarshipannouncementService } from './services/scholarshipannouncement.service';
 import { ScholarshipService } from './services/scholarship.service';
 
->>>>>>> 47861d9d6cd2aad41769e72f50d634172d25ad7d
 import { NewsService } from './services/news.service';
 import { SponsorsService } from './services/sponsors.service';
 import { MajorService } from './services/major.service';
@@ -172,13 +169,8 @@ const appRoutes: Routes = [
     ScholarshipannouncementService,
     ScholarshipService,
     MajorService,
-<<<<<<< HEAD
-    SponsorsService,
-    NewsService
-=======
     NewsService,
     SponsorsService
->>>>>>> 47861d9d6cd2aad41769e72f50d634172d25ad7d
   ],
   bootstrap: [AppComponent]
 })

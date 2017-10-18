@@ -153,7 +153,7 @@ export class ScholarshipComponent implements OnInit {
   //     this.sponsorsList = this.getSponsorsList();
   //   }, 100)
   }
-*/
+
 
   /*
   getSponsorsList(): SmSponsors[] {

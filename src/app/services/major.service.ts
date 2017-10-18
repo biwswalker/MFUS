@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class MajorService {
 
-  private mainUrl: string = 'http://localhost:8000/';
+  private mainUrl: string = config.backendUrl;
   constructor(private http: Http) { }
 
   //insert => post
@@ -54,13 +54,13 @@ export class MajorService {
 
     return this.http.get(url+criteria, {headers: headers})
     .map(
-      (res: Response) => {
+      (res) => {
         let results: MajorForm[] = [];
         let form: MajorForm = new MajorForm();
         console.log('res.json() = ' + res.json());
         for (let data of res.json()) {
           console.log('==================');
-          console.log('data.school_code = ' + data.school_code);
+          console.log('data.school_code = ' + data.rft_school.school_code);
           console.log('data.school_name_t = ' + data.school_name_t);
           console.log('data.school_name_e = ' + data.school_name_e);
           console.log('data.school_ref = ' + data.school_ref);
@@ -68,7 +68,7 @@ export class MajorService {
           console.log('data.school_name_t = ' + data.major_name_t);
           form = new MajorForm();
           form.rftMajor = data.rft_major;
-          form.rftSchool = data.rft_school
+          form.rftSchool = data.rft_school;
           console.log('form.rftSchool.school_name_t = ' + form.rftSchool.school_name_t);
           results.push(form);
         }
