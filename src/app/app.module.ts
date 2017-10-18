@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+import { ScholarshipannouncementService } from './services/scholarshipannouncement.service';
+import { ScholarshipService } from './services/scholarship.service';
+
+import { NewsService } from './services/news.service';
+import { SponsorsService } from './services/sponsors.service';
+import { MajorService } from './services/major.service';
+import { SchoolService } from './services/school.service';
+>>>>>>> 444d95a430fc403f52041125e3a0c51c004086ac
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -170,9 +180,13 @@ const appRoutes: Routes = [
     ScholarshipService,
     MajorService,
     NewsService,
+<<<<<<< HEAD
     SponsorsService,
     OfficerService,
     UserService
+=======
+    SponsorsService
+>>>>>>> 444d95a430fc403f52041125e3a0c51c004086ac
   ],
   bootstrap: [AppComponent]
 })

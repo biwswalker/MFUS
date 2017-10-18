@@ -152,8 +152,13 @@ export class ScholarshipComponent implements OnInit {
   //   setTimeout(() => {
   //     this.sponsorsList = this.getSponsorsList();
   //   }, 100)
+<<<<<<< HEAD
 //   }
 // */
+=======
+  }
+
+>>>>>>> 444d95a430fc403f52041125e3a0c51c004086ac
 
   /*
   getSponsorsList(): SmSponsors[] {
