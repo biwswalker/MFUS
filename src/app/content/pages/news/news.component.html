@@ -8,7 +8,7 @@
 
         <div class="col-xs-12">
             <div>
-                <label class="normal">News Subject*</label>
+                <label class="normal">หัวข้อข่าว*</label>
             </div>
             <input pInputText
               formControlName="news_topic"
@@ -21,7 +21,7 @@
 
         <div class="col-xs-12">
             <div>
-                <label class="normal">News Detail*</label>
+                <label class="normal">รายละเอียดข่าว*</label>
             </div>
             <p-editor
               formControlName="news_detail"
@@ -35,17 +35,17 @@
 
         <div class="col-xs-12">
             <div>
-                <label class="normal">Header Image</label>
+                <label class="normal">ภาพประกอบข่าว</label>
             </div>
             <label pButton
               class="btn-positive"
-              label="Upload"
+              label="อัพโหลด"
               (change)="onUpload($event)">
                 <input type="file"
                   accept="image/*, application/pdf"
                   class="display-none">
             </label>
-            <label>* The image's width choose be 870px</label>
+            <label>* รูปภาพต้องมีความกว้างไม่เกิน 870 พิกเซล</label>
         </div>
 
     </div>
@@ -53,7 +53,7 @@
 
         <div class="col-xs-3">
             <div>
-                <label for="" class="normal">Publish Date*</label>
+                <label for="" class="normal">วันที่ประกาศ*</label>
             </div>
             <p-calendar
               [(ngModel)]="newsForm.smNews.publish_date"
@@ -66,7 +66,7 @@
         <div class="col-xs-1"></div>
         <div class="col-xs-2">
             <div>
-                <label class="normal">Status</label>
+                <label class="normal">สถานะ</label>
             </div>
             <p-dropdown
               name="active_flag"
@@ -85,13 +85,13 @@
             <button pButton
               type="submit"
               class="btn-positive"
-              label="Save"
+              label="บันทึก"
               [disabled]="!newsFormGroup.valid">
             </button>
             <button pButton
               type="button"
               class="btn-positive"
-              label="Reset"
+              label="เริ่มใหม่"
               (click)="resetForm()">
             </button>
             <button pButton
@@ -106,7 +106,7 @@
                 <button pButton
                   type="button"
                   class="btn-positive"
-                  label="Back"
+                  label="กลับ"
                   (click)="onPageSearch()">
                 </button>
             </div>
@@ -114,6 +114,7 @@
         <div class="col-xs-1"></div>
     </div>
   </form>
+
 <div *ngIf="preview">
   <div class="row" >
     <div class="col-xs-1"></div>
@@ -136,8 +137,7 @@
   <div class="row">
     <div class="col-xs-1"></div>
     <div class="col-xs-10">
-      
-      {{newsForm.smNews.news_detail}}
+      <div [innerHTML]="newsForm.smNews.news_detail"></div>
     </div>
     <div class="col-xs-1"></div>
   </div>
@@ -148,7 +148,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div>
-        <label class="normal">News Topic</label>
+        <label class="normal">หัวข้อข่าว</label>
       </div>
       <input pInputText
         type="text"
@@ -160,14 +160,14 @@
   <div class="row">
     <div class="col-xs-10">
       <div>
-        <label class="normal">Publish Date</label>
+        <label class="normal">วันที่ประกาศ</label>
       </div>
       <p-calendar
         id="startDate"
         [showIcon]="true"
         [(ngModel)]="criteriaNewsForm.startDate">
       </p-calendar>
-      <label style="padding:0px 5px 0px 30px"> To </label>
+      <label style="padding:0px 5px 0px 30px">ถึง </label>
       <p-calendar
         id="endDate"
         [showIcon]="true"
@@ -177,7 +177,7 @@
     <div class="col-xs-2">
 
       <div>
-        <label class="normal">Status</label>
+        <label class="normal">สถานะ</label>
       </div>
       <div style="text-align:right">
       <p-dropdown
@@ -196,13 +196,13 @@
         <button pButton
         type="button"
         class="btn-positive"
-        label="Search"
+        label="ค้นหา"
         (click)="onSearchNews()">
       </button>
       <button pButton
         type="button"
         class="btn-positive"
-        label="Reset"
+        label="เริ่มใหม่"
         (click)="resetSearch()">
       </button>
     </div>
@@ -211,7 +211,7 @@
         <button pButton
         type="button"
         class="btn-positive"
-        label="New"
+        label="เพิ่มใหม่"
         (click)="onInsertNews()">
       </button>
     </div>
@@ -229,15 +229,15 @@
                    sortMode="multiple">
         <p-column [sortable]="true"
                   field="smNews.publish_date"
-                  header="Publish Date"
+                  header="วันที่ประกาศ"
                   [style]="{'width':'15%','text-align':'center'}"></p-column>
         <p-column [sortable]="true"
                   field="smNews.news_topic"
-                  header="News topic"></p-column>
+                  header="หัวข้อข่าว"></p-column>
         <p-column [sortable]="true"
                   field="smNews.active_flag"
                   [sortable]="true"
-                  header="Status"
+                  header="สถานะ"
                   [style]="{'width':'10%','text-align':'center'}">
         </p-column>
       </p-dataTable>

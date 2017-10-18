@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-=======
-import { ScholarshipannouncementService } from './services/scholarshipannouncement.service';
-import { ScholarshipService } from './services/scholarship.service';
-
->>>>>>> 47861d9d6cd2aad41769e72f50d634172d25ad7d
-import { NewsService } from './services/news.service';
-import { SponsorsService } from './services/sponsors.service';
-import { MajorService } from './services/major.service';
-import { SchoolService } from './services/school.service';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -66,15 +56,22 @@ import { AnnoucncementComponent } from './content/pages/annoucncement/annoucncem
 import { OfficerComponent } from './content/pages/officer/officer.component';
 import { ReguserComponent } from './content/pages/reguser/reguser.component';
 import { RegscholarshipComponent } from './content/pages/regscholarship/regscholarship.component';
+import { SchoolComponent } from './content/pages/school/school.component';
+import { MajorComponent } from './content/pages/major/major.component';
+import { NewsComponent } from './content/pages/news/news.component';
 
 //Service
 import { UtilsService } from './services/utils.service';
 import { AuthenticationService } from './services/authentication.service';
 import { StepService } from './services/tag/step.service';
-import { SchoolComponent } from './content/pages/school/school.component';
-import { MajorComponent } from './content/pages/major/major.component';
-import { NewsComponent } from './content/pages/news/news.component';
-
+import { OfficerService } from './services/officer.service';
+import { ScholarshipannouncementService } from './services/scholarshipannouncement.service';
+import { ScholarshipService } from './services/scholarship.service';
+import { NewsService } from './services/news.service';
+import { SponsorsService } from './services/sponsors.service';
+import { MajorService } from './services/major.service';
+import { SchoolService } from './services/school.service';
+import { UserService } from './services/user.service';
 
 
 
@@ -134,7 +131,7 @@ const appRoutes: Routes = [
     RegscholarshipComponent,
     SchoolComponent,
     MajorComponent,
-    NewsComponent
+    NewsComponent,
   ],
   imports: [
     BrowserModule,
@@ -172,13 +169,10 @@ const appRoutes: Routes = [
     ScholarshipannouncementService,
     ScholarshipService,
     MajorService,
-<<<<<<< HEAD
-    SponsorsService,
-    NewsService
-=======
     NewsService,
-    SponsorsService
->>>>>>> 47861d9d6cd2aad41769e72f50d634172d25ad7d
+    SponsorsService,
+    OfficerService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

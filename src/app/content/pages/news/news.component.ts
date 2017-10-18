@@ -143,8 +143,8 @@ export class NewsComponent implements OnInit {
 
   SearchNews() {
     const resultList: NewsForm[] = [];
-    // this.criteriaNewsForm.startDate = moment(this.criteriaNewsForm.startDate).format('YYYY-MM-DD');
-    // this.criteriaNewsForm.endDate = moment(this.criteriaNewsForm.endDate).format('YYYY-MM-DD');
+    this.criteriaNewsForm.startDate = moment(this.criteriaNewsForm.startDate).format('YYYY-MM-DD');
+    this.criteriaNewsForm.endDate = moment(this.criteriaNewsForm.endDate).format('YYYY-MM-DD');
     this.newsService.searchNews(this.criteriaNewsForm)
       .subscribe(
       result => {
@@ -167,8 +167,6 @@ export class NewsComponent implements OnInit {
     console.log('selectedNews', this.newsSelected);
     console.log(event.data);
     this.mode = 'U';
-    // this.onrowDate = moment(this.newsSelected.smNews.publish_date).format('YYYY-MM-DD');;
-
     this.newsForm = new NewsForm();
     this.newsForm = event.data;
     this.newsForm.smNews.publish_date = moment(this.newsSelected.smNews.publish_date).toDate();
@@ -182,33 +180,33 @@ export class NewsComponent implements OnInit {
   updateNews() {
     console.log(this.newsFormGroup.value);
     const value = this.newsFormGroup.value;
-    value.news_image = this.image;
-    if( this.file.name != null){
-      value.news_name = this.file.name;
-    }
-    value.news_type = this.file.type;
+    // value.news_image = this.image;
+    // if( this.file.name != null){
+    //   value.news_name = this.file.name;
+    // }
+    // value.news_type = this.file.type;
     value.publish_date = moment(value.publish_date).format('YYYY-MM-DD');
     console.log(this.newsFormGroup.value.news_ref);
     this.newsService.updateNews(value, this.newsForm.smNews.news_ref)
     .subscribe(
       (res: Response) => {
-        let school_ref = res.json().school_ref;
+        let news_ref = res.json().news_ref;
         console.log(res.json());
-        console.log(res.json().school_ref);
+        console.log(res.json().news_ref);
         console.log(res.statusText);
 
         this.newsFormGroup.reset();
 
         this.onPageSearch();
 
-        this.showSuccess('แก้ไขข้อมูลสาขาวิชาเรียบร้อยแล้ว');
+        this.showSuccess('แก้ไขข้อมูลข่าวสารเรียบร้อยแล้ว');
 
       },
       (error) =>{
         console.log(error);
         let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
         if(error.status == 409) {
-          message = 'มีการใช้รหัสสาขาวิชานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+          message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
         }
         this.showError(message);
         return;

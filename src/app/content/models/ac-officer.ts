@@ -16,7 +16,7 @@ export class AcOfficer {
   public profile_name: string;
   public profile_type: string;
   public profile_image: any;
-  public manage_officer_flag: string;
+  public manage_officer_flag: boolean;
   public active_flag: string;
   public create_user: string;
   public create_datetime: Date;
