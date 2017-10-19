@@ -34,7 +34,6 @@ export class NewsService {
         criteria = criteria + 'news_topic=' + news.smNews.news_topic + '&';
       }
 
-<<<<<<< HEAD
       if(news.startDate != null &&
         news.startDate !='') {
           news.startDate = moment(news.startDate).format('YYYY-MM-DD');
@@ -45,14 +44,6 @@ export class NewsService {
         news.endDate != '') {
           news.endDate = moment(news.endDate).format('YYYY-MM-DD');
         criteria = criteria + 'endDate=' + news.endDate + '&';
-=======
-      if(news.startDate != null) {
-        criteria = criteria + 'startDate=' + news.startDate + '&'
-      }
-
-      if(news.startDate != null) {
-        criteria = criteria + 'startDate=' + news.endDate + '&'
->>>>>>> 53d0f32ffe470a8346a206da270b624f1a318ebc
       }
 
       if(news.smNews.active_flag !=null

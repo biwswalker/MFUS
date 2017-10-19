@@ -1,3 +1,7 @@
+import { TitlenameComponent } from './content/pages/titlename/titlename.component';
+import { SchoolComponent } from './content/pages/school/school.component';
+import { MajorComponent } from './content/pages/major/major.component';
+import { NewsComponent } from './content/pages/news/news.component';
 import { ScholarshipannouncementService } from './services/scholarshipannouncement.service';
 import { ScholarshipService } from './services/scholarship.service';
 
@@ -68,16 +72,8 @@ import { RegscholarshipComponent } from './content/pages/regscholarship/regschol
 import { UtilsService } from './services/utils.service';
 import { AuthenticationService } from './services/authentication.service';
 import { StepService } from './services/tag/step.service';
-<<<<<<< HEAD
 import { OfficerService } from './services/officer.service';
 import { UserService } from './services/user.service';
-=======
-import { SchoolComponent } from './content/pages/school/school.component';
-import { MajorComponent } from './content/pages/major/major.component';
-import { NewsComponent } from './content/pages/news/news.component';
-import { TitlenameComponent } from './content/pages/titlename/titlename.component';
-
->>>>>>> 53d0f32ffe470a8346a206da270b624f1a318ebc
 
 
 
@@ -179,11 +175,8 @@ const appRoutes: Routes = [
     MajorService,
     NewsService,
     SponsorsService,
-<<<<<<< HEAD
     OfficerService,
     UserService
-=======
->>>>>>> 53d0f32ffe470a8346a206da270b624f1a318ebc
   ],
   bootstrap: [AppComponent]
 })

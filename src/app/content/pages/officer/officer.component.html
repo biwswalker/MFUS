@@ -3,9 +3,6 @@
     <p>จัดการข้อมูลเจ้าหน้าที่</p>
     <div class="underline-blue"></div>
   </div>
-
-
-
   <div class="content" *ngIf="mode !== 'S'">
     <form [formGroup]="officerFormGroup" (ngSubmit)="onSubmit()">
       <div class="row">
@@ -164,28 +161,21 @@
 
         </div>
       </div>
-      </form>
+    </form>
   </div>
 
-
-
-
-  <div class="content">
-    <div class="content-header-blue">
-      <p>จัดการข้อมูลเจ้าหน้าที่</p>
-      <div class="underline-blue"></div>
-    </div>
+  <div class="content" *ngIf="mode == 'S'">
     <div class="row">
       <div class="col-xs-8">
         <label class="normal"> รหัสเจ้าหน้าที่</label>
         <div>
-          <input [(ngModel)]="officerSearchForm.acOfficer.officerCode" name="inputOfficerCode" type="text" size="25" pInputText>
+          <input [(ngModel)]="officerCriteriaForm.acOfficer.officer_code" name="inputOfficerCode" type="text" size="25" pInputText>
         </div>
       </div>
       <div class="col-xs-4">
         <label class="normal"> สถานะ</label>
         <div>
-          <p-dropdown name="Status" [options]="statusList" [(ngModel)]="officerSearchForm.acOfficer.activeFlag" [style]="{'width':'150px'}">
+          <p-dropdown name="Status" [options]="statusList" [(ngModel)]="officerCriteriaForm.acOfficer.active_flag" [style]="{'width':'150px'}">
           </p-dropdown>
         </div>
       </div>
@@ -194,19 +184,19 @@
       <div class="col-xs-4">
         <label class="normal"> ชื่อ</label>
         <div>
-          <input [(ngModel)]="officerSearchForm.acOfficer.firstName" name="inputFirstName" type="text" size="25" pInputText>
+          <input [(ngModel)]="officerCriteriaForm.acOfficer.first_name" name="inputFirstName" type="text" size="25" pInputText>
         </div>
       </div>
       <div class="col-xs-4">
         <label class="normal"> นามสกุล</label>
         <div>
-          <input [(ngModel)]="officerSearchForm.acOfficer.lastName" name="inputFirstName" type="text" size="25" pInputText>
+          <input [(ngModel)]="officerCriteriaForm.acOfficer.last_name" name="inputFirstName" type="text" size="25" pInputText>
         </div>
       </div>
       <div class="col-xs-4">
         <label class="normal"> เลขประชาชน/พาสปอร์ต</label>
         <div>
-          <input [(ngModel)]="officerSearchForm.acOfficer.personalId" name="inputPersonalId" type="text" size="25" pInputText>
+          <input [(ngModel)]="officerCriteriaForm.acOfficer.personal_id" name="inputPersonalId" type="text" size="25" pInputText>
         </div>
       </div>
     </div>
@@ -214,7 +204,7 @@
     <div class="row">
       <div class="col-xs-12">
 
-        <button pButton type="submit" class="btn-positive" label="ค้นหา"></button>
+        <button pButton type="submit" class="btn-positive" label="ค้นหา" (click)="onSearch()"></button>
         <button pButton type="button" class="btn-normal" label="รีเซ็ท"></button>
 
         <button pButton type="button" style="float: right;" class="btn-negative" label="สร้างใหม่"></button>
@@ -223,16 +213,16 @@
     </div>
     <div class="space"></div>
     <div class="row">
-      <p-dataTable [value]="formList" selectionMode="single" [(selection)]="selectedStudent" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[5,10,20]"
+      <p-dataTable [value]="formList" selectionMode="single" [(selection)]="selectedOfficer" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[5,10,20]"
         sortMode="multiple" (onRowSelect)="onRowSelect($event)">
 
-        <p-column [sortable]="true" field="acOfficer.officerCode" header="รหัสเจ้าหน้าที่"></p-column>
-        <p-column [sortable]="true" field="acOfficer.name" header="ชื่อเจ้าหน้าที่"></p-column>
-        <p-column [sortable]="true" field="acOfficer.personalId" [sortable]="true" header="เลขประชาชน/พาสปอร์ต"></p-column>
-        <p-column [sortable]="true" field="acOfficer.phoneNo" header="เบอร์โทรศัพท์"></p-column>
+        <p-column [sortable]="true" field="acOfficer.officer_code" header="รหัสเจ้าหน้าที่"></p-column>
+        <p-column [sortable]="true" field="fullname" header="ชื่อเจ้าหน้าที่"></p-column>
+        <p-column [sortable]="true" field="acOfficer.personal_id" [sortable]="true" header="เลขประชาชน/พาสปอร์ต"></p-column>
+        <p-column [sortable]="true" field="acOfficer.phone_no" header="เบอร์โทรศัพท์"></p-column>
         <p-column [sortable]="true" field="acOfficer.email" header="อีเมล"></p-column>
-        <p-column [sortable]="true" field="acOfficer.activeFlag" header="สถานะ"></p-column>
+        <p-column [sortable]="true" field="status" header="สถานะ"></p-column>
       </p-dataTable>
     </div>
-
   </div>
+</div>

@@ -154,12 +154,7 @@ export class NewsComponent implements OnInit {
 
   SearchNews() {
     const resultList: NewsForm[] = [];
-<<<<<<< HEAD
     console.log('criteria: ', this.criteriaNewsForm);
-=======
-    // this.criteriaNewsForm.startDate = moment(this.criteriaNewsForm.startDate).format('YYYY-MM-DD');
-    // this.criteriaNewsForm.endDate = moment(this.criteriaNewsForm.endDate).format('YYYY-MM-DD');
->>>>>>> 53d0f32ffe470a8346a206da270b624f1a318ebc
     this.newsService.searchNews(this.criteriaNewsForm)
       .subscribe(
       result => {
@@ -182,12 +177,7 @@ export class NewsComponent implements OnInit {
     console.log('selectedNews', this.newsSelected);
     console.log(event.data);
     this.mode = 'U';
-<<<<<<< HEAD
     this.submitButton = 'แก้ไข';
-=======
-    // this.onrowDate = moment(this.newsSelected.smNews.publish_date).format('YYYY-MM-DD');;
-
->>>>>>> 53d0f32ffe470a8346a206da270b624f1a318ebc
     this.newsForm = new NewsForm();
     this.newsForm = event.data;
     this.newsForm.smNews.publish_date = moment(this.newsSelected.smNews.publish_date).toDate();
@@ -211,10 +201,6 @@ export class NewsComponent implements OnInit {
     console.log(this.newsFormGroup.value);
     const value = this.newsFormGroup.value;
     value.news_image = this.image;
-<<<<<<< HEAD
-
-=======
->>>>>>> 53d0f32ffe470a8346a206da270b624f1a318ebc
     if( this.file.name != null){
       value.news_name = this.file.name;
     }
