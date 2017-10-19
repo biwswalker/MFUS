@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-=======
 import { ScholarshipannouncementService } from './services/scholarshipannouncement.service';
 import { ScholarshipService } from './services/scholarship.service';
 
->>>>>>> 47861d9d6cd2aad41769e72f50d634172d25ad7d
 import { NewsService } from './services/news.service';
 import { SponsorsService } from './services/sponsors.service';
 import { MajorService } from './services/major.service';
@@ -74,6 +71,7 @@ import { StepService } from './services/tag/step.service';
 import { SchoolComponent } from './content/pages/school/school.component';
 import { MajorComponent } from './content/pages/major/major.component';
 import { NewsComponent } from './content/pages/news/news.component';
+import { TitlenameComponent } from './content/pages/titlename/titlename.component';
 
 
 
@@ -95,6 +93,7 @@ const appRoutes: Routes = [
       { path: 'major', component: MajorComponent },
       { path: 'news', component: NewsComponent },
       { path: 'regscholarship', component: RegscholarshipComponent },
+      { path: 'titlename', component: TitlenameComponent },
     ]
   }
 ];
@@ -134,7 +133,8 @@ const appRoutes: Routes = [
     RegscholarshipComponent,
     SchoolComponent,
     MajorComponent,
-    NewsComponent
+    NewsComponent,
+    TitlenameComponent
   ],
   imports: [
     BrowserModule,
@@ -172,13 +172,8 @@ const appRoutes: Routes = [
     ScholarshipannouncementService,
     ScholarshipService,
     MajorService,
-<<<<<<< HEAD
-    SponsorsService,
-    NewsService
-=======
     NewsService,
     SponsorsService
->>>>>>> 47861d9d6cd2aad41769e72f50d634172d25ad7d
   ],
   bootstrap: [AppComponent]
 })
