@@ -214,7 +214,7 @@ export class OfficerComponent implements OnInit {
   autocompleteSubDistrict(event) {
     let query = event.query;
     this.subDistrictList = [];
-    this.subDistrictObject.postcode = '';
+    this.districtObject.postcode = '';
     let objList: RftSubDistrict[] = this.listSubDistrict;
     for (let obj of objList) {
       // Filter By string event
@@ -226,6 +226,7 @@ export class OfficerComponent implements OnInit {
         }
       }
     }
+    this.officerEditForm.acOfficer.postcode = this.districtObject.postcode;
   }
 
   // On Click Autocomplete Dropdown Button
@@ -386,28 +387,33 @@ export class OfficerComponent implements OnInit {
   }
 
   onRowSelect(event) {
-    console.log('selectedOfficer', this.selectedOfficer);
-    console.log(event.data);
     this.mode = 'U';
-
     this.officerEditForm = new OfficerForm();
     this.officerEditForm = event.data;
     this.officerEditForm.rftProvince = this.getSelectedProvince(this.officerEditForm.acOfficer.province);
     this.officerEditForm.rftDistrict = this.getSelectedDistrict(this.officerEditForm.acOfficer.district);
     this.officerEditForm.rftSubDistrict = this.getSelectedSubDistrict(this.officerEditForm.acOfficer.sub_district);
     this.image = this.officerEditForm.acOfficer.profile_image;
+
     console.log('form: ', this.officerEditForm);
 
     this.validatorEditForm();
   }
 
   updateAcOfficer() {
-
+    console.log('this.offierFormGroup: ', this.officerFormGroup.value);
     const value = this.officerFormGroup.value;
     value.officer_ref = this.officerEditForm.acOfficer.officer_ref;
     value.profile_image = this.image;
     value.profile_name = this.officerEditForm.acOfficer.personal_id;
-    value.profile_type = this.file.type;
+    console.log('form.image.type: ', this.officerEditForm.acOfficer.profile_type);
+    console.log('file.type: ',this.file.type);
+    console.log('image.type: ', this.file.type);
+    if(this.file.type == null) {
+      value.profile_type = this.officerEditForm.acOfficer.profile_type;
+    }else {
+      value.profile_type = this.file.type;
+    }
     console.log('ref: ', this.officerEditForm.acOfficer.officer_ref);
     this.officerService.updateOfficer(value, this.officerEditForm.acOfficer.officer_ref)
     .subscribe(

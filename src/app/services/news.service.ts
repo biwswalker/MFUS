@@ -4,6 +4,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { NewsForm } from '../content/form/news-form';
 import 'rxjs/add/operator/map';
+import * as moment from 'moment';
 
 @Injectable()
 export class NewsService {
@@ -33,18 +34,28 @@ export class NewsService {
         criteria = criteria + 'news_topic=' + news.smNews.news_topic + '&';
       }
 
-      // if(news.startDate != null) {
-      //   criteria = criteria + 'startDate=' + news.startDate + '&'
-      // }
+      if(news.startDate != null &&
+        news.startDate !='') {
+          news.startDate = moment(news.startDate).format('YYYY-MM-DD');
+        criteria = criteria + 'startDate=' + news.startDate + '&';
+      }
 
-      // if(news.endDate != null) {
-      //   criteria = criteria + 'endDate=' + news.endDate + '&'
-      // }
+      if(news.endDate != null &&
+        news.endDate != '') {
+          news.endDate = moment(news.endDate).format('YYYY-MM-DD');
+        criteria = criteria + 'endDate=' + news.endDate + '&';
+      }
 
       if(news.smNews.active_flag !=null
         && news.smNews.active_flag != '') {
         criteria = criteria + 'active_flag=' + news.smNews.active_flag + '&'
       }
+
+
+      // if(news.smNews.news_topic != null
+      //   && major.rftMajor.major_name_t != '') {
+      //   criteria = criteria + 'major_name_t=' + major.rftMajor.major_name_t + '&';
+      // }
 
       console.log('criteria :', criteria);
       if(criteria.length > 1){

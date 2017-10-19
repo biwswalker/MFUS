@@ -2,6 +2,7 @@
     <p>บันทึกข่าวสาร</p>
     <div class="underline-blue"></div>
 </div>
+<p-messages [(value)]="msgs" style="height:50%"></p-messages>
 <div class="content"  *ngIf="mode !== 'S'">
 <form [formGroup]="newsFormGroup" (ngSubmit)="onSubmit()">
     <div class="row">
@@ -15,7 +16,6 @@
               [(ngModel)]="newsForm.smNews.news_topic"
               type="text">
         </div>
-
     </div>
     <div class="row">
 
@@ -85,8 +85,7 @@
             <button pButton
               type="submit"
               class="btn-positive"
-              label="บันทึก"
-              [disabled]="!newsFormGroup.valid">
+              label="{{submitButton}}">
             </button>
             <button pButton
               type="button"
@@ -94,6 +93,11 @@
               label="เริ่มใหม่"
               (click)="resetForm()">
             </button>
+            <button pButton
+            type="button"
+            class="ui-button-danger"
+            label="ลบ">
+          </button>
             <button pButton
               type="button"
               class="btn-positive"
@@ -116,6 +120,7 @@
   </form>
 
 <div *ngIf="preview">
+  <div class="space"></div>
   <div class="row" >
     <div class="col-xs-1"></div>
     <div class="col-xs-10">
@@ -123,21 +128,30 @@
         {{newsForm.smNews.news_topic}}
       </div>
       <div class="underline-blue"></div>
+      <div class="space"></div>
      </div>
     <div class="col-xs-1"></div>
   </div>
   <div class="row">
     <div class="col-xs-1"></div>
     <div class="col-xs-10">
-        <img src="{{newsForm.smNews.news_image}}"
-        class="image-preview">
+        <img src="{{newsForm.smNews.news_image}}" width="100%" height="100%">
     </div>
     <div class="col-xs-1"></div>
   </div>
+  <div class="space"></div>
   <div class="row">
     <div class="col-xs-1"></div>
     <div class="col-xs-10">
       <div [innerHTML]="newsForm.smNews.news_detail"></div>
+    </div>
+    <div class="col-xs-1"></div>
+  </div>
+  <div class="space"></div>
+  <div class="row">
+    <div class="col-xs-1"></div>
+    <div class="col-xs-10" style="text-align: right">
+      วันที่ประกาศข่าว : {{previewDate}}
     </div>
     <div class="col-xs-1"></div>
   </div>

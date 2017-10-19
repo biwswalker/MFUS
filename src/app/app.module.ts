@@ -1,5 +1,16 @@
 import { ApplyscholarshipService } from './services/applyscholarship.service';
 
+import { TitlenameComponent } from './content/pages/titlename/titlename.component';
+import { SchoolComponent } from './content/pages/school/school.component';
+import { MajorComponent } from './content/pages/major/major.component';
+import { NewsComponent } from './content/pages/news/news.component';
+import { ScholarshipannouncementService } from './services/scholarshipannouncement.service';
+import { ScholarshipService } from './services/scholarship.service';
+
+import { NewsService } from './services/news.service';
+import { SponsorsService } from './services/sponsors.service';
+import { MajorService } from './services/major.service';
+import { SchoolService } from './services/school.service';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -58,21 +69,12 @@ import { AnnoucncementComponent } from './content/pages/annoucncement/annoucncem
 import { OfficerComponent } from './content/pages/officer/officer.component';
 import { ReguserComponent } from './content/pages/reguser/reguser.component';
 import { RegscholarshipComponent } from './content/pages/regscholarship/regscholarship.component';
-import { SchoolComponent } from './content/pages/school/school.component';
-import { MajorComponent } from './content/pages/major/major.component';
-import { NewsComponent } from './content/pages/news/news.component';
 
 //Service
 import { UtilsService } from './services/utils.service';
 import { AuthenticationService } from './services/authentication.service';
 import { StepService } from './services/tag/step.service';
 import { OfficerService } from './services/officer.service';
-import { ScholarshipannouncementService } from './services/scholarshipannouncement.service';
-import { ScholarshipService } from './services/scholarship.service';
-import { NewsService } from './services/news.service';
-import { SponsorsService } from './services/sponsors.service';
-import { MajorService } from './services/major.service';
-import { SchoolService } from './services/school.service';
 import { UserService } from './services/user.service';
 import { ApplyScholarshipComponent } from './content/pages/apply-scholarship/apply-scholarship.component';
 import { ApplicantInfoComponent } from './content/pages/apply-scholarship/applicant-info/applicant-info.component';
@@ -96,6 +98,7 @@ const appRoutes: Routes = [
       { path: 'major', component: MajorComponent },
       { path: 'news', component: NewsComponent },
       { path: 'regscholarship', component: RegscholarshipComponent },
+      { path: 'titlename', component: TitlenameComponent },
     ]
   }
 ];
@@ -138,6 +141,7 @@ const appRoutes: Routes = [
     NewsComponent,
     ApplyScholarshipComponent,
     ApplicantInfoComponent,
+    TitlenameComponent
   ],
   imports: [
     BrowserModule,
@@ -177,7 +181,9 @@ const appRoutes: Routes = [
     MajorService,
     NewsService,
     SponsorsService,
-    ApplyscholarshipService
+    ApplyscholarshipService,
+    OfficerService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

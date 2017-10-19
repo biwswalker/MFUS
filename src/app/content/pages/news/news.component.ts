@@ -32,10 +32,14 @@ export class NewsComponent implements OnInit {
   binaryString: string;
   file: File;
 
+  submitButton: string;
 
   onrowDate: string;
   minDate: Date;
+  previewDate: string;
+  status: string;
   preview = false;
+
 
   constructor(private newsService: NewsService) { }
 
@@ -52,12 +56,14 @@ export class NewsComponent implements OnInit {
     this.newsForm.smNews.create_user = 'phai';
     this.newsForm.smNews.update_user = 'phai';
     this.validatorEditForm();
+    this.submitButton = 'บันทึก';
   }
 
   initSearchData() {
     this.criteriaNewsForm = new NewsForm();
     this.newsSelected = new NewsForm();
     this.newsFormList = [];
+
   }
   validatorEditForm() {
     this.newsFormGroup = new FormGroup({
@@ -81,10 +87,14 @@ export class NewsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('form: ', this.newsForm);
-
     if (this.mode === 'I') {
-      this.addNews();
+      if(this.newsForm.smNews.news_topic == null) {
+        this.msgs = [];
+        this.msgs.push({severity:'error', summary:'กรุณาระบุ', detail:'หัวข้อข่าว'});
+      }else {
+        this.addNews();
+      }
+
     } else if (this.mode === 'U') {
       this.updateNews();
     }
@@ -94,7 +104,7 @@ export class NewsComponent implements OnInit {
     console.log('addNews.value: ', this.newsFormGroup.value);
 
     const value = this.newsFormGroup.value;
-    value.news_image = this.image;
+    value.news_image = this.newsForm.smNews.news_image;
     value.news_name = this.file.name;
     value.news_type = this.file.type;
 
@@ -113,6 +123,7 @@ export class NewsComponent implements OnInit {
         console.log(res.statusText);
 
         this.newsFormGroup.reset();
+        this.preview = false;
 
         this.initEditData();
 
@@ -143,8 +154,7 @@ export class NewsComponent implements OnInit {
 
   SearchNews() {
     const resultList: NewsForm[] = [];
-    this.criteriaNewsForm.startDate = moment(this.criteriaNewsForm.startDate).format('YYYY-MM-DD');
-    this.criteriaNewsForm.endDate = moment(this.criteriaNewsForm.endDate).format('YYYY-MM-DD');
+    console.log('criteria: ', this.criteriaNewsForm);
     this.newsService.searchNews(this.criteriaNewsForm)
       .subscribe(
       result => {
@@ -167,9 +177,12 @@ export class NewsComponent implements OnInit {
     console.log('selectedNews', this.newsSelected);
     console.log(event.data);
     this.mode = 'U';
+    this.submitButton = 'แก้ไข';
     this.newsForm = new NewsForm();
     this.newsForm = event.data;
     this.newsForm.smNews.publish_date = moment(this.newsSelected.smNews.publish_date).toDate();
+    this.newsForm.smNews.active_flag = this.getStatus(this.newsSelected.smNews.active_flag);
+
     console.log('image: ', this.newsForm.smNews.news_image);
     console.log('DateFormat',this.newsForm.smNews.publish_date);
     this.validatorEditForm();
@@ -177,36 +190,43 @@ export class NewsComponent implements OnInit {
     console.log(this.newsForm.smNews);
   }
 
+  getStatus(value) {
+    if(value == 'ใช้งาน') {
+      return this.newsForm.smNews.active_flag = 'Y';
+    }else {
+      return this.newsForm.smNews.active_flag = 'N';
+    }
+  }
   updateNews() {
     console.log(this.newsFormGroup.value);
     const value = this.newsFormGroup.value;
-    // value.news_image = this.image;
-    // if( this.file.name != null){
-    //   value.news_name = this.file.name;
-    // }
-    // value.news_type = this.file.type;
+    value.news_image = this.image;
+    if( this.file.name != null){
+      value.news_name = this.file.name;
+    }
+    value.news_type = this.file.type;
     value.publish_date = moment(value.publish_date).format('YYYY-MM-DD');
     console.log(this.newsFormGroup.value.news_ref);
     this.newsService.updateNews(value, this.newsForm.smNews.news_ref)
     .subscribe(
       (res: Response) => {
-        let news_ref = res.json().news_ref;
+        let school_ref = res.json().school_ref;
         console.log(res.json());
-        console.log(res.json().news_ref);
+        console.log(res.json().school_ref);
         console.log(res.statusText);
 
         this.newsFormGroup.reset();
 
         this.onPageSearch();
 
-        this.showSuccess('แก้ไขข้อมูลข่าวสารเรียบร้อยแล้ว');
+        this.showSuccess('แก้ไขข้อมูลสาขาวิชาเรียบร้อยแล้ว');
 
       },
       (error) =>{
         console.log(error);
         let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
         if(error.status == 409) {
-          message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+          message = 'มีการใช้รหัสสาขาวิชานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
         }
         this.showError(message);
         return;
@@ -240,7 +260,7 @@ export class NewsComponent implements OnInit {
 
   handleReaderLoaded(readerEvent) {
     this.binaryString = readerEvent.target.result;
-    this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
+    this.newsForm.smNews.news_image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
     // console.log(btoa(this.binaryString));
     console.log(this.file.name);
     console.log(this.file.size);
@@ -255,10 +275,19 @@ export class NewsComponent implements OnInit {
   }
 
   resetForm() {
-    this.initEditData();
+    if(this.mode == 'I') {
+      console.log('resetInsert')
+      this.initEditData();
+    }else {
+      console.log('resetUpdate')
+      this.newsForm;
+    }
+
   }
   onPreview() {
     console.log('onPreview');
+    console.log('newsForm: ', this.newsForm);
+    this.previewDate = moment(this.newsForm.smNews.publish_date).format('DD-MM-YYYY');
     this.preview = !this.preview;
   }
 

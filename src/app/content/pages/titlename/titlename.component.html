@@ -1,0 +1,43 @@
+<!-- mode insert -->
+<div class="content" *ngIf="mode !== 'S'">
+  <div class="content-header-blue">
+    <p>ข้อมูลคำนำหน้าชื่อ</p>
+    <div class="underline-blue"></div>
+  </div>
+</div>
+
+<!-- mode search -->
+<div class="content" *ngIf="mode === 'S'">
+  <div class="content-header-blue" >
+    <p>ค้นหาข้อมูลสาขาวิชา</p>
+    <div class="underline-red"></div>
+  </div>
+
+<!-- button -->
+<div class="space"></div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button pButton
+        type="button"
+        (click)="onSearch()"
+        class="btn-positive"
+        label="ค้นหา">
+      </button>
+      <button pButton
+        type="button"
+        class="btn-normal"
+        (click)="onResetSearch()"
+        label="เริ่มใหม่">
+      </button>
+      <button pButton
+        type="button"
+        style="float: right;"
+        class="btn-negative"
+        (click)="onPageInsert()"
+        label="สร้างใหม่">
+      </button>
+    </div>
+  </div>
+  <!-- button -->
+
+</div>
