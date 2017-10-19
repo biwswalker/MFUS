@@ -1,8 +1,8 @@
 import {SmNews} from '../models/sm-news';
 export class NewsForm {
   public smNews: SmNews;
-  startDate: any;
-  endDate: any;
+  startDate: string;
+  endDate: string;
   constructor() {
     this.smNews = new SmNews();
   }
