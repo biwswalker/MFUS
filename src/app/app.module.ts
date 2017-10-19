@@ -173,7 +173,7 @@ const appRoutes: Routes = [
     ScholarshipService,
     MajorService,
     NewsService,
-    SponsorsService
+    SponsorsService,
   ],
   bootstrap: [AppComponent]
 })
