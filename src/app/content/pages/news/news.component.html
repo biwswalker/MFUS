@@ -2,6 +2,7 @@
     <p>บันทึกข่าวสาร</p>
     <div class="underline-blue"></div>
 </div>
+<p-messages [(value)]="msgs" style="height:50%"></p-messages>
 <div class="content"  *ngIf="mode !== 'S'">
 <form [formGroup]="newsFormGroup" (ngSubmit)="onSubmit()">
     <div class="row">
@@ -15,7 +16,6 @@
               [(ngModel)]="newsForm.smNews.news_topic"
               type="text">
         </div>
-
     </div>
     <div class="row">
 
@@ -85,8 +85,7 @@
             <button pButton
               type="submit"
               class="btn-positive"
-              label="{{submitButton}}"
-              [disabled]="!newsFormGroup.valid">
+              label="{{submitButton}}">
             </button>
             <button pButton
               type="button"

@@ -88,7 +88,13 @@ export class NewsComponent implements OnInit {
 
   onSubmit() {
     if (this.mode === 'I') {
-      this.addNews();
+      if(this.newsForm.smNews.news_topic == null) {
+        this.msgs = [];
+        this.msgs.push({severity:'error', summary:'กรุณาระบุ', detail:'หัวข้อข่าว'});
+      }else {
+        this.addNews();
+      }
+
     } else if (this.mode === 'U') {
       this.updateNews();
     }
