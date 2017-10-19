@@ -4,7 +4,7 @@
     <div class="underline-blue"></div>
   </div>
 
-  <p-growl [(value)]="msgs" ></p-growl>
+
 
   <div class="content" *ngIf="mode !== 'S'">
     <form [formGroup]="officerFormGroup" (ngSubmit)="onSubmit()">
@@ -14,22 +14,13 @@
             <div class="col-xs-6">
               <label class="normal"> รหัสเจ้าหน้าที่ *</label>
               <div>
-                <input
-                  [(ngModel)]="officerEditForm.acOfficer.officer_code"
-                  formControlName="officer_code"
-                  type="text"
-                  size="15"
-                  pInputText>
+                <input [(ngModel)]="officerEditForm.acOfficer.officer_code" formControlName="officer_code" type="text" size="15" pInputText>
               </div>
             </div>
             <div class="col-xs-6">
               <label class="normal"> สถานะ</label>
               <div>
-                <p-dropdown
-                  [(ngModel)]="officerEditForm.acOfficer.active_flag"
-                  [options]="statusList"
-                  [style]="{'width':'150px'}"
-                  formControlName="active_flag">
+                <p-dropdown [(ngModel)]="officerEditForm.acOfficer.active_flag" [options]="statusList" [style]="{'width':'150px'}" formControlName="active_flag">
                 </p-dropdown>
               </div>
             </div>
@@ -38,19 +29,9 @@
             <div class="col-xs-12">
               <label class="normal">เพศ</label>
               <div class="col-xs-12">
-                <p-radioButton
-                  [(ngModel)]="officerEditForm.acOfficer.gender"
-                  formControlName="gender"
-                  value="M"
-                  label="ชาย"
-                  inputId="opt1">
+                <p-radioButton [(ngModel)]="officerEditForm.acOfficer.gender" formControlName="gender" value="M" label="ชาย" inputId="opt1">
                 </p-radioButton>
-                <p-radioButton
-                  [(ngModel)]="officerEditForm.acOfficer.gender"
-                  formControlName="gender"
-                  value="F"
-                  label="หญิง"
-                  inputId="opt2">
+                <p-radioButton [(ngModel)]="officerEditForm.acOfficer.gender" formControlName="gender" value="F" label="หญิง" inputId="opt2">
                 </p-radioButton>
               </div>
             </div>
@@ -59,23 +40,14 @@
             <div class="col-xs-6">
               <label class="normal">คำนำหน้า *</label>
               <div>
-                <p-dropdown
-                  [(ngModel)]="officerEditForm.acOfficer.title_ref"
-                  [options]="titleList"
-                  [style]="{'width':'150px'}"
-                  formControlName="title_ref">
+                <p-dropdown [(ngModel)]="officerEditForm.acOfficer.title_ref" [options]="titleList" [style]="{'width':'150px'}" formControlName="title_ref">
                 </p-dropdown>
               </div>
             </div>
             <div class="col-xs-6">
               <label class="normal"> เลขประชาชน/พาสปอร์ต *</label>
               <div>
-                <input
-                  [(ngModel)]="officerEditForm.acOfficer.personal_id"
-                  type="text"
-                  size="20"
-                  maxlength="13"
-                  formControlName="personal_id"
+                <input [(ngModel)]="officerEditForm.acOfficer.personal_id" type="text" size="20" maxlength="13" formControlName="personal_id"
                   pInputText>
               </div>
             </div>
@@ -84,23 +56,13 @@
             <div class="col-xs-6">
               <label class="normal"> ชื่อ *</label>
               <div>
-                <input
-                  [(ngModel)]="officerEditForm.acOfficer.first_name"
-                  type="text"
-                  size="25"
-                  formControlName="first_name"
-                  pInputText>
+                <input [(ngModel)]="officerEditForm.acOfficer.first_name" type="text" size="25" formControlName="first_name" pInputText>
               </div>
             </div>
             <div class="col-xs-6">
               <label class="normal"> นามสกุล *</label>
               <div>
-                <input
-                  [(ngModel)]="officerEditForm.acOfficer.last_name"
-                  type="text"
-                  size="25"
-                  formControlName="last_name"
-                  pInputText>
+                <input [(ngModel)]="officerEditForm.acOfficer.last_name" type="text" size="25" formControlName="last_name" pInputText>
               </div>
             </div>
           </div>
@@ -108,12 +70,7 @@
             <div class="col-xs-12">
               <label class="normal"> ที่อยู่ *</label>
               <div>
-                <input
-                  [(ngModel)]="officerEditForm.acOfficer.address"
-                  formControlName="address"
-                  type="text"
-                  size="70"
-                  pInputText>
+                <input [(ngModel)]="officerEditForm.acOfficer.address" formControlName="address" type="text" size="70" pInputText>
               </div>
             </div>
           </div>
@@ -121,17 +78,9 @@
             <div class="col-xs-6">
               <label class="normal">จังหวัด</label>
               <div>
-                <p-autoComplete
-                  [(ngModel)]="officerEditForm.rftProvince"
-                  [ngModelOptions]="{standalone: true}"
-                  [suggestions]="provinceList"
-                  [size]="20"
-                  [dropdown]="true"
-                  (completeMethod)="autocompleteProvince($event)"
-                  (onDropdownClick)="handleCompleteClickProvince($event)"
-                  field="province_name_t"
-                  forceselection="true"
-                  name="autocompleteProvince">
+                <p-autoComplete [(ngModel)]="officerEditForm.rftProvince" [ngModelOptions]="{standalone: true}" [suggestions]="provinceList"
+                  [size]="20" [dropdown]="true" (completeMethod)="autocompleteProvince($event)" (onDropdownClick)="handleCompleteClickProvince($event)"
+                  field="province_name_t" forceselection="true" name="autocompleteProvince">
                   <ng-template let-obj pTemplate="item">
                     {{obj.province_name_t}}
                   </ng-template>
@@ -141,16 +90,9 @@
             <div class="col-xs-6">
               <label class="normal">อำเภอ</label>
               <div>
-                <p-autoComplete
-                  [(ngModel)]="officerEditForm.rftDistrict"
-                  [ngModelOptions]="{standalone: true}"
-                  [suggestions]="districtList"
-                  [size]="20"
-                  [dropdown]="true"
-                  (completeMethod)="autocompleteDistrict($event)"
-                  (onDropdownClick)="handleCompleteClickDistrict($event)"
-                  field="district_name_t"
-                  forceSelection="true">
+                <p-autoComplete [(ngModel)]="officerEditForm.rftDistrict" [ngModelOptions]="{standalone: true}" [suggestions]="districtList"
+                  [size]="20" [dropdown]="true" (completeMethod)="autocompleteDistrict($event)" (onDropdownClick)="handleCompleteClickDistrict($event)"
+                  field="district_name_t" forceSelection="true">
                   <ng-template let-obj pTemplate="item">
                     {{obj.district_name_t}}
                   </ng-template>
@@ -162,16 +104,9 @@
             <div class="col-xs-6">
               <label class="normal">ตำบล</label>
               <div>
-                <p-autoComplete
-                  [(ngModel)]="officerEditForm.rftSubDistrict"
-                  [ngModelOptions]="{standalone: true}"
-                  [suggestions]="subDistrictList"
-                  [size]="20"
-                  [dropdown]="true"
-                  (completeMethod)="autocompleteSubDistrict($event)"
-                  (onDropdownClick)="handleCompleteClickSubDistrict($event)"
-                  field="sub_district_name_t"
-                  forceSelection="true">
+                <p-autoComplete [(ngModel)]="officerEditForm.rftSubDistrict" [ngModelOptions]="{standalone: true}" [suggestions]="subDistrictList"
+                  [size]="20" [dropdown]="true" (completeMethod)="autocompleteSubDistrict($event)" (onDropdownClick)="handleCompleteClickSubDistrict($event)"
+                  field="sub_district_name_t" forceSelection="true">
                   <ng-template let-obj pTemplate="item">
                     {{obj.sub_district_name_t}}
                   </ng-template>
@@ -181,12 +116,7 @@
             <div class="col-xs-6">
               <label class="normal"> รหัสไปรษณีย์ </label>
               <div>
-                <input
-                  [(ngModel)]="officerEditForm.rftSubDistrict.postcode"
-                  [ngModelOptions]="{standalone: true}"
-                  type="text"
-                  size="15"
-                  disabled="true"
+                <input [(ngModel)]="officerEditForm.rftDistrict.postcode" [ngModelOptions]="{standalone: true}" type="text" size="15" disabled="true"
                   pInputText>
               </div>
             </div>
@@ -195,219 +125,114 @@
             <div class="col-xs-6">
               <label class="normal"> เบอร์โทรศัพท์ *</label>
               <div>
-                <input
-                  [(ngModel)]="officerEditForm.acOfficer.phone_no"
-                  formControlName="phone_no"
-                  type="text"
-                  maxlength="10"
-                  size="15"
-                  pInputText>
+                <input [(ngModel)]="officerEditForm.acOfficer.phone_no" formControlName="phone_no" type="text" maxlength="10" size="15" pInputText>
               </div>
             </div>
             <div class="col-xs-6">
               <label class="normal"> อีเมล *</label>
               <div>
-                <input
-                  [(ngModel)]="officerEditForm.acOfficer.email"
-                  formControlName="email"
-                  type="text"
-                  size="25"
-                  pInputText>
+                <input [(ngModel)]="officerEditForm.acOfficer.email" formControlName="email" type="text" size="25" pInputText>
               </div>
             </div>
           </div>
         </div>
         <div class="col-xs-3">
           <div class="row center">
-            <img
-              src="{{ image }}"
-              class="image-preview">
+            <img src="{{ image }}" class="image-preview">
           </div>
           <div class="row center">
-            <label
-              (change)="onUpload($event)"
-              class="btn-positive"
-              label="เลือกไฟล์"
-              pButton >
-              <input
-                type="file"
-                accept="image/*, application/pdf"
-                class="display-none">
+            <label (change)="onUpload($event)" class="btn-positive" label="เลือกไฟล์" pButton>
+              <input type="file" accept="image/*, application/pdf" class="display-none">
             </label>
           </div>
           <div class="row center">
             <div>
-              <p-checkbox
-                [(ngModel)]="officerEditForm.acOfficer.manage_officer_flag"
-                formControlName="manage_officer_flag"
-                binary="true"
-                label="สามารถจัดการเจ้าหน้าที่">
-              </p-checkbox>
+              <p-checkbox [(ngModel)]="officerEditForm.acOfficer.manage_officer_flag" formControlName="manage_officer_flag" binary="true"
+                label="สามารถจัดการเจ้าหน้าที่"></p-checkbox>
             </div>
           </div>
         </div>
       </div>
+      <div class="space"></div>
+      <div class="row">
+        <div class="col-xs-12">
 
-  <div class="space"></div>
-  <div class="row">
-    <div class="col-xs-12">
-      <button
-        type="submit"
-        class="btn-positive"
-        label="สร้าง"
-        pButton>
-      </button>
-      <button
-        type="button"
-        class="btn-normal"
-        label="รีเซ็ท"
-        (click)="initEditData()"
-        pButton>
-      </button>
-      <button
-        type="button"
-        style="float: right;"
-        class="btn-negative"
-        label="กลับ"
-        (click)="onPageSearch()"
-        pButton>
-      </button>
-    </div>
+          <button pButton type="submit" class="btn-positive" label="สร้าง"></button>
+          <button pButton type="button" class="btn-normal" label="รีเซ็ท"></button>
+
+          <button pButton type="button" style="float: right;" class="btn-negative" label="กลับ"></button>
+
+        </div>
+      </div>
+      </form>
   </div>
-</form>
-</div>
-<div class="content" *ngIf="mode == 'S'">
-  <div class="row">
-    <div class="col-xs-8">
-      <label class="normal"> รหัสเจ้าหน้าที่</label>
-      <div>
-        <input
-          [(ngModel)]="officerCriteriaForm.acOfficer.officer_code"
-          name="inputOfficerCode"
-          type="text"
-          size="25"
-          pInputText>
+
+
+
+
+  <div class="content">
+    <div class="content-header-blue">
+      <p>จัดการข้อมูลเจ้าหน้าที่</p>
+      <div class="underline-blue"></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8">
+        <label class="normal"> รหัสเจ้าหน้าที่</label>
+        <div>
+          <input [(ngModel)]="officerSearchForm.acOfficer.officerCode" name="inputOfficerCode" type="text" size="25" pInputText>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <label class="normal"> สถานะ</label>
+        <div>
+          <p-dropdown name="Status" [options]="statusList" [(ngModel)]="officerSearchForm.acOfficer.activeFlag" [style]="{'width':'150px'}">
+          </p-dropdown>
+        </div>
       </div>
     </div>
-    <div class="col-xs-4">
-      <label class="normal"> สถานะ</label>
-      <div>
-        <p-dropdown
-          [(ngModel)]="officerCriteriaForm.acOfficer.active_flag"
-          [options]="statusList"
-          [style]="{'width':'150px'}"
-          name="Status">
-        </p-dropdown>
+    <div class="row">
+      <div class="col-xs-4">
+        <label class="normal"> ชื่อ</label>
+        <div>
+          <input [(ngModel)]="officerSearchForm.acOfficer.firstName" name="inputFirstName" type="text" size="25" pInputText>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <label class="normal"> นามสกุล</label>
+        <div>
+          <input [(ngModel)]="officerSearchForm.acOfficer.lastName" name="inputFirstName" type="text" size="25" pInputText>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <label class="normal"> เลขประชาชน/พาสปอร์ต</label>
+        <div>
+          <input [(ngModel)]="officerSearchForm.acOfficer.personalId" name="inputPersonalId" type="text" size="25" pInputText>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-4">
-      <label class="normal"> ชื่อ</label>
-      <div>
-        <input
-          [(ngModel)]="officerCriteriaForm.acOfficer.first_name"
-          name="inputFirstName"
-          type="text"
-          size="25"
-          pInputText>
+    <div class="space"></div>
+    <div class="row">
+      <div class="col-xs-12">
+
+        <button pButton type="submit" class="btn-positive" label="ค้นหา"></button>
+        <button pButton type="button" class="btn-normal" label="รีเซ็ท"></button>
+
+        <button pButton type="button" style="float: right;" class="btn-negative" label="สร้างใหม่"></button>
+
       </div>
     </div>
-    <div class="col-xs-4">
-      <label class="normal"> นามสกุล</label>
-      <div>
-        <input
-          [(ngModel)]="officerCriteriaForm.acOfficer.last_name"
-          name="inputFirstName"
-          type="text"
-          size="25"
-          pInputText>
-      </div>
+    <div class="space"></div>
+    <div class="row">
+      <p-dataTable [value]="formList" selectionMode="single" [(selection)]="selectedStudent" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[5,10,20]"
+        sortMode="multiple" (onRowSelect)="onRowSelect($event)">
+
+        <p-column [sortable]="true" field="acOfficer.officerCode" header="รหัสเจ้าหน้าที่"></p-column>
+        <p-column [sortable]="true" field="acOfficer.name" header="ชื่อเจ้าหน้าที่"></p-column>
+        <p-column [sortable]="true" field="acOfficer.personalId" [sortable]="true" header="เลขประชาชน/พาสปอร์ต"></p-column>
+        <p-column [sortable]="true" field="acOfficer.phoneNo" header="เบอร์โทรศัพท์"></p-column>
+        <p-column [sortable]="true" field="acOfficer.email" header="อีเมล"></p-column>
+        <p-column [sortable]="true" field="acOfficer.activeFlag" header="สถานะ"></p-column>
+      </p-dataTable>
     </div>
-    <div class="col-xs-4">
-      <label class="normal"> เลขประชาชน/พาสปอร์ต</label>
-      <div>
-        <input
-          [(ngModel)]="officerCriteriaForm.acOfficer.personal_id"
-          name="inputPersonalId"
-          type="text"
-          size="25"
-          pInputText>
-      </div>
-    </div>
+
   </div>
-  <div class="space"></div>
-  <div class="row">
-    <div class="col-xs-12">
-      <button
-        type="submit"
-        class="btn-positive"
-        label="ค้นหา"
-        (click)="onSearch()"
-        pButton>
-      </button>
-      <button
-        type="button"
-        class="btn-normal"
-        label="รีเซ็ท"
-        (click)="resetSearchButtonOnClick()"
-        pButton>
-      </button>
-      <button
-        type="button"
-        style="float: right;"
-        class="btn-negative"
-        label="สร้างใหม่"
-        (click)="onInsertPage()"
-        pButton>
-      </button>
-    </div>
-  </div>
-  <div class="space"></div>
-  <div class="row">
-    <p-dataTable
-      [(selection)]="selectedOfficer"
-      [rows]="10"
-      [paginator]="true"
-      [rowsPerPageOptions]="[5,10,20]"
-      [value]="formList"
-      (onRowSelect)="onRowSelect($event)"
-      selectionMode="single"
-      sortMode="multiple" >
-      <p-column
-        [sortable]="true"
-        field="acOfficer.officer_code"
-        header="รหัสเจ้าหน้าที่"
-        [style]="{'width':'110px'}">
-      </p-column>
-      <p-column
-        [sortable]="true"
-        field="fullname"
-        header="ชื่อเจ้าหน้าที่">
-      </p-column>
-      <p-column
-        [sortable]="true"
-        field="acOfficer.personal_id"
-        [sortable]="true"
-        header="เลขประชาชน/พาสปอร์ต">
-      </p-column>
-      <p-column
-        [sortable]="true"
-        field="acOfficer.phone_no"
-        header="เบอร์โทรศัพท์"
-        [style]="{'width':'110px'}">
-      </p-column>
-      <p-column
-        [sortable]="true"
-        field="acOfficer.email"
-        header="อีเมล">
-      </p-column>
-      <p-column
-        [sortable]="true"
-        field="status"
-        header="สถานะ"
-        [style]="{'width':'80px', 'text-align':'center'}">
-      </p-column>
-    </p-dataTable>
-  </div>
-</div>

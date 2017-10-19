@@ -214,7 +214,7 @@ export class OfficerComponent implements OnInit {
   autocompleteSubDistrict(event) {
     let query = event.query;
     this.subDistrictList = [];
-    this.subDistrictObject.postcode = '';
+    this.districtObject.postcode = '';
     let objList: RftSubDistrict[] = this.listSubDistrict;
     for (let obj of objList) {
       // Filter By string event
@@ -226,7 +226,7 @@ export class OfficerComponent implements OnInit {
         }
       }
     }
-    this.officerEditForm.acOfficer.postcode = this.subDistrictObject.postcode;
+    this.officerEditForm.acOfficer.postcode = this.districtObject.postcode;
   }
 
   // On Click Autocomplete Dropdown Button
