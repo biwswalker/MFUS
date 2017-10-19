@@ -1,0 +1,207 @@
+<div class="content">
+  <div class="row">
+    <!-- content -->
+    <div class="col-xs-9">
+      <div class="row">
+        <div class="col-xs-6">
+          <label class="normal">เลขประจำตัวประชาชน</label>
+          <div class="info">
+            <label>1-5201-00088-46-9</label>
+          </div>
+        </div>
+
+        <div class="col-xs-6">
+          <label class="normal">รหัสนักศึกษา</label>
+          <div class="info">
+            <label>5231302045</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ////////////////////////////////////////////////////// -->
+      <div class="row">
+        <div class="col-xs-4">
+          <label class="normal">ชื่อ-สกุลนักศึกษา</label>
+          <div class="info">
+            <label>{{applyScholarship.applyScholarshipForm.acStudent.first_name_t}}</label>
+          </div>
+        </div>
+
+        <div class="col-xs-2">
+          <label class="normal">เพศ</label>
+          <div class="info">
+            <label>หญิง</label>
+          </div>
+        </div>
+
+        <div class="col-xs-3">
+          <label class="normal">วันเกิด</label>
+          <div class="info">
+            <label>22 ม.ค 2534</label>
+          </div>
+        </div>
+
+        <div class="col-xs-3">
+          <label class="normal">อายุ</label>
+          <div class="info">
+            <label>26</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ////////////////////////////////////////////////////// -->
+
+      <div class="row">
+        <div class="col-xs-4">
+          <label class="normal">สัญชาติ</label>
+          <div class="info">
+            <label>ไทย</label>
+          </div>
+        </div>
+
+        <div class="col-xs-2">
+          <label class="normal">เชื้อชาติ</label>
+          <div class="info">
+            <label>ไทย</label>
+          </div>
+        </div>
+
+        <div class="col-xs-6">
+          <label class="normal">ศาสนา</label>
+          <div class="info">
+            <label>คริสต์</label>
+          </div>
+        </div>
+      </div>
+      <!-- ////////////////////////////////////////////////////// -->
+      <div class="row">
+        <div class="col-xs-6">
+          <label class="normal">สำนักวิชา</label>
+          <div class="info">
+            <label>เทคโนโลยีสารสนเทศ</label>
+          </div>
+        </div>
+
+        <div class="col-xs-6">
+          <label class="normal">สาขาวิชา</label>
+          <div class="info">
+            <label>วิทยาการคอมพิวเตอร์</label>
+          </div>
+        </div>
+      </div>
+      <!-- ////////////////////////////////////////////////////// -->
+      <div class="row">
+        <div class="col-xs-4">
+          <label class="normal">ชั้นปีการศึกษา</label>
+          <div>
+
+          </div>
+        </div>
+        <div class="col-xs-2">
+          <label class="normal">GPAX</label>
+          <div>
+            <input
+              class="normal"
+              type="text"
+              id="gpax"
+              size="5"
+              maxlength="5"
+              pInputText>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <label class="normal">อาจารย์ที่ปรึกษา</label>
+          <div>
+            <input
+              class="normal"
+              type="text"
+              id="ta"
+              size="50"
+              maxlength="50"
+              pInputText>
+          </div>
+        </div>
+      </div>
+      <!-- ////////////////////////////////////////////////////// -->
+      <div class="row">
+        <div class="col-xs-4">
+          <label class="normal">เบอร์โทรศัพท์</label>
+          <div>
+            <input
+              class="normal"
+              type="tel"
+              id="tel"
+              size="10"
+              maxlength="10"
+              pInputText>
+          </div>
+        </div>
+        <div class="col-xs-8">
+          <label class="normal">Email</label>
+          <div>
+            <input
+              class="normal"
+              type="text"
+              id="email"
+              size="50"
+              maxlength="50"
+              pInputText>
+          </div>
+        </div>
+      </div>
+      <!-- ////////////////////////////////////////////////////// -->
+
+
+
+
+
+    </div>
+
+
+    <!-- picture -->
+    <div class="col-xs-3">
+      <div class="col-xs-12">
+        <img src="{{ image }}" class="image-preview">
+      </div>
+    </div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="content">
+  <div class="content-header-blue-normal">
+    <p>ความเป็นอยู่ของนักศึกษา</p>
+    <div class="underline-blue"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <label
+        class="normal"
+        style="padding-left: 20px" >กรุณาเขียนบรรยายความเป็นอยู่ของนักศึกษา</label>
+      <div style="padding-left: 20px" >
+        <textarea
+          pInputTextarea
+          autoResize="autoResize"
+          cols="95"
+          rows="20">
+        </textarea>
+      </div>
+    </div>
+    <div class="row formFooter">
+      <div class="col-xs-12">
+        <button
+          pButton
+          type="button"
+          class="btn-primary"
+          (click)="next()"
+          label="ต่อไป"
+          style="float:right;"></button>
+      </div>
+    </div>
+  </div>
+</div>
