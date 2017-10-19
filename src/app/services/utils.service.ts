@@ -58,9 +58,7 @@ export class UtilsService {
         return res.json();
       }
       );
-
   }
-
 
   getDistricts(): Observable<RftDistrict[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });

@@ -154,7 +154,12 @@ export class NewsComponent implements OnInit {
 
   SearchNews() {
     const resultList: NewsForm[] = [];
+<<<<<<< HEAD
     console.log('criteria: ', this.criteriaNewsForm);
+=======
+    // this.criteriaNewsForm.startDate = moment(this.criteriaNewsForm.startDate).format('YYYY-MM-DD');
+    // this.criteriaNewsForm.endDate = moment(this.criteriaNewsForm.endDate).format('YYYY-MM-DD');
+>>>>>>> 53d0f32ffe470a8346a206da270b624f1a318ebc
     this.newsService.searchNews(this.criteriaNewsForm)
       .subscribe(
       result => {
@@ -177,7 +182,12 @@ export class NewsComponent implements OnInit {
     console.log('selectedNews', this.newsSelected);
     console.log(event.data);
     this.mode = 'U';
+<<<<<<< HEAD
     this.submitButton = 'แก้ไข';
+=======
+    // this.onrowDate = moment(this.newsSelected.smNews.publish_date).format('YYYY-MM-DD');;
+
+>>>>>>> 53d0f32ffe470a8346a206da270b624f1a318ebc
     this.newsForm = new NewsForm();
     this.newsForm = event.data;
     this.newsForm.smNews.publish_date = moment(this.newsSelected.smNews.publish_date).toDate();
@@ -201,7 +211,10 @@ export class NewsComponent implements OnInit {
     console.log(this.newsFormGroup.value);
     const value = this.newsFormGroup.value;
     value.news_image = this.image;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 53d0f32ffe470a8346a206da270b624f1a318ebc
     if( this.file.name != null){
       value.news_name = this.file.name;
     }
@@ -211,23 +224,23 @@ export class NewsComponent implements OnInit {
     this.newsService.updateNews(value, this.newsForm.smNews.news_ref)
     .subscribe(
       (res: Response) => {
-        let news_ref = res.json().news_ref;
+        let school_ref = res.json().school_ref;
         console.log(res.json());
-        console.log(res.json().news_ref);
+        console.log(res.json().school_ref);
         console.log(res.statusText);
 
         this.newsFormGroup.reset();
 
         this.onPageSearch();
 
-        this.showSuccess('แก้ไขข้อมูลข่าวสารเรียบร้อยแล้ว');
+        this.showSuccess('แก้ไขข้อมูลสาขาวิชาเรียบร้อยแล้ว');
 
       },
       (error) =>{
         console.log(error);
         let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
         if(error.status == 409) {
-          message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+          message = 'มีการใช้รหัสสาขาวิชานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
         }
         this.showError(message);
         return;
