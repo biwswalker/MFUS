@@ -75,24 +75,24 @@ export class ScholarshipComponent implements OnInit {
     }
   }
 
-  // onSubmit() {
-  //   console.log(this.scholarshipFormGroup);
-  //   console.log('onSubmit mode ' + this.mode)
-  //   if (this.mode == 'I') {
-  //     this.onAddScholarship();
-  //   } else if (this.mode == 'U') {
-  //     // this.onUpdateScholarship();
-  //   }
-  // }
+  onSubmit() {
+    console.log(this.scholarshipFormGroup);
+    console.log('onSubmit mode ' + this.mode)
+    if (this.mode == 'I') {
+      this.onAddScholarship();
+    } else if (this.mode == 'U') {
+      // this.onUpdateScholarship();
+    }
+  }
 
-  // onAddScholarship() {
-  //   console.log(this.scholarshipFormGroup.value);
-  //   const value = this.scholarshipFormGroup.value;
+  onAddScholarship() {
+    console.log(this.scholarshipFormGroup.value);
+    const value = this.scholarshipFormGroup.value;
 
-  //   value.active_flag = 'Y';
-  //   value.sponsors_ref = this.sponsors.sponsors_ref;
+    value.active_flag = 'Y';
+    value.sponsors_ref = this.sponsors.sponsors_ref;
 
-  //   console.log(this.scholarshipFormGroup.value);
+    console.log(this.scholarshipFormGroup.value);
 
   //   this.scholarshipService.addScholarship(value)
   //   .subscribe(
@@ -152,8 +152,13 @@ export class ScholarshipComponent implements OnInit {
   //   setTimeout(() => {
   //     this.sponsorsList = this.getSponsorsList();
   //   }, 100)
+<<<<<<< HEAD
 //   }
 // */
+=======
+  }
+*/
+>>>>>>> 53d0f32ffe470a8346a206da270b624f1a318ebc
 
   /*
   getSponsorsList(): SmSponsors[] {

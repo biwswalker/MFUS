@@ -35,10 +35,9 @@ export class AutocompleteComponent implements OnInit {
     obj.setData('004', 'Multimedia', 'MTA')
     objList.push(obj);
     obj = new AutoCompleteObjectModel();
-    obj.setData('005', 'Computer Engineering', 'CE')
+    obj.setData('005', 'Engineering', 'CE')
     objList.push(obj);
     obj = new AutoCompleteObjectModel();
-
     return objList;
   }
 
@@ -46,16 +45,11 @@ export class AutocompleteComponent implements OnInit {
   autocompleteMethod(event) {
     let query = event.query;
     this.autocompleteList = [];
-    let objList: AutoCompleteObjectModel[] = this.getAutocompleteList();
-    console.log('BeforLoop', objList);
-
+    let objList: AutoCompleteObjectModel[] = this.getAutocompleteList()
     for (let obj of objList) {
-
-      console.log('startLoop');
       // Filter By string event
       if (obj.autoName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         this.autocompleteList.push(obj);
-        console.log('obj: ', this.autocompleteList);
       }
     }
   }

@@ -63,16 +63,21 @@ import { AnnoucncementComponent } from './content/pages/annoucncement/annoucncem
 import { OfficerComponent } from './content/pages/officer/officer.component';
 import { ReguserComponent } from './content/pages/reguser/reguser.component';
 import { RegscholarshipComponent } from './content/pages/regscholarship/regscholarship.component';
-import { SchoolComponent } from './content/pages/school/school.component';
-import { MajorComponent } from './content/pages/major/major.component';
-import { NewsComponent } from './content/pages/news/news.component';
 
 //Service
 import { UtilsService } from './services/utils.service';
 import { AuthenticationService } from './services/authentication.service';
 import { StepService } from './services/tag/step.service';
+<<<<<<< HEAD
 import { OfficerService } from './services/officer.service';
 import { UserService } from './services/user.service';
+=======
+import { SchoolComponent } from './content/pages/school/school.component';
+import { MajorComponent } from './content/pages/major/major.component';
+import { NewsComponent } from './content/pages/news/news.component';
+import { TitlenameComponent } from './content/pages/titlename/titlename.component';
+
+>>>>>>> 53d0f32ffe470a8346a206da270b624f1a318ebc
 
 
 
@@ -93,6 +98,7 @@ const appRoutes: Routes = [
       { path: 'major', component: MajorComponent },
       { path: 'news', component: NewsComponent },
       { path: 'regscholarship', component: RegscholarshipComponent },
+      { path: 'titlename', component: TitlenameComponent },
     ]
   }
 ];
@@ -133,6 +139,7 @@ const appRoutes: Routes = [
     SchoolComponent,
     MajorComponent,
     NewsComponent,
+    TitlenameComponent
   ],
   imports: [
     BrowserModule,
@@ -172,8 +179,11 @@ const appRoutes: Routes = [
     MajorService,
     NewsService,
     SponsorsService,
+<<<<<<< HEAD
     OfficerService,
     UserService
+=======
+>>>>>>> 53d0f32ffe470a8346a206da270b624f1a318ebc
   ],
   bootstrap: [AppComponent]
 })

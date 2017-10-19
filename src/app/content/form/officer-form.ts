@@ -11,8 +11,6 @@ public acUser: AcUser;
 public rftProvince: RftProvince;
 public rftDistrict: RftDistrict;
 public rftSubDistrict: RftSubDistrict;
-public fullname: string;
-public status: string;
 
 constructor(){
 	this.acUser = new AcUser();

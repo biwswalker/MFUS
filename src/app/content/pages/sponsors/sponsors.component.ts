@@ -138,31 +138,31 @@ export class SponsorsComponent implements OnInit {
     value.update_user = 'Anda';
     console.log(this.sponsorsFormGroup.value);
 
-    this.sponsorsService.addSponsors(value)
-    .subscribe(
-      (res: Response) => {
-        let sponsors_ref = res.json().sponsors_ref;
-        console.log(res.json());
-        console.log(res.json().sponsors_ref);
-        console.log(res.statusText);
+    // this.sponsorsService.addSponsors(value)
+    // .subscribe(
+    //   (res: Response) => {
+    //     let sponsors_ref = res.json().sponsors_ref;
+    //     console.log(res.json());
+    //     console.log(res.json().sponsors_ref);
+    //     console.log(res.statusText);
 
-        this.sponsorsFormGroup.reset();
+    //     this.sponsorsFormGroup.reset();
 
-        this.initEditData();
+    //     this.initEditData();
 
-        this.showSuccess('บันทึกข้อมูลผู้ให้ทุนการศึกษาเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + sponsors_ref);
+    //     this.showSuccess('บันทึกข้อมูลผู้ให้ทุนการศึกษาเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + sponsors_ref);
 
-      },
-      (error) => {
-        console.log(error);
-        let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
-        if(error.status == 409) {
-          message = 'มีการใช้รหัสผู้ให้ทุนการศึกษานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
-        }
-        this.showError(message);
-        return;
-      }
-    );
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //     let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+    //     if(error.status == 409) {
+    //       message = 'มีการใช้รหัสผู้ให้ทุนการศึกษานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+    //     }
+    //     this.showError(message);
+    //     return;
+    //   }
+    // );
 
   }
 
