@@ -51,12 +51,6 @@ export class NewsService {
         criteria = criteria + 'active_flag=' + news.smNews.active_flag + '&'
       }
 
-
-      // if(news.smNews.news_topic != null
-      //   && major.rftMajor.major_name_t != '') {
-      //   criteria = criteria + 'major_name_t=' + major.rftMajor.major_name_t + '&';
-      // }
-
       console.log('criteria :', criteria);
       if(criteria.length > 1){
         criteria = criteria.substr(0,criteria.length-1);
