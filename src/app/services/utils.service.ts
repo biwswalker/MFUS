@@ -42,14 +42,14 @@ export class UtilsService {
     const date = this.chageTo2digi(dateParam.getDate());
     const month = this.chageTo2digi(dateParam.getMonth() + 1);
     const year = dateParam.getUTCFullYear();
-    return date + '' + month + '' + year
+    return year + '' + month + '' + date
   }
 
   public convertDateCriteria(dateParam: Date): string {
     const date = this.chageTo2digi(dateParam.getDate());
     const month = this.chageTo2digi(dateParam.getMonth() + 1);
     const year = dateParam.getUTCFullYear();
-    return  month+ '-' +date  + '-' + year
+    return  year+ '-' + month  + '-' + date
   }
 
   // format number to have 2 digit

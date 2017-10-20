@@ -36,13 +36,11 @@ export class NewsService {
 
       if(news.startDate != null &&
         news.startDate !='') {
-          news.startDate = moment(news.startDate).format('YYYY-MM-DD');
         criteria = criteria + 'startDate=' + news.startDate + '&';
       }
 
       if(news.endDate != null &&
         news.endDate != '') {
-          news.endDate = moment(news.endDate).format('YYYY-MM-DD');
         criteria = criteria + 'endDate=' + news.endDate + '&';
       }
 
