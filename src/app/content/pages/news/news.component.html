@@ -2,26 +2,26 @@
     <p>บันทึกข่าวสาร</p>
     <div class="underline-blue"></div>
 </div>
-
+<p-messages [(value)]="msgs" style="height:50%"></p-messages>
+<div class="content"  *ngIf="mode !== 'S'">
 <form [formGroup]="newsFormGroup" (ngSubmit)="onSubmit()">
     <div class="row">
-        <div class="col-xs-1"></div>
-        <div class="col-xs-10">
+
+        <div class="col-xs-12">
             <div>
-                <label class="normal">News Subject*</label>
+                <label class="normal">หัวข้อข่าว*</label>
             </div>
             <input pInputText
               formControlName="news_topic"
               [(ngModel)]="newsForm.smNews.news_topic"
               type="text">
         </div>
-        <div class="col-xs-1"></div>
     </div>
     <div class="row">
-        <div class="col-xs-1"></div>
-        <div class="col-xs-10">
+
+        <div class="col-xs-12">
             <div>
-                <label class="normal">News Detail*</label>
+                <label class="normal">รายละเอียดข่าว*</label>
             </div>
             <p-editor
               formControlName="news_detail"
@@ -29,43 +29,44 @@
               [style]="{'height':'240px'}">
             </p-editor>
         </div>
-        <div class="col-xs-1"></div>
+
     </div>
     <div class="row">
-        <div class="col-xs-1"></div>
-        <div class="col-xs-10">
+
+        <div class="col-xs-12">
             <div>
-                <label class="normal">Header Image</label>
+                <label class="normal">ภาพประกอบข่าว</label>
             </div>
             <label pButton
               class="btn-positive"
-              label="Upload"
+              label="อัพโหลด"
               (change)="onUpload($event)">
-              <input type="file"
-                formControlName="news_image"
-                accept="image/*, application/pdf"
-                class="display-none">
+                <input type="file"
+                  accept="image/*, application/pdf"
+                  class="display-none">
             </label>
-            <label>* The image's width choose be 870px</label>
+            <label>* รูปภาพต้องมีความกว้างไม่เกิน 870 พิกเซล</label>
         </div>
-        <div class="col-xs-1"></div>
+
     </div>
     <div class="row">
-        <div class="col-xs-1"></div>
-        <div class="col-xs-2">
+
+        <div class="col-xs-3">
             <div>
-                <label for="" class="normal">Publish Date*</label>
+                <label for="" class="normal">วันที่ประกาศ*</label>
             </div>
             <p-calendar
               [(ngModel)]="newsForm.smNews.publish_date"
               formControlName="publish_date"
-              [showIcon]="true">
+              [showIcon]="true"
+              [minDate]="minDate"
+              [readonlyInput]="true">
             </p-calendar>
         </div>
         <div class="col-xs-1"></div>
         <div class="col-xs-2">
             <div>
-                <label class="normal">Status</label>
+                <label class="normal">สถานะ</label>
             </div>
             <p-dropdown
               name="active_flag"
@@ -73,37 +74,44 @@
               [style]="{'width':'150px'}"
               formControlName="active_flag">
             </p-dropdown>
-
         </div>
         <div class="col-xs-5"></div>
         <div class="col-xs-1"></div>
     </div>
     <div class="space"></div>
     <div class="row">
-        <div class="col-xs-1"></div>
-        <div class="col-xs-8">
+
+        <div class="col-xs-9">
             <button pButton
               type="submit"
               class="btn-positive"
-              label="Save">
+              label="{{submitButton}}">
             </button>
             <button pButton
               type="button"
               class="btn-positive"
-              label="Reset">
+              label="เริ่มใหม่"
+              (click)="resetForm()">
             </button>
+            <button pButton
+            type="button"
+            class="ui-button-danger"
+            label="ลบ">
+          </button>
             <button pButton
               type="button"
               class="btn-positive"
-              label="Preview">
+              label="Preview"
+              (click)="onPreview()">
             </button>
         </div>
-        <div class="col-xs-2">
+        <div class="col-xs-3">
             <div style="text-align:right">
                 <button pButton
                   type="button"
                   class="btn-positive"
-                  label="Back">
+                  label="กลับ"
+                  (click)="onPageSearch()">
                 </button>
             </div>
         </div>
@@ -111,27 +119,141 @@
     </div>
   </form>
 
-  <div class="row">
+<div *ngIf="preview">
+  <div class="space"></div>
+  <div class="row" >
     <div class="col-xs-1"></div>
     <div class="col-xs-10">
       <div>
         {{newsForm.smNews.news_topic}}
       </div>
       <div class="underline-blue"></div>
+      <div class="space"></div>
      </div>
     <div class="col-xs-1"></div>
   </div>
   <div class="row">
     <div class="col-xs-1"></div>
     <div class="col-xs-10">
-      {{newsForm.smNews.news_image}}
+        <img src="{{newsForm.smNews.news_image}}" width="100%" height="100%">
     </div>
     <div class="col-xs-1"></div>
   </div>
+  <div class="space"></div>
   <div class="row">
     <div class="col-xs-1"></div>
     <div class="col-xs-10">
-      {{newsForm.smNews.news_detail}}
+      <div [innerHTML]="newsForm.smNews.news_detail"></div>
     </div>
     <div class="col-xs-1"></div>
   </div>
+  <div class="space"></div>
+  <div class="row">
+    <div class="col-xs-1"></div>
+    <div class="col-xs-10" style="text-align: right">
+      วันที่ประกาศข่าว : {{previewDate}}
+    </div>
+    <div class="col-xs-1"></div>
+  </div>
+</div>
+</div>
+
+<div class="content"  *ngIf="mode === 'S'">
+  <div class="row">
+    <div class="col-xs-12">
+      <div>
+        <label class="normal">หัวข้อข่าว</label>
+      </div>
+      <input pInputText
+        type="text"
+        size="109"
+        [(ngModel)]="criteriaNewsForm.smNews.news_topic"
+        name="newsTopic">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-10">
+      <div>
+        <label class="normal">วันที่ประกาศ</label>
+      </div>
+      <p-calendar
+        id="startDate"
+        [showIcon]="true"
+        [(ngModel)]="criteriaNewsForm.startDate">
+      </p-calendar>
+      <label style="padding:0px 5px 0px 30px">ถึง </label>
+      <p-calendar
+        id="endDate"
+        [showIcon]="true"
+        [(ngModel)]="criteriaNewsForm.endDate">
+      </p-calendar>
+    </div>
+    <div class="col-xs-2">
+
+      <div>
+        <label class="normal">สถานะ</label>
+      </div>
+      <div style="text-align:right">
+      <p-dropdown
+        name="active_flag"
+        [options]="statusList"
+        [style]="{'width':'105px','text-align':'center'}"
+        [(ngModel)]="criteriaNewsForm.smNews.active_flag">
+      </p-dropdown>
+    </div>
+    </div>
+    <div class="col-xs-1"></div>
+  </div>
+  <div class="space"></div>
+  <div class="row">
+    <div class="col-xs-10">
+        <button pButton
+        type="button"
+        class="btn-positive"
+        label="ค้นหา"
+        (click)="onSearchNews()">
+      </button>
+      <button pButton
+        type="button"
+        class="btn-positive"
+        label="เริ่มใหม่"
+        (click)="resetSearch()">
+      </button>
+    </div>
+    <div class="col-xs-2">
+      <div style="text-align:right">
+        <button pButton
+        type="button"
+        class="btn-positive"
+        label="เพิ่มใหม่"
+        (click)="onInsertNews()">
+      </button>
+    </div>
+    </div>
+  </div>
+  <div class="space"></div>
+  <div class="row">
+      <p-dataTable [value]="newsFormList"
+                   selectionMode="single"
+                   [(selection)]="newsSelected"
+                   [rows]="10"
+                   [paginator]="true"
+                   [rowsPerPageOptions]="[5,10,20]"
+                   (onRowSelect)="onRowSelect($event)"
+                   sortMode="multiple">
+        <p-column [sortable]="true"
+                  field="smNews.publish_date"
+                  header="วันที่ประกาศ"
+                  [style]="{'width':'15%','text-align':'center'}"></p-column>
+        <p-column [sortable]="true"
+                  field="smNews.news_topic"
+                  header="หัวข้อข่าว"></p-column>
+        <p-column [sortable]="true"
+                  field="smNews.active_flag"
+                  [sortable]="true"
+                  header="สถานะ"
+                  [style]="{'width':'10%','text-align':'center'}">
+        </p-column>
+      </p-dataTable>
+    </div>
+</div>

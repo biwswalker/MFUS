@@ -10,15 +10,21 @@
 
 /* BEGIN HEADER */
 .content-header-red {
-  /* font-weight: 600; */
-  font-size: 16px;
+  font-weight: 600;
+  font-size: 20px;
   font-family: SSpace;
   color: #aa0000;
 }
 
 .content-header-blue {
-  /* font-weight: 600; */
-  font-size: 16px;
+  font-weight: 600;
+  font-size: 20px;
+  font-family: SSpace;
+  color: #224a86;
+}
+
+.content-header-blue-normal {
+  font-size: 18px;
   font-family: SSpace;
   color: #224a86;
 }

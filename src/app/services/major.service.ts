@@ -8,8 +8,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class MajorService {
 
-//  private mainUrl: string = 'http://dev-server:8000/';
-  private mainUrl: string = config.backendUrl;
+  private mainUrl: string = 'http://localhost:8000/';
   constructor(private http: Http) { }
 
   //insert => post
@@ -68,11 +67,8 @@ export class MajorService {
           console.log('data.major_ref = ' + data.major_ref);
           console.log('data.school_name_t = ' + data.major_name_t);
           form = new MajorForm();
-          form.rftMajor = data;
-          form.rftSchool.school_name_t = data.school_name_t;
-          form.rftSchool.school_name_e = data.school_name_e;
-          form.rftSchool.school_code = data.school_code;
-          form.rftSchool.school_ref = data.school_ref;
+          form.rftMajor = data.rft_major;
+          form.rftSchool = data.rft_school
           console.log('form.rftSchool.school_name_t = ' + form.rftSchool.school_name_t);
           results.push(form);
         }
