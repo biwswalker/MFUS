@@ -1,6 +1,7 @@
 import { ScholarshipForm } from './../content/form/scholarship-form';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
+import 'rxjs/Rx'  // import for .map; used for every services
 import { Injectable } from '@angular/core';
 
 @Injectable()

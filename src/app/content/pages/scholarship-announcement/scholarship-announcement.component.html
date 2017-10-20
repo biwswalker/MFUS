@@ -1,124 +1,117 @@
+<!-- อันนี้ต่อ mode แล้วแต่ยังไม่ได้ลิ้งก์ให้เปิดหน้า mode conditions ได้นะคะ (แต่หน้าตาเหมือน spec แล้วค่ะ) -->
+
+<!-- mode announcement -->
+<div class="content" *ngIf="mode === 'S'">
+  <div class="content-header-red">
+    <p>ประกาศทุนการศึกษา</p>
+    <div class="underline-blue"></div>
+  </div>
+  <div class="col-xs-12">
+    <div class="col-xs-9">
+      <label class="normal">ทุนการศึกษา</label>
+    </div>
+    <div class="col-xs-3">
+      <label class="normal">ระยะเวลาเปิดรับสมัคร</label>
+    </div>
+  </div>
+</div>
+
+<!-- mode conditions -->
 <div class="content" *ngIf="mode !== 'S'">
   <div class="content-header-red">
-    <p>Scholarship announcement</p>
+    <p>ประกาศทุนการศึกษา</p>
     <div class="underline-blue"></div>
-</div>
-
-<div class="row"></div>
-<div class="col-xs-9">
-  <label class="normal">Scholarship</label>
-</div>
-
-
-<div class="col-xs-3">
-  <label class="normal">Open for apply</label>
-</div>
-
-</div>
-
-<div class="content">
-    <div class="content-header-red">
-      <p>Scholarship announcement</p>
-      <div class="underline-blue"></div>
   </div>
 
   <div class="col-xs-12">
     <div class="col-xs-12">
       <div class="row"></div>
-        <div class="col-xs-2">
-        <label class="normal">Year</label>
-        </div>
-        <div class="col-xs-2">
-        <label class="normal">Round</label>
-        </div>
-        <div class="col-xs-8">
-        <label class="normal">Scholarship</label>
-        </div>
-
-
-    <div class="row"></div>
-      <div class="col-xs-6">
-      <label class="normal">Scholarship type</label>
+      <div class="col-xs-2">
+        <label class="normal">ปีการศึกษา</label>
       </div>
-      <div class="col-xs-6">
-      <label class="normal">Sponsors</label>
+      <div class="col-xs-2">
+        <label class="normal">รอบที่</label>
       </div>
-
-      <div class="row"></div>
-        <div class="col-xs-12">
-          <label class="normal">Scholarship Detail</label>
-        </div>
+      <div class="col-xs-8">
+        <label class="normal">ทุนการศึกษา</label>
+      </div>
 
 
       <div class="row"></div>
-          <div class="col-xs-5">
-              <label class="normal">Unit Amount</label>
-              </div>
-              <div class="col-xs-7">
-              <label class="normal">Financial Aid/units(baht)</label>
+      <div class="col-xs-6">
+        <label class="normal">ประเภททุนการศึกษา</label>
+      </div>
+      <div class="col-xs-6">
+        <label class="normal">ผู้ให้การสนับสนุนทุนการศึกษา</label>
+      </div>
+
+      <div class="row"></div>
+      <div class="col-xs-12">
+        <label class="normal">รายละเอียดทุนการศึกษา</label>
+      </div>
+
+
+      <div class="row"></div>
+      <div class="col-xs-2">
+        <label class="normal">จำนวนทุน</label>
+      </div>
+      <div class="col-xs-10">
+        <label class="normal">จำนวนเงินต่อทุน (บาท)</label>
       </div>
     </div>
 
     <div class="content-header-blue">
-        <p>Conditions</p>
-        <div class="underline-blue"></div>
+      <p>เงื่อนไขทุนการศึกษา</p>
+      <div class="underline-blue"></div>
     </div>
-        <div class="col-xs-12">
-          <div class="row"></div>
-          <div class="col-xs-12">
-            <label class="normal">Min GPAX</label>
-          </div>
 
-          <div class="row"></div>
-          <div class="col-xs-7">
-            <label class="normal">For School</label>
-          </div>
-          <div class="col-xs-5">
-            <label class="normal">For Major</label>
-          </div>
-
-        </div>
-
-        <div class="content-header-blue">
-            <p>Date Detail</p>
-              <div class="underline-blue"></div>
-          </div>
-
-            <div class="row"></div>
-            <div class="col-xs-4">
-            <label class="normal">Announce date</label>
-            </div>
-            <div class="col-xs-8">
-              <label class="normal">Registration date</label>
-            </div>
-
-            <div class="row"></div>
-            <div class="col-xs-4">
-            <label class="normal">Announce interview date</label>
-            </div>
-            <div class="col-xs-4">
-            <label class="normal">Interview Date</label>
-            </div>
-
-            <div class="row"></div>
-            <div class="col-xs-4">
-            <label class="normal">Announce result date</label>
-            </div>
-
-            <div class="row"></div>
-            <div class="content-header-blue">
-                <p>Download document</p>
-                  <div class="underline-blue"></div>
-              </div>
-                     <div class="row"></div>
-                     <div class="col-xs-12"><br>
-                      <button pButton type="submit" class="btn-primary" label="Download"></button>
-                  </div>
-
+    <div class="col-xs-12">
+      <div class="row"></div>
+      <div class="col-xs-12">
+        <label class="normal">GPAX ขั้นต่ำ</label>
+      </div>
+      <div class="row space"></div>
+      <div class="col-xs-7">
+        <label class="normal">สำหรับนักศึกษาสำนักวิชา</label>
+      </div>
+      <div class="col-xs-5">
+        <label class="normal">สำหรับนักศึกษาสาขาวิชา</label>
+      </div>
     </div>
+
+    <div class="content-header-blue">
+      <p>รายละเอียดวันที่สมัครทุนการศึกษา</p>
+      <div class="underline-blue"></div>
+    </div>
+    <div class="col-xs-12">
+    <div class="col-xs-4">
+      <label class="normal">วันประกาศทุนการศึกษา</label>
+    </div>
+    <div class="col-xs-8">
+      <label class="normal">วันเปิดรับสมัคร</label>
+    </div>
+    <div class="row space"></div>
+    <div class="col-xs-4">
+      <label class="normal">ประกาศวันสอบสัมภาษณ์</label>
+    </div>
+    <div class="col-xs-8">
+      <label class="normal">วันสอบสัมภาษณ์</label>
+    </div>
+    <div class="row space"></div>
+    <div class="col-xs-12">
+      <label class="normal">วันประกาศผลทุนการศึกษา</label>
+    </div>
+    </div>
+
+    <div class="row"></div>
+    <div class="content-header-blue">
+      <p>ดาวน์โหลดเอกสาร</p>
+      <div class="underline-blue"></div>
+    </div>
+
+    <div class="col-xs-12"><br>
+      <button pButton type="button" class="btn-primary" label="Download"></button>
+    </div>
+
   </div>
-
-
-
-
-
+</div>
