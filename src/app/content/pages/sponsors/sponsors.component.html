@@ -17,14 +17,16 @@
         <div class="col-xs-9">
           <label class="normal">ชื่อผู้สนับสนุน *</label>
           <div>
-            <input formControlName="sponsors_name" name="sponsors_name" type="text" id="sponsorsName" maxlength="40" size="40" pInputText>
+            <input formControlName="sponsors_name" name="sponsors_name"
+            type="text" id="sponsorsName" maxlength="40" size="40"
+            pInputText>
           </div>
         </div>
 
         <div class="col-xs-3">
           <label class="normal">สถานะ *</label>
           <div>
-            <p-dropdown name="status" [options]="statusList" [style]="{'width':'110px'}">
+            <p-dropdown name="status" [options]="dropdownList" [(ngModel)]="sponsorsForm.smSponsors.active_flag" formControlName="active_flag" [style]="{'width':'110px'}">
             </p-dropdown>
           </div>
         </div>
@@ -76,7 +78,7 @@
         <div class="col-xs-6 normal">
           <label class="normal">รหัสไปรษณีย์</label>
           <div>
-            <input name="postcode" id="postcode" maxlength="20" type="text" size="20" pInputText>
+            <input name="postcode" id="postcode" formControlName="postcode" maxlength="20" type="text" size="20" pInputText>
           </div>
         </div>
 
@@ -90,7 +92,7 @@
         <div class="col-xs-6 normal">
           <label class="normal">อีเมลล์</label>
           <div>
-            <input type="text" name="email" id="email" maxlength="33" size="33" pInputText>
+            <input type="text" name="email" id="email" maxlength="33" size="33" formControlName="email" [(ngModel)]="sponsorsForm.smSponsors.email" pInputText>
           </div>
         </div>
 
@@ -110,17 +112,13 @@
           <img src="{{ image }}" class="image-preview">
         </div>
         <div class="col-xs-12" style="text-align:center;">
-          <!-- <label pButton class="btn-positive" label="เลือกไฟล์" (change)="onUpload($event)">
-  <input type="file" accept="image/*, application/pdf" class="display-none"> -->
         <label pButton
         class="btn-positive"
         label="เลือกไฟล์"
         (change)="onUpload($event)">
         <input type="file" accept="image/*, application/pdf" class="display-none">
         </label>
-      <!-- </label> -->
         </div>
-
       </div>
 
       <div class="row"></div>
@@ -150,19 +148,23 @@
         <div class="col-xs-7">
           <label class="normal">ชื่อผู้สนับสนุน</label>
           <div>
-            <input name="sponsorsName" type="text" id="sponsorsName" maxlength="40" size="40" [(ngModel)]="sponsorsCriteriaForm.smSponsors.sponsors_name"
+            <input  name="sponsors_name" type="text" id="sponsorsName" maxlength="40" size="40" [(ngModel)]="sponsorsCriteriaForm.smSponsors.sponsors_name"
               pInputText>
           </div>
         </div>
         <div class="col-xs-5">
           <label class="normal">สถานะ *</label>
           <div>
-            <p-dropdown name="status" [options]="statusList" [style]="{'width':'150px'}">
+            <p-dropdown name="dropdownName"
+            [options]="dropdownList"
+            [(ngModel)]="sponsorsCriteriaForm.smSponsors.active_flag"
+            [style]="{'width':'150px'}">
             </p-dropdown>
           </div>
         </div>
       </div>
 
+      <div class="row"></div>
       <div class="col-xs-12 formFooter">
         <div class="col-xs-12">
           <button pButton type="button" (click)="onSearch()" class="btn-primary" label="ค้นหา"></button>
@@ -183,6 +185,6 @@
         </div>
       </div>
 
-    </div>
   </div>
+</div>
 </div>

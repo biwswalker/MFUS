@@ -48,14 +48,16 @@ export class SponsorsComponent implements OnInit {
   rftSubDistrict: RftSubDistrict = new RftSubDistrict();
 
   //dropdown
-  statusList: SelectItem[];
+        // StatusList: SelectItem[];
+  dropdownList: SelectItem[];
+  dropdownValue: string;
 
   // picture
   image: any = './assets/images/empty_profile.png';
   fileList: FileList;
   binaryString: string;
   file: File;
-
+  
 
   smSponsorsList: SmSponsors[] = [];
   smSponsors: SmSponsors = new SmSponsors();
@@ -74,7 +76,9 @@ export class SponsorsComponent implements OnInit {
     this.getSubDistrictList();
     //autocomplete
     this.smSponsors = new SmSponsors();
-    this.getStatusList();
+    // this.getStatusList();
+    this.getAutocompleteList();
+    this.dropdownValue = 'Y';
 
   }
 
@@ -105,7 +109,8 @@ export class SponsorsComponent implements OnInit {
       'email': new FormControl(this.sponsorsForm.smSponsors.email, Validators.required),
       'website': new FormControl(this.sponsorsForm.smSponsors.website, Validators.required),
       'create_user': new FormControl(this.sponsorsForm.smSponsors.create_user, Validators.required),
-      'update_user': new FormControl(this.sponsorsForm.smSponsors.update_user, Validators.required)
+      'update_user': new FormControl(this.sponsorsForm.smSponsors.update_user, Validators.required),
+      'profile_image': new FormControl(this.sponsorsForm.smSponsors.profile_image)
     });
 
     if (this.mode == 'I') {
@@ -134,13 +139,15 @@ export class SponsorsComponent implements OnInit {
   onAddSponsors() {
     const value = this.sponsorsFormGroup.value;
     value.active_flag = 'Y';
-    value.province = '1';
-    value.district = '1';
-    value.sub_district = '1'
-    value.postcode = '57100'
+    value.province = this.rftProvince.province_ref;
+    value.district = this.rftDistrict.district_ref;
+    value.sub_district = this.rftSubDistrict.sub_district_ref;
     value.sponsors_ref = this.smSponsors.sponsors_ref;
     value.create_user = 'Anda';
     value.update_user = 'Anda';
+    value.profile_image = this.image;
+    value.profile_name = this.file.name;
+    value.profile_type = this.file.type;
     console.log(this.sponsorsFormGroup.value);
 
     this.sponsorsService.addSponsors(value)
@@ -179,8 +186,6 @@ export class SponsorsComponent implements OnInit {
 
   searchSponsors() {
     let resultList: SponsorsForm[] = [];
-
-
     this.sponsorsService.searchSponsors(this.sponsorsCriteriaForm)
       .subscribe(
       result => {
@@ -191,7 +196,6 @@ export class SponsorsComponent implements OnInit {
         this.showError(error);
       }
       );
-
   }
 
   onRowSelect(event) {
@@ -215,6 +219,16 @@ export class SponsorsComponent implements OnInit {
     const value = this.sponsorsFormGroup.value;
     console.log(this.smSponsors.sponsors_ref);
     value.sponsors_ref = this.smSponsors.sponsors_ref;
+   
+    value.district = this.rftDistrict.district_ref;
+    value.province = this.rftProvince.province_ref;
+    value.sub_district = this.rftSubDistrict.sub_district_ref;
+    value.profile_image = this.image;
+    value.profile_name = this.file.name;
+    value.profile_type = this.file.type;
+ //   value.active_flag = this.dropdownValue;
+
+    console.log(value)
     this.sponsorsService.updateSponsors(value, this.sponsorsForm.smSponsors.sponsors_ref)
     .subscribe(
       (res: Response) => {
@@ -272,14 +286,12 @@ export class SponsorsComponent implements OnInit {
     this.initSearchData();
   }
 
-
-  //dropdown
-  getStatusList() {
-    this.statusList = [];
-    this.statusList.push({ label: '', value: '' });
-    this.statusList.push({ label: 'ใช้งาน', value: 'Y' });
-    this.statusList.push({ label: 'ไม่ใช้งาน', value: 'N' });
+  getAutocompleteList() {
+    this.dropdownList = [];
+    this.dropdownList.push({ label: 'ใช้งาน', value: 'Y' });
+    this.dropdownList.push({ label: 'ไม่ใช้งาน', value: 'N' });
   }
+
 
   //autocomplete
   // Autocomplete Method // On key wording
@@ -336,7 +348,12 @@ export class SponsorsComponent implements OnInit {
     this.rftDistricts = [];
     //mimic remote call
     setTimeout(() => {
-      this.rftDistricts = this.rftDistrictList;
+      for(let item of this.rftDistrictList) {
+        if(this.rftProvince.province_ref != null 
+          && this.rftProvince.province_ref === item.province_ref)
+        this.rftDistricts.push(item);
+      }
+     
     }, 100)
   }
   handleSubDistrictClick() {

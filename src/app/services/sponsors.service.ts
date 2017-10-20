@@ -10,7 +10,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class SponsorsService {
 
-  
+   //insert => post
+  //search => get
+  //update => put
 
   private mainUrl: string = config.backendUrl;
   url = this.mainUrl + 'sponsors';
@@ -44,6 +46,12 @@ export class SponsorsService {
     if (sponsors.smSponsors.sponsors_name != null
       && sponsors.smSponsors.sponsors_name != '') {
       criteria = criteria + 'sponsors_name=' + sponsors.smSponsors.sponsors_name + '&';
+    }
+
+
+    if (sponsors.smSponsors.active_flag != null
+      && sponsors.smSponsors.active_flag != '') {
+      criteria = criteria + 'active_flag=' + sponsors.smSponsors.active_flag + '&';
     }
 
     console.log(criteria);
@@ -81,10 +89,11 @@ export class SponsorsService {
 
   updateSponsors(sponsors: SponsorsForm, ref: string) {
     console.log('ref' + ref);
+    // const url = this.mainUrl + 'sponsors/' + ref;
     const body = JSON.stringify(sponsors);
+    const headers = new Headers({'Content-Type': 'application/json'});
     console.log(body);
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.put(this.url + ref, body, { headers: headers });
+    return this.http.put(this.url + '/' + ref, body, { headers: headers });
   }
 
 }

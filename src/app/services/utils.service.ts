@@ -4,12 +4,12 @@ import { RequestOptions, Headers, Http, Response } from '@angular/http';
 import { RftProvince } from './../content/models/rft-province';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
-
-const url: string = 'http://127.0.0.1:8000/';
+import { config } from './../app.config';
 
 @Injectable()
 export class UtilsService {
+  private mainUrl: string = config.backendUrl;
+  url = this.mainUrl;
 
   constructor(private http: Http) { }
 
@@ -52,7 +52,7 @@ export class UtilsService {
   getProvinces(): Observable<RftProvince[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(url+'province', options)
+    return this.http.get(this.url+'province', options)
       .map(
       (res: Response) => {
         return res.json();
@@ -63,7 +63,7 @@ export class UtilsService {
   getDistricts(): Observable<RftDistrict[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(url+'district', options)
+    return this.http.get(this.url+'district', options)
       .map(
       (res: Response) => {
         return res.json();
@@ -74,7 +74,7 @@ export class UtilsService {
   getSubDistricts(): Observable<RftSubDistrict[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(url+'subdistrict', options)
+    return this.http.get(this.url+'subdistrict', options)
       .map(
       (res: Response) => {
         return res.json();
