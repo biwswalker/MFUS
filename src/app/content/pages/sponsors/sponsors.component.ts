@@ -129,8 +129,6 @@ export class SponsorsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.sponsorsFormGroup);
-    console.log('onSubmit mode ' + this.mode)
     if (this.mode == 'I') {
       this.onAddSponsors();
     } else if (this.mode == 'U') {
@@ -150,20 +148,17 @@ export class SponsorsComponent implements OnInit {
     value.profile_image = this.imagePath;
     value.profile_name = this.file.name;
     value.profile_type = this.file.type;
-    console.log(this.sponsorsFormGroup.value);
 
     this.sponsorsService.addSponsors(value)
     .subscribe(
       (res: Response) => {
         let sponsors_ref = res.json().sponsors_ref;
-        console.log(res.json());
-        console.log(res.json().sponsors_ref);
-        console.log(res.statusText);
 
         this.sponsorsFormGroup.reset();
 
         this.initEditData();
-
+        this.image = null;
+        this.imagePath = null;
         this.showSuccess('บันทึกข้อมูลผู้ให้ทุนการศึกษาเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + sponsors_ref);
 
       },
@@ -182,7 +177,6 @@ export class SponsorsComponent implements OnInit {
 
   onSearch() {
     this.sponsorsFormList = [];
-    console.log(this.sponsorsCriteriaForm);
     this.searchSponsors();
   }
 
@@ -201,27 +195,20 @@ export class SponsorsComponent implements OnInit {
   }
 
   onRowSelect(event) {
-    console.log(this.selectSponsors);
-    console.log(event.data);
     this.mode = 'U';
     this.sponsorsForm = new SponsorsForm();
     this.sponsorsForm = this.selectSponsors;
     this.sponsorsForm.smSponsors.create_user = this.getUser();
     this.sponsorsForm.smSponsors.update_user = this.getUser();
     this.validatorEditForm();
-    console.log(this.sponsorsForm.smSponsors);
     this.smSponsors = new SmSponsors();
     this.smSponsors = this.sponsorsForm.smSponsors;
     this.imagePath = this.sponsorsForm.smSponsors.profile_image;
     this.image = 'data:' +  this.sponsorsForm.smSponsors.profile_type + ';base64,' + this.imagePath;
-    console.log(this.smSponsors);
-    console.log(this.mode);
   }
 
   onUpdateSponsors() {
-    console.log(this.sponsorsFormGroup.value);
     const value = this.sponsorsFormGroup.value;
-    console.log(this.smSponsors.sponsors_ref);
     value.sponsors_ref = this.smSponsors.sponsors_ref;
    
     value.district = this.rftDistrict.district_ref;
@@ -233,14 +220,10 @@ export class SponsorsComponent implements OnInit {
   
  //   value.active_flag = this.dropdownValue;
 
-    console.log(value)
     this.sponsorsService.updateSponsors(value, this.sponsorsForm.smSponsors.sponsors_ref)
     .subscribe(
       (res: Response) => {
         let sponsors_ref = res.json().sponsors_ref;
-        console.log(res.json());
-        console.log(res.json().sponsors_ref);
-        console.log(res.statusText);
 
         this.sponsorsFormGroup.reset()
 
@@ -273,16 +256,13 @@ export class SponsorsComponent implements OnInit {
   }
 
   onResetEdit() {
-    console.log(this.mode);
     if (this.mode == 'I') {
       this.initEditData();
     } else if (this.mode == 'U') {
       this.sponsorsForm = new SponsorsForm();
       this.sponsorsForm = this.selectSponsors;
       this.smSponsors = new SmSponsors();
-      console.log(this.sponsorsForm.smSponsors);
       this.smSponsors = this.sponsorsForm.smSponsors;
-      console.log(this.smSponsors);
       this.validatorEditForm();
     }
   }
@@ -407,7 +387,6 @@ export class SponsorsComponent implements OnInit {
     this.utilsService.getSubDistricts()
       .subscribe(
       result => {
-        console.log(result.length)
         this.rftSubDistrictList = result;
       }
       );
@@ -443,10 +422,6 @@ export class SponsorsComponent implements OnInit {
     this.binaryString = readerEvent.target.result;
     this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
     this.imagePath = btoa(this.binaryString);
-    // console.log(btoa(this.binaryString));
-    console.log(this.file.name);
-    console.log(this.file.size);
-    console.log(this.file.type);
   }
 
   onDelete() {
