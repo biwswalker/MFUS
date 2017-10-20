@@ -54,10 +54,12 @@ export class SponsorsComponent implements OnInit {
 
   // picture
   image: any = './assets/images/empty_profile.png';
+
   fileList: FileList;
   binaryString: string;
   file: File;
   
+  imagePath: any;
 
   smSponsorsList: SmSponsors[] = [];
   smSponsors: SmSponsors = new SmSponsors();
@@ -145,7 +147,7 @@ export class SponsorsComponent implements OnInit {
     value.sponsors_ref = this.smSponsors.sponsors_ref;
     value.create_user = 'Anda';
     value.update_user = 'Anda';
-    value.profile_image = this.image;
+    value.profile_image = this.imagePath;
     value.profile_name = this.file.name;
     value.profile_type = this.file.type;
     console.log(this.sponsorsFormGroup.value);
@@ -210,6 +212,8 @@ export class SponsorsComponent implements OnInit {
     console.log(this.sponsorsForm.smSponsors);
     this.smSponsors = new SmSponsors();
     this.smSponsors = this.sponsorsForm.smSponsors;
+    this.imagePath = this.sponsorsForm.smSponsors.profile_image;
+    this.image = 'data:' +  this.sponsorsForm.smSponsors.profile_type + ';base64,' + this.imagePath;
     console.log(this.smSponsors);
     console.log(this.mode);
   }
@@ -223,9 +227,10 @@ export class SponsorsComponent implements OnInit {
     value.district = this.rftDistrict.district_ref;
     value.province = this.rftProvince.province_ref;
     value.sub_district = this.rftSubDistrict.sub_district_ref;
-    value.profile_image = this.image;
+    value.profile_image = this.imagePath;
     value.profile_name = this.file.name;
     value.profile_type = this.file.type;
+  
  //   value.active_flag = this.dropdownValue;
 
     console.log(value)
@@ -437,6 +442,7 @@ export class SponsorsComponent implements OnInit {
   handleReaderLoaded(readerEvent) {
     this.binaryString = readerEvent.target.result;
     this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
+    this.imagePath = btoa(this.binaryString);
     // console.log(btoa(this.binaryString));
     console.log(this.file.name);
     console.log(this.file.size);
