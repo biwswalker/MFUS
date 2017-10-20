@@ -7,7 +7,6 @@ export class SponsorsForm {
 
   index :number;
   public smSponsors: SmSponsors;
-
   public rftProvince: RftProvince;
   public rftDistrict: RftDistrict;
   public rftSubDistrict: RftSubDistrict;

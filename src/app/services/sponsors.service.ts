@@ -10,7 +10,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class SponsorsService {
 
-  
+   //insert => post
+  //search => get
+  //update => put
 
   private mainUrl: string = config.backendUrl;
   url = this.mainUrl + 'sponsors';
@@ -30,7 +32,6 @@ export class SponsorsService {
 
   addSponsors(sponsors: SmSponsors) {
     const body = JSON.stringify(sponsors);
-    console.log(body);
     const headers = new Headers({ 'Content-Type': 'application/json' });
     return this.http.post(this.url, body, { headers: headers });
   }
@@ -46,21 +47,23 @@ export class SponsorsService {
       criteria = criteria + 'sponsors_name=' + sponsors.smSponsors.sponsors_name + '&';
     }
 
-    console.log(criteria);
+
+    if (sponsors.smSponsors.active_flag != null
+      && sponsors.smSponsors.active_flag != '') {
+      criteria = criteria + 'active_flag=' + sponsors.smSponsors.active_flag + '&';
+    }
+
     if (criteria.length > 1) {
       criteria = criteria.substr(0, criteria.length - 1);
     } else {
       criteria = '';
     }
 
-    console.log(body);
-    console.log(criteria);
     return this.http.get(this.url + criteria, { headers: headers })
       .map(
       (res: Response) => {
         let results: SponsorsForm[] = [];
         let form: SponsorsForm = new SponsorsForm();
-        console.log('res.json() = ' + res.json());
         let i = 1;
         for (let data of res.json()) {
           form = new SponsorsForm();
@@ -80,11 +83,10 @@ export class SponsorsService {
   }
 
   updateSponsors(sponsors: SponsorsForm, ref: string) {
-    console.log('ref' + ref);
+    // const url = this.mainUrl + 'sponsors/' + ref;
     const body = JSON.stringify(sponsors);
-    console.log(body);
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.put(this.url + ref, body, { headers: headers });
+    const headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.put(this.url + '/' + ref, body, { headers: headers });
   }
 
 }

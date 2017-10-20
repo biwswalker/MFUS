@@ -36,13 +36,11 @@ export class NewsService {
 
       if(news.startDate != null &&
         news.startDate !='') {
-          news.startDate = moment(news.startDate).format('YYYY-MM-DD');
         criteria = criteria + 'startDate=' + news.startDate + '&';
       }
 
       if(news.endDate != null &&
         news.endDate != '') {
-          news.endDate = moment(news.endDate).format('YYYY-MM-DD');
         criteria = criteria + 'endDate=' + news.endDate + '&';
       }
 
@@ -50,12 +48,6 @@ export class NewsService {
         && news.smNews.active_flag != '') {
         criteria = criteria + 'active_flag=' + news.smNews.active_flag + '&'
       }
-
-
-      // if(news.smNews.news_topic != null
-      //   && major.rftMajor.major_name_t != '') {
-      //   criteria = criteria + 'major_name_t=' + major.rftMajor.major_name_t + '&';
-      // }
 
       console.log('criteria :', criteria);
       if(criteria.length > 1){
@@ -106,5 +98,15 @@ export class NewsService {
       const headers = new Headers({'Content-Type': 'application/json'});
       console.log('body: ', body);
       return this.http.put(url, body, {headers: headers});
+    }
+
+    deleteNews(news: string) {
+      console.log('service.news : ', news);
+      const url = this.mainUrl + 'news/' + news;
+      // const body = JSON.stringify(news);
+      const headers = new Headers({'Content-Type': 'application/json'});
+
+      // console.log(url+body);
+      return this.http.delete(url, { headers: headers });
     }
 }

@@ -1,3 +1,4 @@
+import { config } from './../app.config';
 import { RftSubDistrict } from './../content/models/rft-sub-district';
 import { RftDistrict } from './../content/models/rft-district';
 import { RequestOptions, Headers, Http, Response } from '@angular/http';
@@ -5,11 +6,12 @@ import { RftProvince } from './../content/models/rft-province';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-
-const url: string = 'http://127.0.0.1:8000/';
+const url: string = config.backendUrl;
 
 @Injectable()
 export class UtilsService {
+  private mainUrl: string = config.backendUrl;
+  url = this.mainUrl;
 
   constructor(private http: Http) { }
 
@@ -41,7 +43,14 @@ export class UtilsService {
     const date = this.chageTo2digi(dateParam.getDate());
     const month = this.chageTo2digi(dateParam.getMonth() + 1);
     const year = dateParam.getUTCFullYear();
-    return date + '' + month + '' + year
+    return year + '' + month + '' + date
+  }
+
+  public convertDateCriteria(dateParam: Date): string {
+    const date = this.chageTo2digi(dateParam.getDate());
+    const month = this.chageTo2digi(dateParam.getMonth() + 1);
+    const year = dateParam.getUTCFullYear();
+    return  year+ '-' + month  + '-' + date
   }
 
   // format number to have 2 digit
@@ -52,7 +61,7 @@ export class UtilsService {
   getProvinces(): Observable<RftProvince[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(url+'province', options)
+    return this.http.get(this.url+'province', options)
       .map(
       (res: Response) => {
         return res.json();
@@ -63,7 +72,7 @@ export class UtilsService {
   getDistricts(): Observable<RftDistrict[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(url+'district', options)
+    return this.http.get(this.url+'district', options)
       .map(
       (res: Response) => {
         return res.json();
@@ -74,7 +83,7 @@ export class UtilsService {
   getSubDistricts(): Observable<RftSubDistrict[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(url+'subdistrict', options)
+    return this.http.get(this.url+'subdistrict', options)
       .map(
       (res: Response) => {
         return res.json();
