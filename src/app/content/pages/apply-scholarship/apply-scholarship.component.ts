@@ -1,3 +1,5 @@
+import { AcStudent } from './../../models/ac-student';
+import { AcSibling } from './../../models/ac-sibling';
 import { ApplyScholarshipForm } from './../../form/apply-scholarshop-form';
 import { ApplyscholarshipService } from './../../../services/applyscholarship.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,6 +19,7 @@ export class ApplyScholarshipComponent implements OnInit {
   constructor(private applyscholarshipService: ApplyscholarshipService) { }
 
   ngOnInit() {
+
     this.items = [
       {
         label: 'ข้อมูลผู้ขอทุน',
@@ -55,7 +58,7 @@ export class ApplyScholarshipComponent implements OnInit {
   onNext() {
     this.applyscholarshipService.nextIndex();
     this.activeIndex = this.applyscholarshipService.getIndex();
-    this.applyScholarshipForm = this.applyscholarshipService.getData();
+  //  this.applyScholarshipForm = this.applyscholarshipService.getData();
     console.log('activeIndex = ' + this.activeIndex);
     console.log('data = ' + this.applyScholarshipForm);
   }
