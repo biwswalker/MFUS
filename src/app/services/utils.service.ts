@@ -45,6 +45,13 @@ export class UtilsService {
     return date + '' + month + '' + year
   }
 
+  public convertDateCriteria(dateParam: Date): string {
+    const date = this.chageTo2digi(dateParam.getDate());
+    const month = this.chageTo2digi(dateParam.getMonth() + 1);
+    const year = dateParam.getUTCFullYear();
+    return  month+ '-' +date  + '-' + year
+  }
+
   // format number to have 2 digit
   chageTo2digi(num: number): string {
     return (num < 10 ? '0' : '') + num;

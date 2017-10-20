@@ -1,3 +1,4 @@
+import { UtilsService } from './../../../services/utils.service';
 import { Response } from '@angular/http';
 import { SelectItem, Message } from 'primeng/primeng';
 import { NewsService } from '../../../services/news.service';
@@ -27,6 +28,9 @@ export class NewsComponent implements OnInit {
 
   newsFormList: NewsForm[] = [];
 
+  startDate: Date;
+  endDate: Date;
+
   image: any;
   fileList: FileList;
   binaryString: string;
@@ -44,7 +48,8 @@ export class NewsComponent implements OnInit {
   deleteBtn = false;
 
 
-  constructor(private newsService: NewsService) { }
+  constructor(private newsService: NewsService,
+              private utilsService: UtilsService) { }
 
   ngOnInit() {
     this.getStatusList();
@@ -145,6 +150,8 @@ export class NewsComponent implements OnInit {
 
   onSearchNews() {
     this.newsFormList = [];
+    this.criteriaNewsForm.startDate = this.utilsService.convertDateCriteria(this.startDate);
+    this.criteriaNewsForm.endDate = this.utilsService.convertDateCriteria(this.endDate);
     console.log('Criteria : ', this.criteriaNewsForm);
     this.SearchNews();
   }
