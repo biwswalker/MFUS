@@ -101,4 +101,14 @@ export class NewsService {
       console.log('body: ', body);
       return this.http.put(url, body, {headers: headers});
     }
+
+    deleteNews(news: string) {
+      console.log('service.news : ', news);
+      const url = this.mainUrl + 'news/' + news;
+      // const body = JSON.stringify(news);
+      const headers = new Headers({'Content-Type': 'application/json'});
+
+      // console.log(url+body);
+      return this.http.delete(url, { headers: headers });
+    }
 }

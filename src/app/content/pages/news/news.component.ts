@@ -265,10 +265,21 @@ export class NewsComponent implements OnInit {
   }
 
   onDelete() {
-    this.image = './assets/images/empty_profile.png';
-    this.fileList = null;
-    this.binaryString = null;
-    this.file = null;
+    this.newsService.deleteNews(this.newsForm.smNews.news_ref)
+    .subscribe((res: Response) => {
+      let news_ref = res.json().news_ref;
+      console.log(res.json());
+      console.log(res.json().news_ref);
+      console.log(res.statusText);
+
+      this.newsFormGroup.reset();
+
+      this.onPageSearch();
+
+      this.showSuccess('ลบข้อมูลเรียบร้อยแล้ว');
+
+    },
+  )
   }
 
   resetForm() {

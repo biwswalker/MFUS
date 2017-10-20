@@ -99,7 +99,8 @@
               type="button"
               class="ui-button-danger"
               label="ลบ"
-              *ngIf="deleteBtn">
+              *ngIf="deleteBtn"
+              (click)="onDelete()">
             </button>
             <button pButton
               type="button"
