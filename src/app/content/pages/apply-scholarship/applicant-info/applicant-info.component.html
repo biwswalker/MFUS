@@ -6,14 +6,14 @@
         <div class="col-xs-6">
           <label class="normal">เลขประจำตัวประชาชน</label>
           <div class="info">
-            <label>1-5201-00088-46-9</label>
+            <label>{{applyScholarship.applyScholarshipForm.acStudent.personal_id}}</label>
           </div>
         </div>
 
         <div class="col-xs-6">
           <label class="normal">รหัสนักศึกษา</label>
           <div class="info">
-            <label>5231302045</label>
+            <label>{{applyScholarship.applyScholarshipForm.acStudent.student_id}}</label>
           </div>
         </div>
       </div>
@@ -30,21 +30,21 @@
         <div class="col-xs-2">
           <label class="normal">เพศ</label>
           <div class="info">
-            <label>หญิง</label>
+            <label>{{applyScholarship.applyScholarshipForm.acStudent.gender}}</label>
           </div>
         </div>
 
         <div class="col-xs-3">
           <label class="normal">วันเกิด</label>
           <div class="info">
-            <label>22 ม.ค 2534</label>
+            <label>{{applyScholarship.applyScholarshipForm.acStudent.birth_date}}</label>
           </div>
         </div>
 
         <div class="col-xs-3">
           <label class="normal">อายุ</label>
           <div class="info">
-            <label>26</label>
+            <label>{{applyScholarship.applyScholarshipForm.age}}</label>
           </div>
         </div>
       </div>
@@ -55,21 +55,21 @@
         <div class="col-xs-4">
           <label class="normal">สัญชาติ</label>
           <div class="info">
-            <label>ไทย</label>
+            <label>{{applyScholarship.applyScholarshipForm.acStudent.nationality}}</label>
           </div>
         </div>
 
         <div class="col-xs-2">
           <label class="normal">เชื้อชาติ</label>
           <div class="info">
-            <label>ไทย</label>
+            <label>{{applyScholarship.applyScholarshipForm.acStudent.race}}</label>
           </div>
         </div>
 
         <div class="col-xs-6">
           <label class="normal">ศาสนา</label>
           <div class="info">
-            <label>คริสต์</label>
+            <label>{{applyScholarship.applyScholarshipForm.acStudent.religion}}</label>
           </div>
         </div>
       </div>
@@ -78,14 +78,14 @@
         <div class="col-xs-6">
           <label class="normal">สำนักวิชา</label>
           <div class="info">
-            <label>เทคโนโลยีสารสนเทศ</label>
+            <label>{{applyScholarship.applyScholarshipForm.rftSchool.school_name_t}}</label>
           </div>
         </div>
 
         <div class="col-xs-6">
           <label class="normal">สาขาวิชา</label>
           <div class="info">
-            <label>วิทยาการคอมพิวเตอร์</label>
+            <label>{{applyScholarship.applyScholarshipForm.rftMajor.major_name_t}}</label>
           </div>
         </div>
       </div>
@@ -94,7 +94,9 @@
         <div class="col-xs-4">
           <label class="normal">ชั้นปีการศึกษา</label>
           <div>
-
+            <p-dropdown
+              [options]="collageYears"
+              [style]="{'width':'50px'}" ></p-dropdown>
           </div>
         </div>
         <div class="col-xs-2">

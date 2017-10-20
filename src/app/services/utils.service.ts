@@ -1,10 +1,17 @@
+import { config } from './../app.config';
 import { RftSubDistrict } from './../content/models/rft-sub-district';
 import { RftDistrict } from './../content/models/rft-district';
 import { RequestOptions, Headers, Http, Response } from '@angular/http';
 import { RftProvince } from './../content/models/rft-province';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+<<<<<<< HEAD
 import { config } from './../app.config';
+=======
+
+
+const url: string = config.backendUrl;
+>>>>>>> 628fd2dbd3a78e3e468e593730ff9eb4def01df9
 
 @Injectable()
 export class UtilsService {
@@ -41,7 +48,14 @@ export class UtilsService {
     const date = this.chageTo2digi(dateParam.getDate());
     const month = this.chageTo2digi(dateParam.getMonth() + 1);
     const year = dateParam.getUTCFullYear();
-    return date + '' + month + '' + year
+    return year + '' + month + '' + date
+  }
+
+  public convertDateCriteria(dateParam: Date): string {
+    const date = this.chageTo2digi(dateParam.getDate());
+    const month = this.chageTo2digi(dateParam.getMonth() + 1);
+    const year = dateParam.getUTCFullYear();
+    return  year+ '-' + month  + '-' + date
   }
 
   // format number to have 2 digit

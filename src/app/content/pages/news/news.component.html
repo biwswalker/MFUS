@@ -2,7 +2,8 @@
     <p>บันทึกข่าวสาร</p>
     <div class="underline-blue"></div>
 </div>
-<p-messages [(value)]="msgs" style="height:50%"></p-messages>
+
+<p-growl [(value)]="msgs" ></p-growl>
 <div class="content"  *ngIf="mode !== 'S'">
 <form [formGroup]="newsFormGroup" (ngSubmit)="onSubmit()">
     <div class="row">
@@ -85,7 +86,8 @@
             <button pButton
               type="submit"
               class="btn-positive"
-              label="{{submitButton}}">
+              label="{{submitButton}}"
+              [disabled]="!newsFormGroup.valid">
             </button>
             <button pButton
               type="button"
@@ -94,10 +96,12 @@
               (click)="resetForm()">
             </button>
             <button pButton
-            type="button"
-            class="ui-button-danger"
-            label="ลบ">
-          </button>
+              type="button"
+              class="ui-button-danger"
+              label="ลบ"
+              *ngIf="deleteBtn"
+              (click)="onDelete()">
+            </button>
             <button pButton
               type="button"
               class="btn-positive"
@@ -135,7 +139,7 @@
   <div class="row">
     <div class="col-xs-1"></div>
     <div class="col-xs-10">
-        <img src="{{newsForm.smNews.news_image}}" width="100%" height="100%">
+        <img src="{{image}}" width="100%" height="100%">
     </div>
     <div class="col-xs-1"></div>
   </div>
@@ -179,17 +183,16 @@
       <p-calendar
         id="startDate"
         [showIcon]="true"
-        [(ngModel)]="criteriaNewsForm.startDate">
+        [(ngModel)]="startDate">
       </p-calendar>
       <label style="padding:0px 5px 0px 30px">ถึง </label>
       <p-calendar
         id="endDate"
         [showIcon]="true"
-        [(ngModel)]="criteriaNewsForm.endDate">
+        [(ngModel)]="endDate">
       </p-calendar>
     </div>
     <div class="col-xs-2">
-
       <div>
         <label class="normal">สถานะ</label>
       </div>
