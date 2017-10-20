@@ -205,6 +205,11 @@ export class SponsorsComponent implements OnInit {
     this.smSponsors = this.sponsorsForm.smSponsors;
     this.imagePath = this.sponsorsForm.smSponsors.profile_image;
     this.image = 'data:' +  this.sponsorsForm.smSponsors.profile_type + ';base64,' + this.imagePath;
+
+    // Find the models
+    // this.rftProvince;
+    // this.rftDistrict;
+    // this.rftSubDistrict;
   }
 
   onUpdateSponsors() {
