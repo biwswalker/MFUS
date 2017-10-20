@@ -1,3 +1,9 @@
+import { ApplyscholarshipService } from './services/applyscholarship.service';
+
+import { TitlenameComponent } from './content/pages/titlename/titlename.component';
+import { SchoolComponent } from './content/pages/school/school.component';
+import { MajorComponent } from './content/pages/major/major.component';
+import { NewsComponent } from './content/pages/news/news.component';
 import { ScholarshipannouncementService } from './services/scholarshipannouncement.service';
 import { ScholarshipService } from './services/scholarship.service';
 
@@ -68,10 +74,10 @@ import { RegscholarshipComponent } from './content/pages/regscholarship/regschol
 import { UtilsService } from './services/utils.service';
 import { AuthenticationService } from './services/authentication.service';
 import { StepService } from './services/tag/step.service';
-import { SchoolComponent } from './content/pages/school/school.component';
-import { MajorComponent } from './content/pages/major/major.component';
-import { NewsComponent } from './content/pages/news/news.component';
-
+import { OfficerService } from './services/officer.service';
+import { UserService } from './services/user.service';
+import { ApplyScholarshipComponent } from './content/pages/apply-scholarship/apply-scholarship.component';
+import { ApplicantInfoComponent } from './content/pages/apply-scholarship/applicant-info/applicant-info.component';
 
 
 
@@ -83,7 +89,7 @@ const appRoutes: Routes = [
     path: 'pages', component: PagesComponent, children: [
       { path: 'sponsors', component: SponsorsComponent },
       { path: 'scholarship-announcement', component: ScholarshipAnnouncementComponent },
-      { path: 'apply-scholarship', component: ApplyforscholarshipComponent },
+      { path: 'apply-scholarship', component: ApplyScholarshipComponent },
       { path: 'scholarship', component: ScholarshipComponent },
       { path: 'annoucncement', component: AnnoucncementComponent },
       { path: 'officer', component: OfficerComponent },
@@ -92,6 +98,7 @@ const appRoutes: Routes = [
       { path: 'major', component: MajorComponent },
       { path: 'news', component: NewsComponent },
       { path: 'regscholarship', component: RegscholarshipComponent },
+      { path: 'titlename', component: TitlenameComponent },
     ]
   }
 ];
@@ -131,7 +138,10 @@ const appRoutes: Routes = [
     RegscholarshipComponent,
     SchoolComponent,
     MajorComponent,
-    NewsComponent
+    NewsComponent,
+    ApplyScholarshipComponent,
+    ApplicantInfoComponent,
+    TitlenameComponent
   ],
   imports: [
     BrowserModule,
@@ -170,7 +180,10 @@ const appRoutes: Routes = [
     ScholarshipService,
     MajorService,
     NewsService,
-    SponsorsService
+    SponsorsService,
+    ApplyscholarshipService,
+    OfficerService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
