@@ -1,0 +1,31 @@
+<div class="content">
+  <div class="content-header-blue">
+    <p>สมัครทุนการศึกษา</p>
+    <div class="underline-blue"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <p-steps
+        [model]="items"
+        [(activeIndex)]="activeIndex"
+        [readonly]="false"
+        styleClass="steps-custom">
+
+      </p-steps>
+
+      <div *ngIf="activeIndex == 0">
+        <div class="content-header-blue-normal">
+          <p>ข้อมูลผู้ขอทุน</p>
+          <div class="underline-blue"></div>
+        </div>
+        <app-applicant-info></app-applicant-info>
+      </div>
+
+      <div *ngIf="activeIndex == 1">
+        <p>ข้อมูลทุนการศึกษา</p>
+        <app-applicant-info></app-applicant-info>
+      </div>
+
+    </div>
+  </div>
+</div>

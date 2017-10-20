@@ -50,7 +50,12 @@ export class SponsorsComponent implements OnInit {
   //dropdown
   statusList: SelectItem[];
 
-  image: any;
+  // picture
+  image: any = './assets/images/empty_profile.png';
+  fileList: FileList;
+  binaryString: string;
+  file: File;
+
 
   smSponsorsList: SmSponsors[] = [];
   smSponsors: SmSponsors = new SmSponsors();
@@ -138,31 +143,31 @@ export class SponsorsComponent implements OnInit {
     value.update_user = 'Anda';
     console.log(this.sponsorsFormGroup.value);
 
-    // this.sponsorsService.addSponsors(value)
-    // .subscribe(
-    //   (res: Response) => {
-    //     let sponsors_ref = res.json().sponsors_ref;
-    //     console.log(res.json());
-    //     console.log(res.json().sponsors_ref);
-    //     console.log(res.statusText);
+    this.sponsorsService.addSponsors(value)
+    .subscribe(
+      (res: Response) => {
+        let sponsors_ref = res.json().sponsors_ref;
+        console.log(res.json());
+        console.log(res.json().sponsors_ref);
+        console.log(res.statusText);
 
-    //     this.sponsorsFormGroup.reset();
+        this.sponsorsFormGroup.reset();
 
-    //     this.initEditData();
+        this.initEditData();
 
-    //     this.showSuccess('บันทึกข้อมูลผู้ให้ทุนการศึกษาเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + sponsors_ref);
+        this.showSuccess('บันทึกข้อมูลผู้ให้ทุนการศึกษาเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + sponsors_ref);
 
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //     let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
-    //     if(error.status == 409) {
-    //       message = 'มีการใช้รหัสผู้ให้ทุนการศึกษานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
-    //     }
-    //     this.showError(message);
-    //     return;
-    //   }
-    // );
+      },
+      (error) => {
+        console.log(error);
+        let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        if(error.status == 409) {
+          message = 'มีการใช้รหัสผู้ให้ทุนการศึกษานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        }
+        this.showError(message);
+        return;
+      }
+    );
 
   }
 
@@ -210,31 +215,31 @@ export class SponsorsComponent implements OnInit {
     const value = this.sponsorsFormGroup.value;
     console.log(this.smSponsors.sponsors_ref);
     value.sponsors_ref = this.smSponsors.sponsors_ref;
-    // this.sponsorsService.updateSponsors(value, this.sponsorsForm.smSponsors.sponsors_ref)
-    // .subscribe(
-    //   (res: Response) => {
-    //     let sponsors_ref = res.json().sponsors_ref;
-    //     console.log(res.json());
-    //     console.log(res.json().sponsors_ref);
-    //     console.log(res.statusText);
+    this.sponsorsService.updateSponsors(value, this.sponsorsForm.smSponsors.sponsors_ref)
+    .subscribe(
+      (res: Response) => {
+        let sponsors_ref = res.json().sponsors_ref;
+        console.log(res.json());
+        console.log(res.json().sponsors_ref);
+        console.log(res.statusText);
 
-    //     this.sponsorsFormGroup.reset()
+        this.sponsorsFormGroup.reset()
 
-    //     this.initEditData();
+        this.initEditData();
 
-    //     this.showSuccess('แก้ไขข้อมูลผู้ให้ทุนการศึกษาเรียบร้อยแล้ว');
+        this.showSuccess('แก้ไขข้อมูลผู้ให้ทุนการศึกษาเรียบร้อยแล้ว');
 
-    //   },
-    //   (error) =>{
-    //     console.log(error);
-    //     let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
-    //     if(error.status == 409) {
-    //       message = 'มีการใช้รหัสผู้ให้ทุนการศึกษานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
-    //     }
-    //     this.showError(message);
-    //     return;
-    //   }
-    // );
+      },
+      (error) =>{
+        console.log(error);
+        let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        if(error.status == 409) {
+          message = 'มีการใช้รหัสผู้ให้ทุนการศึกษานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        }
+        this.showError(message);
+        return;
+      }
+    );
   }
 
   //changePage
@@ -398,7 +403,34 @@ export class SponsorsComponent implements OnInit {
   }
 
   onUpload(event) {
+    this.fileList = event.target.files;
+    if (this.fileList.length > 0) {
+      this.file = this.fileList[0];
+      // 10 MB
+      if (this.file.size < 10000000) {
+        let reader = new FileReader();
+        reader.onload = this.handleReaderLoaded.bind(this);
+        reader.readAsBinaryString(this.file);
+      } else {
+        this.onDelete();
+      }
+    }
+  }
 
+  handleReaderLoaded(readerEvent) {
+    this.binaryString = readerEvent.target.result;
+    this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
+    // console.log(btoa(this.binaryString));
+    console.log(this.file.name);
+    console.log(this.file.size);
+    console.log(this.file.type);
+  }
+
+  onDelete() {
+    this.image = './assets/images/empty_profile.png';
+    this.fileList = null;
+    this.binaryString = null;
+    this.file = null;
   }
 
 }

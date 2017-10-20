@@ -46,6 +46,20 @@ export class SidebarComponent implements OnInit {
           }
 
         ]
+      },
+      {
+        label: 'อื่นๆ',
+        items: [
+          {
+            label: 'บันทึกข่าวสาร',
+            routerLink: ['/pages/news']
+          },
+          {
+            label: 'สมัครทุน',
+            routerLink: ['/pages/apply-scholarship']
+          }
+
+        ]
       }
     ];
   }

@@ -1,3 +1,5 @@
+import { ApplyscholarshipService } from './services/applyscholarship.service';
+
 import { TitlenameComponent } from './content/pages/titlename/titlename.component';
 import { SchoolComponent } from './content/pages/school/school.component';
 import { MajorComponent } from './content/pages/major/major.component';
@@ -74,6 +76,8 @@ import { AuthenticationService } from './services/authentication.service';
 import { StepService } from './services/tag/step.service';
 import { OfficerService } from './services/officer.service';
 import { UserService } from './services/user.service';
+import { ApplyScholarshipComponent } from './content/pages/apply-scholarship/apply-scholarship.component';
+import { ApplicantInfoComponent } from './content/pages/apply-scholarship/applicant-info/applicant-info.component';
 
 
 
@@ -85,7 +89,7 @@ const appRoutes: Routes = [
     path: 'pages', component: PagesComponent, children: [
       { path: 'sponsors', component: SponsorsComponent },
       { path: 'scholarship-announcement', component: ScholarshipAnnouncementComponent },
-      { path: 'apply-scholarship', component: ApplyforscholarshipComponent },
+      { path: 'apply-scholarship', component: ApplyScholarshipComponent },
       { path: 'scholarship', component: ScholarshipComponent },
       { path: 'annoucncement', component: AnnoucncementComponent },
       { path: 'officer', component: OfficerComponent },
@@ -135,6 +139,8 @@ const appRoutes: Routes = [
     SchoolComponent,
     MajorComponent,
     NewsComponent,
+    ApplyScholarshipComponent,
+    ApplicantInfoComponent,
     TitlenameComponent
   ],
   imports: [
@@ -175,6 +181,7 @@ const appRoutes: Routes = [
     MajorService,
     NewsService,
     SponsorsService,
+    ApplyscholarshipService,
     OfficerService,
     UserService
   ],

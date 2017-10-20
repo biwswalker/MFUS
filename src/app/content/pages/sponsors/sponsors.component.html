@@ -65,7 +65,7 @@
           <label class="normal">ตำบล *</label>
           <div>
             <p-autoComplete formControlName="sub_district" name="sub_district" field="sub_district_name_t" [(ngModel)]="rftSubDistrict"
-              [suggestions]="rftSubDistrict" (completeMethod)="autocompleteMethodSubDistrict($event)" [size]="28" [dropdown]="true"
+              [suggestions]="rftSubDistricts" (completeMethod)="autocompleteMethodSubDistrict($event)" [size]="28" [dropdown]="true"
               (onDropdownClick)="handleSubDistrictClick($event)">
               <ng-template let-obj pTemplate="obj">
                 {{obj.sub_district_name_t}}
@@ -110,9 +110,15 @@
           <img src="{{ image }}" class="image-preview">
         </div>
         <div class="col-xs-12" style="text-align:center;">
-          <label pButton class="btn-positive" label="เลือกไฟล์" (change)="onUpload($event)">
-  <input type="file" accept="image/*, application/pdf" class="display-none">
-      </label>
+          <!-- <label pButton class="btn-positive" label="เลือกไฟล์" (change)="onUpload($event)">
+  <input type="file" accept="image/*, application/pdf" class="display-none"> -->
+        <label pButton
+        class="btn-positive"
+        label="เลือกไฟล์"
+        (change)="onUpload($event)">
+        <input type="file" accept="image/*, application/pdf" class="display-none">
+        </label>
+      <!-- </label> -->
         </div>
 
       </div>
@@ -121,7 +127,7 @@
       <div class="row formFooter">
         <div class="col-xs-9">
           <button pButton type="submit" class="btn-primary" label="บันทึก"></button>
-          <button pButton type="button" class="btn-primary" (click)="onResetEdit();" label="ล้างข้อมูล"></button>
+          <button pButton type="reset" class="btn-primary" (click)="onResetEdit();" label="ล้างข้อมูล"></button>
           <button pButton type="button" class="btn-primary" (click)="onPageSearch()" label="กลับ" style="float:right;"></button>
         </div>
       </div>
