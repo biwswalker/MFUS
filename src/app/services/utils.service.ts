@@ -5,13 +5,8 @@ import { RequestOptions, Headers, Http, Response } from '@angular/http';
 import { RftProvince } from './../content/models/rft-province';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-<<<<<<< HEAD
-import { config } from './../app.config';
-=======
-
 
 const url: string = config.backendUrl;
->>>>>>> 628fd2dbd3a78e3e468e593730ff9eb4def01df9
 
 @Injectable()
 export class UtilsService {
