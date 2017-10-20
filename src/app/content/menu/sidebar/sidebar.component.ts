@@ -26,7 +26,8 @@ export class SidebarComponent implements OnInit {
         items: [
           { label: 'คัดกรองเอกสาร' },
           { label: 'ข้อมูลผู้มีสิทธิ์สัมภาษณ์' },
-          { label: 'ข้อมูลผู้ได้รับทุนการศึกษา' }
+          { label: 'ข้อมูลผู้ได้รับทุนการศึกษา' },
+          { label: 'ข้อมูลเจ้าหน้าที่', routerLink: ['/pages/officer'] }
         ]
       },
       {
