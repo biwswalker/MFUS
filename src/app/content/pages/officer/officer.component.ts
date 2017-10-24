@@ -70,8 +70,6 @@ export class OfficerComponent implements OnInit {
     this.getTitleList();
     this.initEditData();
     this.getProvince();
-    this.getDistrict();
-    this.getSubDistrict();
     this.initSearchData();
   }
 
@@ -160,16 +158,13 @@ export class OfficerComponent implements OnInit {
   }
 
   getProvince() {
-    let listProvince = [];
-    this.utilService.getProvinces()
-      .subscribe((res: RftProvince[]) => {
-        this.listProvince.push(...res);
-      }
-    );
+    this.listProvince = [];
+    this.listProvince = this.utilService.getProvincesList();
   }
 
   // On Click Autocomplete Dropdown Button
   handleCompleteClickProvince() {
+    this.provinceList = [];
     setTimeout(() => {
       this.provinceList = this.listProvince;
       this.districtList = [];
@@ -179,19 +174,16 @@ export class OfficerComponent implements OnInit {
 //End Autocomplete Province------------------------------------------------------------------------------------
 
 
-
-
   //Begin District Autocomplete Method // On key wording
   autocompleteDistrict(event) {
     let query = event.query;
-    console.log('districtList: ', this.districtList);
     this.districtList = [];
     console.log('thisdistrictList: ', this.districtList);
     let objList: RftDistrict[] = this.listDistrict;
     for (let obj of objList) {
       // Filter By string event
-      if(this.officerEditForm.rftProvince.province_ref == obj.province_ref) {
-        if (obj.district_name_t.indexOf(query) == 0) {
+      if(this.officerEditForm.rftProvince.province_ref === obj.province_ref) {
+        if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
           this.districtList.push(obj);
         }
       }
@@ -202,75 +194,46 @@ export class OfficerComponent implements OnInit {
   // On Click Autocomplete Dropdown Button
   handleCompleteClickDistrict() {
     //mimic remote call
+
+    this.districtList = [];
+    console.log(this.listDistrict.length)
     setTimeout(() => {
       let objList: RftDistrict[] = this.listDistrict;
-      for (let obj of objList) {
-        // Filter By string event
-        if(this.officerEditForm.rftProvince.province_ref == obj.province_ref) {
-            this.districtList.push(obj);
-        }
-      }
+      this.districtList = this.listDistrict;
     }, 100)
+    console.log(this.districtList.length)
   }
 
-  getDistrict() {
-    let listDistrict = [];
-    this.utilService.getDistricts()
-      .subscribe((res: RftDistrict[]) => {
-        this.listDistrict.push(...res);
-      }
-    );
-  }
   //End Autocomplete District------------------------------------------------------------------------------------
 
-  selectProvince() {
-    console.log('district: ', this.officerEditForm.rftDistrict)
+  selectProvince(event: SelectItem) {
+    this.utilService.getDistrictsByProvinceRef(this.officerEditForm.rftProvince.province_ref)
+    .subscribe((res: RftDistrict[]) => {
+      this.listDistrict.push(...res);
+      }
+    );
+    console.log(this.listDistrict.length);
   }
 
+  selectDistrict(event: SelectItem) {
+    this.utilService.getSubDistrictsByDistrictRef(this.officerEditForm.rftDistrict.district_ref)
+    .subscribe((res: RftSubDistrict[]) => {
+      this.listSubDistrict.push(...res);
+      }
+    );
+    console.log(this.listSubDistrict.length);
+  }
 
+  selectSubDistrict(event: SelectItem) {
+    this.postcode = this.officerEditForm.rftDistrict.postcode;
+  }
 
-  // // SubDistrict Autocomplete Method // On key wording
-  // autocompleteSubDistrict(event) {
-  //   let query = event.query;
-  //   this.subDistrictList = [];
-  //   let objList: RftSubDistrict[] = this.listSubDistrict;
-  //   for (let obj of objList) {
-  //     // Filter By string event
-  //     if(obj.province_ref == this.officerEditForm.rftProvince.province_ref) {
-  //       if(obj.district_ref == this.officerEditForm.rftDistrict.district_ref) {
-  //         if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-  //          this.subDistrictList.push(obj);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
-  // // On Click Autocomplete Dropdown Button
-  // handleCompleteClickSubDistrict() {
-  //   //mimic remote call
-  //   setTimeout(() => {
-  //     this.subDistrictList = this.listSubDistrict;
-  //   }, 100)
-  // }
-
-  // getSubDistrict() {
-  //   let listSubDistrict = [];
-  //   this.utilService.getSubDistricts()
-  //     .subscribe((res: RftSubDistrict[]) => {
-  //       this.listSubDistrict.push(...res);
-  //     }
-  //   );
-  // }
-  // //End Autocomplete Province------------------------------------------------------------------------------------
+  // //End Autocomplete Province---------------------------------------------------------------------------
 
    // SubDistrict Autocomplete Method // On key wording
    autocompleteSubDistrict(event) {
     let query = event.query;
     this.subDistrictList = [];
-    console.log('this.subDistrictList: ' ,this.subDistrictList);
-    console.log('provinceRef: ', this.officerEditForm.rftProvince.province_ref);
-    console.log('districtRef: ', this.officerEditForm.rftDistrict.district_ref);
     let objList: RftSubDistrict[] = this.listSubDistrict;
     for (let obj of objList) {
       // Filter By string event
@@ -287,18 +250,12 @@ export class OfficerComponent implements OnInit {
   // On Click Autocomplete Dropdown Button
   handleCompleteClickSubDistrict() {
     //mimic remote call
+    this.subDistrictList = [];
     setTimeout(() => {
+      this.subDistrictList = this.listSubDistrict;
     }, 100)
   }
 
-  getSubDistrict() {
-    let listSubDistrict = [];
-    this.utilService.getSubDistricts()
-      .subscribe((res: RftSubDistrict[]) => {
-        this.listSubDistrict.push(...res);
-      }
-    );
-  }
   //End Autocomplete Province------------------------------------------------------------------------------------
 
 

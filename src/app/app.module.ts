@@ -1,3 +1,4 @@
+import { StartupService } from './services/startup.service';
 import { ApplyscholarshipService } from './services/applyscholarship.service';
 
 import { TitlenameComponent } from './content/pages/titlename/titlename.component';
@@ -78,15 +79,14 @@ import { OfficerService } from './services/officer.service';
 import { UserService } from './services/user.service';
 import { ApplyScholarshipComponent } from './content/pages/apply-scholarship/apply-scholarship.component';
 import { ApplicantInfoComponent } from './content/pages/apply-scholarship/applicant-info/applicant-info.component';
-
-
+import { APP_INITIALIZER } from '@angular/core';
 
 //Router
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'example', component: ExampleComponent },
   {
-    path: 'pages', component: PagesComponent, children: [
+    path: 'pages' , canLoad: [UtilsService], component: PagesComponent, children: [
       { path: 'sponsors', component: SponsorsComponent },
       { path: 'scholarship-announcement', component: ScholarshipAnnouncementComponent },
       { path: 'apply-scholarship', component: ApplyScholarshipComponent },
@@ -102,6 +102,10 @@ const appRoutes: Routes = [
     ]
   }
 ];
+
+export function startupServiceFactory(startupService: StartupService): Function {
+  return () => startupService.loadProvinces();
+}
 
 @NgModule({
   declarations: [
@@ -183,7 +187,14 @@ const appRoutes: Routes = [
     SponsorsService,
     ApplyscholarshipService,
     OfficerService,
-    UserService
+    UserService,
+    StartupService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: startupServiceFactory,
+      deps: [StartupService],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

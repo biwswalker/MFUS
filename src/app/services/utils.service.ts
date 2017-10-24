@@ -1,3 +1,4 @@
+import { StartupService } from './startup.service';
 import { config } from './../app.config';
 import { RftSubDistrict } from './../content/models/rft-sub-district';
 import { RftDistrict } from './../content/models/rft-district';
@@ -13,7 +14,7 @@ export class UtilsService {
   private mainUrl: string = config.backendUrl;
   url = this.mainUrl;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http,private startupService: StartupService) { }
 
   // 20/08/2017
   public displayStringDate(dateParam: Date): string {
@@ -58,15 +59,21 @@ export class UtilsService {
     return (num < 10 ? '0' : '') + num;
   }
 
+
   getProvinces(): Observable<RftProvince[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.get(this.url+'province', options)
       .map(
       (res: Response) => {
+        console.log(res.json());
         return res.json();
       }
       );
+  }
+
+  getProvincesList() {
+    return this.startupService.provinceList;
   }
 
   getDistricts(): Observable<RftDistrict[]> {
@@ -84,6 +91,30 @@ export class UtilsService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.get(this.url+'subdistrict', options)
+      .map(
+      (res: Response) => {
+        return res.json();
+      }
+      );
+  }
+
+  getDistrictsByProvinceRef(ref: number): Observable<RftDistrict[]> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let criteria = '/province_ref=' + ref;
+    return this.http.get(this.url+'district' + criteria, options)
+      .map(
+      (res: Response) => {
+        return res.json();
+      }
+      );
+  }
+
+  getSubDistrictsByDistrictRef(ref: number): Observable<RftSubDistrict[]> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let criteria = '/district_ref=' + ref;
+    return this.http.get(this.url+'subdistrict' + criteria, options)
       .map(
       (res: Response) => {
         return res.json();
