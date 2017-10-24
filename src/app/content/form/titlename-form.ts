@@ -1,5 +1,5 @@
 import { RftTitleName } from './../models/rft-title-name';
-export class SchoolForm {
+export class TitleNameForm {
 
   public rftTitleName: RftTitleName;
 
