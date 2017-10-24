@@ -1,4 +1,5 @@
-<div class="content"  *ngIf="mode !== 'S'">
+<div class="content"
+     *ngIf="mode !== 'S'">
   <div class="content-header-blue">
     <p>ทุนการศึกษา</p>
     <div class="underline-blue"></div>
@@ -118,8 +119,10 @@
             label="กลับ"></button>
   </div>
 </div>
-<!-- Mode insert!-->
-<div class="content" *ngIf="mode === 'S'">
+
+<!-- Mode search!-->
+<div class="content"
+     *ngIf="mode === 'S'">
   <div class="content-header-blue">
     <p>ทุนการศึกษา</p>
     <div class="underline-blue"></div>
@@ -128,18 +131,17 @@
     <div class="col-xs-9">
       <label class="normal">ผู้ให้ทุนการศึกษา</label>
       <div>
-        <p-autoComplete name="autocompleteName"
-                        field="autoName"
-                        [(ngModel)]="autocompleteObj"
-                        [suggestions]="autocompleteList"
+        <p-autoComplete name="sponsors_name"
+                        field="sponsors_name"
+                        [(ngModel)]="sponsors"
+                        [suggestions]="sponsorsList"
                         (completeMethod)="autocompleteMethod($event)"
-                        [size]="20"
+                        [size]="50"
                         [dropdown]="true"
-                        forceSelection="true"
                         (onDropdownClick)="handleCompleteClick($event)">
           <ng-template let-obj
                        pTemplate="item">
-            {{obj.autoName}}
+            {{obj.sponsors_name}}
           </ng-template>
         </p-autoComplete>
       </div>
@@ -148,10 +150,10 @@
     <div class="col-xs-2">
       <label class="normal">สถานะ</label>
       <div>
-        <p-dropdown name="dropdownName"
-                    [options]="dropdownList"
-                    [(ngModel)]="dropdownValue"
-                    [style]="{'width':'110px'}">
+        <p-dropdown name="active_flag"
+                    [options]="statusList"
+                    [(ngModel)]="scholarshipCriteriaForm.smScholarship.active_flag"
+                    [style]="{'width':'150px'}">
         </p-dropdown>
       </div>
     </div>
@@ -162,66 +164,76 @@
     <div class="col-xs-3 ">
       <label class="normal">ประเภททุนการศึกษา</label>
       <div>
-        <p-dropdown name="dropdownName"
-                    [options]="dropdownList"
-                    [(ngModel)]="dropdownValue"
+        <!-- <p-dropdown name="scholarship_type"
+                    [options]="scholarship_type"
+                    [(ngModel)]="typeList"
                     [style]="{'width':'200px'}">
-        </p-dropdown>
+        </p-dropdown> -->
       </div>
     </div>
     <div class="col-xs-6 col-sm-offset-1">
       <label class="normal">ชื่อทุนการศึกษา *</label>
       <div>
-        <input [(ngModel)]="textStr"
-               name="inputTextName"
+        <input class="normal"
+               [(ngModel)]="scholarshipCriteriaForm.smScholarship.scholarship_name"
                type="text"
-               size="60"
+               name="scholarship_name"
+               id="scholarshipName"
+               size="50"
+               maxlength="50"
                pInputText>
       </div>
     </div>
   </div>
+
   <div class="space"></div>
   <div class="row">
-      <button pButton
-              type="submit"
-              class="btn-positive"
-              label="บันทึก"></button>
-      <button pButton
-              type="button"
-              class="btn-normal"
-              label="รีเซ็ท"></button>
-      <button pButton
-              type="button"
-              style="float:right;"
-              class="btn-negative"
-              label="กลับ"></button>
+    <button pButton
+            type="button"
+            class="btn-normal"
+            label="ค้นหา"
+            (click)="onSearch()"></button>
+    <button pButton
+            type="button"
+            class="btn-normal"
+            label="รีเซ็ท"></button>
+    <button pButton
+            type="button"
+            style="float:right;"
+            class="btn-negative"
+            label="กลับ"></button>
   </div>
-            <div class="space"></div>
+  <div class="space"></div>
   <div class="row">
-    <p-dataTable [value]="sponsorsFormList"
+    <p-dataTable [value]="scholarshipFormList"
                  selectionMode="single"
-                 [(selection)]="selectedSponsors"
+                 [(selection)]="selectScholarship"
                  [rows]="10"
                  [paginator]="true"
                  [rowsPerPageOptions]="[5,10,20]"
                  sortMode="multiple"
+                 dataKey="smScholarship.scholarship_ref"
                  (onRowSelect)="onRowSelect($event)">
 
       <p-column [sortable]="true"
-                field="SmSponsors.sponsersRef"
-                header="เลขที่"></p-column>
+                [style]="{'width':'80px'}"
+                field="index"
+                header="ลำดับ"></p-column>
       <p-column [sortable]="true"
-                field="SmSponsors.sponsersID"
-                header="ชื่อผู้ให้ทุน"></p-column>
+                [style]="{'width':'150px'}"
+                field="smSponsors.sponsors_name"
+                header="ชื่อผู้สนับสนุน"></p-column>
       <p-column [sortable]="true"
-                field="student.studentFName"
-                [sortable]="true"
+                [style]="{'width':'100px'}"
+                field="smScholarship.scholarship_type"
                 header="ประเภททุนการศึกษา"></p-column>
       <p-column [sortable]="true"
-                field="student.studentLName"
+                field="smScholarship.scholarship_name"
+                [style]="{'width':'300px'}"
                 header="ชื่อทุนการศึกษา"></p-column>
       <p-column [sortable]="true"
-                field="student.studentLName"
+                [style]="{'width':'80px'}"
+                field="smScholarship.active_flag"
                 header="สถานะ"></p-column>
     </p-dataTable>
   </div>

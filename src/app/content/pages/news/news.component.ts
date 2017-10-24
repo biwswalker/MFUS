@@ -1,3 +1,4 @@
+import { UtilsService } from './../../../services/utils.service';
 import { Response } from '@angular/http';
 import { SelectItem, Message } from 'primeng/primeng';
 import { NewsService } from '../../../services/news.service';
@@ -27,10 +28,15 @@ export class NewsComponent implements OnInit {
 
   newsFormList: NewsForm[] = [];
 
+  startDate: Date;
+  endDate: Date;
+
   image: any;
   fileList: FileList;
   binaryString: string;
   file: File;
+  img_name: string;
+  img_type: string;
 
   submitButton: string;
 
@@ -39,9 +45,11 @@ export class NewsComponent implements OnInit {
   previewDate: string;
   status: string;
   preview = false;
+  deleteBtn = false;
 
 
-  constructor(private newsService: NewsService) { }
+  constructor(private newsService: NewsService,
+              private utilsService: UtilsService) { }
 
   ngOnInit() {
     this.getStatusList();
@@ -71,7 +79,6 @@ export class NewsComponent implements OnInit {
         Validators.compose([Validators.required])),
       'news_detail': new FormControl(this.newsForm.smNews.news_detail,
         Validators.compose([Validators.required])),
-      'news_image': new FormControl(this.newsForm.smNews.news_image),
       'publish_date': new FormControl(this.newsForm.smNews.publish_date,
         Validators.compose([Validators.required])),
       'active_flag': new FormControl(this.newsForm.smNews.active_flag),
@@ -88,14 +95,9 @@ export class NewsComponent implements OnInit {
 
   onSubmit() {
     if (this.mode === 'I') {
-      if(this.newsForm.smNews.news_topic == null) {
-        this.msgs = [];
-        this.msgs.push({severity:'error', summary:'กรุณาระบุ', detail:'หัวข้อข่าว'});
-      }else {
         this.addNews();
-      }
 
-    } else if (this.mode === 'U') {
+          } else if (this.mode === 'U') {
       this.updateNews();
     }
   }
@@ -148,6 +150,8 @@ export class NewsComponent implements OnInit {
 
   onSearchNews() {
     this.newsFormList = [];
+    this.criteriaNewsForm.startDate = this.utilsService.convertDateCriteria(this.startDate);
+    this.criteriaNewsForm.endDate = this.utilsService.convertDateCriteria(this.endDate);
     console.log('Criteria : ', this.criteriaNewsForm);
     this.SearchNews();
   }
@@ -161,12 +165,7 @@ export class NewsComponent implements OnInit {
         console.log(result.length);
         this.newsFormList = result;
         console.log('newsFormList: ', this.newsFormList);
-      },
-      (error) => {
-        console.log(error);
-        this.showError(error);
-      }
-      );
+      });
   }
 
   resetSearch() {
@@ -178,11 +177,15 @@ export class NewsComponent implements OnInit {
     console.log(event.data);
     this.mode = 'U';
     this.submitButton = 'แก้ไข';
+    this.preview = false;
+    this.deleteBtn = true;
     this.newsForm = new NewsForm();
     this.newsForm = event.data;
     this.newsForm.smNews.publish_date = moment(this.newsSelected.smNews.publish_date).toDate();
     this.newsForm.smNews.active_flag = this.getStatus(this.newsSelected.smNews.active_flag);
-
+    this.image = this.newsForm.smNews.news_image;
+    this.img_name = this.newsForm.smNews.news_name;
+    this.img_type = this.newsForm.smNews.news_type;
     console.log('image: ', this.newsForm.smNews.news_image);
     console.log('DateFormat',this.newsForm.smNews.publish_date);
     this.validatorEditForm();
@@ -197,22 +200,21 @@ export class NewsComponent implements OnInit {
       return this.newsForm.smNews.active_flag = 'N';
     }
   }
+
   updateNews() {
-    console.log(this.newsFormGroup.value);
+    console.log(this.newsForm);
     const value = this.newsFormGroup.value;
     value.news_image = this.image;
-    if( this.file.name != null){
-      value.news_name = this.file.name;
-    }
-    value.news_type = this.file.type;
+    value.news_name = this.img_name;
+    value.news_type = this.img_type;
     value.publish_date = moment(value.publish_date).format('YYYY-MM-DD');
-    console.log(this.newsFormGroup.value.news_ref);
+    console.log(this.newsFormGroup.value);
     this.newsService.updateNews(value, this.newsForm.smNews.news_ref)
     .subscribe(
       (res: Response) => {
-        let school_ref = res.json().school_ref;
+        let news_ref = res.json().news_ref;
         console.log(res.json());
-        console.log(res.json().school_ref);
+        console.log(res.json().news_ref);
         console.log(res.statusText);
 
         this.newsFormGroup.reset();
@@ -260,18 +262,31 @@ export class NewsComponent implements OnInit {
 
   handleReaderLoaded(readerEvent) {
     this.binaryString = readerEvent.target.result;
-    this.newsForm.smNews.news_image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
+    this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
     // console.log(btoa(this.binaryString));
+    this.img_name = this.file.name;
+    this.img_type = this.file.type;
     console.log(this.file.name);
     console.log(this.file.size);
     console.log(this.file.type);
   }
 
   onDelete() {
-    this.image = './assets/images/empty_profile.png';
-    this.fileList = null;
-    this.binaryString = null;
-    this.file = null;
+    this.newsService.deleteNews(this.newsForm.smNews.news_ref)
+    .subscribe((res: Response) => {
+      let news_ref = res.json().news_ref;
+      console.log(res.json());
+      console.log(res.json().news_ref);
+      console.log(res.statusText);
+
+      this.newsFormGroup.reset();
+
+      this.onPageSearch();
+
+      this.showSuccess('ลบข้อมูลเรียบร้อยแล้ว');
+
+    },
+  )
   }
 
   resetForm() {
@@ -280,7 +295,6 @@ export class NewsComponent implements OnInit {
       this.initEditData();
     }else {
       console.log('resetUpdate')
-      this.newsForm;
     }
 
   }
@@ -294,6 +308,7 @@ export class NewsComponent implements OnInit {
   onInsertNews() {
     this.mode = 'I';
     this.preview = false;
+    this.deleteBtn = false;
     this.initEditData();
   }
   showSuccess(message: string) {

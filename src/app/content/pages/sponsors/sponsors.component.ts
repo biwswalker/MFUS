@@ -48,9 +48,18 @@ export class SponsorsComponent implements OnInit {
   rftSubDistrict: RftSubDistrict = new RftSubDistrict();
 
   //dropdown
-  statusList: SelectItem[];
+        // StatusList: SelectItem[];
+  dropdownList: SelectItem[];
+  dropdownValue: string;
 
-  image: any;
+  // picture
+  image: any = './assets/images/empty_profile.png';
+
+  fileList: FileList;
+  binaryString: string;
+  file: File;
+  
+  imagePath: any;
 
   smSponsorsList: SmSponsors[] = [];
   smSponsors: SmSponsors = new SmSponsors();
@@ -69,7 +78,9 @@ export class SponsorsComponent implements OnInit {
     this.getSubDistrictList();
     //autocomplete
     this.smSponsors = new SmSponsors();
-    this.getStatusList();
+    // this.getStatusList();
+    this.getAutocompleteList();
+    this.dropdownValue = 'Y';
 
   }
 
@@ -100,7 +111,8 @@ export class SponsorsComponent implements OnInit {
       'email': new FormControl(this.sponsorsForm.smSponsors.email, Validators.required),
       'website': new FormControl(this.sponsorsForm.smSponsors.website, Validators.required),
       'create_user': new FormControl(this.sponsorsForm.smSponsors.create_user, Validators.required),
-      'update_user': new FormControl(this.sponsorsForm.smSponsors.update_user, Validators.required)
+      'update_user': new FormControl(this.sponsorsForm.smSponsors.update_user, Validators.required),
+      'profile_image': new FormControl(this.sponsorsForm.smSponsors.profile_image)
     });
 
     if (this.mode == 'I') {
@@ -117,8 +129,6 @@ export class SponsorsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.sponsorsFormGroup);
-    console.log('onSubmit mode ' + this.mode)
     if (this.mode == 'I') {
       this.onAddSponsors();
     } else if (this.mode == 'U') {
@@ -129,53 +139,49 @@ export class SponsorsComponent implements OnInit {
   onAddSponsors() {
     const value = this.sponsorsFormGroup.value;
     value.active_flag = 'Y';
-    value.province = '1';
-    value.district = '1';
-    value.sub_district = '1'
-    value.postcode = '57100'
+    value.province = this.rftProvince.province_ref;
+    value.district = this.rftDistrict.district_ref;
+    value.sub_district = this.rftSubDistrict.sub_district_ref;
     value.sponsors_ref = this.smSponsors.sponsors_ref;
     value.create_user = 'Anda';
     value.update_user = 'Anda';
-    console.log(this.sponsorsFormGroup.value);
+    value.profile_image = this.imagePath;
+    value.profile_name = this.file.name;
+    value.profile_type = this.file.type;
 
-    // this.sponsorsService.addSponsors(value)
-    // .subscribe(
-    //   (res: Response) => {
-    //     let sponsors_ref = res.json().sponsors_ref;
-    //     console.log(res.json());
-    //     console.log(res.json().sponsors_ref);
-    //     console.log(res.statusText);
+    this.sponsorsService.addSponsors(value)
+    .subscribe(
+      (res: Response) => {
+        let sponsors_ref = res.json().sponsors_ref;
 
-    //     this.sponsorsFormGroup.reset();
+        this.sponsorsFormGroup.reset();
 
-    //     this.initEditData();
+        this.initEditData();
+        this.image = null;
+        this.imagePath = null;
+        this.showSuccess('บันทึกข้อมูลผู้ให้ทุนการศึกษาเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + sponsors_ref);
 
-    //     this.showSuccess('บันทึกข้อมูลผู้ให้ทุนการศึกษาเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + sponsors_ref);
-
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //     let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
-    //     if(error.status == 409) {
-    //       message = 'มีการใช้รหัสผู้ให้ทุนการศึกษานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
-    //     }
-    //     this.showError(message);
-    //     return;
-    //   }
-    // );
+      },
+      (error) => {
+        console.log(error);
+        let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        if(error.status == 409) {
+          message = 'มีการใช้รหัสผู้ให้ทุนการศึกษานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        }
+        this.showError(message);
+        return;
+      }
+    );
 
   }
 
   onSearch() {
     this.sponsorsFormList = [];
-    console.log(this.sponsorsCriteriaForm);
     this.searchSponsors();
   }
 
   searchSponsors() {
     let resultList: SponsorsForm[] = [];
-
-
     this.sponsorsService.searchSponsors(this.sponsorsCriteriaForm)
       .subscribe(
       result => {
@@ -186,55 +192,61 @@ export class SponsorsComponent implements OnInit {
         this.showError(error);
       }
       );
-
   }
 
   onRowSelect(event) {
-    console.log(this.selectSponsors);
-    console.log(event.data);
     this.mode = 'U';
     this.sponsorsForm = new SponsorsForm();
     this.sponsorsForm = this.selectSponsors;
     this.sponsorsForm.smSponsors.create_user = this.getUser();
     this.sponsorsForm.smSponsors.update_user = this.getUser();
     this.validatorEditForm();
-    console.log(this.sponsorsForm.smSponsors);
     this.smSponsors = new SmSponsors();
     this.smSponsors = this.sponsorsForm.smSponsors;
-    console.log(this.smSponsors);
-    console.log(this.mode);
+    this.imagePath = this.sponsorsForm.smSponsors.profile_image;
+    this.image = 'data:' +  this.sponsorsForm.smSponsors.profile_type + ';base64,' + this.imagePath;
+
+    // Find the models
+    // this.rftProvince;
+    // this.rftDistrict;
+    // this.rftSubDistrict;
   }
 
   onUpdateSponsors() {
-    console.log(this.sponsorsFormGroup.value);
     const value = this.sponsorsFormGroup.value;
-    console.log(this.smSponsors.sponsors_ref);
     value.sponsors_ref = this.smSponsors.sponsors_ref;
-    // this.sponsorsService.updateSponsors(value, this.sponsorsForm.smSponsors.sponsors_ref)
-    // .subscribe(
-    //   (res: Response) => {
-    //     let sponsors_ref = res.json().sponsors_ref;
-    //     console.log(res.json());
-    //     console.log(res.json().sponsors_ref);
-    //     console.log(res.statusText);
+   
+    value.district = this.rftDistrict.district_ref;
+    value.province = this.rftProvince.province_ref;
+    value.sub_district = this.rftSubDistrict.sub_district_ref;
+    value.profile_image = this.imagePath;
+    value.profile_name = this.file.name;
+    value.profile_type = this.file.type;
+  
+ //   value.active_flag = this.dropdownValue;
 
-    //     this.sponsorsFormGroup.reset()
+    this.sponsorsService.updateSponsors(value, this.sponsorsForm.smSponsors.sponsors_ref)
+    .subscribe(
+      (res: Response) => {
+        let sponsors_ref = res.json().sponsors_ref;
 
-    //     this.initEditData();
+        this.sponsorsFormGroup.reset()
 
-    //     this.showSuccess('แก้ไขข้อมูลผู้ให้ทุนการศึกษาเรียบร้อยแล้ว');
+        this.initEditData();
 
-    //   },
-    //   (error) =>{
-    //     console.log(error);
-    //     let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
-    //     if(error.status == 409) {
-    //       message = 'มีการใช้รหัสผู้ให้ทุนการศึกษานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
-    //     }
-    //     this.showError(message);
-    //     return;
-    //   }
-    // );
+        this.showSuccess('แก้ไขข้อมูลผู้ให้ทุนการศึกษาเรียบร้อยแล้ว');
+
+      },
+      (error) =>{
+        console.log(error);
+        let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        if(error.status == 409) {
+          message = 'มีการใช้รหัสผู้ให้ทุนการศึกษานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        }
+        this.showError(message);
+        return;
+      }
+    );
   }
 
   //changePage
@@ -249,16 +261,13 @@ export class SponsorsComponent implements OnInit {
   }
 
   onResetEdit() {
-    console.log(this.mode);
     if (this.mode == 'I') {
       this.initEditData();
     } else if (this.mode == 'U') {
       this.sponsorsForm = new SponsorsForm();
       this.sponsorsForm = this.selectSponsors;
       this.smSponsors = new SmSponsors();
-      console.log(this.sponsorsForm.smSponsors);
       this.smSponsors = this.sponsorsForm.smSponsors;
-      console.log(this.smSponsors);
       this.validatorEditForm();
     }
   }
@@ -267,14 +276,12 @@ export class SponsorsComponent implements OnInit {
     this.initSearchData();
   }
 
-
-  //dropdown
-  getStatusList() {
-    this.statusList = [];
-    this.statusList.push({ label: '', value: '' });
-    this.statusList.push({ label: 'ใช้งาน', value: 'Y' });
-    this.statusList.push({ label: 'ไม่ใช้งาน', value: 'N' });
+  getAutocompleteList() {
+    this.dropdownList = [];
+    this.dropdownList.push({ label: 'ใช้งาน', value: 'Y' });
+    this.dropdownList.push({ label: 'ไม่ใช้งาน', value: 'N' });
   }
+
 
   //autocomplete
   // Autocomplete Method // On key wording
@@ -331,7 +338,12 @@ export class SponsorsComponent implements OnInit {
     this.rftDistricts = [];
     //mimic remote call
     setTimeout(() => {
-      this.rftDistricts = this.rftDistrictList;
+      for(let item of this.rftDistrictList) {
+        if(this.rftProvince.province_ref != null 
+          && this.rftProvince.province_ref === item.province_ref)
+        this.rftDistricts.push(item);
+      }
+     
     }, 100)
   }
   handleSubDistrictClick() {
@@ -380,7 +392,6 @@ export class SponsorsComponent implements OnInit {
     this.utilsService.getSubDistricts()
       .subscribe(
       result => {
-        console.log(result.length)
         this.rftSubDistrictList = result;
       }
       );
@@ -398,7 +409,31 @@ export class SponsorsComponent implements OnInit {
   }
 
   onUpload(event) {
+    this.fileList = event.target.files;
+    if (this.fileList.length > 0) {
+      this.file = this.fileList[0];
+      // 10 MB
+      if (this.file.size < 10000000) {
+        let reader = new FileReader();
+        reader.onload = this.handleReaderLoaded.bind(this);
+        reader.readAsBinaryString(this.file);
+      } else {
+        this.onDelete();
+      }
+    }
+  }
 
+  handleReaderLoaded(readerEvent) {
+    this.binaryString = readerEvent.target.result;
+    this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
+    this.imagePath = btoa(this.binaryString);
+  }
+
+  onDelete() {
+    this.image = './assets/images/empty_profile.png';
+    this.fileList = null;
+    this.binaryString = null;
+    this.file = null;
   }
 
 }

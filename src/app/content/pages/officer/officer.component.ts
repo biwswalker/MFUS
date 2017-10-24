@@ -30,7 +30,10 @@ export class OfficerComponent implements OnInit {
 
   mode = 'S'; // I-insert, U-update, S-search
 
+  //image
   image: any;
+  img_name: string;
+  img_type: string;
 
   // Dropdown List
   statusList: SelectItem[];
@@ -51,6 +54,8 @@ export class OfficerComponent implements OnInit {
   subDistrictObject: RftSubDistrict;
   listSubDistrict: RftSubDistrict[] = [];
 
+  postcode: string;
+
   fileList: FileList;
   binaryString: string;
   file: File;
@@ -68,20 +73,20 @@ export class OfficerComponent implements OnInit {
     this.getDistrict();
     this.getSubDistrict();
     this.initSearchData();
-
   }
 
   initEditData() {
     this.officerEditForm = new OfficerForm();
     this.provinceObject = new RftProvince();
     this.districtObject = new RftDistrict();
-    this.subDistrictObject = new RftSubDistrict;
+    this.subDistrictObject = new RftSubDistrict();
     this.officerEditForm.acOfficer.active_flag = 'Y';
     this.officerEditForm.acOfficer.create_user = 'phai';
     this.officerEditForm.acOfficer.update_user = 'phai';
     this.officerEditForm.acOfficer.gender = 'M';
     this.officerEditForm.acOfficer.title_ref = '';
     this.image = './assets/images/empty_profile.png';
+    this.postcode = this.officerEditForm.rftDistrict.postcode;
     this.validatorEditForm();
   }
 
@@ -146,7 +151,6 @@ export class OfficerComponent implements OnInit {
     this.officerEditForm.rftSubDistrict = new RftSubDistrict();
     let objList: RftProvince[];
     objList = this.listProvince;
-
     for (let obj of objList) {
       // Filter By string event
         if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
@@ -174,29 +178,38 @@ export class OfficerComponent implements OnInit {
   }
 //End Autocomplete Province------------------------------------------------------------------------------------
 
+
+
+
   //Begin District Autocomplete Method // On key wording
   autocompleteDistrict(event) {
     let query = event.query;
+    console.log('districtList: ', this.districtList);
     this.districtList = [];
+    console.log('thisdistrictList: ', this.districtList);
     let objList: RftDistrict[] = this.listDistrict;
     for (let obj of objList) {
       // Filter By string event
-      if(obj.province_ref == this.officerEditForm.rftProvince.province_ref) {
-        if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+      if(this.officerEditForm.rftProvince.province_ref == obj.province_ref) {
+        if (obj.district_name_t.indexOf(query) == 0) {
           this.districtList.push(obj);
         }
       }
     }
+    console.log('list: ' , this.listDistrict);
   }
 
   // On Click Autocomplete Dropdown Button
   handleCompleteClickDistrict() {
     //mimic remote call
-
     setTimeout(() => {
-      console.log('showList');
-      // this.districtList = [];
-
+      let objList: RftDistrict[] = this.listDistrict;
+      for (let obj of objList) {
+        // Filter By string event
+        if(this.officerEditForm.rftProvince.province_ref == obj.province_ref) {
+            this.districtList.push(obj);
+        }
+      }
     }, 100)
   }
 
@@ -210,11 +223,54 @@ export class OfficerComponent implements OnInit {
   }
   //End Autocomplete District------------------------------------------------------------------------------------
 
-  // SubDistrict Autocomplete Method // On key wording
-  autocompleteSubDistrict(event) {
+  selectProvince() {
+    console.log('district: ', this.officerEditForm.rftDistrict)
+  }
+
+
+
+  // // SubDistrict Autocomplete Method // On key wording
+  // autocompleteSubDistrict(event) {
+  //   let query = event.query;
+  //   this.subDistrictList = [];
+  //   let objList: RftSubDistrict[] = this.listSubDistrict;
+  //   for (let obj of objList) {
+  //     // Filter By string event
+  //     if(obj.province_ref == this.officerEditForm.rftProvince.province_ref) {
+  //       if(obj.district_ref == this.officerEditForm.rftDistrict.district_ref) {
+  //         if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+  //          this.subDistrictList.push(obj);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
+  // // On Click Autocomplete Dropdown Button
+  // handleCompleteClickSubDistrict() {
+  //   //mimic remote call
+  //   setTimeout(() => {
+  //     this.subDistrictList = this.listSubDistrict;
+  //   }, 100)
+  // }
+
+  // getSubDistrict() {
+  //   let listSubDistrict = [];
+  //   this.utilService.getSubDistricts()
+  //     .subscribe((res: RftSubDistrict[]) => {
+  //       this.listSubDistrict.push(...res);
+  //     }
+  //   );
+  // }
+  // //End Autocomplete Province------------------------------------------------------------------------------------
+
+   // SubDistrict Autocomplete Method // On key wording
+   autocompleteSubDistrict(event) {
     let query = event.query;
     this.subDistrictList = [];
-    this.districtObject.postcode = '';
+    console.log('this.subDistrictList: ' ,this.subDistrictList);
+    console.log('provinceRef: ', this.officerEditForm.rftProvince.province_ref);
+    console.log('districtRef: ', this.officerEditForm.rftDistrict.district_ref);
     let objList: RftSubDistrict[] = this.listSubDistrict;
     for (let obj of objList) {
       // Filter By string event
@@ -226,14 +282,12 @@ export class OfficerComponent implements OnInit {
         }
       }
     }
-    this.officerEditForm.acOfficer.postcode = this.districtObject.postcode;
   }
 
   // On Click Autocomplete Dropdown Button
   handleCompleteClickSubDistrict() {
     //mimic remote call
     setTimeout(() => {
-      this.subDistrictList = this.listSubDistrict;
     }, 100)
   }
 
@@ -246,6 +300,7 @@ export class OfficerComponent implements OnInit {
     );
   }
   //End Autocomplete Province------------------------------------------------------------------------------------
+
 
   onUpload(event) {
     this.fileList = event.target.files;
@@ -390,10 +445,11 @@ export class OfficerComponent implements OnInit {
     this.mode = 'U';
     this.officerEditForm = new OfficerForm();
     this.officerEditForm = event.data;
-    this.officerEditForm.rftProvince = this.getSelectedProvince(this.officerEditForm.acOfficer.province);
-    this.officerEditForm.rftDistrict = this.getSelectedDistrict(this.officerEditForm.acOfficer.district);
-    this.officerEditForm.rftSubDistrict = this.getSelectedSubDistrict(this.officerEditForm.acOfficer.sub_district);
+    this.officerEditForm.rftProvince = this.getSelectedProvince(Number(this.officerEditForm.acOfficer.province));
+    this.officerEditForm.rftDistrict = this.getSelectedDistrict(Number(this.officerEditForm.acOfficer.district));
+    this.officerEditForm.rftSubDistrict = this.getSelectedSubDistrict(Number(this.officerEditForm.acOfficer.sub_district));
     this.image = this.officerEditForm.acOfficer.profile_image;
+    this.postcode = this.officerEditForm.rftDistrict.postcode;
 
     console.log('form: ', this.officerEditForm);
 
@@ -442,39 +498,39 @@ export class OfficerComponent implements OnInit {
     );
   }
 
-  getSelectedProvince(province_code: string) {
+  getSelectedProvince(code: number) {
     this.provinceObject = new RftProvince();
     let objList: RftProvince[];
     objList = this.listProvince;
     for (let obj of objList) {
       // Filter By string event
-        if (obj.province_code == province_code) {
+        if (obj.province_ref == code) {
           this.provinceObject = obj;
           return this.provinceObject;
         }
     }
   }
 
-  getSelectedDistrict(code: string) {
+  getSelectedDistrict(code: number) {
     this.districtObject = new RftDistrict();
     let objList: RftDistrict[];
     objList = this.listDistrict;
     for (let obj of objList) {
       // Filter By string event
-        if (obj.district_code == code) {
+        if (obj.district_ref == code) {
           this.districtObject = obj;
           return this.districtObject;
         }
     }
   }
 
-  getSelectedSubDistrict(code: string) {
+  getSelectedSubDistrict(code: number) {
     this.subDistrictObject = new RftSubDistrict();
     let objList: RftSubDistrict[];
     objList = this.listSubDistrict;
     for (let obj of objList) {
       // Filter By string event
-        if (obj.sub_district_code == code) {
+        if (obj.sub_district_ref == code) {
           this.subDistrictObject = obj;
           return this.subDistrictObject;
         }
