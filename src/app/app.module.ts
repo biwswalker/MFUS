@@ -78,6 +78,7 @@ import { OfficerService } from './services/officer.service';
 import { UserService } from './services/user.service';
 import { ApplyScholarshipComponent } from './content/pages/apply-scholarship/apply-scholarship.component';
 import { ApplicantInfoComponent } from './content/pages/apply-scholarship/applicant-info/applicant-info.component';
+import { StudentComponent } from './content/pages/student/student.component';
 
 
 
@@ -99,6 +100,7 @@ const appRoutes: Routes = [
       { path: 'news', component: NewsComponent },
       { path: 'regscholarship', component: RegscholarshipComponent },
       { path: 'titlename', component: TitlenameComponent },
+      { path: 'student', component: StudentComponent}
     ]
   }
 ];
@@ -141,7 +143,8 @@ const appRoutes: Routes = [
     NewsComponent,
     ApplyScholarshipComponent,
     ApplicantInfoComponent,
-    TitlenameComponent
+    TitlenameComponent,
+    StudentComponent
   ],
   imports: [
     BrowserModule,
