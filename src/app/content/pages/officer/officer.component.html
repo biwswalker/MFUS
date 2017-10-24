@@ -3,6 +3,7 @@
     <p>จัดการข้อมูลเจ้าหน้าที่</p>
     <div class="underline-blue"></div>
   </div>
+  <p-growl [(value)]="msgs" ></p-growl>
   <div class="content" *ngIf="mode !== 'S'">
     <form [formGroup]="officerFormGroup" (ngSubmit)="onSubmit()">
       <div class="row">
@@ -240,8 +241,8 @@
           <div class="row center">
             <div>
               <p-checkbox
-                [(ngModel)]="officerEditForm.acOfficer.manage_officer_flag"
-                formControlName="manage_officer_flag"
+                [(ngModel)]="manage_status"
+                [ngModelOptions]="{standalone: true}"
                 binary="true"
                 label="สามารถจัดการเจ้าหน้าที่">
               </p-checkbox>
@@ -255,7 +256,7 @@
           <button pButton
             type="submit"
             class="btn-positive"
-            label="สร้าง">
+            label="{{submitBtn}}">
           </button>
           <button pButton
             type="button"

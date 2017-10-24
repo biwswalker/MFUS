@@ -6,10 +6,16 @@
   </div>
 </div>
 
+<p-growl [(value)]="msgs" ></p-growl>
+<!-- mode insert -->
+<form [formGroup]="titleNameFormGroup" (ngSubmit)="onSubmit()">
+
+</form>
+
 <!-- mode search -->
 <div class="content" *ngIf="mode === 'S'">
   <div class="content-header-blue" >
-    <p>ค้นหาข้อมูลสาขาวิชา</p>
+    <p>ค้นหาข้อมูลคำนำหน้าชื่อ</p>
     <div class="underline-red"></div>
   </div>
 
