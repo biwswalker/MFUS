@@ -29,8 +29,8 @@ export class NewsService {
       console.log('body: ', body);
       let criteria = '/';
 
-      if(news.smNews.news_topic != null
-          && news.smNews.news_topic != '') {
+      if(news.smNews.news_topic != null &&
+         news.smNews.news_topic != '') {
         criteria = criteria + 'news_topic=' + news.smNews.news_topic + '&';
       }
 
