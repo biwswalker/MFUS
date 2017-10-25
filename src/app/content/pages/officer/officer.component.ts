@@ -168,7 +168,6 @@ export class OfficerComponent implements OnInit {
 
   // On Click Autocomplete Dropdown Button
   handleCompleteClickProvince() {
-<<<<<<< HEAD
     let objList: RftProvince[];
     this.officerEditForm.rftDistrict = new RftDistrict();
     this.officerEditForm.rftSubDistrict = new RftSubDistrict();
@@ -176,9 +175,6 @@ export class OfficerComponent implements OnInit {
     for (let obj of objList) {
           this.provinceList.push(obj);
     }
-=======
-    this.provinceList = [];
->>>>>>> a22d8bc9bf764400340080d0e71a5f53142eab77
     setTimeout(() => {
       this.provinceList = this.listProvince;
       this.districtList = [];
