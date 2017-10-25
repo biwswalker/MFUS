@@ -1,8 +1,9 @@
+import { RftMajor } from './../content/models/rft-major';
 import { config } from './../app.config';
 import { RftSchool } from './../content/models/rft-school';
 import { Observable } from 'rxjs';
 import { MajorForm } from './../content/form/major-form';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -86,4 +87,15 @@ export class MajorService {
     return this.http.put(url, body, {headers: headers});
   }
 
+  getMajorBySchoolRef(ref: string): Observable<RftMajor[]> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let criteria = '/rft_major.school_ref=' + ref;
+    return this.http.get(this.mainUrl+'major' + criteria, options)
+      .map(
+        (res: Response) => {
+          return res.json();
+        }
+      );
+  }
 }

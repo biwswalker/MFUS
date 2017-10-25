@@ -106,7 +106,7 @@ export class NewsComponent implements OnInit {
     console.log('addNews.value: ', this.newsFormGroup.value);
 
     const value = this.newsFormGroup.value;
-    value.news_image = this.newsForm.smNews.news_image;
+    value.news_image = this.image;
     value.news_name = this.file.name;
     value.news_type = this.file.type;
 

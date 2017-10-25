@@ -13,7 +13,7 @@ import { SponsorsService } from './services/sponsors.service';
 import { MajorService } from './services/major.service';
 import { SchoolService } from './services/school.service';
 import { RouterModule, Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -80,6 +80,7 @@ import { UserService } from './services/user.service';
 import { ApplyScholarshipComponent } from './content/pages/apply-scholarship/apply-scholarship.component';
 import { ApplicantInfoComponent } from './content/pages/apply-scholarship/applicant-info/applicant-info.component';
 import { StudentComponent } from './content/pages/student/student.component';
+import { StudentService } from './services/student.service';
 
 
 
@@ -193,6 +194,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     OfficerService,
     UserService,
     StartupService,
+    StudentService,
     {
       provide: APP_INITIALIZER,
       useFactory: startupServiceFactory,
