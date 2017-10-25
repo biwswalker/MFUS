@@ -128,6 +128,7 @@
                   (completeMethod)="autocompleteProvince($event)"
                   (onDropdownClick)="handleCompleteClickProvince($event)"
                   field="province_name_t"
+                  (onSelect)="selectProvince()"
                   forceselection="true"
                   name="autocompleteProvince">
                   <ng-template let-obj pTemplate="item">
@@ -145,9 +146,11 @@
                   [suggestions]="districtList"
                   [size]="20"
                   [dropdown]="true"
+                  [disabled]="officerEditForm.rftProvince.province_ref == null"
                   (completeMethod)="autocompleteDistrict($event)"
                   (onDropdownClick)="handleCompleteClickDistrict($event)"
                   field="district_name_t"
+                  (onSelect)="selectDistrict()"
                   forceSelection="true"
                   name="autocompleteDistrict">
                   <ng-template let-obj pTemplate="item">
@@ -167,9 +170,11 @@
                   [suggestions]="subDistrictList"
                   [size]="20"
                   [dropdown]="true"
+                  [disabled]="officerEditForm.rftDistrict.district_ref == null"
                   (completeMethod)="autocompleteSubDistrict($event)"
                   (onDropdownClick)="handleCompleteClickSubDistrict($event)"
                   field="sub_district_name_t"
+                  (onSelect)="selectSubDistrict()"
                   forceSelection="true"
                   name="autocompleteSubdistrict">
                   <ng-template let-obj pTemplate="item">

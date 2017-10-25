@@ -74,8 +74,6 @@ export class OfficerComponent implements OnInit {
     this.getTitleList();
     this.initEditData();
     this.getProvince();
-    this.getDistrict();
-    this.getSubDistrict();
     this.initSearchData();
   }
 
@@ -163,8 +161,14 @@ export class OfficerComponent implements OnInit {
     }
   }
 
+  getProvince() {
+    this.listProvince = [];
+    this.listProvince = this.utilService.getProvincesList();
+  }
+
   // On Click Autocomplete Dropdown Button
   handleCompleteClickProvince() {
+<<<<<<< HEAD
     let objList: RftProvince[];
     this.officerEditForm.rftDistrict = new RftDistrict();
     this.officerEditForm.rftSubDistrict = new RftSubDistrict();
@@ -172,22 +176,17 @@ export class OfficerComponent implements OnInit {
     for (let obj of objList) {
           this.provinceList.push(obj);
     }
+=======
+    this.provinceList = [];
+>>>>>>> a22d8bc9bf764400340080d0e71a5f53142eab77
     setTimeout(() => {
       this.provinceList = this.listProvince;
       this.districtList = [];
       this.subDistrictList = [];
     }, 100)
   }
-
-  getProvince() {
-    let listProvince = [];
-    this.utilService.getProvinces()
-      .subscribe((res: RftProvince[]) => {
-        this.listProvince.push(...res);
-      }
-    );
-  }
 //End Autocomplete Province------------------------------------------------------------------------------------
+
 
   //Begin District Autocomplete Method // On key wording
   autocompleteDistrict(event) {
@@ -198,8 +197,8 @@ export class OfficerComponent implements OnInit {
     objList = this.listDistrict;
     for (let obj of objList) {
       // Filter By string event
-      if(this.officerEditForm.rftProvince.province_ref == obj.province_ref) {
-        if (obj.district_name_t.indexOf(query) == 0) {
+      if(this.officerEditForm.rftProvince.province_ref === obj.province_ref) {
+        if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
           this.districtList.push(obj);
         }
       }
@@ -209,27 +208,43 @@ export class OfficerComponent implements OnInit {
   // On Click Autocomplete Dropdown Button
   handleCompleteClickDistrict() {
     //mimic remote call
+
+    this.districtList = [];
+    console.log(this.listDistrict.length)
     setTimeout(() => {
       this.districtList = [];
       this.officerEditForm.rftSubDistrict = new RftSubDistrict();
       let objList: RftDistrict[] = this.listDistrict;
-      for (let obj of objList) {
-        if(this.officerEditForm.rftProvince.province_ref == obj.province_ref) {
-            this.districtList.push(obj);
-        }
-      }
+      this.districtList = this.listDistrict;
     }, 100)
+    console.log(this.districtList.length)
   }
 
-  getDistrict() {
-    let listDistrict = [];
-    this.utilService.getDistricts()
-      .subscribe((res: RftDistrict[]) => {
-        this.listDistrict.push(...res);
+  //End Autocomplete District------------------------------------------------------------------------------------
+
+  selectProvince(event: SelectItem) {
+    this.utilService.getDistrictsByProvinceRef(this.officerEditForm.rftProvince.province_ref)
+    .subscribe((res: RftDistrict[]) => {
+      this.listDistrict.push(...res);
       }
     );
+    console.log(this.listDistrict.length);
   }
-  //End Autocomplete District------------------------------------------------------------------------------------
+
+  selectDistrict(event: SelectItem) {
+    this.utilService.getSubDistrictsByDistrictRef(this.officerEditForm.rftDistrict.district_ref)
+    .subscribe((res: RftSubDistrict[]) => {
+      this.listSubDistrict.push(...res);
+      }
+    );
+    console.log(this.listSubDistrict.length);
+  }
+
+  selectSubDistrict(event: SelectItem) {
+    this.postcode = this.officerEditForm.rftDistrict.postcode;
+  }
+
+  // //End Autocomplete Province---------------------------------------------------------------------------
 
    // SubDistrict Autocomplete Method // On key wording
    autocompleteSubDistrict(event) {
@@ -251,28 +266,12 @@ export class OfficerComponent implements OnInit {
   // On Click Autocomplete Dropdown Button
   handleCompleteClickSubDistrict() {
     //mimic remote call
+    this.subDistrictList = [];
     setTimeout(() => {
-      this.subDistrictList = [];
-      let objList: RftSubDistrict[] = this.listSubDistrict;
-      for (let obj of objList) {
-        // Filter By string event
-        if(obj.province_ref == this.officerEditForm.rftProvince.province_ref) {
-          if(obj.district_ref == this.officerEditForm.rftDistrict.district_ref) {
-             this.subDistrictList.push(obj);
-          }
-        }
-      }
+      this.subDistrictList = this.listSubDistrict;
     }, 100)
   }
 
-  getSubDistrict() {
-    let listSubDistrict = [];
-    this.utilService.getSubDistricts()
-      .subscribe((res: RftSubDistrict[]) => {
-        this.listSubDistrict.push(...res);
-      }
-    );
-  }
   //End Autocomplete Province------------------------------------------------------------------------------------
 
 
