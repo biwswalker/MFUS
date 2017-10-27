@@ -1,8 +1,9 @@
+import { RftTitleName } from '../content/models/rft-title-name';
 import { StartupService } from './startup.service';
 import { config } from './../app.config';
 import { RftSubDistrict } from './../content/models/rft-sub-district';
 import { RftDistrict } from './../content/models/rft-district';
-import { RequestOptions, Headers, Http, Response } from '@angular/http';
+import { Headers, Http, RequestMethod, RequestOptions, Response } from '@angular/http';
 import { RftProvince } from './../content/models/rft-province';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -122,5 +123,15 @@ export class UtilsService {
       );
   }
 
+  getTitleList(): Observable<RftTitleName[]> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    return this.http.get(this.url+'titlename', options)
+      .map(
+        (res:Response)=>{
+          return res.json()
+        }
+      );
+  }
 
 }

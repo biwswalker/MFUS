@@ -1,3 +1,4 @@
+import { UtilsService } from './../../../services/utils.service';
 import { StudentService } from './../../../services/student.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { MajorService } from './../../../services/major.service';
@@ -8,6 +9,7 @@ import { RftSchool } from '../../models/rft-school';
 import { SchoolService } from '../../../services/school.service';
 import { RftMajor } from '../../models/rft-major';
 import { Response } from '@angular/http';
+import { RftTitleName } from '../../models/rft-title-name';
 
 
 @Component({
@@ -17,11 +19,12 @@ import { Response } from '@angular/http';
 })
 export class StudentComponent implements OnInit {
 
-  mode: string = 'S';
+  // mode: string = 'I';
 
   msgs: Message[];
 
-  titleList: SelectItem[];
+  titleList: RftTitleName[] = [];
+  listTitle: SelectItem[] = [];
 
   studentFormGroup: FormGroup;
   studentEditForm: StudentForm;
@@ -42,21 +45,22 @@ export class StudentComponent implements OnInit {
 
   constructor(private schoolService: SchoolService,
               private majorService: MajorService,
-              private studentService: StudentService) { }
+              private studentService: StudentService,
+              private utilService: UtilsService) {
+                this.titleList = [];
+              }
 
   ngOnInit() {
     this.getTitleList();
-    this.initialEditForm();
     this.getSchoolList();
+    this.initialEditForm();
   }
 
   initialEditForm() {
     this.studentEditForm = new StudentForm();
     this.image = './assets/images/empty_profile.png';
-    this.studentEditForm.acStudent.gender = 'M';
     this.studentEditForm.acStudent.create_user = 'phai';
     this.studentEditForm.acStudent.update_user = 'phai';
-    this.studentEditForm.acStudent.title_ref = '1';
     this.validateEditForm();
   }
 
@@ -64,11 +68,11 @@ export class StudentComponent implements OnInit {
     this.studentFormGroup = new FormGroup({
       'personal_id': new FormControl(this.studentEditForm.acStudent.personal_id,
                     Validators.compose([Validators.required])),
-      'gender': new FormControl(this.studentEditForm.acStudent.gender,
+      'gender': new FormControl(this.studentEditForm.rftTitleName.gender,
                     Validators.compose([Validators.required])),
       'birth_date': new FormControl(this.studentEditForm.acStudent.birth_date,
                     Validators.compose([Validators.required])),
-      'title_ref': new FormControl(this.studentEditForm.acStudent.title_ref,
+      'title_ref': new FormControl(this.studentEditForm.rftTitleName.title_ref,
                     Validators.compose([Validators.required])),
       'student_id': new FormControl(this.studentEditForm.acStudent.student_id),
       'first_name_t': new FormControl(this.studentEditForm.acStudent.first_name_t),
@@ -84,10 +88,16 @@ export class StudentComponent implements OnInit {
   }
 
   getTitleList() {
-    this.titleList = [];
-    this.titleList.push({ label:'นาย', value: '1'});
-    this.titleList.push({ label:'นาง', value: '2'});
-    this.titleList.push({ label:'นางสาว', value: '3'});
+    this.utilService.getTitleList()
+      .subscribe(
+        (res: RftTitleName[]) => {
+          for(let obj of res) {
+          this.listTitle.push({label: obj.title_name_t, value: obj})
+        }
+        console.log(this.listTitle);
+        return this.listTitle;
+        }
+      );
   }
 
   getSchoolList() {
@@ -133,7 +143,6 @@ export class StudentComponent implements OnInit {
     }
 
     setTimeout(() => {
-
     }, 100)
   }
 
@@ -187,12 +196,21 @@ export class StudentComponent implements OnInit {
       this.onAddStudent();
   }
 
-  onAddStudent() {
-    const value = this.studentEditForm;
-    value.acStudent.profile_image = this.image;
-    value.acStudent.profile_name = this.file.name;
-    value.acStudent.profile_type = this.file.type;
+  onResetInsert() {
+    this.initialEditForm();
+  }
 
+  onAddStudent() {
+    const value = this.studentFormGroup.value;
+    value.profile_image = this.image;
+    value.profile_name = this.file.name;
+    value.profile_type = this.file.type;
+    value.title_ref = this.studentEditForm.rftTitleName.title_ref;
+    value.school_ref = this.studentEditForm.rftSchool.school_ref;
+    value.major_ref = this.studentEditForm.rftMajor.major_ref;
+    value.create_user = this.studentEditForm.acStudent.create_user;
+    value.update_user = this.studentEditForm.acStudent.update_user;
+    value.birth_date = this.utilService.convertDateCriteria(this.studentEditForm.acStudent.birth_date);
     this.studentService.addStudent(value).subscribe(
       (res: Response)=>{
         const student_ref = res.json().student_ref;
@@ -211,10 +229,6 @@ export class StudentComponent implements OnInit {
         return;
       }
     );
-  }
-
-  onUpdateStudent() {
-
   }
 
   showSuccess(message: string) {

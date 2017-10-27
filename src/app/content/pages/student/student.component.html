@@ -4,6 +4,7 @@
     <div class="underline-blue"></div>
   </div>
 </div>
+<p-growl [(value)]="msgs"></p-growl>
 <div class="content">
   <form [formGroup]="studentFormGroup" (ngSubmit)="onSubmit()">
     <div class="row">
@@ -31,15 +32,16 @@
                 <div>
                   <label class="normal">เพศ *</label>
                 </div>
-                <p-radioButton value="M" label="ชาย" [(ngModel)]="studentEditForm.acStudent.gender" formControlName="gender"></p-radioButton>
-                <p-radioButton value="F" label="หญิง" [(ngModel)]="studentEditForm.acStudent.gender" formControlName="gender"></p-radioButton>
+                <p-radioButton value="M" label="ชาย" [(ngModel)]="studentEditForm.rftTitleName.gender" formControlName="gender"></p-radioButton>
+                <p-radioButton value="F" label="หญิง" [(ngModel)]="studentEditForm.rftTitleName.gender" formControlName="gender"></p-radioButton>
               </div>
               <div class="col-xs-1"></div>
               <div class="col-xs-5">
                 <div>
                   <label class="normal">วันเกิด *</label>
                 </div>
-                <p-calendar [(ngModel)]="studentEditForm.acStudent.birth_date" formControlName="birth_date" [showIcon]="true"></p-calendar>
+                <p-calendar [(ngModel)]="studentEditForm.acStudent.birth_date" formControlName="birth_date" [showIcon]="true" [monthNavigator]="true"
+                  [yearNavigator]="true" yearRange="1800:2030"></p-calendar>
               </div>
               <div class="col-xs-1"></div>
             </div>
@@ -48,7 +50,8 @@
                 <div>
                   <label class="normal">คำนำหน้าชื่อ *</label>
                 </div>
-                <p-dropdown [options]="titleList" [(ngModel)]="studentEditForm.acStudent.title_ref" formControlName="title_ref"></p-dropdown>
+                <p-dropdown [options]="listTitle" [(ngModel)]="studentEditForm.rftTitleName" placeholder="กรุณากรอกคำนำหน้าชื่อ" formControlName="title_ref" [style]="{'width':'155px'}">
+                </p-dropdown>
               </div>
               <div class="col-xs-1"></div>
               <div class="col-xs-5"></div>
@@ -93,8 +96,8 @@
                 </div>
                 <p-autoComplete [(ngModel)]="studentEditForm.rftSchool" [ngModelOptions]="{standalone: true}" [suggestions]="schoolList"
                   [size]="20" [dropdown]="true" (completeMethod)="autocompleteSchool($event)" (onDropdownClick)="handleCompleteClickSchool($event)"
-                  (onSelect)="getMajorList(studentEditForm.rftSchool.school_ref)"
-                  field="school_name_t" forceselection="true" name="autocompleteSchool">
+                  (onSelect)="getMajorList(studentEditForm.rftSchool.school_ref)" field="school_name_t" forceselection="true"
+                  name="autocompleteSchool">
                   <ng-template let-obj pTemplate="item">
                     {{obj.school_name_t}}
                   </ng-template>
@@ -167,11 +170,11 @@
             </div>
           </div>
         </div>
+        <div class="space"></div>
         <div class="row">
           <div class="col-xs-12">
-            <button type="submit"
-            class="btn-positive">
-          </button>
+            <button pButton type="submit" class="btn-positive" label="บันทึก" [disabled]="!studentFormGroup.valid"></button>
+            <button pButton type="submit" class="btn-positive" label="เริ่มใหม่" (click)="onResetInsert()"></button>
           </div>
         </div>
       </div>
