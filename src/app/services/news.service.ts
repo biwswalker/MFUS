@@ -1,3 +1,4 @@
+import { config } from './../app.config';
 import { NewsComponent } from './../content/pages/news/news.component';
 import { Observable } from 'rxjs/Rx';
 import { Http, Headers, Response } from '@angular/http';
@@ -8,7 +9,7 @@ import * as moment from 'moment';
 
 @Injectable()
 export class NewsService {
-  private mainUrl = 'http://127.0.0.1:8000/';
+  private mainUrl = config.backendUrl;
   private getStatus: NewsComponent;
     constructor(private http: Http) { }
 
