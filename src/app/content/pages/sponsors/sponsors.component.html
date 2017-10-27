@@ -58,7 +58,7 @@
                             (completeMethod)="autocompleteMethodProvince($event)"
                             [size]="28"
                             [dropdown]="true"
-                            (onDropdownClick)="handleProvinceClick($event)">
+                            (onDropdownClick)="handleCompleteClickProvince($event)">
               <ng-template let-obj
                            pTemplate="obj">
                 {{obj.province_name_t}}
@@ -75,14 +75,14 @@
                             field="district_name_t"
                             [(ngModel)]="rftDistrict"
                             [suggestions]="rftDistricts"
-                            (completeMethod)="autocompleteMethodDistrict($event)"
                             [size]="28"
                             [dropdown]="true"
-                            (onDropdownClick)="handleDistrictClick($event)">
-              <ng-template let-obj
-                           pTemplate="obj">
-                {{obj.district_name_t}}
-              </ng-template>
+                            field="district_name_t"
+                            (onDropdownClick)="handleDistrictClick($event)"
+                            (completeMethod)="autocompleteMethodDistrict($event)">
+                            <ng-template let-obj pTemplate="obj">
+                            {{obj.district_name_t}}
+                            </ng-template>
             </p-autoComplete>
           </div>
         </div>
@@ -109,7 +109,11 @@
         <div class="col-xs-6 normal">
           <label class="normal">รหัสไปรษณีย์</label>
           <div>
-            <input name="postcode" id="postcode" formControlName="postcode" maxlength="20" type="text" size="20" pInputText>
+            <input name="postcode" id="postcode"
+            formControlName="postcode" maxlength="20"
+            type="text" size="20"
+            [(ngModel)]="postcode"
+            pInputText>
           </div>
         </div>
 
