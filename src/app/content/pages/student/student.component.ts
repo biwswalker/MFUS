@@ -1,9 +1,14 @@
+import { StudentService } from './../../../services/student.service';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { MajorService } from './../../../services/major.service';
 import { StudentForm } from './../../form/student-form';
-import { SelectItem } from 'primeng/primeng';
+import { SelectItem, Message } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
 import { RftSchool } from '../../models/rft-school';
 import { SchoolService } from '../../../services/school.service';
 import { RftMajor } from '../../models/rft-major';
+import { Response } from '@angular/http';
+
 
 @Component({
   selector: 'app-student',
@@ -12,8 +17,13 @@ import { RftMajor } from '../../models/rft-major';
 })
 export class StudentComponent implements OnInit {
 
+  mode: string = 'S';
+
+  msgs: Message[];
+
   titleList: SelectItem[];
 
+  studentFormGroup: FormGroup;
   studentEditForm: StudentForm;
 
   schoolList: RftSchool[] = [];
@@ -22,12 +32,55 @@ export class StudentComponent implements OnInit {
   majorList: RftMajor[] = [];
   listMajor: RftMajor[] = [];
 
-  constructor(private schoolService: SchoolService) { }
+  fileList: FileList;
+  binaryString: string;
+  file: File;
+
+  image: any;
+  img_name: string;
+  img_type: string;
+
+  constructor(private schoolService: SchoolService,
+              private majorService: MajorService,
+              private studentService: StudentService) { }
 
   ngOnInit() {
     this.getTitleList();
     this.initialEditForm();
     this.getSchoolList();
+  }
+
+  initialEditForm() {
+    this.studentEditForm = new StudentForm();
+    this.image = './assets/images/empty_profile.png';
+    this.studentEditForm.acStudent.gender = 'M';
+    this.studentEditForm.acStudent.create_user = 'phai';
+    this.studentEditForm.acStudent.update_user = 'phai';
+    this.studentEditForm.acStudent.title_ref = '1';
+    this.validateEditForm();
+  }
+
+  validateEditForm() {
+    this.studentFormGroup = new FormGroup({
+      'personal_id': new FormControl(this.studentEditForm.acStudent.personal_id,
+                    Validators.compose([Validators.required])),
+      'gender': new FormControl(this.studentEditForm.acStudent.gender,
+                    Validators.compose([Validators.required])),
+      'birth_date': new FormControl(this.studentEditForm.acStudent.birth_date,
+                    Validators.compose([Validators.required])),
+      'title_ref': new FormControl(this.studentEditForm.acStudent.title_ref,
+                    Validators.compose([Validators.required])),
+      'student_id': new FormControl(this.studentEditForm.acStudent.student_id),
+      'first_name_t': new FormControl(this.studentEditForm.acStudent.first_name_t),
+      'last_name_t': new FormControl(this.studentEditForm.acStudent.last_name_t),
+      'first_name_e': new FormControl(this.studentEditForm.acStudent.first_name_e),
+      'last_name_e': new FormControl(this.studentEditForm.acStudent.last_name_e),
+      'nationality': new FormControl(this.studentEditForm.acStudent.nationality),
+      'race': new FormControl(this.studentEditForm.acStudent.race),
+      'religion': new FormControl(this.studentEditForm.acStudent.religion),
+      'phone_no': new FormControl(this.studentEditForm.acStudent.phone_no),
+      'email': new FormControl(this.studentEditForm.acStudent.email)
+    });
   }
 
   getTitleList() {
@@ -42,37 +95,46 @@ export class StudentComponent implements OnInit {
     .subscribe(
       (res: RftSchool[]) => {
         this.listSchool.push(...res);
-        console.log(this.schoolList);
       }
     );
+  }
+
+  getMajorList(ref: string) {
+    this.listMajor = [];
+    this.majorService.getMajorBySchoolRef(ref).subscribe(
+      (res: RftMajor[]) =>{
+        this.listMajor.push(...res);
+      }
+    )
   }
 
   //Begin Province Autocomplete Method // On key wording
   autocompleteSchool(event) {
     let query = event.query;
     this.schoolList = [];
+    this.majorList = [];
     let objList: RftSchool[];
     objList = this.listSchool;
     for (let obj of objList) {
-      // Filter By string event
-        if (obj.school_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-          this.schoolList.push(obj);
-        }
+      if (obj.school_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        this.schoolList.push(obj);
+      }
     }
   }
 
   // On Click Autocomplete Dropdown Button
   handleCompleteClickSchool() {
+    this.majorList = [];
+    console.log(this.majorList)
     let objList: RftSchool[];
     objList = this.listSchool;
     for (let obj of objList) {
           this.schoolList.push(obj);
     }
+
     setTimeout(() => {
+
     }, 100)
-  }
-  initialEditForm() {
-    this.studentEditForm = new StudentForm();
   }
 
   autocompleteMajor(event) {
@@ -81,21 +143,88 @@ export class StudentComponent implements OnInit {
     let objList: RftMajor[];
     objList = this.listMajor;
     for (let obj of objList) {
-      // Filter By string event
-        if (obj.major_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-          this.majorList.push(obj);
-        }
+      if (obj.major_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        this.majorList.push(obj);
+      }
     }
   }
 
   // On Click Autocomplete Dropdown Button
   handleCompleteClickMajor() {
+    this.majorList = [];
     let objList: RftMajor[];
     objList = this.listMajor;
     for (let obj of objList) {
           this.majorList.push(obj);
     }
+    console.log(this.majorList);
     setTimeout(() => {
     }, 100)
   }
+
+  onUpload(event) {
+    this.fileList = event.target.files;
+    if (this.fileList.length > 0) {
+      this.file = this.fileList[0];
+      // 10 MB
+      if (this.file.size < 10000000) {
+        let reader = new FileReader();
+        reader.onload = this.handleReaderLoaded.bind(this);
+        reader.readAsBinaryString(this.file);
+      }
+    }
+  }
+
+  handleReaderLoaded(readerEvent) {
+    this.binaryString = readerEvent.target.result;
+    this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
+    console.log(this.file.name);
+    console.log(this.file.size);
+    console.log(this.file.type);
+  }
+
+  onSubmit() {
+      this.onAddStudent();
+  }
+
+  onAddStudent() {
+    const value = this.studentEditForm;
+    value.acStudent.profile_image = this.image;
+    value.acStudent.profile_name = this.file.name;
+    value.acStudent.profile_type = this.file.type;
+
+    this.studentService.addStudent(value).subscribe(
+      (res: Response)=>{
+        const student_ref = res.json().student_ref;
+        this.studentFormGroup.reset();
+        this.initialEditForm();
+
+        this.showSuccess('บันทึกข้อมูลผู้ใช้งานเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + student_ref);
+      },
+      (error) => {
+        console.log(error);
+        let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        if (error.status === 409) {
+          message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        }
+        this.showError(message);
+        return;
+      }
+    );
+  }
+
+  onUpdateStudent() {
+
+  }
+
+  showSuccess(message: string) {
+    this.msgs = [];
+    this.msgs.push({ severity: 'success', summary: 'บันทีกข้อมูลสำเร็จ', detail: message });
+  }
+
+  showError(message: string) {
+    this.msgs = [];
+    this.msgs.push({ severity: 'error', summary: 'ไม่สามารถบันทึกข้อมูลได้', detail: message });
+  }
+
 }

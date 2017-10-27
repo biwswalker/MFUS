@@ -3,172 +3,178 @@
     <p>จัดการข้อมูลผู้ใช้งาน</p>
     <div class="underline-blue"></div>
   </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="row">
-        <div class="col-xs-9">
-          <div class="row">
-            <div class="col-xs-5">
-              <div>
-                <label class="normal">เลขประจำตัวประชาชน *</label>
+</div>
+<div class="content">
+  <form [formGroup]="studentFormGroup" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="row">
+          <div class="col-xs-9">
+            <div class="row">
+              <div class="col-xs-5">
+                <div>
+                  <label class="normal">เลขประจำตัวประชาชน *</label>
+                </div>
+                <input type="text" [(ngModel)]="studentEditForm.acStudent.personal_id" formControlName="personal_id" maxlength="13" pInputText>
               </div>
-              <input type="text" [(ngModel)]="studentEditForm.acStudent.personal_id" pInputText>
-            </div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-5">
-              <div>
-                <label class="normal">รหัสประจำตัวนักเรียน *</label>
+              <div class="col-xs-1"></div>
+              <div class="col-xs-5">
+                <div>
+                  <label class="normal">รหัสประจำตัวนักเรียน *</label>
+                </div>
+                <input type="text" [(ngModel)]="studentEditForm.acStudent.student_id" formControlName="student_id" pInputText>
               </div>
-              <input type="text" [(ngModel)]="studentEditForm.acStudent.student_id" pInputText>
+              <div class="col-xs-1"></div>
             </div>
-            <div class="col-xs-1"></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-5">
-              <div>
-                <label class="normal">เพศ *</label>
+            <div class="row">
+              <div class="col-xs-5">
+                <div>
+                  <label class="normal">เพศ *</label>
+                </div>
+                <p-radioButton value="M" label="ชาย" [(ngModel)]="studentEditForm.acStudent.gender" formControlName="gender"></p-radioButton>
+                <p-radioButton value="F" label="หญิง" [(ngModel)]="studentEditForm.acStudent.gender" formControlName="gender"></p-radioButton>
               </div>
-              <p-radioButton value="M" label="ชาย" [(ngModel)]="studentEditForm.acStudent.gender"></p-radioButton>
-              <p-radioButton value="F" label="หญิง" [(ngModel)]="studentEditForm.acStudent.gender"></p-radioButton>
-            </div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-5">
-              <div>
-                <label class="normal">วันเกิด *</label>
+              <div class="col-xs-1"></div>
+              <div class="col-xs-5">
+                <div>
+                  <label class="normal">วันเกิด *</label>
+                </div>
+                <p-calendar [(ngModel)]="studentEditForm.acStudent.birth_date" formControlName="birth_date" [showIcon]="true"></p-calendar>
               </div>
-              <p-calendar [(ngModel)]="studentEditForm.acStudent.birth_date" [showIcon]="true"></p-calendar>
+              <div class="col-xs-1"></div>
             </div>
-            <div class="col-xs-1"></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-5">
-              <div>
-                <label class="normal">คำนำหน้าชื่อ *</label>
+            <div class="row">
+              <div class="col-xs-5">
+                <div>
+                  <label class="normal">คำนำหน้าชื่อ *</label>
+                </div>
+                <p-dropdown [options]="titleList" [(ngModel)]="studentEditForm.acStudent.title_ref" formControlName="title_ref"></p-dropdown>
               </div>
-              <p-dropdown [options]="titleList" [(ngModel)]="studentEditForm.acStudent.title_ref"></p-dropdown>
+              <div class="col-xs-1"></div>
+              <div class="col-xs-5"></div>
+              <div class="col-xs-1"></div>
             </div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-5"></div>
-            <div class="col-xs-1"></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-5">
-              <div>
-                <label class="normal">ชื่อ (ภาษาไทย)</label>
+            <div class="row">
+              <div class="col-xs-5">
+                <div>
+                  <label class="normal">ชื่อ (ภาษาไทย)</label>
+                </div>
+                <input type="text" [(ngModel)]="studentEditForm.acStudent.first_name_t" formControlName="first_name_t" pInputText>
               </div>
-              <input type="text" [(ngModel)]="studentEditForm.acStudent.first_name_t" pInputText>
-            </div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-5">
-              <div>
-                <label class="normal"> นามสกุล (ภาษาไทย)</label>
+              <div class="col-xs-1"></div>
+              <div class="col-xs-5">
+                <div>
+                  <label class="normal"> นามสกุล (ภาษาไทย)</label>
+                </div>
+                <input type="text" [(ngModel)]="studentEditForm.acStudent.last_name_t" formControlName="last_name_t" pInputText>
               </div>
-              <input type="text" [(ngModel)]="studentEditForm.acStudent.last_name_t" pInputText>
+              <div class="col-xs-1"></div>
             </div>
-            <div class="col-xs-1"></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-5">
-              <div>
-                <label class="normal">ชื่อ (ภาษาอังกฤษ)</label>
+            <div class="row">
+              <div class="col-xs-5">
+                <div>
+                  <label class="normal">ชื่อ (ภาษาอังกฤษ)</label>
+                </div>
+                <input type="text" [(ngModel)]="studentEditForm.acStudent.first_name_e" formControlName="first_name_e" pInputText>
               </div>
-              <input type="text" [(ngModel)]="studentEditForm.acStudent.first_name_e" pInputText>
-            </div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-5">
-              <div>
-                <label class="normal"> นามสกุล (ภาษาอังกฤษ)</label>
+              <div class="col-xs-1"></div>
+              <div class="col-xs-5">
+                <div>
+                  <label class="normal"> นามสกุล (ภาษาอังกฤษ)</label>
+                </div>
+                <input type="text" [(ngModel)]="studentEditForm.acStudent.last_name_e" formControlName="last_name_e" pInputText>
               </div>
-              <input type="text" [(ngModel)]="studentEditForm.acStudent.last_name_e" pInputText>
+              <div class="col-xs-1"></div>
             </div>
-            <div class="col-xs-1"></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-5">
-              <div>
-                <label class="normal">สำนักวิชา *</label>
+            <div class="row">
+              <div class="col-xs-5">
+                <div>
+                  <label class="normal">สำนักวิชา *</label>
+                </div>
+                <p-autoComplete [(ngModel)]="studentEditForm.rftSchool" [ngModelOptions]="{standalone: true}" [suggestions]="schoolList"
+                  [size]="20" [dropdown]="true" (completeMethod)="autocompleteSchool($event)" (onDropdownClick)="handleCompleteClickSchool($event)"
+                  (onSelect)="getMajorList(studentEditForm.rftSchool.school_ref)"
+                  field="school_name_t" forceselection="true" name="autocompleteSchool">
+                  <ng-template let-obj pTemplate="item">
+                    {{obj.school_name_t}}
+                  </ng-template>
+                </p-autoComplete>
               </div>
-              <p-autoComplete
-              [(ngModel)]="studentEditForm.rftSchool"
-              [ngModelOptions]="{standalone: true}"
-              [suggestions]="schoolList"
-              [size]="20"
-              [dropdown]="true"
-              (completeMethod)="autocompleteSchool($event)"
-              (onDropdownClick)="handleCompleteClickSchool($event)"
-              field="school_name_t"
-              forceselection="true"
-              name="autocompleteSchool">
-              <ng-template let-obj pTemplate="item">
-                {{obj.school_name_t}}
-              </ng-template>
-            </p-autoComplete>
-            </div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-5">
-              <div>
-                <label class="normal">สาขาวิชา *</label>
+              <div class="col-xs-1"></div>
+              <div class="col-xs-5">
+                <div>
+                  <label class="normal">สาขาวิชา *</label>
+                </div>
+                <p-autoComplete [(ngModel)]="studentEditForm.rftMajor" [ngModelOptions]="{standalone: true}" [suggestions]="majorList" [size]="20"
+                  [dropdown]="true" (completeMethod)="autocompleteMajor($event)" (onDropdownClick)="handleCompleteClickMajor($event)"
+                  field="major_name_t" forceselection="true" name="autocompleteMajor">
+                  <ng-template let-obj pTemplate="item">
+                    {{obj.major_name_t}}
+                  </ng-template>
+                </p-autoComplete>
               </div>
-              <p-autoComplete
-              [(ngModel)]="studentEditForm.rftMajor"
-              [ngModelOptions]="{standalone: true}"
-              [suggestions]="majorList"
-              [size]="20"
-              [dropdown]="true"
-              (completeMethod)="autocompleteMajor($event)"
-              (onDropdownClick)="handleCompleteClickMajor($event)"
-              field="school_name_t"
-              forceselection="true"
-              name="autocompleteSchool">
-              <ng-template let-obj pTemplate="item">
-                {{obj.school_name_t}}
-              </ng-template>
-            </p-autoComplete>
+              <div class="col-xs-1"></div>
             </div>
-            <div class="col-xs-1"></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-5">
-              <div>
-                <label class="normal">สัญชาติ *</label>
+            <div class="row">
+              <div class="col-xs-5">
+                <div>
+                  <label class="normal">สัญชาติ *</label>
+                </div>
+                <input type="text" [(ngModel)]="studentEditForm.acStudent.nationality" formControlName="nationality" pInputText>
               </div>
-              <input type="text" [(ngModel)]="studentEditForm.acStudent.nationality" pInputText>
-            </div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-5">
-              <div>
-                <label class="normal">เชื้อชาติ *</label>
+              <div class="col-xs-1"></div>
+              <div class="col-xs-5">
+                <div>
+                  <label class="normal">เชื้อชาติ *</label>
+                </div>
+                <input type="text" [(ngModel)]="studentEditForm.acStudent.race" formControlName="race" pInputText>
               </div>
-              <input type="text" [(ngModel)]="studentEditForm.acStudent.race" pInputText>
+              <div class="col-xs-1"></div>
             </div>
-            <div class="col-xs-1"></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-5">
-              <div>
-                <label class="normal">ศาสนา *</label>
+            <div class="row">
+              <div class="col-xs-5">
+                <div>
+                  <label class="normal">ศาสนา *</label>
+                </div>
+                <input type="text" [(ngModel)]="studentEditForm.acStudent.religion" formControlName="religion" pInputText>
               </div>
-              <input type="text" [(ngModel)]="studentEditForm.acStudent.religion" pInputText>
             </div>
-          </div>
-          <div class="row">
+            <div class="row">
               <div class="col-xs-5">
                 <div>
                   <label class="normal">โทรศัพท์ *</label>
                 </div>
-                <input type="text" [(ngModel)]="studentEditForm.acStudent.phone_no" pInputText>
+                <input type="text" [(ngModel)]="studentEditForm.acStudent.phone_no" formControlName="phone_no" pInputText>
               </div>
               <div class="col-xs-1"></div>
               <div class="col-xs-5">
                 <div>
                   <label class="normal">อีเมล *</label>
                 </div>
-                <input type="text" [(ngModel)]="studentEditForm.acStudent.email" pInputText>
+                <input type="text" [(ngModel)]="studentEditForm.acStudent.email" formControlName="email" pInputText>
               </div>
               <div class="col-xs-1"></div>
             </div>
+          </div>
+          <div class="col-xs-3">
+            <div class="row center">
+              <img src="{{ image }}" class="image-preview">
+            </div>
+            <div class="row center">
+              <label (change)="onUpload($event)" class="btn-positive" label="เลือกไฟล์" pButton>
+                <input type="file" accept="image/*, application/pdf" class="display-none">
+              </label>
+            </div>
+          </div>
         </div>
-        <div class="col-xs-3"></div>
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="submit"
+            class="btn-positive">
+          </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
+</div>
