@@ -4,6 +4,7 @@ import { Message, SelectItem } from 'primeng/primeng';
 import { element } from 'protractor';
 import { Response } from '@angular/http';
 import { Validators } from '@angular/forms';
+import { TitleNameForm } from "../../form/titlename-form";
 
 @Component({
   selector: 'app-titlename',
@@ -16,6 +17,14 @@ export class TitlenameComponent implements OnInit {
   mode: string = 'S'; // I-insert, U-update, S-search
   //message
   msgs: Message[] = [];
+
+  //insert
+  titleNameForm: TitleNameForm = new TitleNameForm();
+  titleNameFormGroup: FormGroup;
+
+  //search
+
+
   constructor() { }
 
   ngOnInit() {

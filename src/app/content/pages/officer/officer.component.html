@@ -3,6 +3,7 @@
     <p>จัดการข้อมูลเจ้าหน้าที่</p>
     <div class="underline-blue"></div>
   </div>
+  <p-growl [(value)]="msgs" ></p-growl>
   <div class="content" *ngIf="mode !== 'S'">
     <form [formGroup]="officerFormGroup" (ngSubmit)="onSubmit()">
       <div class="row">
@@ -127,6 +128,7 @@
                   (completeMethod)="autocompleteProvince($event)"
                   (onDropdownClick)="handleCompleteClickProvince($event)"
                   field="province_name_t"
+                  (onSelect)="selectProvince()"
                   forceselection="true"
                   name="autocompleteProvince">
                   <ng-template let-obj pTemplate="item">
@@ -144,11 +146,12 @@
                   [suggestions]="districtList"
                   [size]="20"
                   [dropdown]="true"
+                  [disabled]="officerEditForm.rftProvince.province_ref == null"
                   (completeMethod)="autocompleteDistrict($event)"
                   (onDropdownClick)="handleCompleteClickDistrict($event)"
                   field="district_name_t"
+                  (onSelect)="selectDistrict()"
                   forceSelection="true"
-                  (onSelect)="selectProvince()"
                   name="autocompleteDistrict">
                   <ng-template let-obj pTemplate="item">
                     {{obj.district_name_t}}
@@ -167,9 +170,11 @@
                   [suggestions]="subDistrictList"
                   [size]="20"
                   [dropdown]="true"
+                  [disabled]="officerEditForm.rftDistrict.district_ref == null"
                   (completeMethod)="autocompleteSubDistrict($event)"
                   (onDropdownClick)="handleCompleteClickSubDistrict($event)"
                   field="sub_district_name_t"
+                  (onSelect)="selectSubDistrict()"
                   forceSelection="true"
                   name="autocompleteSubdistrict">
                   <ng-template let-obj pTemplate="item">
@@ -236,8 +241,8 @@
           <div class="row center">
             <div>
               <p-checkbox
-                [(ngModel)]="officerEditForm.acOfficer.manage_officer_flag"
-                formControlName="manage_officer_flag"
+                [(ngModel)]="manage_status"
+                [ngModelOptions]="{standalone: true}"
                 binary="true"
                 label="สามารถจัดการเจ้าหน้าที่">
               </p-checkbox>
@@ -251,7 +256,7 @@
           <button pButton
             type="submit"
             class="btn-positive"
-            label="สร้าง">
+            label="{{submitBtn}}">
           </button>
           <button pButton
             type="button"

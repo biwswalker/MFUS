@@ -1,3 +1,4 @@
+import { StartupService } from './services/startup.service';
 import { ApplyscholarshipService } from './services/applyscholarship.service';
 
 import { TitlenameComponent } from './content/pages/titlename/titlename.component';
@@ -12,7 +13,7 @@ import { SponsorsService } from './services/sponsors.service';
 import { MajorService } from './services/major.service';
 import { SchoolService } from './services/school.service';
 import { RouterModule, Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -78,6 +79,8 @@ import { OfficerService } from './services/officer.service';
 import { UserService } from './services/user.service';
 import { ApplyScholarshipComponent } from './content/pages/apply-scholarship/apply-scholarship.component';
 import { ApplicantInfoComponent } from './content/pages/apply-scholarship/applicant-info/applicant-info.component';
+import { StudentComponent } from './content/pages/student/student.component';
+import { StudentService } from './services/student.service';
 
 
 
@@ -86,7 +89,7 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'example', component: ExampleComponent },
   {
-    path: 'pages', component: PagesComponent, children: [
+    path: 'pages' , canLoad: [UtilsService], component: PagesComponent, children: [
       { path: 'sponsors', component: SponsorsComponent },
       { path: 'scholarship-announcement', component: ScholarshipAnnouncementComponent },
       { path: 'apply-scholarship', component: ApplyScholarshipComponent },
@@ -99,9 +102,14 @@ const appRoutes: Routes = [
       { path: 'news', component: NewsComponent },
       { path: 'regscholarship', component: RegscholarshipComponent },
       { path: 'titlename', component: TitlenameComponent },
+      { path: 'student', component: StudentComponent}
     ]
   }
 ];
+
+export function startupServiceFactory(startupService: StartupService): Function {
+  return () => startupService.loadProvinces();
+}
 
 @NgModule({
   declarations: [
@@ -141,7 +149,8 @@ const appRoutes: Routes = [
     NewsComponent,
     ApplyScholarshipComponent,
     ApplicantInfoComponent,
-    TitlenameComponent
+    TitlenameComponent,
+    StudentComponent
   ],
   imports: [
     BrowserModule,
@@ -183,7 +192,15 @@ const appRoutes: Routes = [
     SponsorsService,
     ApplyscholarshipService,
     OfficerService,
-    UserService
+    UserService,
+    StartupService,
+    StudentService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: startupServiceFactory,
+      deps: [StartupService],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -106,7 +106,7 @@ export class NewsComponent implements OnInit {
     console.log('addNews.value: ', this.newsFormGroup.value);
 
     const value = this.newsFormGroup.value;
-    value.news_image = this.newsForm.smNews.news_image;
+    value.news_image = this.image;
     value.news_name = this.file.name;
     value.news_type = this.file.type;
 
@@ -150,8 +150,12 @@ export class NewsComponent implements OnInit {
 
   onSearchNews() {
     this.newsFormList = [];
-    this.criteriaNewsForm.startDate = this.utilsService.convertDateCriteria(this.startDate);
-    this.criteriaNewsForm.endDate = this.utilsService.convertDateCriteria(this.endDate);
+    if(this.startDate != null) {
+      this.criteriaNewsForm.startDate = this.utilsService.convertDateCriteria(this.startDate);
+    }
+    if(this.startDate != null) {
+      this.criteriaNewsForm.endDate = this.utilsService.convertDateCriteria(this.endDate);
+    }
     console.log('Criteria : ', this.criteriaNewsForm);
     this.SearchNews();
   }
@@ -221,14 +225,14 @@ export class NewsComponent implements OnInit {
 
         this.onPageSearch();
 
-        this.showSuccess('แก้ไขข้อมูลสาขาวิชาเรียบร้อยแล้ว');
+        this.showSuccess('แก้ไขข้อมูลข่าวสารเรียบร้อยแล้ว');
 
       },
       (error) =>{
         console.log(error);
         let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
         if(error.status == 409) {
-          message = 'มีการใช้รหัสสาขาวิชานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+          message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
         }
         this.showError(message);
         return;

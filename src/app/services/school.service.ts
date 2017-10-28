@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class SchoolService {
 
-  private mainUrl: string = 'http://dev-server:8000/';
+  private mainUrl: string = 'http://127.0.0.1:8000/';
 
   constructor(private http: Http) { }
 
