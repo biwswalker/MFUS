@@ -65,7 +65,7 @@ import { SponsorsComponent } from './content/pages/sponsors/sponsors.component';
 import { ScholarshipAnnouncementComponent } from './content/pages/scholarship-announcement/scholarship-announcement.component';
 import { ApplyforscholarshipComponent } from './content/pages/applyforscholarship/applyforscholarship.component';
 import { ScholarshipComponent } from './content/pages/scholarship/scholarship.component';
-import { AnnoucncementComponent } from './content/pages/annoucncement/annoucncement.component';
+import { ScholarshipAnnouncementDetailComponent } from './content/pages/scholarship-announcement-detail/scholarship-announcement-detail.component';
 import { OfficerComponent } from './content/pages/officer/officer.component';
 import { ReguserComponent } from './content/pages/reguser/reguser.component';
 import { RegscholarshipComponent } from './content/pages/regscholarship/regscholarship.component';
@@ -91,7 +91,7 @@ const appRoutes: Routes = [
       { path: 'scholarship-announcement', component: ScholarshipAnnouncementComponent },
       { path: 'apply-scholarship', component: ApplyScholarshipComponent },
       { path: 'scholarship', component: ScholarshipComponent },
-      { path: 'annoucncement', component: AnnoucncementComponent },
+      { path: 'announcement-detail', component: ScholarshipAnnouncementDetailComponent },
       { path: 'officer', component: OfficerComponent },
       { path: 'reguser', component: ReguserComponent },
       { path: 'school', component: SchoolComponent },
@@ -127,7 +127,7 @@ const appRoutes: Routes = [
     ScholarshipAnnouncementComponent,
     ApplyforscholarshipComponent,
     ScholarshipComponent,
-    AnnoucncementComponent,
+    ScholarshipAnnouncementDetailComponent,
     OfficerComponent,
     ReguserComponent,
     InterviewselectComponent,

@@ -2,11 +2,11 @@ import { UtilsService } from './../../../services/utils.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-annoucncement',
-  templateUrl: './annoucncement.component.html',
-  styleUrls: ['./annoucncement.component.css', '../pages.component.css']
+  selector: 'app-scholarship-announcement-detail',
+  templateUrl: './scholarship-announcement-detail.component.html',
+  styleUrls: ['../pages.component.css']
 })
-export class AnnoucncementComponent implements OnInit {
+export class ScholarshipAnnouncementDetailComponent implements OnInit {
 
   image: any = './assets/images/empty_profile.png';
   fileList: FileList;

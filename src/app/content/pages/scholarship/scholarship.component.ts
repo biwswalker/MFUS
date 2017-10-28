@@ -1,15 +1,16 @@
 import { SponsorsForm } from './../../form/sponsors-form';
+import { element } from 'protractor';
+import { Response } from '@angular/http';
+import { SponsorsService } from './../../../services/sponsors.service';
+import { ScholarshipService } from './../../../services/scholarship.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ScholarshipForm } from './../../form/scholarship-form';
 import { SmSponsors } from './../../models/sm-sponsors';
-import { ScholarshipService } from './../../../services/scholarship.service';
 import { ScholarshipannouncementService } from './../../../services/scholarshipannouncement.service';
-import { SponsorsService } from './../../../services/sponsors.service';
-import { AutoCompleteObjectModel } from './../tag/autocomplete/autocomplete.component';
 import { SelectItem, Message } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
-import { Response } from '@angular/http';
-import { element } from 'protractor';
+
+
 
 @Component({
 
@@ -27,9 +28,11 @@ export class ScholarshipComponent implements OnInit {
   mode: string = 'S'; // I-insert, U-update, S-search
   //message
   msgs: Message[] = [];
+
   //insert
   scholarshipForm: ScholarshipForm = new ScholarshipForm();
   scholarshipFormGroup: FormGroup;
+
 
   //autocomplete
   sponsorsList: SmSponsors[] = [];
@@ -37,6 +40,7 @@ export class ScholarshipComponent implements OnInit {
 
   // Dropdown List
   statusList: SelectItem[];
+  scholarshipType: SelectItem[];
 
   //for datatable
   scholarshipFormList: ScholarshipForm[] = [];
@@ -48,13 +52,19 @@ export class ScholarshipComponent implements OnInit {
   scholarshipCriteriaForm: ScholarshipForm = new ScholarshipForm();
   sponsorsCriteriaForm: SponsorsForm = new SponsorsForm();
 
+  //redirect
+  redirectTime = "2500";
+
   constructor(private scholarshipService: ScholarshipService, private sponsorsService: SponsorsService, ) { }
 
   ngOnInit() {
+    this.initEditData();
+    this.initSearchData();
 
     //autocomplete
     this.sponsors = new SmSponsors();
     this.getStatusList();
+    this.getScholarshipType();
   }
 
   validatorEditForm() {
@@ -96,17 +106,36 @@ export class ScholarshipComponent implements OnInit {
     if (this.mode == 'I') {
       this.onAddScholarship();
     } else if (this.mode == 'U') {
-      // this.onUpdateScholarship();
+      this.onUpdateScholarship();
     }
   }
 
   initEditData() {
     this.scholarshipForm = new ScholarshipForm();
     this.scholarshipForm.smScholarship.active_flag = 'Y';
-    this.scholarshipForm.smScholarship.create_user = 'knes';
-    this.scholarshipForm.smScholarship.update_user = 'knes';
+    this.scholarshipForm.smScholarship.create_user = this.getUser();
+    this.scholarshipForm.smScholarship.update_user = this.getUser();
 
     this.validatorEditForm();
+  }
+
+  getUser() {
+    return 'knes';
+  }
+
+  onResetEdit() {
+    console.log(this.mode);
+    if (this.mode == 'I') {
+      this.initEditData();
+    } else if (this.mode == 'U') {
+      this.scholarshipForm = new ScholarshipForm();
+      this.scholarshipForm = this.selectScholarship;
+      this.sponsors = new SmSponsors();
+      console.log(this.scholarshipForm.smSponsors);
+      this.sponsors = this.scholarshipForm.smSponsors;
+      console.log(this.sponsors);
+      this.validatorEditForm();
+    }
   }
 
   onAddScholarship() {
@@ -115,7 +144,6 @@ export class ScholarshipComponent implements OnInit {
 
     value.active_flag = 'Y';
     value.sponsors_ref = this.sponsors.sponsors_ref;
-    value.scholarship_type = 'Academic'
 
 
     console.log(this.scholarshipFormGroup.value);
@@ -132,7 +160,7 @@ export class ScholarshipComponent implements OnInit {
 
         this.initEditData();
 
-       this.showSuccess('บันทึกข้อมูลเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + scholarship_ref);
+        this.showSuccess('บันทึกข้อมูลเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + scholarship_ref);
 
       },
       (error) => {
@@ -147,7 +175,54 @@ export class ScholarshipComponent implements OnInit {
       );
   }
 
+  onUpdateScholarship() {
+    console.log(this.scholarshipFormGroup.value);
+    const value = this.scholarshipFormGroup.value;
+    console.log(this.sponsors.sponsors_ref);
+    value.sponsors_ref = this.sponsors.sponsors_ref;
+    this.scholarshipService.updateScholarship(value, this.scholarshipForm.smScholarship.scholarship_ref)
+      .subscribe(
+      (res: Response) => {
+        let sponsors_ref = res.json().sponsprs_ref;
+        console.log(res.json());
+        console.log(res.json().sponsprs_ref);
+        console.log(res.statusText);
+
+        this.scholarshipFormGroup.reset()
+
+        this.initEditData();
+
+        this.showSuccess('แก้ไขข้อมูลทุนการศึกษาเรียบร้อยแล้ว');
+
+      },
+      (error) => {
+        console.log(error);
+        let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        if (error.status == 409) {
+          message = 'มีการใช้รหัสทุนการศึกษานี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        }
+        this.showError(message);
+        return;
+      }
+      );
+
+  }
+
   onRowSelect(event) {
+    console.log(this.selectScholarship);
+    console.log(event.data);
+    this.mode = 'U';
+    this.scholarshipForm = new ScholarshipForm();
+    this.scholarshipForm = this.selectScholarship;
+    console.log(this.selectScholarship);
+    this.scholarshipForm.smScholarship.create_user = this.getUser();
+    this.scholarshipForm.smScholarship.update_user = this.getUser();
+    this.validatorEditForm();
+    console.log(this.scholarshipForm.smScholarship);
+    this.sponsors = new SmSponsors();
+    this.sponsors = this.scholarshipForm.smSponsors;
+    console.log(this.sponsors);
+    console.log(this.mode);
   }
 
   // //dropdown
@@ -157,6 +232,13 @@ export class ScholarshipComponent implements OnInit {
     this.statusList.push({ label: 'ใช้งาน', value: 'Y' });
     this.statusList.push({ label: 'ไม่ใช้งาน', value: 'N' });
   }
+
+  getScholarshipType() {
+    this.scholarshipType = [];
+    this.scholarshipType.push({ label: '', value: '' });
+    this.scholarshipType.push({ label: 'Academic', value: '1' });
+  }
+
 
   autocompleteMethod(event) {
     let query = event.query;
@@ -169,6 +251,7 @@ export class ScholarshipComponent implements OnInit {
       }
     }
   }
+
   // On Click Autocomplete Dropdown Button
   handleCompleteClick() {
     this.sponsorsList = [];
@@ -179,28 +262,31 @@ export class ScholarshipComponent implements OnInit {
   }
 
   getSponsorsList(): SmSponsors[] {
-    let results = []
-    this.sponsorsService.getSponsors()
-      .subscribe(
-      result => {
-        this.sponsorsList = result;
-        results = result;
-      }
-      );
-    return results;
+
+    if (this.mode !== 'U') {
+      let results = []
+      this.sponsorsService.getSponsors()
+        .subscribe(
+        result => {
+          this.sponsorsList = result;
+          results = result;
+        }
+        );
+      return results;
+    }
   }
 
   searchScholarship() {
     let resultList: ScholarshipForm[] = [];
 
-    if(this.sponsors){
-      this.scholarshipCriteriaForm.smScholarship.sponsors_ref=this.sponsors.sponsors_ref
+    if (this.sponsors) {
+      this.scholarshipCriteriaForm.smScholarship.sponsors_ref = this.sponsors.sponsors_ref
     }
+    console.log(this.scholarshipCriteriaForm)
     this.scholarshipService.searchScholarship(this.scholarshipCriteriaForm)
       .subscribe(
       result => {
         this.scholarshipFormList = result;
-        console.log(this.scholarshipFormList)
       },
       (error) => {
         console.log(error);
@@ -223,6 +309,12 @@ export class ScholarshipComponent implements OnInit {
       );
   }
 
+  initSearchData() {
+    this.scholarshipCriteriaForm = new ScholarshipForm();
+    this.selectScholarship = new ScholarshipForm();
+    this.scholarshipFormList = [];
+  }
+
 
   onSearch() {
     this.scholarshipFormList = [];
@@ -230,11 +322,29 @@ export class ScholarshipComponent implements OnInit {
     console.log(this.scholarshipCriteriaForm);
     console.log(this.sponsorsCriteriaForm);
     this.searchScholarship();
-    // this.searchSponsors();
+  }
+  onResetSearch() {
+    this.initSearchData();
   }
 
+  //changPage
+  onPageSearch() {
+    this.mode = 'S';
+    this.initSearchData();
+  }
+
+  //redirect
+  // timedRedirect() {
+  //   if (this.mode == 'U') {
+  //     //setTimeout(this.onPageSearch(), this.redirectTime);
+  // }
+  // }
 
 
+  onPageInsert() {
+    this.mode = 'I';
+    this.initEditData();
+  }
   //message
   showError(message: string) {
     this.msgs = [];
