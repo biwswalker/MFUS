@@ -81,6 +81,7 @@ import { ApplyScholarshipComponent } from './content/pages/apply-scholarship/app
 import { ApplicantInfoComponent } from './content/pages/apply-scholarship/applicant-info/applicant-info.component';
 import { StudentComponent } from './content/pages/student/student.component';
 import { StudentService } from './services/student.service';
+import { FamilyAndAddressComponent } from './content/pages/family-and-address/family-and-address.component';
 
 
 
@@ -102,7 +103,8 @@ const appRoutes: Routes = [
       { path: 'news', component: NewsComponent },
       { path: 'regscholarship', component: RegscholarshipComponent },
       { path: 'titlename', component: TitlenameComponent },
-      { path: 'student', component: StudentComponent}
+      { path: 'student', component: StudentComponent},
+      { path: 'family-and-address', component: FamilyAndAddressComponent}
     ]
   }
 ];
@@ -150,7 +152,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
     ApplyScholarshipComponent,
     ApplicantInfoComponent,
     TitlenameComponent,
-    StudentComponent
+    StudentComponent,
+    FamilyAndAddressComponent
   ],
   imports: [
     BrowserModule,
