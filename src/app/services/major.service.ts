@@ -94,6 +94,7 @@ export class MajorService {
     return this.http.get(this.mainUrl+'major' + criteria, options)
       .map(
         (res: Response) => {
+          console.log(res.json())
           return res.json();
         }
       );

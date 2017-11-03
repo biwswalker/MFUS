@@ -16,14 +16,14 @@
                 <div>
                   <label class="normal">เลขประจำตัวประชาชน *</label>
                 </div>
-                <input type="text" [(ngModel)]="studentEditForm.acStudent.personal_id" formControlName="personal_id" maxlength="13" pInputText>
+                <input [(ngModel)]="studentEditForm.acStudent.personal_id" formControlName="personal_id" type="text" maxlength="13" pInputText>
               </div>
               <div class="col-xs-1"></div>
               <div class="col-xs-5">
                 <div>
                   <label class="normal">รหัสประจำตัวนักเรียน *</label>
                 </div>
-                <input type="text" [(ngModel)]="studentEditForm.acStudent.student_id" formControlName="student_id" pInputText>
+                <input [(ngModel)]="studentEditForm.acStudent.student_id" formControlName="student_id" type="text" pInputText>
               </div>
               <div class="col-xs-1"></div>
             </div>
@@ -32,8 +32,10 @@
                 <div>
                   <label class="normal">เพศ *</label>
                 </div>
-                <p-radioButton value="M" label="ชาย" [(ngModel)]="studentEditForm.rftTitleName.gender" formControlName="gender"></p-radioButton>
-                <p-radioButton value="F" label="หญิง" [(ngModel)]="studentEditForm.rftTitleName.gender" formControlName="gender"></p-radioButton>
+                <p-radioButton [(ngModel)]="studentEditForm.rftTitleName.gender" formControlName="gender" value="M" label="ชาย">
+                </p-radioButton>
+                <p-radioButton [(ngModel)]="studentEditForm.rftTitleName.gender" formControlName="gender" value="F" label="หญิง">
+                </p-radioButton>
               </div>
               <div class="col-xs-1"></div>
               <div class="col-xs-5">
@@ -41,7 +43,7 @@
                   <label class="normal">วันเกิด *</label>
                 </div>
                 <p-calendar [(ngModel)]="studentEditForm.acStudent.birth_date" formControlName="birth_date" [showIcon]="true" [monthNavigator]="true"
-                  [yearNavigator]="true" yearRange="1800:2030"></p-calendar>
+                  [yearNavigator]="true" yearRange="{{previousYear}}:{{nowYear}}"></p-calendar>
               </div>
               <div class="col-xs-1"></div>
             </div>
@@ -50,7 +52,8 @@
                 <div>
                   <label class="normal">คำนำหน้าชื่อ *</label>
                 </div>
-                <p-dropdown [options]="listTitle" [(ngModel)]="studentEditForm.rftTitleName" placeholder="กรุณากรอกคำนำหน้าชื่อ" formControlName="title_ref" [style]="{'width':'155px'}">
+                <p-dropdown [options]="listTitle" [(ngModel)]="studentEditForm.rftTitleName" placeholder="เลือกคำนำหน้าชื่อ" formControlName="title_ref"
+                  [style]="{'width':'155px'}">
                 </p-dropdown>
               </div>
               <div class="col-xs-1"></div>
@@ -147,7 +150,7 @@
                 <div>
                   <label class="normal">โทรศัพท์ *</label>
                 </div>
-                <input type="text" [(ngModel)]="studentEditForm.acStudent.phone_no" formControlName="phone_no" pInputText>
+                <input type="text" [(ngModel)]="studentEditForm.acStudent.phone_no" formControlName="phone_no" maxlength="10" pInputText>
               </div>
               <div class="col-xs-1"></div>
               <div class="col-xs-5">
@@ -173,7 +176,7 @@
         <div class="space"></div>
         <div class="row">
           <div class="col-xs-12">
-            <button pButton type="submit" class="btn-positive" label="บันทึก" [disabled]="!studentFormGroup.valid"></button>
+            <button pButton type="submit" class="btn-positive" label="บันทึก" [disabled]="!studentFormGroup.valid && !image.valid"></button>
             <button pButton type="submit" class="btn-positive" label="เริ่มใหม่" (click)="onResetInsert()"></button>
           </div>
         </div>

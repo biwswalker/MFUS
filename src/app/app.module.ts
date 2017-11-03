@@ -13,11 +13,7 @@ import { SponsorsService } from './services/sponsors.service';
 import { MajorService } from './services/major.service';
 import { SchoolService } from './services/school.service';
 import { RouterModule, Routes } from '@angular/router';
-<<<<<<< HEAD
-import { NgModule, APP_INITIALIZER } from '@angular/core';
-=======
 import { APP_INITIALIZER, NgModule } from '@angular/core';
->>>>>>> 9777690318eff0524693a0b753a7d6b3e660a8d5
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';

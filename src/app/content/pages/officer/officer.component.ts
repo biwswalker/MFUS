@@ -145,6 +145,11 @@ export class OfficerComponent implements OnInit {
     this.titleList.push({ label: 'นางสาว', value: 'Mrs' });
   }
 
+  getProvince() {
+    this.listProvince = [];
+    this.listProvince = this.utilService.getProvincesList();
+  }
+
   //Begin Province Autocomplete Method // On key wording
   autocompleteProvince(event) {
     let query = event.query;
@@ -159,11 +164,6 @@ export class OfficerComponent implements OnInit {
           this.provinceList.push(obj);
         }
     }
-  }
-
-  getProvince() {
-    this.listProvince = [];
-    this.listProvince = this.utilService.getProvincesList();
   }
 
   // On Click Autocomplete Dropdown Button
@@ -181,8 +181,15 @@ export class OfficerComponent implements OnInit {
       this.subDistrictList = [];
     }, 100)
   }
-//End Autocomplete Province------------------------------------------------------------------------------------
 
+  selectProvince(event: SelectItem) {
+    this.utilService.getDistrictsByProvinceRef(this.officerEditForm.rftProvince.province_ref)
+    .subscribe((res: RftDistrict[]) => {
+      this.listDistrict.push(...res);
+      }
+    );
+  }
+  //End Autocomplete Province------------------------------------------------------------------------------------
 
   //Begin District Autocomplete Method // On key wording
   autocompleteDistrict(event) {
@@ -192,7 +199,6 @@ export class OfficerComponent implements OnInit {
     let objList: RftDistrict[];
     objList = this.listDistrict;
     for (let obj of objList) {
-      // Filter By string event
       if(this.officerEditForm.rftProvince.province_ref === obj.province_ref) {
         if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
           this.districtList.push(obj);
@@ -203,31 +209,24 @@ export class OfficerComponent implements OnInit {
 
   // On Click Autocomplete Dropdown Button
   handleCompleteClickDistrict() {
-    //mimic remote call
-
-    this.districtList = [];
-    console.log(this.listDistrict.length)
+    this.officerEditForm.rftSubDistrict = new RftSubDistrict();
+    let objList: RftDistrict[];
+    objList = this.listDistrict;
+    for (let obj of objList) {
+      // Filter By string event
+      if(this.officerEditForm.rftProvince.province_ref === obj.province_ref) {
+          this.districtList.push(obj);
+        }
+      }
     setTimeout(() => {
-      this.districtList = [];
-      this.officerEditForm.rftSubDistrict = new RftSubDistrict();
-      let objList: RftDistrict[] = this.listDistrict;
       this.districtList = this.listDistrict;
+      this.subDistrictList = [];
     }, 100)
     console.log(this.districtList.length)
   }
 
-  //End Autocomplete District------------------------------------------------------------------------------------
-
-  selectProvince(event: SelectItem) {
-    this.utilService.getDistrictsByProvinceRef(this.officerEditForm.rftProvince.province_ref)
-    .subscribe((res: RftDistrict[]) => {
-      this.listDistrict.push(...res);
-      }
-    );
-    console.log(this.listDistrict.length);
-  }
-
   selectDistrict(event: SelectItem) {
+    console.log(event)
     this.utilService.getSubDistrictsByDistrictRef(this.officerEditForm.rftDistrict.district_ref)
     .subscribe((res: RftSubDistrict[]) => {
       this.listSubDistrict.push(...res);
@@ -235,12 +234,7 @@ export class OfficerComponent implements OnInit {
     );
     console.log(this.listSubDistrict.length);
   }
-
-  selectSubDistrict(event: SelectItem) {
-    this.postcode = this.officerEditForm.rftDistrict.postcode;
-  }
-
-  // //End Autocomplete Province---------------------------------------------------------------------------
+  //End Autocomplete District------------------------------------------------------------------------------------
 
    // SubDistrict Autocomplete Method // On key wording
    autocompleteSubDistrict(event) {
@@ -268,6 +262,9 @@ export class OfficerComponent implements OnInit {
     }, 100)
   }
 
+  selectSubDistrict(event: SelectItem) {
+    this.postcode = this.officerEditForm.rftDistrict.postcode;
+  }
   //End Autocomplete Province------------------------------------------------------------------------------------
 
 
@@ -301,7 +298,6 @@ export class OfficerComponent implements OnInit {
     console.log('Begin onSubmit');
       if (this.mode === 'I') {
           this.addAcOfficer();
-          this.addAcUser();
         } else if (this.mode === 'U') {
           this.updateAcOfficer();
       }
@@ -323,11 +319,7 @@ export class OfficerComponent implements OnInit {
     .subscribe(
       (res: Response) => {
         const officer_ref = res.json().officer_ref;
-        console.log(res.statusText);
-        this.officerFormGroup.reset();
-        this.initEditData();
-        this.showSuccess('บันทึกข้อมูลเจ้าหน้าที่เรียบร้อยแล้ว รหัสอ้างอิงคือ ' + officer_ref);
-
+        this.addAcUser(officer_ref);
       },
       (error) => {
         console.log(error);
@@ -341,10 +333,11 @@ export class OfficerComponent implements OnInit {
     );
   }
 
-  addAcUser() {
+  addAcUser(ref: string) {
     const value = this.officerFormGroup.value;
     value.user_id = this.officerEditForm.acOfficer.personal_id;
     value.password = this.officerEditForm.acOfficer.personal_id;
+    value.officer_ref = ref;
     value.user_role = '2';
     value.create_user = 'phai';
     value.update_user = 'phai';
@@ -400,8 +393,11 @@ export class OfficerComponent implements OnInit {
     this.officerEditForm = new OfficerForm();
     this.officerEditForm = event.data;
     this.officerEditForm.rftProvince = this.getSelectedProvince(Number(this.officerEditForm.acOfficer.province));
+    console.log(this.officerEditForm.rftProvince)
     this.officerEditForm.rftDistrict = this.getSelectedDistrict(Number(this.officerEditForm.acOfficer.district));
+    console.log(this.officerEditForm.rftDistrict)
     this.officerEditForm.rftSubDistrict = this.getSelectedSubDistrict(Number(this.officerEditForm.acOfficer.sub_district));
+    console.log(this.officerEditForm.rftSubDistrict)
     this.image = this.officerEditForm.acOfficer.profile_image;
     this.img_name = this.officerEditForm.acOfficer.profile_name;
     this.img_type = this.officerEditForm.acOfficer.profile_type
@@ -455,16 +451,27 @@ export class OfficerComponent implements OnInit {
   }
 
   getSelectedDistrict(code: number) {
-    this.districtObject = new RftDistrict();
-    let objList: RftDistrict[];
-    objList = this.listDistrict;
-    for (let obj of objList) {
-      // Filter By string event
-        if (obj.district_ref == code) {
-          this.districtObject = obj;
-          return this.districtObject;
-        }
-    }
+    console.log(code)
+    // let objList: RftDistrict[];
+    // objList = this.listDistrict;
+    // for (let obj of objList) {
+    //   // Filter By string event
+    //     if (obj.district_ref == code) {
+    //       this.districtObject = obj;
+    //       return this.districtObject;
+    //     }
+    // }
+    this.utilService.getSelectDistrict(code)
+    .subscribe((res: RftDistrict) => {
+      console.log(res)
+      this.districtObject = new RftDistrict();
+      const object = res;
+      this.districtObject = object;
+      console.log(this.districtObject)
+      }
+    );
+    console.log(this.districtObject)
+    return this.districtObject;
   }
 
   getSelectedSubDistrict(code: number) {

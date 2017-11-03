@@ -102,10 +102,11 @@ export class UtilsService {
   getDistrictsByProvinceRef(ref: number): Observable<RftDistrict[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    let criteria = '/province_ref=' + ref;
+    let criteria = '/rft_district.province_ref=' + ref;
     return this.http.get(this.url+'district' + criteria, options)
       .map(
       (res: Response) => {
+        console.log(res.json())
         return res.json();
       }
       );
@@ -118,6 +119,19 @@ export class UtilsService {
     return this.http.get(this.url+'subdistrict' + criteria, options)
       .map(
       (res: Response) => {
+        return res.json();
+      }
+      );
+  }
+
+  getSelectDistrict(ref: number): Observable<RftDistrict> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let criteria = '/district_ref=' + ref;
+    return this.http.get(this.url+'district' + criteria, options)
+      .map(
+      (res: Response) => {
+        console.log(res.json())
         return res.json();
       }
       );
