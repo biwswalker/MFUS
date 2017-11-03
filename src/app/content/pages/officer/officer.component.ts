@@ -207,12 +207,12 @@ export class OfficerComponent implements OnInit {
     //mimic remote call
 
     this.districtList = [];
+    this.officerEditForm.rftDistrict = new RftDistrict();
+    this.officerEditForm.rftSubDistrict = new RftSubDistrict();
     console.log(this.listDistrict.length)
     setTimeout(() => {
-      this.districtList = [];
-      this.officerEditForm.rftSubDistrict = new RftSubDistrict();
-      let objList: RftDistrict[] = this.listDistrict;
       this.districtList = this.listDistrict;
+      this.subDistrictList = [];
     }, 100)
     console.log(this.districtList.length)
   }
@@ -220,6 +220,8 @@ export class OfficerComponent implements OnInit {
   //End Autocomplete District------------------------------------------------------------------------------------
 
   selectProvince(event: SelectItem) {
+    this.listDistrict = [];
+    this.officerEditForm.rftDistrict = new RftDistrict();
     this.utilService.getDistrictsByProvinceRef(this.officerEditForm.rftProvince.province_ref)
     .subscribe((res: RftDistrict[]) => {
       this.listDistrict.push(...res);
@@ -229,6 +231,8 @@ export class OfficerComponent implements OnInit {
   }
 
   selectDistrict(event: SelectItem) {
+    this.listSubDistrict = [];
+    this.officerEditForm.rftSubDistrict = new RftSubDistrict();
     this.utilService.getSubDistrictsByDistrictRef(this.officerEditForm.rftDistrict.district_ref)
     .subscribe((res: RftSubDistrict[]) => {
       this.listSubDistrict.push(...res);
@@ -264,6 +268,7 @@ export class OfficerComponent implements OnInit {
   handleCompleteClickSubDistrict() {
     //mimic remote call
     this.subDistrictList = [];
+    this.officerEditForm.rftSubDistrict = new RftSubDistrict();
     setTimeout(() => {
       this.subDistrictList = this.listSubDistrict;
     }, 100)
