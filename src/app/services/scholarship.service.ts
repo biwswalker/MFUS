@@ -28,7 +28,7 @@ export class ScholarshipService {
   }
 
   addScholarship(scholarship: ScholarshipForm) {
-    const url = this.mainUrl + 'schorlarship';
+    const url = this.mainUrl + 'scholarship';
     const body = JSON.stringify(scholarship);
     const headers = new Headers({ 'Content-Type': 'application/json' });
 
@@ -71,6 +71,7 @@ export class ScholarshipService {
     return this.http.get(this.url + criteria, { headers: headers })
       .map(
       (res: Response) => {
+        console.log(res)
         let results: ScholarshipForm[] = [];
         let form: ScholarshipForm = new ScholarshipForm();
         console.log('res.json() = ' + res.json());

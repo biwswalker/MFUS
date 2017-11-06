@@ -1,3 +1,4 @@
+<!-- mode insert -->
 <div class="content"
      *ngIf="mode !== 'S'">
   <div class="content-header-blue">
@@ -5,133 +6,168 @@
     <div class="underline-blue"></div>
   </div>
 
-  <div class="row">
-    <div class="col-xs-6">
-      <label class="normal">ผู้ให้ทุนการศึกษา</label>
+  <p-growl [(value)]="msgs" ></p-growl>
+  <!-- mode insert -->
+  <form [formGroup]="scholarshipFormGroup"
+        (ngSubmit)="onSubmit()" (ngSummit)="setTimeout()">
+    <div class="row">
+      <div class="col-xs-6">
+        <label class="normal">ผู้ให้ทุนการศึกษา</label>
+        <div>
+          <p-autoComplete formControlName="sponsors_ref"
+                          name="sponsors_name"
+                          field="sponsors_name"
+                          [(ngModel)]="sponsors"
+                          [suggestions]="sponsorsList"
+                          (completeMethod)="autocompleteMethod($event)"
+                          [size]="40"
+                          [dropdown]="true"
+                          (onDropdownClick)="handleCompleteClick($event)">
+            <ng-template let-obj
+                         pTemplate="item">
+              {{obj.sponsors_name}}
+            </ng-template>
+          </p-autoComplete>
+        </div>
+      </div>
 
-      <div>
-        <p-autoComplete name="autocompleteName"
-                        field="autoName"
-                        [(ngModel)]="autocompleteObj"
-                        [suggestions]="autocompleteList"
-                        (completeMethod)="autocompleteMethod($event)"
-                        [size]="20"
-                        [dropdown]="true"
-                        forceSelection="true"
-                        (onDropdownClick)="handleCompleteClick($event)">
-          <ng-template let-obj
-                       pTemplate="item">
-            {{obj.autoName}}
-          </ng-template>
-        </p-autoComplete>
+      <div class="col-xs-3 col-sm-offset-1">
+        <label class="normal">สถานะ</label>
+        <div>
+          <p-dropdown name="status"
+                      formControlName="active_flag"
+                      [options]="statusList"
+                      [(ngModel)]="scholarshipForm.smScholarship.active_flag"
+                      [style]="{'width':'150px'}">
+          </p-dropdown>
+        </div>
       </div>
     </div>
 
-    <div class="col-xs-2 col-sm-offset-1">
-      <label class="normal">สถานะ</label>
-      <div>
-        <p-dropdown name="dropdownName"
-                    [options]="dropdownList"
-                    [(ngModel)]="dropdownValue"
-                    [style]="{'width':'200px'}">
-        </p-dropdown>
+    <div class="row">
+      <div class="col-xs-6">
+        <label class="normal">ชื่อทุนการศึกษา *</label>
+        <div>
+          <input class="normal"
+                 type="text"
+                 formControlName="scholarship_name"
+                 name="scholarship_name"
+                 id="scholarshipName"
+                 size="50"
+                 maxlength="50"
+                 pTooltip="กรุณระบุชื่อทุนการศึกษา"
+                 tooltipEvent="focus"
+                 showDelay="500"
+                 hideDelay="100"
+                 pInputText>
+        </div>
+      </div>
+
+      <div class="col-xs-3 col-sm-offset-1">
+        <label class="normal">ประเภททุนการศึกษา</label>
+        <div>
+          <p-dropdown name="scholarshipType"
+                      formControlName="scholarship_type"
+                      [options]="scholarshipType"
+                      [(ngModel)]="scholarshipForm.smScholarship.scholarship_type"
+                      [style]="{'width':'200px'}">
+          </p-dropdown>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-xs-6">
+    <div class="row">
+      <div class="col-xs-12">
+        <label class="normal">รายละเอียดทุนการศึกษา</label>
+        <div>
+          <textarea name="detail"
+                    class="normal"
+                    type="text"
+                    id="scholarshipDetail"
+                    formControlName="detail"
+                    cols="100"
+                    rows="5"
+                    pInputTextarea>
 
-      <label class="normal">ชื่อทุนการศึกษา *</label>
-      <div>
-        <input [(ngModel)]="textStr"
-               name="inputTextName"
-               type="text"
-               size="45"
-               pInputText>
-      </div>
-    </div>
-
-    <div class="col-xs-3 col-sm-offset-1">
-      <label class="normal">ประเภททุนการศึกษา</label>
-      <div>
-        <p-dropdown name="dropdownName"
-                    [options]="dropdownList"
-                    [(ngModel)]="dropdownValue"
-                    [style]="{'width':'200px'}">
-        </p-dropdown>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-xs-12">
-      <label class="normal">รายละเอียด</label>
-      <div>
-        <textarea pInputTextarea
-                  name="textareaName"
-                  [(ngModel)]="textareaValue"
-                  autoResize="autoResize"
-                  cols="100"
-                  rows="5">
           </textarea>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-xs-3">
-      <label class="normal">จำนวนทุน *</label>
-      <div>
-        <input [(ngModel)]="textStr"
-               name="inputTextName"
-               type="text"
-               size="20"
-               pInputText>
+        </div>
       </div>
     </div>
 
-    <div class="col-xs-3">
-      <label class="normal">จำนวนเงิน/ทุน (บาท) *</label>
-      <div>
-        <input [(ngModel)]="textStr"
-               name="inputTextName"
-               type="text"
-               size="25"
-               pInputText>
+    <div class="row">
+      <div class="col-xs-3">
+        <label class="normal">จำนวนทุน *</label>
+        <div>
+          <input class="normal"
+                 type="text"
+                 formControlName="unit"
+                 name="unit"
+                 id="scholarshipUnit"
+                 size="25"
+                 maxlength="3"
+                 pTooltip="กรุณาระบุจำนวนทุนเป็นตัวเลข"
+                 tooltipEvent="focus"
+                 showDelay="500"
+                 hideDelay="100"
+                 pInputText>
+        </div>
+      </div>
+
+      <div class="col-xs-3 col-sm-offset-1">
+        <label class="normal">จำนวนเงิน/ทุน (บาท) *</label>
+        <div>
+          <input class="normal"
+                 type="text"
+                 formControlName="financial_aid"
+                 name="financial_aid"
+                 id="financialAid"
+                 size="25"
+                 maxlength="6"
+                 pTooltip="กรุณาระบุจำนวนเงินทุนเป็นตัวเลข"
+                 tooltipEvent="focus"
+                 showDelay="500"
+                 hideDelay="100"
+                 pInputText>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="row formFooter">
-    <button pButton
-            type="submit"
-            class="btn-positive"
-            label="บันทึก"></button>
-    <button pButton
-            type="button"
-            class="btn-normal"
-            label="รีเซ็ท"></button>
-    <button pButton
-            type="button"
-            style="float:right;"
-            class="btn-negative"
-            label="กลับ"></button>
-  </div>
+    <div class="row formFooter">
+      <button pButton
+              type="submit"
+              class="btn-positive"
+              label="บันทึก"
+
+              ></button>
+      <button pButton
+              type="button"
+              class="btn-normal"
+              (click)="onResetEdit();"
+              label="เริ่มใหม่"></button>
+      <button pButton
+              type="button"
+              style="float:right;"
+              class="btn-negative"
+              (click)="onPageSearch()"
+              label="กลับ"></button>
+    </div>
+  </form>
 </div>
 
-<!-- Mode search!-->
+
+<!-- Mode search -->
 <div class="content"
      *ngIf="mode === 'S'">
   <div class="content-header-blue">
-    <p>ทุนการศึกษา</p>
+    <p>ค้นหาทุนการศึกษา</p>
     <div class="underline-blue"></div>
   </div>
   <div class="row">
     <div class="col-xs-9">
       <label class="normal">ผู้ให้ทุนการศึกษา</label>
       <div>
-        <p-autoComplete name="sponsors_name"
+        <p-autoComplete
+                        name="sponsors_name"
                         field="sponsors_name"
                         [(ngModel)]="sponsors"
                         [suggestions]="sponsorsList"
@@ -164,11 +200,11 @@
     <div class="col-xs-3 ">
       <label class="normal">ประเภททุนการศึกษา</label>
       <div>
-        <!-- <p-dropdown name="scholarship_type"
-                    [options]="scholarship_type"
-                    [(ngModel)]="typeList"
+        <p-dropdown name="scholarship_type"
+                    [options]="scholarshipType"
+                    [(ngModel)]="scholarshipCriteriaForm.smScholarship.scholarship_type"
                     [style]="{'width':'200px'}">
-        </p-dropdown> -->
+        </p-dropdown>
       </div>
     </div>
     <div class="col-xs-6 col-sm-offset-1">
@@ -196,12 +232,14 @@
     <button pButton
             type="button"
             class="btn-normal"
-            label="รีเซ็ท"></button>
+            (click)="onResetSearch()"
+            label="เริ่มใหม่"></button>
     <button pButton
             type="button"
             style="float:right;"
             class="btn-negative"
-            label="กลับ"></button>
+            (click)="onPageInsert()"
+            label="สร้างใหม่"></button>
   </div>
   <div class="space"></div>
   <div class="row">
@@ -237,5 +275,4 @@
                 header="สถานะ"></p-column>
     </p-dataTable>
   </div>
-
 </div>

@@ -13,7 +13,11 @@ import { SponsorsService } from './services/sponsors.service';
 import { MajorService } from './services/major.service';
 import { SchoolService } from './services/school.service';
 import { RouterModule, Routes } from '@angular/router';
+<<<<<<< HEAD
 import { APP_INITIALIZER, NgModule } from '@angular/core';
+=======
+import { NgModule, APP_INITIALIZER } from '@angular/core';
+>>>>>>> 1494e75808761f4d69b45232e0995b650b7ad375
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -66,7 +70,7 @@ import { SponsorsComponent } from './content/pages/sponsors/sponsors.component';
 import { ScholarshipAnnouncementComponent } from './content/pages/scholarship-announcement/scholarship-announcement.component';
 import { ApplyforscholarshipComponent } from './content/pages/applyforscholarship/applyforscholarship.component';
 import { ScholarshipComponent } from './content/pages/scholarship/scholarship.component';
-import { AnnoucncementComponent } from './content/pages/annoucncement/annoucncement.component';
+import { ScholarshipAnnouncementDetailComponent } from './content/pages/scholarship-announcement-detail/scholarship-announcement-detail.component';
 import { OfficerComponent } from './content/pages/officer/officer.component';
 import { ReguserComponent } from './content/pages/reguser/reguser.component';
 import { RegscholarshipComponent } from './content/pages/regscholarship/regscholarship.component';
@@ -81,6 +85,7 @@ import { ApplyScholarshipComponent } from './content/pages/apply-scholarship/app
 import { ApplicantInfoComponent } from './content/pages/apply-scholarship/applicant-info/applicant-info.component';
 import { StudentComponent } from './content/pages/student/student.component';
 import { StudentService } from './services/student.service';
+import { FamilyAndAddressComponent } from './content/pages/family-and-address/family-and-address.component';
 
 
 
@@ -94,7 +99,7 @@ const appRoutes: Routes = [
       { path: 'scholarship-announcement', component: ScholarshipAnnouncementComponent },
       { path: 'apply-scholarship', component: ApplyScholarshipComponent },
       { path: 'scholarship', component: ScholarshipComponent },
-      { path: 'annoucncement', component: AnnoucncementComponent },
+      { path: 'announcement-detail', component: ScholarshipAnnouncementDetailComponent },
       { path: 'officer', component: OfficerComponent },
       { path: 'reguser', component: ReguserComponent },
       { path: 'school', component: SchoolComponent },
@@ -102,7 +107,8 @@ const appRoutes: Routes = [
       { path: 'news', component: NewsComponent },
       { path: 'regscholarship', component: RegscholarshipComponent },
       { path: 'titlename', component: TitlenameComponent },
-      { path: 'student', component: StudentComponent}
+      { path: 'student', component: StudentComponent},
+      { path: 'family-and-address', component: FamilyAndAddressComponent}
     ]
   }
 ];
@@ -135,7 +141,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     ScholarshipAnnouncementComponent,
     ApplyforscholarshipComponent,
     ScholarshipComponent,
-    AnnoucncementComponent,
+    ScholarshipAnnouncementDetailComponent,
     OfficerComponent,
     ReguserComponent,
     InterviewselectComponent,
@@ -150,7 +156,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
     ApplyScholarshipComponent,
     ApplicantInfoComponent,
     TitlenameComponent,
-    StudentComponent
+    StudentComponent,
+    FamilyAndAddressComponent
   ],
   imports: [
     BrowserModule,
