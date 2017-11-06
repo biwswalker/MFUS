@@ -74,9 +74,14 @@ export class UtilsService {
   }
 
   getProvincesList() {
+    console.log('util.getprovince')
     return this.startupService.provinceList;
   }
 
+  getScholarshipList() {
+    console.log('util.getscholarship')
+    return this.startupService.scholarshipList;
+  }
   getDistricts(): Observable<RftDistrict[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -103,13 +108,8 @@ export class UtilsService {
     console.log('ref' + ref)
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-<<<<<<< HEAD
     let criteria = '/rft_district.province_ref=' + ref;
-    return this.http.get(this.url+'district' + criteria, options)
-=======
-    let criteria = '/province_ref=' + ref;
     return this.http.get(this.url+'atpdistrict' + criteria, options)
->>>>>>> 1494e75808761f4d69b45232e0995b650b7ad375
       .map(
       (res: Response) => {
         console.log(res.json())
