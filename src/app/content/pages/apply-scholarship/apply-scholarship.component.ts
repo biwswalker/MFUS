@@ -55,8 +55,8 @@ export class ApplyScholarshipComponent implements OnInit {
   }
 
 
-  onNext() {
-    this.applyscholarshipService.nextIndex();
+  onNext(index) {
+    this.applyscholarshipService.nextIndex(index);
     this.activeIndex = this.applyscholarshipService.getIndex();
   //  this.applyScholarshipForm = this.applyscholarshipService.getData();
     console.log('activeIndex = ' + this.activeIndex);
