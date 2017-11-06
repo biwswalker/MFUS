@@ -1,3 +1,4 @@
+import { ScholarshipService } from '../../../services/scholarship.service';
 import { AcStudent } from './../../models/ac-student';
 import { AcSibling } from './../../models/ac-sibling';
 import { ApplyScholarshipForm } from './../../form/apply-scholarshop-form';

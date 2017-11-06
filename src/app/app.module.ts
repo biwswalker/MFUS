@@ -13,11 +13,7 @@ import { SponsorsService } from './services/sponsors.service';
 import { MajorService } from './services/major.service';
 import { SchoolService } from './services/school.service';
 import { RouterModule, Routes } from '@angular/router';
-<<<<<<< HEAD
-import { APP_INITIALIZER, NgModule } from '@angular/core';
-=======
 import { NgModule, APP_INITIALIZER } from '@angular/core';
->>>>>>> 1494e75808761f4d69b45232e0995b650b7ad375
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -86,6 +82,8 @@ import { ApplicantInfoComponent } from './content/pages/apply-scholarship/applic
 import { StudentComponent } from './content/pages/student/student.component';
 import { StudentService } from './services/student.service';
 import { FamilyAndAddressComponent } from './content/pages/family-and-address/family-and-address.component';
+import { ScholarshipInfoComponent } from './content/pages/apply-scholarship/scholarship-info/scholarship-info.component';
+import { FamilyFinancialComponent } from './content/pages/apply-scholarship/family-financial/family-financial.component';
 
 
 
@@ -108,13 +106,13 @@ const appRoutes: Routes = [
       { path: 'regscholarship', component: RegscholarshipComponent },
       { path: 'titlename', component: TitlenameComponent },
       { path: 'student', component: StudentComponent},
-      { path: 'family-and-address', component: FamilyAndAddressComponent}
+      { path: 'family-and-address', component: FamilyAndAddressComponent},
     ]
   }
 ];
 
 export function startupServiceFactory(startupService: StartupService): Function {
-  return () => startupService.loadProvinces();
+  return () => startupService.loadData();
 }
 
 @NgModule({
@@ -157,7 +155,9 @@ export function startupServiceFactory(startupService: StartupService): Function 
     ApplicantInfoComponent,
     TitlenameComponent,
     StudentComponent,
-    FamilyAndAddressComponent
+    FamilyAndAddressComponent,
+    ScholarshipInfoComponent,
+    FamilyFinancialComponent
   ],
   imports: [
     BrowserModule,

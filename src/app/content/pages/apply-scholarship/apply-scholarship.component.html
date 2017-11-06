@@ -22,9 +22,20 @@
       </div>
 
       <div *ngIf="activeIndex == 1">
-        <p>ข้อมูลทุนการศึกษา</p>
-        <app-applicant-info></app-applicant-info>
+        <div class="content-header-blue-normal">
+          <p>ข้อมูลทุนการศึกษา</p>
+          <div class="underline-blue"></div>
+        </div>
+        <app-scholarship-info></app-scholarship-info>
       </div>
+
+      <div *ngIf="activeIndex == 2">
+          <div class="content-header-blue-normal">
+            <p>ข้อมูลสถานะทางการเงินของครอบครัว</p>
+            <div class="underline-blue"></div>
+          </div>
+          <app-family-financial></app-family-financial>
+        </div>
 
     </div>
   </div>

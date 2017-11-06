@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-3">
+        <div>
+          <label class="normal">ปีการศึกษา *</label>
+        </div>
+        <input type="text" size="10" pInputText>
+      </div>
+      <div class="col-xs-6">
+        <div>
+          <label class="normal">ทุนการศึกษา *</label>
+        </div>
+        <p-autoComplete [suggestions]="scholarshipList" [dropdown]="true" (completeMethod)="autocompleteScholarship($event)"
+        (onDropdownClick)="handleCompleteClickautocompleteScholarship($event)"
+          field="scholarship_ref" size="43" forceselection="true" name="autocompleteScholarship">
+          <ng-template let-obj pTemplate="item">
+            {{obj.scholarship_ref}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+      <div class="col-xs-3">
+        <div>
+          <label class="normal">รอบที่</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">
+        <div>
+          <label class="normal">ประเภททุนการศึกษา</label>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div>
+          <label class="normal">ผู้สนับสนุน</label>
+        </div>
+      </div>
+      <div class="col-xs-3">
+        <div>
+          <label class="normal">เกรดขั้นต่ำ</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="content-header-blue">
+          <p>ประวัติทุนการศึกษา (ทุกประเภท)</p>
+          <div class="underline-blue"></div>
+          <div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <p-dataTable
+          [value]=""
+          selectionMode="single"
+          [rows]="10">
+          <p-column
+            [sortable]="true"
+            field=""
+            header="ลำดับ">
+          </p-column>
+          <p-column
+            header="ชื่อ ทุนการศึกษา">
+          </p-column>
+          <p-column
+            header="ปีการศึกษา">
+          </p-column>
+          <p-column
+            header="จำนวน(บาท)">
+          </p-column>
+        </p-dataTable>
+      </div>
+    </div>
+  </div>
+</div>

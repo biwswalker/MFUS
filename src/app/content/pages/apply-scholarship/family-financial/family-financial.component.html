@@ -1,0 +1,46 @@
+<div class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-3">
+          <div>
+            <label class="normal">รายรับ</label>
+          </div>
+          <input type="text" name="" id="" pInputText>
+        </div>
+        <div class="col-xs-3">
+          <div>
+            <label for="" class="normal">รายจ่าย</label>
+          </div>
+          <input type="text" name="" id="" pInputText>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div>
+            <label class="normal">ภาระหนี้สินครอบครัว</label>
+          </div>
+          <p-dataTable [value]="debtList" selectionMode="single" [(selection)]="selectedDebt" [paginator]="true" [rowsPerPageOptions]="[5,10,20]"
+            sortMode="multiple">
+            <p-column [sortable]="true" field="seq" header="ลำดับ">
+            </p-column>
+            <p-column [sortable]="true" [editable]="true" field="debt_detail" header="รายละเอียด">
+              <input type="text" name="" id="">
+            </p-column>
+            <p-column [sortable]="true" [editable]="true" field="debt_amount" header="จำนวน">
+              <input type="text" name="" id="">
+            </p-column>
+            <p-column styleClass="col-button">
+              <ng-template pTemplate="header">
+                <button type="button" pButton icon="fa-plus" (click)="addRow()"></button>
+              </ng-template>
+              <ng-template let-car="rowData" pTemplate="body">
+                <button type="button" pButton (click)="deleteRow()" icon="fa-minus"></button>
+              </ng-template>
+            </p-column>
+          </p-dataTable>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

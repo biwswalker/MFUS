@@ -146,6 +146,7 @@ export class OfficerComponent implements OnInit {
   }
 
   getProvince() {
+    console.log('conponent.getprovince')
     this.listProvince = [];
     this.listProvince = this.utilService.getProvincesList();
   }
@@ -169,12 +170,11 @@ export class OfficerComponent implements OnInit {
   // On Click Autocomplete Dropdown Button
   handleCompleteClickProvince() {
     console.log(this.listProvince.length)
-    let objList: RftProvince[];
     this.provinceList = [];
     this.officerEditForm.rftProvince = new RftProvince();
     this.officerEditForm.rftDistrict = new RftDistrict();
     this.officerEditForm.rftSubDistrict = new RftSubDistrict();
-    objList = this.listProvince;
+    this.provinceList = this.listProvince;
 
     setTimeout(() => {
       this.provinceList = this.listProvince;
@@ -451,17 +451,8 @@ export class OfficerComponent implements OnInit {
     }
   }
 
-  getSelectedDistrict(code: number) {
+  getSelectedDistrict(code: number): RftDistrict {
     console.log(code)
-    // let objList: RftDistrict[];
-    // objList = this.listDistrict;
-    // for (let obj of objList) {
-    //   // Filter By string event
-    //     if (obj.district_ref == code) {
-    //       this.districtObject = obj;
-    //       return this.districtObject;
-    //     }
-    // }
     this.utilService.getSelectDistrict(code)
     .subscribe((res: RftDistrict) => {
       console.log(res)
@@ -469,9 +460,9 @@ export class OfficerComponent implements OnInit {
       const object = res;
       this.districtObject = object;
       console.log(this.districtObject)
+      return this.districtObject
       }
     );
-    console.log(this.districtObject)
     return this.districtObject;
   }
 
