@@ -1,3 +1,4 @@
+
 .menuside {
   /*PADDING : TOP RIGHT BOTTOM LEFT*/
   padding:35px 20px 5px 35px;
@@ -12,20 +13,17 @@
 .content-header-red {
   font-weight: 600;
   font-size: 20px;
-  font-family: SSpace;
   color: #aa0000;
 }
 
 .content-header-blue {
   font-weight: 600;
   font-size: 20px;
-  font-family: SSpace;
   color: #224a86;
 }
 
 .content-header-blue-normal {
   font-size: 18px;
-  font-family: SSpace;
   color: #224a86;
 }
 
@@ -55,7 +53,6 @@ div.underline-blue {
 
 /* LABEL */
 label.normal {
-  font-family: SSpace;
   color: #b40000;
   font-size: 18px;
   font-weight: 500;
@@ -64,10 +61,10 @@ label.normal {
 }
 
 label.normal-inline{
-  font-family: SSpace;
   color: #b40000;
   font-size: 18px;
   font-weight: 500;
+  margin-left:10px;
 }
 
 label.radio-inline.normal {

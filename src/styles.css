@@ -42,6 +42,11 @@
     font-style: italic;
   }
 
+  /* set font family & Size */
+body,h1,h2,h3,h4,h5,label,input,p{
+  font-family: SSpace;
+}
+
 div.container-fixed {
   width: 1200px !important;
   margin: auto;
@@ -72,9 +77,10 @@ div.ui-panelmenu-content.ui-widget-content {
 
 /* BEGIN RADIOBUTTON */
 label.ui-radiobutton-label {
-  font-family: SSpace;
   margin-bottom: -1px;
   margin-right: 15px;
+  font-size:1.2em;
+  font-weight: 100;
 }
 
 div.ui-radiobutton-box {
@@ -145,7 +151,6 @@ button.btn-icon-negative.ui-button:enabled:hover {
 label.ui-chkbox-label {
   margin-bottom: 0px;
   color: #3a8db7;
-  font-family: SSpace;
   font-size: 15px;
   font-weight: lighter
 }
@@ -168,3 +173,10 @@ div.ui-fileupload-content.ui-widget-content.ui-corner-bottom {
   display: none;
 }
 /*  END UPLOAD FILE */
+
+
+/* INPUT TEXT */
+input.ui-inputtext{
+  padding:0.3em 0.5em !important;
+  font-size:1.2em !important;
+}
