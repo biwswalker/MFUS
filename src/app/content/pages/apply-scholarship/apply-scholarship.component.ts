@@ -14,6 +14,7 @@ export class ApplyScholarshipComponent implements OnInit {
 
   items: MenuItem[];
   activeIndex: number = 0;
+
   public applyScholarshipForm: ApplyScholarshipForm = new ApplyScholarshipForm();
 
   constructor(private applyscholarshipService: ApplyscholarshipService) { }
