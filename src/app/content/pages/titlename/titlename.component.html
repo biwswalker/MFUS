@@ -8,7 +8,111 @@
 
 <p-growl [(value)]="msgs" ></p-growl>
 <!-- mode insert -->
-<form [formGroup]="titleNameFormGroup" (ngSubmit)="onSubmit()">
+<form [formGroup]="titleNameFormGroup" (ngSubmit)="onSubmit()" *ngIf="mode !== 'S'">
+  <div class="row">
+    <div class="col-xs-8">
+      <label class="normal">รหัสคำนำหน้าชื่อ</label>
+      <div>
+        <input 
+          class="normal"
+          type="text"
+          formControlName="title_code"
+          name="title_code"
+          id="titleCode"
+          size="15"
+          maxlength="10"
+          pTooltip="กรุณากรอกรหัสคำนำหน้าชื่อเป็นตัวเลข"
+          toolTipEvent="focus"
+          showDelay="500"
+          hideDelay="100"
+          pInputText>
+      </div>
+      <div style="margin-top: 5px">
+          <span class="ui-message ui-messages-error ui-corner-all"
+          *ngIf="!titleNameFormGroup.get('title_code').valid  && titleNameFormGroup.get('title_code').dirty && titleNameFormGroup.get('title_code').value != ''" >รหัสคำนำหน้าชื่อต้องเป็นตัวเลขเท่านั้น</span>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <label class="normal">สถานะ</label>
+      <div>
+        <p-dropdown
+          name="active_flag"
+          formControlName="active_flag"
+          [options]="statusList"
+					[style]="{'width':'150px'}">
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-8">
+      <label class="normal">คำนำหน้าชื่อ(ภาษาไทย)</label>
+      <div>
+        <input
+          class="normal"
+          type="text"
+          formControlName="title_name_t"
+          name="title_name_t"
+          id="titleNameT"
+          size="50"
+          maxlength="50"
+          pInputText>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <label class="normal">เพศ</label>
+      <div>
+        <p-dropdown
+          name="gender"
+          formControlName="gender"
+          [options]="genderList"
+					[style]="{'width':'150px'}">
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <label class="normal">คำนำหน้าชื่อ(ภาษาอังกฤษ)</label>
+      <div>
+        <input 
+        class="normal"
+        type="text"
+        name="title_name_e"
+        formControlName="title_name_e"
+        id="titleNameE"
+        size="50"
+        maxlength="50"
+        pInputText>
+      </div>
+    </div>
+  </div>
+
+<div class="space"></div>
+    <div class="row">
+      <div class="col-xs-12">
+        <button pButton
+          type="submit"
+          class="btn-positive"
+          label="บันทึก"
+          [disabled]="!titleNameFormGroup.valid">
+        </button>
+        <button pButton
+          type="button"
+          class="btn-normal"
+          (click)="onResetEdit();"
+          label="เริ่มใหม่"></button>
+
+        <button pButton
+          type="button"
+          style="float: right;"
+          class="btn-negative"
+          (click)="onPageSearch()"
+          label="กลับ"></button>
+      </div>
+    </div>
 
 </form>
 
@@ -17,6 +121,61 @@
   <div class="content-header-blue" >
     <p>ค้นหาข้อมูลคำนำหน้าชื่อ</p>
     <div class="underline-red"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <label class="normal">รหัสคำนำหน้าชื่อ</label>
+      <div>
+        <input
+          class="normal"
+          type="text"
+          name="title_code"
+          id="titleCode"
+          size="15"
+          maxlength="10"
+          [(ngModel)]="titleCriteriaForm.rftTitleName.title_code"
+          pInputText>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <label class="normal">คำนำหน้าชื่อ (ภาษาไทย)</label>
+      <div>
+        <input
+          class="normal"
+          type="text"
+          name="title_name_t"
+          id="titleNameT"
+          size="50"
+          maxlength="50"
+          [(ngModel)]="titleCriteriaForm.rftTitleName.title_name_t"
+          pInputText>
+      </div>
+    </div>
+     <div class="col-xs-6">
+      <label class="normal">คำนำหน้าชื่อ (ภาษาอังกฤษ)</label>
+      <div>
+        <input
+          class="normal"
+          type="text"
+          name="title_name_e"
+          id="titleNameE"
+          size="50"
+          maxlength="50"
+          [(ngModel)]="titleCriteriaForm.rftTitleName.title_name_e"
+          pInputText>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <label class="normal">เพศ</label>
+      <div>
+        <p-dropdown
+          name="gender"
+          [options]="genderList"
+					[style]="{'width':'150px'}">
+        </p-dropdown>
+      </div>
+    </div>
   </div>
 
 <!-- button -->
@@ -45,5 +204,22 @@
     </div>
   </div>
   <!-- button -->
+
+  <div class="space"></div>
+  <div class="row">
+    <p-dataTable
+      [value]="titleList"
+      selectionMode="single"
+      [(selection)]="selectedTitleName"
+      [rows]="10"
+      [paginator]="true"
+      [rowsPerPageOptions]="[5,10,20]"
+      (onRowSelect)="onRowSelect($event)"
+      dataKey="rftTitleName.title_ref"
+      sortMode="multiple">
+      <p-column [sortable]="true" field="rftTitleName.title_code" header="รหัสคำนำหน้าชื่อ"></p-column>
+      <p-column [sortable]="true" field="rftTitleName.title_name_t" header="คำนำหน้าชื่อ (ภาษาไทย)"></p-column>
+      <p-column [sortable]="true" field="rftTitleName.title_name_e" header="คำนำหน้าชื่อ (ภาษาอังกฤษ)"></p-column>
+    </p-dataTable>
 
 </div>

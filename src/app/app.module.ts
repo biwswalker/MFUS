@@ -7,7 +7,7 @@ import { MajorComponent } from './content/pages/major/major.component';
 import { NewsComponent } from './content/pages/news/news.component';
 import { ScholarshipannouncementService } from './services/scholarshipannouncement.service';
 import { ScholarshipService } from './services/scholarship.service';
-
+import { TitleNameService } from './services/titlename.service';
 import { NewsService } from './services/news.service';
 import { SponsorsService } from './services/sponsors.service';
 import { MajorService } from './services/major.service';
@@ -82,6 +82,7 @@ import { ApplicantInfoComponent } from './content/pages/apply-scholarship/applic
 import { StudentComponent } from './content/pages/student/student.component';
 import { StudentService } from './services/student.service';
 import { FamilyAndAddressComponent } from './content/pages/family-and-address/family-and-address.component';
+import { MainNewsComponent } from './content/pages/main-news/main-news.component';
 
 
 
@@ -106,7 +107,8 @@ const appRoutes: Routes = [
       { path: 'student', component: StudentComponent},
       { path: 'family-and-address', component: FamilyAndAddressComponent}
     ]
-  }
+  },
+    { path: 'news', component: MainNewsComponent },
 ];
 
 export function startupServiceFactory(startupService: StartupService): Function {
@@ -153,7 +155,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
     ApplicantInfoComponent,
     TitlenameComponent,
     StudentComponent,
-    FamilyAndAddressComponent
+    FamilyAndAddressComponent,
+    MainNewsComponent
   ],
   imports: [
     BrowserModule,
@@ -203,7 +206,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
       useFactory: startupServiceFactory,
       deps: [StartupService],
       multi: true
-    }
+    },
+    TitleNameService
   ],
   bootstrap: [AppComponent]
 })
