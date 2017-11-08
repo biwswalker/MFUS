@@ -38,6 +38,7 @@ import { StepsModule } from 'primeng/primeng';
 import { GrowlModule, TooltipModule, DialogModule } from 'primeng/primeng';
 import { EditorModule } from 'primeng/primeng';
 import { TabViewModule } from 'primeng/primeng';
+import { DataScrollerModule } from 'primeng/primeng';
 
 // Component
 import { HeaderComponent } from './content/header/header.component';
@@ -89,7 +90,7 @@ import { FamilyAndAddressInfoComponent } from './content/pages/apply-scholarship
 import { FamilyInformationComponent } from './content/pages/apply-scholarship/family-and-address/family-information/family-information.component';
 import { SiblingInformationComponent } from './content/pages/apply-scholarship/family-and-address/sibling-information/sibling-information.component';
 import { AddressInformationComponent } from './content/pages/apply-scholarship/family-and-address/address-information/address-information.component';
-
+import { NewsDetailComponent } from './content/pages/news-detail/news-detail.component';
 
 
 //Router
@@ -115,6 +116,7 @@ const appRoutes: Routes = [
     ]
   },
     { path: 'news', component: MainNewsComponent },
+    { path: 'news/:id', component: NewsDetailComponent },
 ];
 
 export function startupServiceFactory(startupService: StartupService): Function {
@@ -168,7 +170,9 @@ export function startupServiceFactory(startupService: StartupService): Function 
     FamilyAndAddressInfoComponent,
     FamilyInformationComponent,
     SiblingInformationComponent,
-    AddressInformationComponent
+    AddressInformationComponent,
+    MainNewsComponent,
+    NewsDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -196,7 +200,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
     DialogModule,
     EditorModule,
     TabViewModule,
-    FileUploadModule
+    FileUploadModule,
+    DataScrollerModule
   ],
   providers: [
     AuthenticationService,

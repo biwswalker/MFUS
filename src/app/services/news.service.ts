@@ -66,15 +66,17 @@ export class NewsService {
           console.log('res.json() = ', res.json());
           for (let data of res.json()) {
             console.log('==================');
-            console.log('data.news_topic = ' + data.news_topic);
+           /* console.log('data.news_topic = ' + data.news_topic);
             console.log('data.publish_date = ' + data.publish_date);
             console.log('data.active_flag = ' + data.active_flag);
-            console.log('data.news_detail = ' + data.news_detail);
+            console.log('data.news_detail = ' + data.news_detail);*/
             form = new NewsForm();
             form.smNews = data;
             form.smNews.news_topic = data.news_topic;
             form.smNews.publish_date = data.publish_date;
+            form.txtLength = data.news_detail.length;
             form.smNews.news_detail = data.news_detail;
+            form.nothtmlstr = data.news_detail.replace(/&nbsp;/gi," ").replace(/<\/?[^>]+(>|$)/g, "");
 
             if(form.smNews.active_flag == "Y") {
               form.smNews.active_flag = 'ใช้งาน';
