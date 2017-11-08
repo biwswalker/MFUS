@@ -7,7 +7,7 @@ import { MajorComponent } from './content/pages/major/major.component';
 import { NewsComponent } from './content/pages/news/news.component';
 import { ScholarshipannouncementService } from './services/scholarshipannouncement.service';
 import { ScholarshipService } from './services/scholarship.service';
-
+import { TitleNameService } from './services/titlename.service';
 import { NewsService } from './services/news.service';
 import { SponsorsService } from './services/sponsors.service';
 import { MajorService } from './services/major.service';
@@ -84,6 +84,11 @@ import { StudentService } from './services/student.service';
 import { FamilyAndAddressComponent } from './content/pages/family-and-address/family-and-address.component';
 import { ScholarshipInfoComponent } from './content/pages/apply-scholarship/scholarship-info/scholarship-info.component';
 import { FamilyFinancialComponent } from './content/pages/apply-scholarship/family-financial/family-financial.component';
+import { MainNewsComponent } from './content/pages/main-news/main-news.component';
+import { FamilyAndAddressInfoComponent } from './content/pages/apply-scholarship/family-and-address/family-and-address.component';
+import { FamilyInformationComponent } from './content/pages/apply-scholarship/family-and-address/family-information/family-information.component';
+import { SiblingInformationComponent } from './content/pages/apply-scholarship/family-and-address/sibling-information/sibling-information.component';
+import { AddressInformationComponent } from './content/pages/apply-scholarship/family-and-address/address-information/address-information.component';
 
 
 
@@ -108,11 +113,12 @@ const appRoutes: Routes = [
       { path: 'student', component: StudentComponent},
       { path: 'family-and-address', component: FamilyAndAddressComponent},
     ]
-  }
+  },
+    { path: 'news', component: MainNewsComponent },
 ];
 
 export function startupServiceFactory(startupService: StartupService): Function {
-  return () => startupService.loadData();
+  return () => startupService.loadProvinces();
 }
 
 @NgModule({
@@ -157,7 +163,12 @@ export function startupServiceFactory(startupService: StartupService): Function 
     StudentComponent,
     FamilyAndAddressComponent,
     ScholarshipInfoComponent,
-    FamilyFinancialComponent
+    FamilyFinancialComponent,
+    MainNewsComponent,
+    FamilyAndAddressInfoComponent,
+    FamilyInformationComponent,
+    SiblingInformationComponent,
+    AddressInformationComponent
   ],
   imports: [
     BrowserModule,
@@ -207,7 +218,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
       useFactory: startupServiceFactory,
       deps: [StartupService],
       multi: true
-    }
+    },
+    TitleNameService
   ],
   bootstrap: [AppComponent]
 })

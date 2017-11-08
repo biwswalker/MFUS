@@ -336,15 +336,11 @@ export class SponsorsComponent implements OnInit {
     objList = this.rftDistrictList;
     for (let obj of objList) {
       // Filter By string event
-      console.log('Begin for')
-      if(obj.province_ref == this.rftProvince.province_ref) {
-        console.log('Begin check province');
         if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
           console.log('Begin check district');
           this.rftDistricts.push(obj);
           }
         }
-      }
       console.log(this.rftDistricts.length);
     }
     // district auto -- dropdown button
@@ -365,8 +361,10 @@ export class SponsorsComponent implements OnInit {
 
     //------------ select -----------------
   selectProvince(event: SelectItem) {
+    console.log(this.sponsorsForm.rftProvince.province_ref);
     this.utilsService.getDistrictsByProvinceRef(this.sponsorsForm.rftProvince.province_ref)
     .subscribe((res: RftDistrict[]) => {
+      this.rftDistrictList = [];
       this.rftDistrictList.push(...res);
       }
     );
@@ -376,6 +374,7 @@ export class SponsorsComponent implements OnInit {
   selectDistrict(event: SelectItem) {
     this.utilsService.getSubDistrictsByDistrictRef(this.sponsorsForm.rftDistrict.district_ref)
     .subscribe((res: RftSubDistrict[]) => {
+      this.rftSubDistrictList = [];
       this.rftSubDistrictList.push(...res);
       }
     );
@@ -383,7 +382,7 @@ export class SponsorsComponent implements OnInit {
   }
 
   selectSubDistrict(event: SelectItem) {
-    this.postcode = this.rftDistrict.postcode;
+    this.postcode = this.sponsorsForm.rftDistrict.postcode;
   }
   //--------- End select ----------------
 
@@ -391,15 +390,13 @@ export class SponsorsComponent implements OnInit {
   autocompleteMethodSubDistrict(event) {
     let query = event.query;
     this.rftSubDistricts = [];
-    let objList: RftSubDistrict[] = this.rftSubDistrictList;
+    this.sponsorsForm.rftSubDistrict = new RftSubDistrict();
+    let objList: RftSubDistrict[];
+    objList = this.rftSubDistrictList;
     for (let obj of objList) {
       // Filter By string event
-      if(obj.province_ref == this.rftProvince.province_ref) {
-        if(obj.district_ref == this.rftDistrict.district_ref) {
           if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
             this.rftSubDistricts.push(obj)
-            }
-          }
         }
       }
     }

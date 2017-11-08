@@ -74,14 +74,9 @@ export class UtilsService {
   }
 
   getProvincesList() {
-    console.log('util.getprovince')
     return this.startupService.provinceList;
   }
 
-  getScholarshipList() {
-    console.log('util.getscholarship')
-    return this.startupService.scholarshipList;
-  }
   getDistricts(): Observable<RftDistrict[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -108,11 +103,10 @@ export class UtilsService {
     console.log('ref' + ref)
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    let criteria = '/rft_district.province_ref=' + ref;
+    let criteria = '/province_ref=' + ref;
     return this.http.get(this.url+'atpdistrict' + criteria, options)
       .map(
       (res: Response) => {
-        console.log(res.json())
         return res.json();
       }
       );
@@ -125,19 +119,6 @@ export class UtilsService {
     return this.http.get(this.url+'atpsubdistrict' + criteria, options)
       .map(
       (res: Response) => {
-        return res.json();
-      }
-      );
-  }
-
-  getSelectDistrict(ref: number): Observable<RftDistrict> {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    let criteria = '/district_ref=' + ref;
-    return this.http.get(this.url+'district' + criteria, options)
-      .map(
-      (res: Response) => {
-        console.log(res.json())
         return res.json();
       }
       );

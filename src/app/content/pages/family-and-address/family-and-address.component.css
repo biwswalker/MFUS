@@ -1,0 +1,18 @@
+.content-box{
+  padding:10px;
+  margin-top:10px;
+  display:inline-block;
+}
+.input-year {
+  width:100px;
+}
+.input-name{
+  width:250px;
+}
+.input-address{
+  width:700px;
+}
+
+.land-amt{
+  width:50px;
+}

@@ -1,3 +1,4 @@
+import { ApplyScholarshipForm } from './../../../form/apply-scholarshop-form';
 //Begin 6/11/2017
 
 import { StartupService } from "./../../../../services/startup.service";
@@ -16,37 +17,37 @@ import { SmScholarshipAnnouncement } from '../../../models/sm-scholarship-announ
   ]
 })
 export class ScholarshipInfoComponent implements OnInit {
-  scholarshipList: SmScholarshipAnnouncement[] = [];
-  listScholarship: SmScholarshipAnnouncement[] = [];
+
+  historyList: ApplyScholarshipForm[] = [];
+  history: ApplyScholarshipForm;
 
   constructor(
     private utilService: UtilsService) {}
 
   ngOnInit() {
-    this.getScholarship();
+
   }
 
-  getScholarship() {
-    this.listScholarship = [];
-    this.listScholarship = this.utilService.getScholarshipList();
-    console.log(this.listScholarship)
-  }
 
   autocompleteScholarship(event) {
-    // let query = event.query;
-    // this.scholarshipList = [];
-    // let objList: SmScholarshipAnnouncement[];
-    // for (let obj of objList) {
-    //   if (obj.scholarship_name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-    //     this.scholarshipList.push(obj);
-    //   }
-    // }
+
   }
 
   handleCompleteClickautocompleteScholarship(event) {
-    this.scholarshipList = [];
-    this.scholarshipList = this.listScholarship;
     setTimeout(() => {
     }, 100)
   }
+
+  addRow() {
+    this.history = new ApplyScholarshipForm();
+    let historyList = [...this.historyList];
+    historyList.push(this.history);
+    this.historyList = historyList;
+    console.log(this.historyList)
+  }
+
+  deleteRow() {
+
+  }
+
 }
