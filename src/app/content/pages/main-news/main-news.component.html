@@ -5,20 +5,30 @@
     <div class="underline-blue"></div>
   </div>
 </div>
-
-<div class="content" style="display: block;">
-  <div class="row content" style="padding-bottom:5px;" *ngFor="let i of arrnum">
-    <div class="col-xs-4">
-         <img width="300" height="200" src="http://france.mfu.ac.th/images2015/cover/2017-09-25/Set_19th_Cover_web-2017-09-04-02.png">
-    </div>    
-    <div class="col-xs-8" style="height:200px;">
-        <div class="content-header-red">
-          <p>title</p>
+<div class="container">
+<p-dataScroller [value]="newsList" [rows]="10" [lazy]="true">
+  <ng-template let-news pTemplate="item">
+    <div class="ui-grid ui-grid-responsive ui-fluid newsrow">
+    
+      <div class="col-xs-4">
+        <img src="{{news.smNews.news_image}}" width="300" height="200">
+      </div>
+      <div></div>
+      <div class="col-xs-8">
+        <div class="row">
+          <span class="content-header-red">{{news.smNews.news_topic}}</span>
         </div>
-        <div>news detail</div>
-        <div style="position:absolute;
-    bottom:0;">Publish-date</div>
-    </div>      
-  </div>  
-  
+        <div class="row">
+          <span>{{news.nothtmlstr | slice:0:150}}</span>
+          <span *ngIf='news.txtLength >=150 '>...</span>  
+        </div>
+        <div class="row publishdate">     
+          <span>วันที่เผยแพร่: {{news.smNews.publish_date}}</span>
+        </div>
+      </div>
+    
+    </div>
+  </ng-template>
+</p-dataScroller>
 </div>
+
