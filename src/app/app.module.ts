@@ -84,6 +84,7 @@ import { StudentComponent } from './content/pages/student/student.component';
 import { StudentService } from './services/student.service';
 import { FamilyAndAddressComponent } from './content/pages/family-and-address/family-and-address.component';
 import { MainNewsComponent } from './content/pages/main-news/main-news.component';
+import { NewsDetailComponent } from './content/pages/news-detail/news-detail.component';
 
 
 
@@ -110,6 +111,7 @@ const appRoutes: Routes = [
     ]
   },
     { path: 'news', component: MainNewsComponent },
+    { path: 'news/:id', component: NewsDetailComponent },
 ];
 
 export function startupServiceFactory(startupService: StartupService): Function {
@@ -157,7 +159,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
     TitlenameComponent,
     StudentComponent,
     FamilyAndAddressComponent,
-    MainNewsComponent
+    MainNewsComponent,
+    NewsDetailComponent
   ],
   imports: [
     BrowserModule,

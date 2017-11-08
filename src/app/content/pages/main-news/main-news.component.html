@@ -6,29 +6,30 @@
   </div>
 </div>
 <div class="container">
-<p-dataScroller [value]="newsList" [rows]="10" [lazy]="true">
-  <ng-template let-news pTemplate="item">
-    <div class="ui-grid ui-grid-responsive ui-fluid newsrow">
-    
-      <div class="col-xs-4">
-        <img src="{{news.smNews.news_image}}" width="300" height="200">
-      </div>
-      <div></div>
-      <div class="col-xs-8">
-        <div class="row">
-          <span class="content-header-red">{{news.smNews.news_topic}}</span>
-        </div>
-        <div class="row">
-          <span>{{news.nothtmlstr | slice:0:150}}</span>
-          <span *ngIf='news.txtLength >=150 '>...</span>  
-        </div>
-        <div class="row publishdate">     
-          <span>วันที่เผยแพร่: {{news.smNews.publish_date}}</span>
-        </div>
-      </div>
-    
-    </div>
-  </ng-template>
-</p-dataScroller>
-</div>
+  <p-dataScroller [value]="newsList" [rows]="10" [lazy]="true">
+    <ng-template let-news pTemplate="item">
+      <div class="ui-grid ui-grid-responsive ui-fluid newsrow">
 
+        <div class="col-xs-4">
+          <img src="{{news.smNews.news_image}}" width="300" height="200">
+        </div>
+        <div></div>
+        <div class="col-xs-8">
+          <div class="row">
+            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/news/{{news.smNews.news_ref}}">
+          <span class="content-header-red">{{news.smNews.news_topic}}</span>
+          </a>
+          </div>
+          <div class="row">
+            <span>{{news.nothtmlstr | slice:0:150}}</span>
+            <span *ngIf='news.txtLength >=150 '>...</span>
+          </div>
+          <div class="row publishdate">
+            <span>วันที่เผยแพร่: {{news.smNews.publish_date}}</span>
+          </div>
+        </div>
+
+      </div>
+    </ng-template>
+  </p-dataScroller>
+</div>
