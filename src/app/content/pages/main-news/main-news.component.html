@@ -11,7 +11,9 @@
       <div class="ui-grid ui-grid-responsive ui-fluid newsrow">
 
         <div class="col-xs-4">
+          <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/news/{{news.smNews.news_ref}}">
           <img src="{{news.smNews.news_image}}" width="300" height="200">
+          </a>
         </div>
         <div></div>
         <div class="col-xs-8">
