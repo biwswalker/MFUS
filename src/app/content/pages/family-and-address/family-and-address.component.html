@@ -179,7 +179,7 @@
             (onSelect)="selectProvince()"
             forceselection="true"
             [dropdown]="true"
-            (onDropdownClick)="handleCompleteClickProvince()">
+        >
           <ng-template let-obj pTemplate="obj">
             {{obj.province_name_t}}
           </ng-template>
@@ -196,7 +196,6 @@
             [size]="25"
             [dropdown]="true"
             field="district_name_t"
-            [disabled]="!thisForm.rftProvince.province_ref"
             (onSelect)="selectDistrict()"
             forceSelection="true"
             (onDropdownClick)="handleCompleteClickDistrict()"
@@ -221,7 +220,6 @@
             (completeMethod)="autocompleteSubDistrict($event)"
             [size]="25"
             [dropdown]="true"
-            [disabled]="!thisForm.rftDistrict.district_ref"
             (onSelect)="selectSubDistrict()"
             forceSelection="true"
             (onDropdownClick)="handleCompleteClickSubDistrict()">

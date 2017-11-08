@@ -212,6 +212,7 @@ export class FamilyAndAddressComponent implements OnInit {
 
   // Autocomplete Selected
   selectProvince(event: SelectItem) {
+    console.log('selectProvince');
     this.districtList = [];
     this.subDistrictList = [];
 
@@ -220,13 +221,13 @@ export class FamilyAndAddressComponent implements OnInit {
       .subscribe((res: RftDistrict[]) => {
         this.listDistrict = [];
         this.listDistrict.push(...res);
-
         console.log("district length: " + this.listDistrict.length);
       });
     console.log(this.listDistrict.length);
   }
 
   selectDistrict(event: SelectItem) {
+    console.log('selectDistrict');
     console.log(this.thisForm.rftDistrict);
 
     this.utilsService
@@ -240,12 +241,14 @@ export class FamilyAndAddressComponent implements OnInit {
   }
 
   selectSubDistrict(event: SelectItem) {
+    console.log('selectSubDistrict');
     this.thisFormGroup.controls["father_postcode"].setValue(
       this.thisForm.rftDistrict.postcode
     );
   }
 
   autocompleteProvince(event) {
+    console.log('autocompleteProvince');
     let query = event.query;
     this.provinceList = [];
     this.thisForm.rftDistrict = new RftDistrict();
@@ -262,6 +265,7 @@ export class FamilyAndAddressComponent implements OnInit {
 
   // Autocomplete filter
   autocompleteDistrict(event) {
+    console.log('autocompleteDistrict');
     let query = event.query;
     this.districtList = [];
     this.thisForm.rftSubDistrict = new RftSubDistrict();
@@ -280,8 +284,7 @@ export class FamilyAndAddressComponent implements OnInit {
   }
 
   autocompleteSubDistrict(event) {
-    console.log(
-      "autocompleteSubDistrict: " + this.thisForm.rftDistrict.district_ref
+    console.log("autocompleteSubDistrict: " + this.thisForm.rftDistrict.district_ref
     );
     let query = event.query;
     this.subDistrictList = [];
@@ -303,8 +306,9 @@ export class FamilyAndAddressComponent implements OnInit {
   }
 
   handleCompleteClickProvince() {
+    console.log('handleCompleteClickProvince');
     console.log(this.listProvince.length);
-    // this.provinceList = [];
+    this.provinceList = [];
     this.thisForm.rftProvince = new RftProvince();
     this.thisForm.rftDistrict = new RftDistrict();
     this.thisForm.rftSubDistrict = new RftSubDistrict();
@@ -314,6 +318,8 @@ export class FamilyAndAddressComponent implements OnInit {
   }
 
   handleCompleteClickDistrict() {
+    console.log('handleCompleteClickDistrict');
+
     this.districtList = [];
     this.thisForm.rftDistrict = new RftDistrict();
     this.thisForm.rftSubDistrict = new RftSubDistrict();
@@ -325,6 +331,7 @@ export class FamilyAndAddressComponent implements OnInit {
   }
 
   handleCompleteClickSubDistrict() {
+    console.log('handleCompleteClickSubDistrict');
     this.subDistrictList = [];
     this.thisForm.rftSubDistrict = new RftSubDistrict();
     this.subDistrictList = this.listSubDistrict;
