@@ -15,6 +15,7 @@ export class ApplyScholarshipComponent implements OnInit {
 
   items: MenuItem[];
   activeIndex: number = 0;
+
   public applyScholarshipForm: ApplyScholarshipForm = new ApplyScholarshipForm();
 
   constructor(private applyscholarshipService: ApplyscholarshipService) { }
@@ -56,8 +57,8 @@ export class ApplyScholarshipComponent implements OnInit {
   }
 
 
-  onNext() {
-    this.applyscholarshipService.nextIndex();
+  onNext(index) {
+    this.applyscholarshipService.nextIndex(index);
     this.activeIndex = this.applyscholarshipService.getIndex();
   //  this.applyScholarshipForm = this.applyscholarshipService.getData();
     console.log('activeIndex = ' + this.activeIndex);

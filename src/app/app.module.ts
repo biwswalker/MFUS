@@ -86,11 +86,15 @@ import { FamilyAndAddressComponent } from './content/pages/family-and-address/fa
 import { ScholarshipInfoComponent } from './content/pages/apply-scholarship/scholarship-info/scholarship-info.component';
 import { FamilyFinancialComponent } from './content/pages/apply-scholarship/family-financial/family-financial.component';
 import { MainNewsComponent } from './content/pages/main-news/main-news.component';
+
+
+
 import { FamilyAndAddressInfoComponent } from './content/pages/apply-scholarship/family-and-address/family-and-address.component';
 import { FamilyInformationComponent } from './content/pages/apply-scholarship/family-and-address/family-information/family-information.component';
 import { SiblingInformationComponent } from './content/pages/apply-scholarship/family-and-address/sibling-information/sibling-information.component';
 import { AddressInformationComponent } from './content/pages/apply-scholarship/family-and-address/address-information/address-information.component';
 import { NewsDetailComponent } from './content/pages/news-detail/news-detail.component';
+
 
 
 //Router
@@ -164,6 +168,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     TitlenameComponent,
     StudentComponent,
     FamilyAndAddressComponent,
+    MainNewsComponent,
     ScholarshipInfoComponent,
     FamilyFinancialComponent,
     MainNewsComponent,
