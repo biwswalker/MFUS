@@ -49,6 +49,7 @@ export class ScholarshipAnnouncementComponent implements OnInit {
          results = results;
        }
      );
+     console.log(results);
     return results;
    }
 

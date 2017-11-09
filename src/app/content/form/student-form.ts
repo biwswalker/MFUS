@@ -8,6 +8,7 @@ export class StudentForm {
   public rftMajor: RftMajor;
   public rftSchool: RftSchool;
   public rftTitleName: RftTitleName;
+
   constructor() {
     this.rftTitleName = new RftTitleName;
     this.acStudent = new AcStudent();

@@ -1,0 +1,52 @@
+<div class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-3">
+          <label class="normal">รายรับ</label>
+          <input type="text" name="" id="" pInputText>
+        </div>
+        <div class="col-xs-1"></div>
+        <div class="col-xs-3">
+          <label for="" class="normal">รายจ่าย</label>
+          <input type="text" name="" id="" pInputText>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <label class="normal">ภาระหนี้สินครอบครัว</label>
+          <p-dataTable [value]="debtList" [editable]="true">
+            <p-column [sortable]="true" header="ลำดับ" field="apFamilyDebt.seq">
+                {{<ng-template let-col let-obj="rowData" pTemplate="body">
+                    {{obj.apFamilyDebt.seq}}
+                  </ng-template>}}
+            </p-column>
+            <p-column [sortable]="true" header="รายละเอียด" field="apFamilyDebt.debt_detail">
+              <ng-template let-col let-obj="rowData" pTemplate="body">
+                <input type="text" [(ngModel)]="obj.apFamilyDebt.debt_detail" size="10" pInputText>
+              </ng-template>
+            </p-column>
+            <p-column [sortable]="true" header="จำนวน" field="apFamilyDebt.debt_amount">
+              <ng-template let-col let-obj="rowData" pTemplate="body">
+                <input type="text" [(ngModel)]="obj.apFamilyDebt.debt_amount" size="10" pInputText>
+              </ng-template>
+            </p-column>
+            <p-column styleClass="col-button">
+              <ng-template pTemplate="header">
+                <button type="button" pButton icon="fa-plus" (click)="addRow()" style="float:right"></button>
+              </ng-template>
+              <ng-template pTemplate="body">
+                <button type="button" pButton icon="fa-minus" (click)="deleteRow()" style="float:right"></button>
+              </ng-template>
+            </p-column>
+          </p-dataTable>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="button" (click)="onPrevious()" label="กลับ" pButton></button>
+          <button type="button" (click)="onNext()" label="ถัดไป" pButton></button>
+        </div>
+      </div>
+    </div>
+  </div>

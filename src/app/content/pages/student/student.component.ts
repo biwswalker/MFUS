@@ -1,8 +1,8 @@
+import { UserService } from '../../../services/user.service';
 import { UtilsService } from './../../../services/utils.service';
 import { StudentService } from './../../../services/student.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { MajorService } from './../../../services/major.service';
-import { StudentForm } from './../../form/student-form';
 import { SelectItem, Message } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
 import { RftSchool } from '../../models/rft-school';
@@ -10,6 +10,7 @@ import { SchoolService } from '../../../services/school.service';
 import { RftMajor } from '../../models/rft-major';
 import { Response } from '@angular/http';
 import { RftTitleName } from '../../models/rft-title-name';
+import { StudentForm } from '../../form/student-form';
 
 
 @Component({
@@ -19,8 +20,6 @@ import { RftTitleName } from '../../models/rft-title-name';
 })
 export class StudentComponent implements OnInit {
 
-  // mode: string = 'I';
-
   msgs: Message[];
 
   titleList: RftTitleName[] = [];
@@ -28,6 +27,10 @@ export class StudentComponent implements OnInit {
 
   studentFormGroup: FormGroup;
   studentEditForm: StudentForm;
+  studentCriteriaForm: StudentForm;
+  selectedStudent: StudentForm;
+
+  studentList: StudentForm[];
 
   schoolList: RftSchool[] = [];
   listSchool: RftSchool[] = [];
@@ -39,6 +42,12 @@ export class StudentComponent implements OnInit {
   binaryString: string;
   file: File;
 
+  student_ref: string;
+
+  date = new Date();
+  nowYear: string;
+  previousYear: string;
+
   image: any;
   img_name: string;
   img_type: string;
@@ -46,8 +55,8 @@ export class StudentComponent implements OnInit {
   constructor(private schoolService: SchoolService,
               private majorService: MajorService,
               private studentService: StudentService,
-              private utilService: UtilsService) {
-                this.titleList = [];
+              private utilService: UtilsService,
+              private userService:UserService) {
               }
 
   ngOnInit() {
@@ -61,29 +70,42 @@ export class StudentComponent implements OnInit {
     this.image = './assets/images/empty_profile.png';
     this.studentEditForm.acStudent.create_user = 'phai';
     this.studentEditForm.acStudent.update_user = 'phai';
+    this.nowYear = this.date.getFullYear().toString();
+    this.previousYear = (this.date.getFullYear()-50).toString();
     this.validateEditForm();
+  }
+
+  initSearchStudent() {
+    this.studentCriteriaForm = new StudentForm();
   }
 
   validateEditForm() {
     this.studentFormGroup = new FormGroup({
       'personal_id': new FormControl(this.studentEditForm.acStudent.personal_id,
-                    Validators.compose([Validators.required])),
+                    Validators.compose([Validators.required, Validators.pattern('[0-9]+')])),
       'gender': new FormControl(this.studentEditForm.rftTitleName.gender,
                     Validators.compose([Validators.required])),
       'birth_date': new FormControl(this.studentEditForm.acStudent.birth_date,
                     Validators.compose([Validators.required])),
       'title_ref': new FormControl(this.studentEditForm.rftTitleName.title_ref,
                     Validators.compose([Validators.required])),
-      'student_id': new FormControl(this.studentEditForm.acStudent.student_id),
-      'first_name_t': new FormControl(this.studentEditForm.acStudent.first_name_t),
-      'last_name_t': new FormControl(this.studentEditForm.acStudent.last_name_t),
+      'image': new FormControl(this.image,
+                    Validators.compose([Validators.required])),
+      'student_id': new FormControl(this.studentEditForm.acStudent.student_id,
+        Validators.compose([Validators.required])),
+      'first_name_t': new FormControl(this.studentEditForm.acStudent.first_name_t,
+        Validators.compose([Validators.required])),
+      'last_name_t': new FormControl(this.studentEditForm.acStudent.last_name_t,
+        Validators.compose([Validators.required])),
       'first_name_e': new FormControl(this.studentEditForm.acStudent.first_name_e),
       'last_name_e': new FormControl(this.studentEditForm.acStudent.last_name_e),
       'nationality': new FormControl(this.studentEditForm.acStudent.nationality),
       'race': new FormControl(this.studentEditForm.acStudent.race),
       'religion': new FormControl(this.studentEditForm.acStudent.religion),
-      'phone_no': new FormControl(this.studentEditForm.acStudent.phone_no),
-      'email': new FormControl(this.studentEditForm.acStudent.email)
+      'phone_no': new FormControl(this.studentEditForm.acStudent.phone_no,
+        Validators.compose([Validators.required, Validators.pattern('[0-9]+')])),
+      'email': new FormControl(this.studentEditForm.acStudent.email,
+        Validators.compose([Validators.required, Validators.email]))
     });
   }
 
@@ -94,8 +116,6 @@ export class StudentComponent implements OnInit {
           for(let obj of res) {
           this.listTitle.push({label: obj.title_name_t, value: obj})
         }
-        console.log(this.listTitle);
-        return this.listTitle;
         }
       );
   }
@@ -107,22 +127,24 @@ export class StudentComponent implements OnInit {
         this.listSchool.push(...res);
       }
     );
+    console.log(this.listSchool)
   }
 
   getMajorList(ref: string) {
+    console.log(ref)
     this.listMajor = [];
     this.majorService.getMajorBySchoolRef(ref).subscribe(
       (res: RftMajor[]) =>{
         this.listMajor.push(...res);
       }
-    )
+    );
+    console.log(this.listMajor)
   }
 
   //Begin Province Autocomplete Method // On key wording
   autocompleteSchool(event) {
     let query = event.query;
     this.schoolList = [];
-    this.majorList = [];
     let objList: RftSchool[];
     objList = this.listSchool;
     for (let obj of objList) {
@@ -134,8 +156,6 @@ export class StudentComponent implements OnInit {
 
   // On Click Autocomplete Dropdown Button
   handleCompleteClickSchool() {
-    this.majorList = [];
-    console.log(this.majorList)
     let objList: RftSchool[];
     objList = this.listSchool;
     for (let obj of objList) {
@@ -166,7 +186,6 @@ export class StudentComponent implements OnInit {
     for (let obj of objList) {
           this.majorList.push(obj);
     }
-    console.log(this.majorList);
     setTimeout(() => {
     }, 100)
   }
@@ -193,7 +212,8 @@ export class StudentComponent implements OnInit {
   }
 
   onSubmit() {
-      this.onAddStudent();
+    this.onAddStudent();
+
   }
 
   onResetInsert() {
@@ -203,7 +223,7 @@ export class StudentComponent implements OnInit {
   onAddStudent() {
     const value = this.studentFormGroup.value;
     value.profile_image = this.image;
-    value.profile_name = this.file.name;
+    value.profile_name = this.studentEditForm.acStudent.personal_id;
     value.profile_type = this.file.type;
     value.title_ref = this.studentEditForm.rftTitleName.title_ref;
     value.school_ref = this.studentEditForm.rftSchool.school_ref;
@@ -212,12 +232,41 @@ export class StudentComponent implements OnInit {
     value.update_user = this.studentEditForm.acStudent.update_user;
     value.birth_date = this.utilService.convertDateCriteria(this.studentEditForm.acStudent.birth_date);
     this.studentService.addStudent(value).subscribe(
-      (res: Response)=>{
-        const student_ref = res.json().student_ref;
+      (res: Response) => {
+        console.log(res.json())
+        this.student_ref = res.json().student_ref;
+        // console.log(this.student_ref)//3
+        this.addAcUser();
+      },
+      (error) => {
+        console.log(error);
+        let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        if (error.status === 409) {
+          message = 'มีการใช้เลขประจำตัวประชาชนนี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        }
+        this.showError(message);
+        return;
+      }
+    );
+  }
+
+  addAcUser() {
+    console.log(this.student_ref);//2
+    const value = this.studentFormGroup.value;
+    value.user_id = this.studentEditForm.acStudent.personal_id;
+    value.password = this.studentEditForm.acStudent.personal_id;
+    value.student_ref = this.student_ref;
+    value.user_role = '1';
+    value.create_user = 'phai';
+    value.update_user = 'phai';
+    console.log(value);
+    this.userService.addUser(value)
+    .subscribe(
+      (res: Response) => {
+        console.log(res.statusText);//4
         this.studentFormGroup.reset();
         this.initialEditForm();
-
-        this.showSuccess('บันทึกข้อมูลผู้ใช้งานเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + student_ref);
+        this.showSuccess('บันทึกข้อมูลผู้ใช้งานเรียบร้อยแล้ว รหัสอ้างอิงคือ ' + this.student_ref);
       },
       (error) => {
         console.log(error);
@@ -240,5 +289,4 @@ export class StudentComponent implements OnInit {
     this.msgs = [];
     this.msgs.push({ severity: 'error', summary: 'ไม่สามารถบันทึกข้อมูลได้', detail: message });
   }
-
 }

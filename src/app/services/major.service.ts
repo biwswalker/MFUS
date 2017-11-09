@@ -91,9 +91,10 @@ export class MajorService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let criteria = '/rft_major.school_ref=' + ref;
-    return this.http.get(this.mainUrl+'major' + criteria, options)
+    return this.http.get(this.mainUrl+'atpmajor' + criteria, options)
       .map(
         (res: Response) => {
+          console.log(res.json())
           return res.json();
         }
       );

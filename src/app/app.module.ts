@@ -38,6 +38,7 @@ import { StepsModule } from 'primeng/primeng';
 import { GrowlModule, TooltipModule, DialogModule } from 'primeng/primeng';
 import { EditorModule } from 'primeng/primeng';
 import { TabViewModule } from 'primeng/primeng';
+import { DataScrollerModule } from 'primeng/primeng';
 
 // Component
 import { HeaderComponent } from './content/header/header.component';
@@ -82,8 +83,18 @@ import { ApplicantInfoComponent } from './content/pages/apply-scholarship/applic
 import { StudentComponent } from './content/pages/student/student.component';
 import { StudentService } from './services/student.service';
 import { FamilyAndAddressComponent } from './content/pages/family-and-address/family-and-address.component';
-import { MainNewsComponent } from './content/pages/main-news/main-news.component';
 import { ScholarshipInfoComponent } from './content/pages/apply-scholarship/scholarship-info/scholarship-info.component';
+import { FamilyFinancialComponent } from './content/pages/apply-scholarship/family-financial/family-financial.component';
+import { MainNewsComponent } from './content/pages/main-news/main-news.component';
+
+import { ScholarshipInfoComponent } from './content/pages/apply-scholarship/scholarship-info/scholarship-info.component';
+
+
+import { FamilyAndAddressInfoComponent } from './content/pages/apply-scholarship/family-and-address/family-and-address.component';
+import { FamilyInformationComponent } from './content/pages/apply-scholarship/family-and-address/family-information/family-information.component';
+import { SiblingInformationComponent } from './content/pages/apply-scholarship/family-and-address/sibling-information/sibling-information.component';
+import { AddressInformationComponent } from './content/pages/apply-scholarship/family-and-address/address-information/address-information.component';
+import { NewsDetailComponent } from './content/pages/news-detail/news-detail.component';
 
 
 
@@ -106,10 +117,11 @@ const appRoutes: Routes = [
       { path: 'regscholarship', component: RegscholarshipComponent },
       { path: 'titlename', component: TitlenameComponent },
       { path: 'student', component: StudentComponent},
-      { path: 'family-and-address', component: FamilyAndAddressComponent}
+      { path: 'family-and-address', component: FamilyAndAddressComponent},
     ]
   },
     { path: 'news', component: MainNewsComponent },
+    { path: 'news/:id', component: NewsDetailComponent },
 ];
 
 export function startupServiceFactory(startupService: StartupService): Function {
@@ -158,7 +170,15 @@ export function startupServiceFactory(startupService: StartupService): Function 
     StudentComponent,
     FamilyAndAddressComponent,
     MainNewsComponent,
-    ScholarshipInfoComponent
+    ScholarshipInfoComponent,
+    FamilyFinancialComponent,
+    MainNewsComponent,
+    FamilyAndAddressInfoComponent,
+    FamilyInformationComponent,
+    SiblingInformationComponent,
+    AddressInformationComponent,
+    MainNewsComponent,
+    NewsDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -186,7 +206,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
     DialogModule,
     EditorModule,
     TabViewModule,
-    FileUploadModule
+    FileUploadModule,
+    DataScrollerModule
   ],
   providers: [
     AuthenticationService,

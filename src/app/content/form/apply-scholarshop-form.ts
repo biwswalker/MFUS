@@ -1,3 +1,5 @@
+import { ApScholarshipHistory } from '../models/ap-scholarship-history';
+import { ApFamilyDebt } from '../models/ap-family-debt';
 import { RftTitleName } from './../models/rft-title-name';
 import { RftMajor } from './../models/rft-major';
 import { RftSchool } from './../models/rft-school';
@@ -7,8 +9,8 @@ export class ApplyScholarshipForm {
 
   public acStudent: AcStudent;
   public apApplication: ApApplication;
-
-
+  public apFamilyDebt: ApFamilyDebt;
+  public apScholarshipHistory: ApScholarshipHistory;
 
   public rftSchool: RftSchool;
   public rftMajor: RftMajor;
@@ -21,8 +23,8 @@ export class ApplyScholarshipForm {
   constructor() {
     this.acStudent = new AcStudent();
     this.apApplication = new ApApplication();
-
-
+    this.apFamilyDebt = new ApFamilyDebt();
+    this.apScholarshipHistory = new ApScholarshipHistory();
     this.rftSchool = new RftSchool();
     this.rftMajor = new RftMajor();
     this.rftTitleName = new RftTitleName();

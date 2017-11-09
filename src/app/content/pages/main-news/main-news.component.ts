@@ -5,6 +5,8 @@ import { element } from 'protractor';
 import { Response } from '@angular/http';
 import { Validators } from '@angular/forms';
 import { NewsForm } from "../../form/news-form";
+import { NewsService } from './../../../services/news.service';
+
 
 @Component({
   selector: 'app-main-news',
@@ -12,10 +14,40 @@ import { NewsForm } from "../../form/news-form";
   styleUrls: ['./main-news.component.css', '../pages.component.css']
 })
 export class MainNewsComponent implements OnInit {
-arrnum = [1,2,3,4,5];
-  constructor() { }
+newsFormGroup: FormGroup;
+msgs: Message[] = [];
+newsForm: NewsForm = new NewsForm();
+criretiaForm: NewsForm = new NewsForm();
+newsList: NewsForm[] = [];
+
+  constructor(private newsService: NewsService) { }
 
   ngOnInit() {
+    this.criretiaForm = new NewsForm();
+    this.onSearch();
   }
 
+  onSearch(){
+    this.newsList = [];
+    this.searchNews();
+  }
+
+  searchNews(): NewsForm[] {
+    let resultList: NewsForm[] = [];
+    this.newsService.searchNews(this.criretiaForm)
+    .subscribe(
+      result => {        
+        this.newsList = result;
+      },
+      (error) => {
+        this.showError(error);
+      }
+    );
+    return resultList;
+  }
+
+  showError(message: string){
+    this.msgs = [];
+    this.msgs.push({severity:'error',summary:'พบข้อผิดพลาด',detail: message});
+  }
 }

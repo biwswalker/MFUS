@@ -147,6 +147,7 @@ export class OfficerComponent implements OnInit {
 
   //Begin Province Autocomplete Method // On key wording
   autocompleteProvince(event) {
+    console.log('auto');
     let query = event.query;
     this.provinceList = [];
     this.officerEditForm.rftDistrict = new RftDistrict();
@@ -168,6 +169,7 @@ export class OfficerComponent implements OnInit {
 
   // On Click Autocomplete Dropdown Button
   handleCompleteClickProvince() {
+    console.log('handleCompleteClickProvince');
     console.log(this.listProvince.length)
     let objList: RftProvince[];
     this.provinceList = [];
