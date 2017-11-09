@@ -5,6 +5,7 @@ export class NewsForm {
   endDate: string;
   txtLength: number;
   nothtmlstr: string;
+  newDate: any;
   constructor() {
     this.smNews = new SmNews();
   }
