@@ -41,7 +41,7 @@ export class ApplicantInfoComponent implements OnInit {
   }
 
   next() {
-    this.applyScholarship.onNext();
+    this.applyScholarship.onNext(1);
   }
 
 }

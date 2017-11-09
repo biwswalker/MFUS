@@ -17,8 +17,8 @@ export class ApplyscholarshipService {
 
   constructor(private http: Http) { }
 
-  nextIndex(){
-    this.activeIndex += 1;
+  nextIndex(index){
+    this.activeIndex = index;
     console.log(this.activeIndex);
   }
 
