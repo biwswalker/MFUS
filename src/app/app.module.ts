@@ -83,6 +83,7 @@ import { StudentComponent } from './content/pages/student/student.component';
 import { StudentService } from './services/student.service';
 import { FamilyAndAddressComponent } from './content/pages/family-and-address/family-and-address.component';
 import { MainNewsComponent } from './content/pages/main-news/main-news.component';
+import { ScholarshipInfoComponent } from './content/pages/apply-scholarship/scholarship-info/scholarship-info.component';
 
 
 
@@ -156,7 +157,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
     TitlenameComponent,
     StudentComponent,
     FamilyAndAddressComponent,
-    MainNewsComponent
+    MainNewsComponent,
+    ScholarshipInfoComponent
   ],
   imports: [
     BrowserModule,
