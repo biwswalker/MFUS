@@ -94,6 +94,7 @@ import { FamilyInformationComponent } from './content/pages/apply-scholarship/fa
 import { SiblingInformationComponent } from './content/pages/apply-scholarship/family-and-address/sibling-information/sibling-information.component';
 import { AddressInformationComponent } from './content/pages/apply-scholarship/family-and-address/address-information/address-information.component';
 import { NewsDetailComponent } from './content/pages/news-detail/news-detail.component';
+import { UploadDocumentComponent } from './content/pages/apply-scholarship/upload-document/upload-document.component';
 
 
 
@@ -177,7 +178,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
     SiblingInformationComponent,
     AddressInformationComponent,
     MainNewsComponent,
-    NewsDetailComponent
+    NewsDetailComponent,
+    UploadDocumentComponent
   ],
   imports: [
     BrowserModule,

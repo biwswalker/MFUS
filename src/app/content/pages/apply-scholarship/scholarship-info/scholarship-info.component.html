@@ -1,76 +1,74 @@
-
 <div class="row">
-  <div class="col-xs-12">
-    <div class="row">
-      <div class="col-xs-3">
-        <label class="normal">ปีการศึกษา *</label>
-        <input type="text" size="10" pInputText>
-      </div>
-      <div class="col-xs-6">
-        <label class="normal">ทุนการศึกษา *</label>
-        <p-autoComplete [suggestions]="scholarshipList" [dropdown]="true" (completeMethod)="autocompleteScholarship($event)" (onDropdownClick)="handleCompleteClickautocompleteScholarship($event)"
-          field="scholarship_ref" size="35" forceselection="true" name="autocompleteScholarship">
-          <ng-template let-obj pTemplate="item">
-            {{obj.scholarship_ref}}
-          </ng-template>
-        </p-autoComplete>
-      </div>
-      <div class="col-xs-3">
-        <label class="normal">รอบที่</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-3">
-        <label class="normal">ประเภททุนการศึกษา</label>
-      </div>
-      <div class="col-xs-6">
-        <label class="normal">ผู้สนับสนุน</label>
-      </div>
-      <div class="col-xs-3">
-        <label class="normal">เกรดขั้นต่ำ</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="content-header-blue">
-          <p>ประวัติทุนการศึกษา (ทุกประเภท)</p>
-          <div class="underline-blue"></div>
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-3">
+                <label class="normal">ปีการศึกษา *</label>
+                <input type="text" size="10" pInputText>
+            </div>
+            <div class="col-xs-6">
+                <label class="normal">ทุนการศึกษา *</label>
+                <p-autoComplete [suggestions]="scholarshipList" [dropdown]="true" (completeMethod)="autocompleteScholarship($event)" (onDropdownClick)="handleCompleteClickautocompleteScholarship($event)" field="scholarship_ref" size="35" forceselection="true" name="autocompleteScholarship">
+                    <ng-template let-obj pTemplate="item">
+                        {{obj.scholarship_ref}}
+                    </ng-template>
+                </p-autoComplete>
+            </div>
+            <div class="col-xs-3">
+                <label class="normal">รอบที่</label>
+            </div>
         </div>
-      </div>
+        <div class="row">
+            <div class="col-xs-3">
+                <label class="normal">ประเภททุนการศึกษา</label>
+            </div>
+            <div class="col-xs-6">
+                <label class="normal">ผู้สนับสนุน</label>
+            </div>
+            <div class="col-xs-3">
+                <label class="normal">เกรดขั้นต่ำ</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="content-header-blue">
+                    <p>ประวัติทุนการศึกษา (ทุกประเภท)</p>
+                    <div class="underline-blue"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <p-dataTable [value]="historyList" [editable]="true">
+                    <p-column [sortable]="true" header="ลำดับ" field="apFamilyDebt.seq">
+                        <ng-template let-col let-obj="rowData" pTemplate="body">
+                            {{obj.seq}}
+                        </ng-template>
+                    </p-column>
+                    <p-column [sortable]="true" header="ชื่อทุนการศึกษา" field="apScholarshipHistory.scholarship_name">
+                        <ng-template let-col let-obj="rowData" pTemplate="body">
+                            <input type="text" [(ngModel)]="obj.apScholarshipHistory.scholarship_name" size="10" pInputText>
+                        </ng-template>
+                    </p-column>
+                    <p-column [sortable]="true" header="ปีการศึกษา" field="apScholarshipHistory.year" size="20px">
+                        <ng-template let-col let-obj="rowData" pTemplate="body">
+                            <input type="text" [(ngModel)]="obj.apScholarshipHistory.year" size="10" pInputText>
+                        </ng-template>
+                    </p-column>
+                    <p-column [sortable]="true" header="จำนวน(บาท)" field="apFamilyDebt.debt_amount">
+                        <ng-template let-col let-obj="rowData" pTemplate="body">
+                            <input type="text" [(ngModel)]="obj.apScholarshipHistory.debt_amount" size="10" pInputText>
+                        </ng-template>
+                    </p-column>
+                    <p-column styleClass="col-button">
+                        <ng-template pTemplate="header">
+                            <button type="button" pButton icon="fa-plus" (click)="addRow()" style="float:right"></button>
+                        </ng-template>
+                        <ng-template pTemplate="body">
+                            <button type="button" pButton icon="fa-minus" (click)="deleteRow()" style="float:right"></button>
+                        </ng-template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+        </div>
     </div>
-    <div class="row">
-      <div class="col-xs-12">
-        <p-dataTable [value]="historyList" [editable]="true">
-          <p-column [sortable]="true" header="ลำดับ" field="apFamilyDebt.seq">
-              {{<ng-template let-col let-obj="rowData" pTemplate="body">
-                  {{obj.apFamilyDebt.seq}}
-                </ng-template>}}
-          </p-column>
-          <p-column [sortable]="true" header="ชื่อทุนการศึกษา" field="apScholarshipHistory.scholarship_name">
-            <ng-template let-col let-obj="rowData" pTemplate="body">
-              <input type="text" [(ngModel)]="obj.apScholarshipHistory.scholarship_name" size="10" pInputText>
-            </ng-template>
-          </p-column>
-          <p-column [sortable]="true" header="ปีการศึกษา" field="apScholarshipHistory.year">
-            <ng-template let-col let-obj="rowData" pTemplate="body">
-              <input type="text" [(ngModel)]="obj.apScholarshipHistory.year" size="10" pInputText>
-            </ng-template>
-          </p-column>
-          <p-column [sortable]="true" header="จำนวน(บาท)" field="apFamilyDebt.debt_amount">
-            <ng-template let-col let-obj="rowData" pTemplate="body">
-              <input type="text" [(ngModel)]="obj.apScholarshipHistory.debt_amount" size="10" pInputText>
-            </ng-template>
-          </p-column>
-          <p-column styleClass="col-button">
-            <ng-template pTemplate="header">
-              <button type="button" pButton icon="fa-plus" (click)="addRow()" style="float:right"></button>
-            </ng-template>
-            <ng-template pTemplate="body">
-              <button type="button" pButton icon="fa-minus" (click)="deleteRow()" style="float:right"></button>
-            </ng-template>
-          </p-column>
-        </p-dataTable>
-      </div>
-    </div>
-  </div>
 </div>

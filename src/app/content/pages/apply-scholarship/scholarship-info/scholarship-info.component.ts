@@ -21,6 +21,8 @@ export class ScholarshipInfoComponent implements OnInit {
   historyList: ApplyScholarshipForm[] = [];
   history: ApplyScholarshipForm;
 
+
+
   constructor(
     private utilService: UtilsService) {}
 
@@ -43,6 +45,8 @@ export class ScholarshipInfoComponent implements OnInit {
     let historyList = [...this.historyList];
     historyList.push(this.history);
     this.historyList = historyList;
+    this.history.seq.push(this.historyList.length)
+    console.log(this.history.seq)
     console.log(this.historyList)
   }
 
