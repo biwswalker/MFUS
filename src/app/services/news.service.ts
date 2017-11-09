@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { NewsForm } from '../content/form/news-form';
 import 'rxjs/add/operator/map';
 import * as moment from 'moment';
-
+import * as momenttz from 'moment-timezone';
 @Injectable()
 export class NewsService {
   private mainUrl = 'http://127.0.0.1:8000/';
@@ -77,7 +77,11 @@ export class NewsService {
             form.txtLength = data.news_detail.length;
             form.smNews.news_detail = data.news_detail;
             form.nothtmlstr = data.news_detail.replace(/&nbsp;/gi," ").replace(/<\/?[^>]+(>|$)/g, "");
-
+            momenttz.locale('th');      
+            form.newDate =momenttz.tz(form.smNews.publish_date,'Asia/Bangkok').format('LL');
+           
+            
+            
             if(form.smNews.active_flag == "Y") {
               form.smNews.active_flag = 'ใช้งาน';
             } else {

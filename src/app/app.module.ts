@@ -78,7 +78,7 @@ import { FamilyInformationComponent } from './content/pages/apply-scholarship/fa
 import { SiblingInformationComponent } from './content/pages/apply-scholarship/family-and-address/sibling-information/sibling-information.component';
 import { AddressInformationComponent } from './content/pages/apply-scholarship/family-and-address/address-information/address-information.component';
 import { NewsDetailComponent } from './content/pages/news-detail/news-detail.component';
-
+import { DateFormatPipe } from './pipe/datepipe/date-format.pipe';
 //Service
 import { UtilsService } from './services/utils.service';
 import { AuthenticationService } from './services/authentication.service';
@@ -186,6 +186,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     FamilyComponent,
     SiblingComponent,
     AddressComponent,
+    DateFormatPipe
   ],
   imports: [
     BrowserModule,
