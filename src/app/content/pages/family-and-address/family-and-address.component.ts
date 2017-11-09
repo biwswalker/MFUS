@@ -210,42 +210,7 @@ export class FamilyAndAddressComponent implements OnInit {
     this.listProvince = this.utilsService.getProvincesList();
   }
 
-  // Autocomplete Selected
-  selectProvince(event: SelectItem) {
-    console.log('selectProvince');
-    this.districtList = [];
-    this.subDistrictList = [];
 
-    this.utilsService
-      .getDistrictsByProvinceRef(this.thisForm.rftProvince.province_ref)
-      .subscribe((res: RftDistrict[]) => {
-        this.listDistrict = [];
-        this.listDistrict.push(...res);
-        console.log("district length: " + this.listDistrict.length);
-      });
-    console.log(this.listDistrict.length);
-  }
-
-  selectDistrict(event: SelectItem) {
-    console.log('selectDistrict');
-    console.log(this.thisForm.rftDistrict);
-
-    this.utilsService
-      .getSubDistrictsByDistrictRef(this.thisForm.rftDistrict.district_ref)
-      .subscribe((res: RftSubDistrict[]) => {
-        this.listSubDistrict = [];
-        this.listSubDistrict.push(...res);
-
-        console.log("listSubDistrict: " + this.listSubDistrict.length);
-      });
-  }
-
-  selectSubDistrict(event: SelectItem) {
-    console.log('selectSubDistrict');
-    this.thisFormGroup.controls["father_postcode"].setValue(
-      this.thisForm.rftDistrict.postcode
-    );
-  }
 
   autocompleteProvince(event) {
     console.log('autocompleteProvince');
@@ -312,9 +277,12 @@ export class FamilyAndAddressComponent implements OnInit {
     this.thisForm.rftProvince = new RftProvince();
     this.thisForm.rftDistrict = new RftDistrict();
     this.thisForm.rftSubDistrict = new RftSubDistrict();
-    this.provinceList = this.listProvince;
+    setTimeout(() => {
+      this.provinceList = this.listProvince;
+      this.districtList = [];
+      this.subDistrictList = [];
+    }, 100);
 
-    setTimeout(() => { }, 100);
   }
 
   handleCompleteClickDistrict() {
@@ -323,18 +291,56 @@ export class FamilyAndAddressComponent implements OnInit {
     this.districtList = [];
     this.thisForm.rftDistrict = new RftDistrict();
     this.thisForm.rftSubDistrict = new RftSubDistrict();
-    this.districtList = this.listDistrict;
-    console.log("list district: " + this.listDistrict.length);
     setTimeout(() => {
+      this.districtList = this.listDistrict;
+      this.subDistrictList = [];
     }, 100);
-    console.log(this.districtList.length);
   }
 
   handleCompleteClickSubDistrict() {
     console.log('handleCompleteClickSubDistrict');
     this.subDistrictList = [];
     this.thisForm.rftSubDistrict = new RftSubDistrict();
-    this.subDistrictList = this.listSubDistrict;
-    setTimeout(() => {}, 100);
+
+    setTimeout(() => {
+      this.subDistrictList = this.listSubDistrict;
+    }, 100);
+  }
+
+   // Autocomplete Selected
+   selectProvince(event: SelectItem) {
+    console.log('selectProvince');
+    this.districtList = [];
+    this.subDistrictList = [];
+
+    this.utilsService
+      .getDistrictsByProvinceRef(this.thisForm.rftProvince.province_ref)
+      .subscribe((res: RftDistrict[]) => {
+        this.listDistrict = [];
+        this.listDistrict.push(...res);
+        console.log("district length: " + this.listDistrict.length);
+      });
+    console.log(this.listDistrict.length);
+  }
+
+  selectDistrict(event: SelectItem) {
+    console.log('selectDistrict');
+    console.log(this.thisForm.rftDistrict);
+
+    this.utilsService
+      .getSubDistrictsByDistrictRef(this.thisForm.rftDistrict.district_ref)
+      .subscribe((res: RftSubDistrict[]) => {
+        this.listSubDistrict = [];
+        this.listSubDistrict.push(...res);
+
+        console.log("listSubDistrict: " + this.listSubDistrict.length);
+      });
+  }
+
+  selectSubDistrict(event: SelectItem) {
+    console.log('selectSubDistrict');
+    this.thisFormGroup.controls["father_postcode"].setValue(
+      this.thisForm.rftDistrict.postcode
+    );
   }
 }

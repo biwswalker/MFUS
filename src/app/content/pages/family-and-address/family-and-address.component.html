@@ -167,18 +167,19 @@
 
     <div class="row">
       <div class="col-xs-5">
-        <label class="normal">จังหวัด</label>
+        <label class="normal">จังหวัด {{provinceList.length}}</label>
         <p-autoComplete
             formControlName="province"
             name="autocompleteProvince"
             field="province_name_t"
             [(ngModel)]="thisForm.rftProvince"
             [suggestions]="provinceList"
-            (completeMethod)="autocompleteProvince($event)"
             [size]="25"
             (onSelect)="selectProvince()"
             forceselection="true"
             [dropdown]="true"
+            (onDropdownClick)="handleCompleteClickProvince($event)"
+            (completeMethod)="autocompleteProvince($event)"
         >
           <ng-template let-obj pTemplate="obj">
             {{obj.province_name_t}}
