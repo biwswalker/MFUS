@@ -40,8 +40,11 @@ export class FamilyFinancialComponent implements OnInit {
     console.log(this.debtList)
   }
 
-  deleteRow(ref: number) {
-    let index = this.debtList;
+  deleteRow(obj: ApplyScholarshipForm) {
+   console.log(obj)
+   let index = this.debtList.indexOf(obj);
+   console.log(index);
+   this.debtList.splice(index,1);
   }
 
   onPrevious() {

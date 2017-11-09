@@ -15,12 +15,11 @@
             <div class="row">
                 <div class="col-xs-12">
                     <label class="normal">ภาระหนี้สินครอบครัว</label>
-                    <p-dataTable [value]="debtList" [editable]="true">
+                    <p-dataTable [value]="debtList" [immutable]=false>
                         <p-column [sortable]="true" header="ลำดับ" field="apFamilyDebt.seq">
-                            {{
                             <ng-template let-col let-obj="rowData" pTemplate="body">
                                 {{obj.apFamilyDebt.seq}}
-                            </ng-template>}}
+                            </ng-template>
                         </p-column>
                         <p-column [sortable]="true" header="รายละเอียด" field="apFamilyDebt.debt_detail">
                             <ng-template let-col let-obj="rowData" pTemplate="body">
@@ -36,8 +35,8 @@
                             <ng-template pTemplate="header">
                                 <button type="button" pButton icon="fa-plus" (click)="addRow()" style="float:right"></button>
                             </ng-template>
-                            <ng-template pTemplate="body">
-                                <button type="button" pButton icon="fa-minus" (click)="deleteRow()" style="float:right"></button>
+                            <ng-template pTemplate="body" let-obj="rowData">
+                                <button type="button" pButton icon="fa-minus" (click)="deleteRow(obj)" style="float:right"></button>
                             </ng-template>
                         </p-column>
                     </p-dataTable>
