@@ -180,3 +180,26 @@ input.ui-inputtext{
   padding:0.3em 0.5em !important;
   font-size:1.2em !important;
 }
+
+
+
+/* p-step primefaces position */
+.ui-steps:before{
+  top:40% !important;
+}
+.three-step .steps-custom ul li{
+  width:33.33% !important;
+}
+
+.four-step .steps-custom ul li{
+  width:25% !important;
+}
+
+.five-step .steps-custom ul li{
+  width:20% !important;
+}
+
+.six-step .steps-custom ul li{
+  width:16.66% !important;
+}
+
