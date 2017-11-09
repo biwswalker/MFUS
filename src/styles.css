@@ -185,8 +185,12 @@ input.ui-inputtext{
 
 /* p-step primefaces position */
 .ui-steps:before{
-  top:40% !important;
+  top:40px !important;
 }
+.ui-steps .ui-steps-title {
+  white-space: normal !important;
+}
+
 .three-step .steps-custom ul li{
   width:33.33% !important;
 }
