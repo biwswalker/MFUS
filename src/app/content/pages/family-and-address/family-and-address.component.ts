@@ -37,10 +37,11 @@ export class FamilyAndAddressComponent implements OnInit {
   }
 
   onNext(index) {
-  //   this.applyscholarshipService.nextIndex(index);
-  //   this.activeIndex = this.applyscholarshipService.getIndex();
+    // this.applyscholarshipService.nextIndex(index);
+    // this.activeIndex = this.applyscholarshipService.getIndex();
   // //  this.applyScholarshipForm = this.applyscholarshipService.getData();
-  //   console.log('activeIndex = ' + this.activeIndex);
+      this.activeIndex = index;
+      console.log('activeIndex = ' + this.activeIndex);
   //   console.log('data = ' + this.applyScholarshipForm);
   }
 
