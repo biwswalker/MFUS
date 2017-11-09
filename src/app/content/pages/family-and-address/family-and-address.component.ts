@@ -67,9 +67,13 @@ export class FamilyAndAddressComponent implements OnInit {
 
   ngOnInit() {
     this.getProvince();
-    this.validatorEditForm();
-    this.dadDropdownMonths = this.utilsService.getDropdownMonthShort();
-    this.dadDropdownDays = this.utilsService.getDropdownDayInMonth(this.dadMonth);
+    this.initBirthMonth();
+
+    this.thisForm.acParent.parent_flag = '1';
+    this.thisForm.acParent.relationship_status = '1';
+    this.thisForm.acParent.father_status = '1';
+    this.thisForm.acParent.mother_status = '1';
+    this.thisForm.acParent.patrol_status = '1';
 
   }
 
@@ -81,128 +85,30 @@ export class FamilyAndAddressComponent implements OnInit {
     }
   }
 
-  validatorEditForm() {
-    this.thisFormGroup = new FormGroup({
-      parent_flag: new FormControl(
-        this.thisForm.acParent.parent_flag,
-        Validators.compose([Validators.required])
-      ),
-      relationship_status: new FormControl(
-        this.thisForm.acParent.relationship_status,
-        Validators.compose([Validators.required])
-      ),
-      because: new FormControl(
-        this.thisForm.acParent.because,
-        Validators.compose([Validators.required])
-      ),
-      father_pid: new FormControl(
-        this.thisForm.acParent.father_pid,
-        Validators.compose([Validators.required])
-      ),
-      father_status: new FormControl(
-        this.thisForm.acParent.father_status,
-        Validators.compose([Validators.required])
-      ),
-      Father_died_year: new FormControl(
-        this.thisForm.acParent.Father_died_year,
-        Validators.compose([Validators.required])
-      ),
-      fatherBirthMonth: new FormControl(
-        this.dadMonth,
-        Validators.compose([Validators.required])
-      ),
-      fatherBirthDay: new FormControl(
-        this.dadDay,
-        Validators.compose([Validators.required])
-      ),
-      fatherBirthYear: new FormControl(
-        this.dadYear,
-        Validators.compose([Validators.required])
-      ),
-      father_name: new FormControl(
-        this.thisForm.acParent.father_name,
-        Validators.compose([Validators.required])
-      ),
-      father_birth_date: new FormControl(
-        this.thisForm.acParent.father_birth_date,
-        Validators.compose([Validators.required])
-      ),
-      father_address: new FormControl(
-        this.thisForm.acParent.father_address,
-        Validators.compose([Validators.required])
-      ),
-      province: new FormControl(
-        this.thisForm.acParent.father_address,
-        Validators.compose([Validators.required])
-      ),
-      district: new FormControl(
-        this.thisForm.acParent.father_address,
-        Validators.compose([Validators.required])
-      ),
-      subdistrict: new FormControl(
-        this.thisForm.acParent.father_address,
-        Validators.compose([Validators.required])
-      ),
-      father_postcode: new FormControl(
-        this.thisForm.acParent.father_postcode,
-        Validators.compose([Validators.required])
-      ),
-      father_phone: new FormControl(
-        this.thisForm.acParent.father_phone,
-        Validators.compose([Validators.required])
-      ),
-      father_email: new FormControl(
-        this.thisForm.acParent.father_occupation,
-        Validators.compose([Validators.required])
-      ),
-      father_occupation: new FormControl(
-        this.thisForm.acParent.father_occupation,
-        Validators.compose([Validators.required])
-      ),
-      father_position: new FormControl(
-        this.thisForm.acParent.father_position,
-        Validators.compose([Validators.required])
-      ),
-      father_work_address: new FormControl(
-        this.thisForm.acParent.father_work_address,
-        Validators.compose([Validators.required])
-      ),
-      father_work_phone: new FormControl(
-        this.thisForm.acParent.father_work_phone,
-        Validators.compose([Validators.required])
-      ),
-      father_work_fax: new FormControl(
-        this.thisForm.acParent.father_work_fax,
-        Validators.compose([Validators.required])
-      ),
-      father_land_flag: new FormControl(
-        this.thisForm.acParent.father_land_flag,
-        Validators.compose([Validators.required])
-      ),
-      father_land_all: new FormControl(
-        this.thisForm.acParent.father_land_all,
-        Validators.compose([Validators.required])
-      ),
-      father_land_own: new FormControl(
-        this.thisForm.acParent.father_land_own,
-        Validators.compose([Validators.required])
-      ),
-      father_land_rent: new FormControl(
-        this.thisForm.acParent.father_land_rent,
-        Validators.compose([Validators.required])
-      ),
-      father_income_monthly: new FormControl(
-        this.thisForm.acParent.father_income_monthly,
-        Validators.compose([Validators.required])
-      )
-    });
+
+  initBirthMonth(){
+    this.dadDropdownMonths = this.utilsService.getDropdownMonthShort();
+    this.dadDropdownDays = this.utilsService.getDropdownDayInMonth(this.dadMonth);
+    this.momDropdownMonths = this.utilsService.getDropdownMonthShort();
+    this.momDropdownDays = this.utilsService.getDropdownDayInMonth(this.dadMonth);
+    this.patrolDropdownMonths = this.utilsService.getDropdownMonthShort();
+    this.patrolDropdownDays = this.utilsService.getDropdownDayInMonth(this.dadMonth);
   }
 
-  selectMonth(){
-    console.log('dad month: '+this.dadMonth);
-    this.dadDropdownDays = this.utilsService.getDropdownDayInMonth(this.dadMonth);
-    this.dadDay = null;
-
+  selectMonth(seq: number){
+    console.log('sequence: '+seq);
+    if(seq == 1){
+      this.dadDropdownDays = this.utilsService.getDropdownDayInMonth(this.dadMonth);
+      this.dadDay = null;
+    }
+    if(seq == 2){
+      this.momDropdownDays = this.utilsService.getDropdownDayInMonth(this.momMonth);
+      this.momDay = null;
+    }
+    if(seq == 3){
+      this.patrolDropdownDays = this.utilsService.getDropdownDayInMonth(this.patrolMonth);
+      this.patrolDay = null;
+    }
   }
 
   getProvince() {

@@ -6,7 +6,7 @@ public  relationship_status: string;
 public  because: string;
 public  father_pid: string;
 public  father_status: string;
-public  Father_died_year: string;
+public  father_died_year: string;
 public  father_name: string;
 public  father_birth_date: string;
 public  father_address: string;
