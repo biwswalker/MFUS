@@ -87,7 +87,6 @@ import { ScholarshipInfoComponent } from './content/pages/apply-scholarship/scho
 import { FamilyFinancialComponent } from './content/pages/apply-scholarship/family-financial/family-financial.component';
 import { MainNewsComponent } from './content/pages/main-news/main-news.component';
 
-import { ScholarshipInfoComponent } from './content/pages/apply-scholarship/scholarship-info/scholarship-info.component';
 
 
 import { FamilyAndAddressInfoComponent } from './content/pages/apply-scholarship/family-and-address/family-and-address.component';
