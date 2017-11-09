@@ -22,9 +22,19 @@ export class StudentComponent implements OnInit {
 
   msgs: Message[];
 
+  mode:string;
+
   titleList: RftTitleName[] = [];
   listTitle: SelectItem[] = [];
 
+  monthList: SelectItem[];
+  birthMmonth: number = 0;
+
+  dayList: SelectItem[];
+  birthDay: number = 0;
+
+  birthYear: number;
+  birthDate:string;
   studentFormGroup: FormGroup;
   studentEditForm: StudentForm;
   studentCriteriaForm: StudentForm;
@@ -63,6 +73,9 @@ export class StudentComponent implements OnInit {
     this.getTitleList();
     this.getSchoolList();
     this.initialEditForm();
+    this.monthList = this.utilService.getDropdownMonthShort();
+    console.log(this.monthList ,' ', this.dayList)
+
   }
 
   initialEditForm() {
@@ -105,8 +118,17 @@ export class StudentComponent implements OnInit {
       'phone_no': new FormControl(this.studentEditForm.acStudent.phone_no,
         Validators.compose([Validators.required, Validators.pattern('[0-9]+')])),
       'email': new FormControl(this.studentEditForm.acStudent.email,
-        Validators.compose([Validators.required, Validators.email]))
+        Validators.compose([Validators.required, Validators.email])),
+      'month': new FormControl(null),
+      'day': new FormControl(null),
+      'year': new FormControl(null)
     });
+  }
+
+  selectMonth(){
+    console.log('dad month: '+this.birthMmonth);
+    this.dayList = this.utilService.getDropdownDayInMonth(this.birthMmonth);
+    this.birthDay = null;
   }
 
   getTitleList() {
@@ -163,6 +185,7 @@ export class StudentComponent implements OnInit {
     }
 
     setTimeout(() => {
+      this.schoolList = this.listSchool
     }, 100)
   }
 
@@ -187,6 +210,7 @@ export class StudentComponent implements OnInit {
           this.majorList.push(obj);
     }
     setTimeout(() => {
+      this.majorList = this.listMajor
     }, 100)
   }
 
@@ -213,7 +237,6 @@ export class StudentComponent implements OnInit {
 
   onSubmit() {
     this.onAddStudent();
-
   }
 
   onResetInsert() {
@@ -230,7 +253,8 @@ export class StudentComponent implements OnInit {
     value.major_ref = this.studentEditForm.rftMajor.major_ref;
     value.create_user = this.studentEditForm.acStudent.create_user;
     value.update_user = this.studentEditForm.acStudent.update_user;
-    value.birth_date = this.utilService.convertDateCriteria(this.studentEditForm.acStudent.birth_date);
+    value.birth_date = this.birthMmonth.toString().concat(this.birthDay.toString()).concat(this.birthYear.toString())
+    console.log(value);
     this.studentService.addStudent(value).subscribe(
       (res: Response) => {
         console.log(res.json())

@@ -56,6 +56,7 @@ export class NewsComponent implements OnInit {
     this.initEditData();
     this.minDate = new Date();
     this.minDate.getDate();
+    moment.locale('th');
   }
 
   initEditData() {
@@ -305,7 +306,9 @@ export class NewsComponent implements OnInit {
   onPreview() {
     console.log('onPreview');
     console.log('newsForm: ', this.newsForm);
-    this.previewDate = moment(this.newsForm.smNews.publish_date).format('DD-MM-YYYY');
+    let previewDate = moment(this.newsForm.smNews.publish_date).set('year', moment(this.previewDate).get('year')+543);
+    this.previewDate = moment(previewDate).format('DD-MM-YYYY');
+    console.log(this.previewDate)
     this.preview = !this.preview;
   }
 

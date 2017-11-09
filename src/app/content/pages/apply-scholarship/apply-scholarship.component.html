@@ -1,46 +1,53 @@
 <div class="content">
-  <div class="content-header-blue">
-    <p>สมัครทุนการศึกษา</p>
-    <div class="underline-blue"></div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false" styleClass="steps-custom">
-
-      </p-steps>
-
-      <div *ngIf="activeIndex == 0">
-        <div class="content-header-blue-normal">
-          <p>ข้อมูลผู้ขอทุน</p>
-          <div class="underline-blue"></div>
-        </div>
-        <app-applicant-info></app-applicant-info>
-      </div>
-
-      <div *ngIf="activeIndex == 1">
-        <div class="content-header-blue-normal">
-          <p>ข้อมูลทุนการศึกษา</p>
-          <div class="underline-blue"></div>
-        </div>
-        <app-scholarship-info></app-scholarship-info>
-      </div>
-
-      <div *ngIf="activeIndex == 2">
-        <div class="content-header-blue-normal">
-          <p>ข้อมูลสถานะทางการเงินของครอบครัว</p>
-          <div class="underline-blue"></div>
-        </div>
-        <app-family-financial></app-family-financial>
-      </div>
-
-      <div *ngIf="activeIndex == 3">
-        <div class="content-header-blue-normal">
-          <p>ข้อมูลครอบครัวและที่อยู่</p>
-          <div class="underline-blue"></div>
-        </div>
-        <div class="space"></div>
-        <app-family-and-address-info></app-family-and-address-info>
-      </div>
+    <div class="content-header-blue">
+        <p>สมัครทุนการศึกษา</p>
+        <div class="underline-blue"></div>
     </div>
-  </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false" styleClass="steps-custom" class="five-step">
+            </p-steps>
+            <div *ngIf="activeIndex == 0">
+                <div class="content-header-blue-normal">
+                    <p>ข้อมูลผู้ขอทุน</p>
+                    <div class="underline-blue"></div>
+                </div>
+                <app-applicant-info></app-applicant-info>
+            </div>
+
+
+            <div *ngIf="activeIndex == 1">
+                <div class="content-header-blue-normal">
+                    <p>ข้อมูลทุนการศึกษา</p>
+                    <div class="underline-blue"></div>
+                </div>
+                <app-scholarship-info></app-scholarship-info>
+            </div>
+
+            <div *ngIf="activeIndex == 2">
+                <div class="content-header-blue-normal">
+                    <p>ข้อมูลสถานะทางการเงินของครอบครัว</p>
+                    <div class="underline-blue"></div>
+                </div>
+                <app-family-financial></app-family-financial>
+            </div>
+
+            <div *ngIf="activeIndex == 3">
+                <div class="content-header-blue-normal">
+                    <p>ข้อมูลครอบครัวและที่อยู่</p>
+                    <div class="underline-blue"></div>
+                </div>
+                <div class="space"></div>
+                <app-family-and-address-info></app-family-and-address-info>
+            </div>
+            <div *ngIf="activeIndex == 4">
+                <div class="content-header-blue-normal">
+                    <p>ข้อมูลเอกสาร/หลักฐาน</p>
+                    <div class="underline-blue"></div>
+                </div>
+                <div class="space"></div>
+                <app-upload-document></app-upload-document>
+            </div>
+        </div>
+    </div>
 </div>

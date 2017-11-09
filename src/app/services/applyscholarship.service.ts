@@ -53,4 +53,12 @@ export class ApplyscholarshipService {
     );
   }
 
+  addFamilyFinancial(form: ApplyScholarshipForm) {
+    const url = this.mainUrl + 'familyFinancial';
+    const headers = new Headers({'Content-Type': 'application.json'});
+    const body = JSON.stringify(form.apFamilyFinancial);
+    let options = new RequestOptions({headers: headers});
+
+    return this.http.post(url, body, ({headers: headers}))
+  }
 }
