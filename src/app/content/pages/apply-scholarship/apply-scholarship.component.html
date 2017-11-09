@@ -5,7 +5,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false" styleClass="steps-custom">
+            <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false" styleClass="steps-custom" class="five-step">
             </p-steps>
             <div *ngIf="activeIndex == 0">
                 <div class="content-header-blue-normal">
@@ -14,6 +14,7 @@
                 </div>
                 <app-applicant-info></app-applicant-info>
             </div>
+
 
             <div *ngIf="activeIndex == 1">
                 <div class="content-header-blue-normal">

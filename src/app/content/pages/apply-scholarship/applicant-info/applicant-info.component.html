@@ -96,6 +96,7 @@
           <div>
             <p-dropdown
               [options]="collageYears"
+              [(ngModel)]="applyScholarship.applyScholarshipForm.apApplication.collage_year"
               [style]="{'width':'50px'}" ></p-dropdown>
           </div>
         </div>
@@ -116,6 +117,8 @@
           <label class="normal">อาจารย์ที่ปรึกษา</label>
           <div>
             <input
+              [(ngModel)]="applyScholarship.applyScholarshipForm.apApplication.advisor_name"
+              name="advisor_name"
               class="normal"
               type="text"
               id="ta"
@@ -131,6 +134,8 @@
           <label class="normal">เบอร์โทรศัพท์</label>
           <div>
             <input
+              [(ngModel)]="applyScholarship.applyScholarshipForm.acStudent.phone_no"
+              name="phone_no"
               class="normal"
               type="tel"
               id="tel"
@@ -143,6 +148,8 @@
           <label class="normal">Email</label>
           <div>
             <input
+              [(ngModel)]="applyScholarship.applyScholarshipForm.acStudent.email"
+              name="email"
               class="normal"
               type="text"
               id="email"
@@ -189,6 +196,8 @@
       <div style="padding-left: 20px" >
         <textarea
           pInputTextarea
+          [(ngModel)]="applyScholarship.applyScholarshipForm.apApplication.livelihood"
+          name="livelihood"
           autoResize="autoResize"
           cols="95"
           rows="20">

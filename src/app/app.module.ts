@@ -1,3 +1,5 @@
+import { UploadDocumentComponent } from './content/pages/apply-scholarship/upload-document/upload-document.component';
+
 import { StartupService } from './services/startup.service';
 import { ApplyscholarshipService } from './services/applyscholarship.service';
 
@@ -71,7 +73,13 @@ import { ScholarshipAnnouncementDetailComponent } from './content/pages/scholars
 import { OfficerComponent } from './content/pages/officer/officer.component';
 import { ReguserComponent } from './content/pages/reguser/reguser.component';
 import { RegscholarshipComponent } from './content/pages/regscholarship/regscholarship.component';
-
+import { FamilyComponent } from './content/pages/family-and-address/family/family.component';
+import { FamilyAndAddressInfoComponent } from './content/pages/apply-scholarship/family-and-address/family-and-address.component';
+import { FamilyInformationComponent } from './content/pages/apply-scholarship/family-and-address/family-information/family-information.component';
+import { SiblingInformationComponent } from './content/pages/apply-scholarship/family-and-address/sibling-information/sibling-information.component';
+import { AddressInformationComponent } from './content/pages/apply-scholarship/family-and-address/address-information/address-information.component';
+import { NewsDetailComponent } from './content/pages/news-detail/news-detail.component';
+import { DateFormatPipe } from './pipe/datepipe/date-format.pipe';
 //Service
 import { UtilsService } from './services/utils.service';
 import { AuthenticationService } from './services/authentication.service';
@@ -86,15 +94,12 @@ import { FamilyAndAddressComponent } from './content/pages/family-and-address/fa
 import { ScholarshipInfoComponent } from './content/pages/apply-scholarship/scholarship-info/scholarship-info.component';
 import { FamilyFinancialComponent } from './content/pages/apply-scholarship/family-financial/family-financial.component';
 import { MainNewsComponent } from './content/pages/main-news/main-news.component';
+import { SiblingComponent } from './content/pages/family-and-address/sibling/sibling.component';
+import { AddressComponent } from './content/pages/family-and-address/address/address.component';
 
 
 
-import { FamilyAndAddressInfoComponent } from './content/pages/apply-scholarship/family-and-address/family-and-address.component';
-import { FamilyInformationComponent } from './content/pages/apply-scholarship/family-and-address/family-information/family-information.component';
-import { SiblingInformationComponent } from './content/pages/apply-scholarship/family-and-address/sibling-information/sibling-information.component';
-import { AddressInformationComponent } from './content/pages/apply-scholarship/family-and-address/address-information/address-information.component';
-import { NewsDetailComponent } from './content/pages/news-detail/news-detail.component';
-import { UploadDocumentComponent } from './content/pages/apply-scholarship/upload-document/upload-document.component';
+
 
 
 
@@ -179,7 +184,11 @@ export function startupServiceFactory(startupService: StartupService): Function 
     AddressInformationComponent,
     MainNewsComponent,
     NewsDetailComponent,
-    UploadDocumentComponent
+    UploadDocumentComponent,
+    FamilyComponent,
+    SiblingComponent,
+    AddressComponent,
+    DateFormatPipe
   ],
   imports: [
     BrowserModule,

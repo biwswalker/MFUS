@@ -1,3 +1,4 @@
+import { UtilsService } from './../../../../services/utils.service';
 import { ApplyscholarshipService } from './../../../../services/applyscholarship.service';
 import { SelectItem } from 'primeng/primeng';
 import { ApplyScholarshipComponent } from './../apply-scholarship.component';
@@ -17,7 +18,8 @@ export class ApplicantInfoComponent implements OnInit {
   data: any;
 
   constructor(public applyScholarship: ApplyScholarshipComponent,
-              private applyscholarshipService: ApplyscholarshipService) { }
+              private applyscholarshipService: ApplyscholarshipService,
+              private utilsService: UtilsService) { }
 
   ngOnInit() {
     this.image = '../../../../../assets/images/empty_profile.png';
@@ -26,6 +28,8 @@ export class ApplicantInfoComponent implements OnInit {
     this.collageYears.push({label: '2',value: 2 });
     this.collageYears.push({label: '3',value: 3 });
     this.collageYears.push({label: '4',value: 4 });
+    this.collageYears.push({label: '5',value: 5 });
+    this.collageYears.push({label: '6',value: 6 });
 
   //  this.data =
     this.applyscholarshipService.getStudentInfo('1').subscribe(
@@ -35,6 +39,9 @@ export class ApplicantInfoComponent implements OnInit {
         this.applyScholarship.applyScholarshipForm.rftTitleName = result.rftTitleName;
         this.applyScholarship.applyScholarshipForm.rftSchool = result.rftSchool;
         this.applyScholarship.applyScholarshipForm.rftMajor = result.rftMajor;
+
+        this.image = this.applyScholarship.applyScholarshipForm.acStudent.profile_image;
+        this.getAge();
       }
     );
 
@@ -42,6 +49,15 @@ export class ApplicantInfoComponent implements OnInit {
 
   next() {
     this.applyScholarship.onNext(1);
+  }
+
+  getAge() {
+    let birth_year = this.applyScholarship.applyScholarshipForm.acStudent.birth_date;
+    let current_year = new Date().getFullYear();
+    console.log(birth_year);
+    console.log(current_year);
+//    let age = birth_year - current_year;
+
   }
 
 }

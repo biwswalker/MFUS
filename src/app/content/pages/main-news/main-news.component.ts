@@ -19,12 +19,15 @@ msgs: Message[] = [];
 newsForm: NewsForm = new NewsForm();
 criretiaForm: NewsForm = new NewsForm();
 newsList: NewsForm[] = [];
-
+dateString: any;
+newDate: any;
   constructor(private newsService: NewsService) { }
 
   ngOnInit() {
     this.criretiaForm = new NewsForm();
     this.onSearch();
+    this.dateString = '1968-11-16T00:00:00' 
+    this.newDate = new Date(this.dateString);
   }
 
   onSearch(){
