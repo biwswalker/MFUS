@@ -1,0 +1,544 @@
+<div class="content-box" id="parent-box">
+    <div class="content-header-blue">
+      <p>ผู้ปกครอง</p>
+      <div class="underline-blue"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <label class="normal">ผู้ปกครอง</label>
+        <div class="col-xs-12">
+          <p-radioButton name="parent" inputId="opt1" value="1" label="บิดา-มารดา" [(ngModel)]="thisForm.acParent.parent_flag">
+          </p-radioButton>
+          <p-radioButton name="parent" inputId="opt2" value="2" label="ผู้อุปการะ" [(ngModel)]="thisForm.acParent.parent_flag">
+          </p-radioButton>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="thisForm.acParent.parent_flag == '1'">
+      <div class="col-xs-12">
+        <label class="normal">สถานภาพครอบครัว</label>
+        <div class="col-xs-12">
+          <p-radioButton name="relationship" inputId="opt1" value="1" label="สมรสและอยู่ด้วยกัน" [(ngModel)]="thisForm.acParent.relationship_status">
+          </p-radioButton>
+        </div>
+        <div class="col-xs-4">
+          <p-radioButton name="relationship" inputId="opt2" value="2" label="สมรสแต่ไม่ได้อยู่ด้วยกัน" [(ngModel)]="thisForm.acParent.relationship_status">
+          </p-radioButton>
+
+        </div>
+        <div class="col-xs-8">
+          <label class="normal-inline">เนื่องจาก</label>
+          <input type="text" pInputText class="relationship-remark" style="width:430px" [(ngModel)]="thisForm.acParent.because">
+        </div>
+        <div class="col-xs-12">
+          <p-radioButton name="relationship" inputId="opt3" value="3" label="หย่าร้าง" [(ngModel)]="thisForm.acParent.relationship_status">
+          </p-radioButton>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-box" id="father-box" *ngIf="thisForm.acParent.parent_flag == '1'">
+    <div class="content-header-blue">
+      <p>บิดา</p>
+      <div class="underline-blue"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">เลขประจำตัวประชาชน</label>
+        <input type="text" pInputText name="father_pid" class="personal-id" [(ngModel)]="thisForm.acParent.father_pid">
+      </div>
+      <div class="col-xs-4">
+        <label class="normal">สถานะ</label>
+        <p-radioButton name="father_status" value="1" label="มีชีวิตอยู่" [(ngModel)]="thisForm.acParent.father_status">
+        </p-radioButton>
+        <p-radioButton name="father_status" value="2" label="เสียชีวิต" [(ngModel)]="thisForm.acParent.father_status">
+        </p-radioButton>
+      </div>
+      <div class="col-xs-3">
+        <label class="fake-label"></label>
+        <label class="normal-inline">เมื่อ พ.ศ.</label>
+        <input type="text" pInputText name="father-die-year" class="input-year" [(ngModel)]="thisForm.acParent.father_died_year">
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">ชื่อ-นามสกุล</label>
+        <input type="text" pInputText class="input-name" name="father-name" [(ngModel)]="thisForm.acParent.father_name">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">วันเกิด(เดือน/วัน/ปี)</label>
+        <div>
+          <p-dropdown name="fatherBirthMonth" laceholder="เดือน" optionField="birth-month" [options]="dadDropdownMonths" [(ngModel)]="dadMonth"
+            (onChange)="selectMonth(1)">
+          </p-dropdown>
+          <p-dropdown laceholder="วัน" optionField="birth-day" [options]="dadDropdownDays" [(ngModel)]="dadDay" [disabled]="!dadMonth"
+            name="fatherBirthDay">
+          </p-dropdown>
+          <input type="number" pInputText class="input-year" name="fatherBirthYear" minlength="4" maxlength="4" placeholder="ปี พ.ศ." [(ngModel)]="dadYear">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <label class="normal">ที่อยู่</label>
+        <input type="text" pInputText class="input-address" name="father-address" [(ngModel)]="thisForm.acParent.father_address">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">จังหวัด</label>
+        <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="thisForm.rftProvince" [suggestions]="provinceList"
+          [size]="25" (onSelect)="selectProvince()" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince($event)"
+          (completeMethod)="autocompleteProvince($event)">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.province_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">อำเภอ</label>
+        <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="thisForm.rftDistrict" [suggestions]="districtList"
+          [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict()" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict()"
+          (completeMethod)="autocompleteDistrict($event)">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.district_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">ตำบล</label>
+        <p-autoComplete name="sub_district" field="sub_district_name_t" [(ngModel)]="thisForm.rftSubDistrict" [suggestions]="subDistrictList"
+          (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict()"
+          forceSelection="true" (onDropdownClick)="handleCompleteClickSubDistrict()">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.sub_district_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">รหัสไปรษณีย์</label>
+        <input type="text" pInputText class="input-postcode" name="father-postcode" [(ngModel)]="thisForm.acParent.father_postcode">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">เบอร์โทรศัพท์</label>
+        <input type="text" pInputText class="input-postcode" name="father-postcode" [(ngModel)]="thisForm.acParent.father_phone">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">อีเมล</label>
+        <input type="text" pInputText class="input-postcode" name="father-postcode" [(ngModel)]="thisForm.acParent.father_email">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">อาชีพ</label>
+        <input type="text" pInputText class="input-postcode" name="father-postcode" [(ngModel)]="thisForm.acParent.father_occupation">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">ตำแหน่ง</label>
+        <input type="text" pInputText class="input-postcode" name="father-postcode" [(ngModel)]="thisForm.acParent.father_position">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <label class="normal">สถานที่ทำงาน</label>
+        <input type="text" pInputText class="input-address" name="father-workaddress" [(ngModel)]="thisForm.acParent.father_work_address">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
+        <input type="text" pInputText class="input-postcode" name="father-postcode" [(ngModel)]="thisForm.acParent.father_work_phone">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">แฟ็กซ์</label>
+        <input type="text" pInputText class="input-postcode" name="father-postcode" [(ngModel)]="thisForm.acParent.father_work_fax">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <label class="normal">มีที่ดิน</label>
+        <div class="col-xs-12">
+          <p-radioButton name="father-land-status" value="1" label="ไม่มี" [(ngModel)]="thisForm.acParent.father_land_flag">
+          </p-radioButton>
+        </div>
+        <div class="col-xs-3">
+          <p-radioButton name="father-land-status" value="2" label="มี" [(ngModel)]="thisForm.acParent.father_land_flag">
+          </p-radioButton>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">จำนวน</label>
+          <input type="text" pInputText class="land-amt" name="father-land-amt" [(ngModel)]="thisForm.acParent.father_land_all">
+          <label class="normal-inline">ไร่</label>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">เป็นเจ้าของ</label>
+          <input type="text" pInputText class="land-amt" name="father-land-amt" [(ngModel)]="thisForm.acParent.father_land_own">
+          <label class="normal-inline">ไร่</label>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">เช่า</label>
+          <input type="text" pInputText class="land-amt" name="father-land-amt" [(ngModel)]="thisForm.acParent.father_land_rent">
+          <label class="normal-inline">ไร่</label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="content-box" id="mother-box" *ngIf="thisForm.acParent.parent_flag == '1'">
+    <div class="content-header-blue">
+      <p>มารดา</p>
+      <div class="underline-blue"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">เลขประจำตัวประชาชน</label>
+        <input type="text" pInputText name="mother_pid" class="personal-id" [(ngModel)]="thisForm.acParent.mother_pid">
+      </div>
+      <div class="col-xs-4">
+        <label class="normal">สถานะ</label>
+        <p-radioButton name="mother_status" value="1" label="มีชีวิตอยู่" [(ngModel)]="thisForm.acParent.mother_status">
+        </p-radioButton>
+        <p-radioButton name="mother_status" value="2" label="เสียชีวิต" [(ngModel)]="thisForm.acParent.mother_status">
+        </p-radioButton>
+      </div>
+      <div class="col-xs-3">
+        <label class="fake-label"></label>
+        <label class="normal-inline">เมื่อ พ.ศ.</label>
+        <input type="text" pInputText name="mother-die-year" class="input-year" [(ngModel)]="thisForm.acParent.mother_died_year">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">ชื่อ-นามสกุล</label>
+        <input type="text" pInputText class="input-name" name="mother-name" [(ngModel)]="thisForm.acParent.mother_name">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">วันเกิด(เดือน/วัน/ปี)</label>
+        <div>
+          <p-dropdown name="motherBirthMonth" laceholder="เดือน" optionField="birth-month" [options]="momDropdownMonths" [(ngModel)]="momMonth"
+            (onChange)="selectMonth(2)">
+          </p-dropdown>
+          <p-dropdown laceholder="วัน" optionField="birth-day" [options]="momDropdownDays" [(ngModel)]="momDay" [disabled]="!momMonth"
+            name="motherBirthDay" >
+          </p-dropdown>
+          <input type="number" pInputText class="input-year" name="motherBirthYear" minlength="4" maxlength="4" placeholder="ปี พ.ศ."  [(ngModel)]="momYear" >
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <label class="normal">ที่อยู่</label>
+        <input type="text" pInputText class="input-address" name="mother-address" [(ngModel)]="thisForm.acParent.mother_address">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">จังหวัด</label>
+        <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="thisForm.rftProvince" [suggestions]="provinceList"
+          [size]="25" (onSelect)="selectProvince()" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince($event)"
+          (completeMethod)="autocompleteProvince($event)">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.province_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">อำเภอ</label>
+        <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="thisForm.rftDistrict" [suggestions]="districtList"
+          [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict()" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict()"
+          (completeMethod)="autocompleteDistrict($event)">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.district_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">ตำบล</label>
+        <p-autoComplete name="sub_district" field="sub_district_name_t" [(ngModel)]="thisForm.rftSubDistrict" [suggestions]="subDistrictList"
+          (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict()"
+          forceSelection="true" (onDropdownClick)="handleCompleteClickSubDistrict()">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.sub_district_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">รหัสไปรษณีย์</label>
+        <input type="text" pInputText class="input-postcode" name="mother-postcode" [(ngModel)]="thisForm.acParent.mother_postcode">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">เบอร์โทรศัพท์</label>
+        <input type="text" pInputText class="input-postcode" name="mother-postcode" [(ngModel)]="thisForm.acParent.mother_phone">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">อีเมล</label>
+        <input type="text" pInputText class="input-postcode" name="mother-postcode" [(ngModel)]="thisForm.acParent.mother_email">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">อาชีพ</label>
+        <input type="text" pInputText class="input-postcode" name="mother-postcode" [(ngModel)]="thisForm.acParent.mother_occupation">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">ตำแหน่ง</label>
+        <input type="text" pInputText class="input-postcode" name="mother-postcode" [(ngModel)]="thisForm.acParent.mother_position">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <label class="normal">สถานที่ทำงาน</label>
+        <input type="text" pInputText class="input-address" name="mother-workaddress" [(ngModel)]="thisForm.acParent.mother_work_address">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
+        <input type="text" pInputText class="input-postcode" name="mother-postcode" [(ngModel)]="thisForm.acParent.mother_work_phone">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">แฟ็กซ์</label>
+        <input type="text" pInputText class="input-postcode" name="mother-postcode" [(ngModel)]="thisForm.acParent.mother_work_fax">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <label class="normal">มีที่ดิน</label>
+        <div class="col-xs-12">
+          <p-radioButton name="mother-land-status" value="1" label="ไม่มี" [(ngModel)]="thisForm.acParent.mother_land_flag">
+          </p-radioButton>
+        </div>
+        <div class="col-xs-3">
+          <p-radioButton name="mother-land-status" value="2" label="มี" [(ngModel)]="thisForm.acParent.mother_land_flag">
+          </p-radioButton>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">จำนวน</label>
+          <input type="text" pInputText class="land-amt" name="mother-land-amt" [(ngModel)]="thisForm.acParent.mother_land_all">
+          <label class="normal-inline">ไร่</label>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">เป็นเจ้าของ</label>
+          <input type="text" pInputText class="land-amt" name="mother-land-amt" [(ngModel)]="thisForm.acParent.mother_land_own">
+          <label class="normal-inline">ไร่</label>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">เช่า</label>
+          <input type="text" pInputText class="land-amt" name="mother-land-amt" [(ngModel)]="thisForm.acParent.mother_land_rent">
+          <label class="normal-inline">ไร่</label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="content-box" id="patrol-box" *ngIf="thisForm.acParent.parent_flag == '2'">
+    <div class="content-header-blue">
+      <p>ผู้อุปการะ</p>
+      <div class="underline-blue"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-5">
+          <label class="normal">ความสัมพันธ์</label>
+          <input type="text" pInputText name="patrol_relationship" class="relationship" [(ngModel)]="thisForm.acParent.patrol_relationship">
+        </div>
+      </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">เลขประจำตัวประชาชน</label>
+        <input type="text" pInputText name="patrol_pid" class="personal-id" [(ngModel)]="thisForm.acParent.patrol_pid">
+      </div>
+      <div class="col-xs-4">
+        <label class="normal">สถานะ</label>
+        <p-radioButton name="patrol_status" value="1" label="มีชีวิตอยู่" [(ngModel)]="thisForm.acParent.patrol_status">
+        </p-radioButton>
+        <p-radioButton name="patrol_status" value="2" label="เสียชีวิต" [(ngModel)]="thisForm.acParent.patrol_status">
+        </p-radioButton>
+      </div>
+      <div class="col-xs-3">
+        <label class="fake-label"></label>
+        <label class="normal-inline">เมื่อ พ.ศ.</label>
+        <input type="text" pInputText name="patrol-die-year" class="input-year" [(ngModel)]="thisForm.acParent.patrol_died_year">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">ชื่อ-นามสกุล</label>
+        <input type="text" pInputText class="input-name" name="patrol-name" [(ngModel)]="thisForm.acParent.patrol_name">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">วันเกิด(เดือน/วัน/ปี)</label>
+        <div>
+          <p-dropdown name="patrolBirthMonth" laceholder="เดือน" optionField="birth-month" [options]="patrolDropdownMonths" [(ngModel)]="dadMonth"
+            (onChange)="selectMonth(3)">
+          </p-dropdown>
+          <p-dropdown laceholder="วัน" optionField="birth-day" [options]="patrolDropdownDays" [(ngModel)]="patrolDay" [disabled]="!patrolMonth"
+            name="patrolBirthDay">
+          </p-dropdown>
+          <input type="number" pInputText class="input-year" name="patrolBirthYear" minlength="4" maxlength="4" placeholder="ปี พ.ศ." [(ngModel)]="patrolYear">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <label class="normal">ที่อยู่</label>
+        <input type="text" pInputText class="input-address" name="patrol-address" [(ngModel)]="thisForm.acParent.patrol_address">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">จังหวัด</label>
+        <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="thisForm.rftProvince" [suggestions]="provinceList"
+          [size]="25" (onSelect)="selectProvince()" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince($event)"
+          (completeMethod)="autocompleteProvince($event)">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.province_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">อำเภอ</label>
+        <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="thisForm.rftDistrict" [suggestions]="districtList"
+          [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict()" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict()"
+          (completeMethod)="autocompleteDistrict($event)">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.district_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">ตำบล</label>
+        <p-autoComplete name="sub_district" field="sub_district_name_t" [(ngModel)]="thisForm.rftSubDistrict" [suggestions]="subDistrictList"
+          (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict()"
+          forceSelection="true" (onDropdownClick)="handleCompleteClickSubDistrict()">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.sub_district_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">รหัสไปรษณีย์</label>
+        <input type="text" pInputText class="input-postcode" name="patrol-postcode" [(ngModel)]="thisForm.acParent.patrol_postcode">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">เบอร์โทรศัพท์</label>
+        <input type="text" pInputText class="input-postcode" name="patrol-postcode" [(ngModel)]="thisForm.acParent.patrol_phone">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">อีเมล</label>
+        <input type="text" pInputText class="input-postcode" name="patrol-postcode" [(ngModel)]="thisForm.acParent.patrol_email">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">อาชีพ</label>
+        <input type="text" pInputText class="input-postcode" name="patrol-postcode" [(ngModel)]="thisForm.acParent.patrol_occupation">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">ตำแหน่ง</label>
+        <input type="text" pInputText class="input-postcode" name="patrol-postcode" [(ngModel)]="thisForm.acParent.patrol_position">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <label class="normal">สถานที่ทำงาน</label>
+        <input type="text" pInputText class="input-address" name="patrol-workaddress" [(ngModel)]="thisForm.acParent.patrol_work_address">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
+        <input type="text" pInputText class="input-postcode" name="patrol-postcode" [(ngModel)]="thisForm.acParent.patrol_work_phone">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">แฟ็กซ์</label>
+        <input type="text" pInputText class="input-postcode" name="patrol-postcode" [(ngModel)]="thisForm.acParent.patrol_work_fax">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <label class="normal">มีที่ดิน</label>
+        <div class="col-xs-12">
+          <p-radioButton name="patrol-land-status" value="1" label="ไม่มี" [(ngModel)]="thisForm.acParent.patrol_land_flag">
+          </p-radioButton>
+        </div>
+        <div class="col-xs-3">
+          <p-radioButton name="patrol-land-status" value="2" label="มี" [(ngModel)]="thisForm.acParent.patrol_land_flag">
+          </p-radioButton>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">จำนวน</label>
+          <input type="text" pInputText class="land-amt" name="patrol-land-amt" [(ngModel)]="thisForm.acParent.patrol_land_all">
+          <label class="normal-inline">ไร่</label>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">เป็นเจ้าของ</label>
+          <input type="text" pInputText class="land-amt" name="patrol-land-amt" [(ngModel)]="thisForm.acParent.patrol_land_own">
+          <label class="normal-inline">ไร่</label>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">เช่า</label>
+          <input type="text" pInputText class="land-amt" name="patrol-land-amt" [(ngModel)]="thisForm.acParent.patrol_land_rent">
+          <label class="normal-inline">ไร่</label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row"></div>
+  <div class="row formFooter">
+    <div class="col-xs-12" style="text-align:right">
+      <button pButton type="button" class="btn-primary" label="ย้อนกลับ"></button>
+      <button pButton type="button" class="btn-primary" label="ถัดไป"></button>
+      <button pButton type="button" class="btn-primary" label="บันทึก"></button>
+    </div>
+  </div>
