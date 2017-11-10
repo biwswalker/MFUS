@@ -1,3 +1,4 @@
+import { AcSibling } from './../../../models/ac-sibling';
 import { FamilyAndAddressComponent } from './../family-and-address.component';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SiblingComponent implements OnInit {
 
+  siblings: AcSibling[];
+  sibling: AcSibling = new AcSibling();
   constructor(private familyAndAddress: FamilyAndAddressComponent) { }
 
   ngOnInit() {
+    this.sibling = new AcSibling();
+    this.sibling.born_year = '2560';
+    this.siblings = [];
+    this.siblings.push(this.sibling);
+    this.siblings.push(this.sibling);
+
+    console.log('siblings: '+this.siblings.length);
   }
 
   nextButtonOnClick(){

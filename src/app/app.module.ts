@@ -41,6 +41,7 @@ import { GrowlModule, TooltipModule, DialogModule } from 'primeng/primeng';
 import { EditorModule } from 'primeng/primeng';
 import { TabViewModule } from 'primeng/primeng';
 import { DataScrollerModule } from 'primeng/primeng';
+import {DataListModule} from 'primeng/primeng';
 
 // Component
 import { HeaderComponent } from './content/header/header.component';
@@ -217,7 +218,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
     EditorModule,
     TabViewModule,
     FileUploadModule,
-    DataScrollerModule
+    DataScrollerModule,
+    DataListModule
   ],
   providers: [
     AuthenticationService,

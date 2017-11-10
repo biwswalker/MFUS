@@ -10,7 +10,7 @@ import { Response } from "@angular/http";
 })
 export class FamilyAndAddressComponent implements OnInit {
   items: MenuItem[];
-  activeIndex: number = 0;
+  activeIndex: number = 1;
   constructor(private utilsService: UtilsService) {}
 
   ngOnInit() {

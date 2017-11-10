@@ -1,37 +1,51 @@
 <div class="content-box" id="parent-box">
-    <div class="content-header-blue">
-      <p>ข้อมูลพี่น้อง</p>
-      <div class="underline-blue"></div>
-    </div>
+  <div class="content-header-blue">
+    <p>ข้อมูลพี่น้อง</p>
+    <div class="underline-blue"></div>
+  </div>
 
 
-    <div class="row">
-      <div class="col-xs-12">
-        <label class="normal">สถานภาพครอบครัว</label>
-        <div class="col-xs-12">
-          <p-radioButton name="relationship" inputId="opt1" value="1" label="สมรสและอยู่ด้วยกัน">
-          </p-radioButton>
-        </div>
-        <div class="col-xs-4">
-          <p-radioButton name="relationship" inputId="opt2" value="2" label="สมรสแต่ไม่ได้อยู่ด้วยกัน">
-          </p-radioButton>
 
+
+
+  <p-dataList [value]="siblings">
+      <ng-template let-sib pTemplate="item">
+        <div class="row overide-row">
+          <div class="col-xs-4">
+            <label class="normal">ชื่อ - นามสกุล</label>
+            <input type="text" pInputText value="{{sib.sibling_name}}" [(ngModel)]="sib.sibling_name">
+          </div>
+          <div class="col-xs-4">
+            <label class="normal">ปีเกิด</label>
+            <input type="text" pInputText>
+          </div>
+          <div class="col-xs-4">
+            <button pButton type="button" class="btn-primary" label="ลบ"></button>
+          </div>
         </div>
-        <div class="col-xs-8">
-          <label class="normal-inline">เนื่องจาก</label>
-          <input type="text" pInputText class="relationship-remark" style="width:430px">
+
+        <div class="row overide-row">
+          <div class="col-xs-4">
+            <label class="normal">ระดับการศึกษา</label>
+            <p-dropdown name="education-level" laceholder="เดือน" optionField="birth-month"></p-dropdown>
+          </div>
+          <div class="col-xs-4">
+            <label class="normal">อาชีพ</label>
+            <input type="text" pInputText>
+          </div>
+          <div class="col-xs-4">
+            <label class="normal">รายได้เฉลี่ย/เดือน</label>
+            <input type="text" pInputText>
+          </div>
         </div>
-        <div class="col-xs-12">
-          <p-radioButton name="relationship" inputId="opt3" value="3" label="หย่าร้าง">
-          </p-radioButton>
-        </div>
-      </div>
-    </div>
+      </ng-template>
+      </p-dataList>
 </div>
+
 <div class="row overide-row"></div>
 <div class="row overide-row formFooter">
   <div class="col-xs-12" style="text-align:right">
-      <button pButton type="button" class="btn-primary" label="ย้อนกลับ" (click)="prevButtonOnClick()"></button>
+    <button pButton type="button" class="btn-primary" label="ย้อนกลับ" (click)="prevButtonOnClick()"></button>
     <button pButton type="button" class="btn-primary" label="ถัดไป" (click)="nextButtonOnClick()"></button>
   </div>
 </div>
