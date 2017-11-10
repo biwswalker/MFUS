@@ -44,7 +44,7 @@
 
   /* set font family & Size */
 body,h1,h2,h3,h4,h5,label,input,p{
-  font-family: SSpace;
+  font-family: THSarabunPSK !important;
 }
 
 div.container-fixed {
@@ -81,11 +81,29 @@ div.ui-panelmenu-content.ui-widget-content {
 }
 /* END PANELMENU */
 
+/* BEGIN LABEL */
+label.normal {
+  color: #b40000;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 15px;
+  width:100%;
+}
+
+label.normal-inline{
+  color: #b40000;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+
+
 /* BEGIN RADIOBUTTON */
 label.ui-radiobutton-label {
   margin-bottom: -1px;
   margin-right: 15px;
-  font-size:1.2em;
+  font-size:20px;
   font-weight: 100;
   padding-top: 2px !important;
 }
@@ -95,11 +113,6 @@ div.ui-radiobutton-box {
   height: 1.5em;
   line-height: 1.5em;
   padding-top: 5px !important;
-}
-
-
-body .ui-radiobutton .ui-radiobutton-box .ui-radiobutton-icon{
-  top: -3px !important;
 }
 
 /* END RADIOBUTTON */
@@ -191,8 +204,8 @@ div.ui-fileupload-content.ui-widget-content.ui-corner-bottom {
 
 /* INPUT TEXT */
 input.ui-inputtext{
-  padding:0.3em 0.5em !important;
-  font-size:1.2em !important;
+  /* padding:0.3em 0.5em !important; */
+  font-size:20px !important;
 }
 
 

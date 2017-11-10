@@ -1,33 +1,34 @@
 <div class="content-box" id="parent-box">
-  <div class="content-header-blue">
-    <p>ข้อมูลพี่น้อง</p>
-    <div class="underline-blue"></div>
+  <div class="panel-header">
+    <p class="panel-header-title">ข้อมูลพี่น้อง</p>
+    <button pButton type="button" style="float:right" class="ui-button-success" label="เพิ่มรายการ"></button>
   </div>
+  <div class="underline-blue" style="clear: both"></div>
 
 
 
 
 
-  <p-dataList [value]="siblings">
+  <p-dataList [value]="siblings" class="sibling-list">
       <ng-template let-sib pTemplate="item">
         <div class="row overide-row">
           <div class="col-xs-4">
             <label class="normal">ชื่อ - นามสกุล</label>
-            <input type="text" pInputText value="{{sib.sibling_name}}" [(ngModel)]="sib.sibling_name">
+            <input type="text" pInputText [(ngModel)]="sib.sibling_name">
           </div>
           <div class="col-xs-4">
             <label class="normal">ปีเกิด</label>
-            <input type="text" pInputText>
+            <input type="text" pInputText [(ngModel)]="sib.born_year">
           </div>
-          <div class="col-xs-4">
-            <button pButton type="button" class="btn-primary" label="ลบ"></button>
+          <div class="col-xs-4" style="text-align: right;">
+            <button pButton type="button" class="ui-button-danger" label="ลบรายการ"></button>
           </div>
         </div>
 
         <div class="row overide-row">
           <div class="col-xs-4">
             <label class="normal">ระดับการศึกษา</label>
-            <p-dropdown name="education-level" laceholder="เดือน" optionField="birth-month"></p-dropdown>
+            <p-dropdown name="education-level" laceholder="เดือน" optionField="birth-month" ></p-dropdown>
           </div>
           <div class="col-xs-4">
             <label class="normal">อาชีพ</label>

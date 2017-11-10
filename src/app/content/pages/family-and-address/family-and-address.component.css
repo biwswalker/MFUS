@@ -18,7 +18,7 @@
 }
 .fake-label{
   display: block;
-  height: 25px;
+  height: 35px;
 }
 
 
@@ -27,4 +27,19 @@
   margin-right: 0px;
 }
 
+.sibling-list .ui-datalist .ui-datalist-content ul li {
+  background: #005ba926;
+  padding: 20px;
+  margin-top: 5px;
+}
 
+.panel-header{
+  height: 40px;
+}
+.panel-header-title{
+  float: left;
+  font-size: 20px;
+  font-weight: 600;
+  color: #224a86;
+  padding-top: 10px;
+}
