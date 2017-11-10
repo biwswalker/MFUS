@@ -8,6 +8,8 @@ import { Headers, Http, RequestMethod, RequestOptions, Response } from '@angular
 import { RftProvince } from './../content/models/rft-province';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { SmScholarship } from '../content/models/sm-scholarship';
+import { SmScholarshipAnnouncement } from '../content/models/sm-scholarship-announcement';
 
 const url: string = config.backendUrl;
 
@@ -273,6 +275,17 @@ export class UtilsService {
 
 return days;
 
+  }
+
+  getScholarshipList(): Observable<SmScholarshipAnnouncement[]> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(url+'scholarship-announcement', options)
+      .map(
+      (res: Response) => {
+        return res.json();
+      }
+      );
   }
 
 }

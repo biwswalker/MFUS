@@ -73,8 +73,8 @@ export class StudentComponent implements OnInit {
     this.getTitleList();
     this.getSchoolList();
     this.initialEditForm();
+    console.log(this.getSchoolList())
     this.monthList = this.utilService.getDropdownMonthShort();
-    console.log(this.monthList ,' ', this.dayList)
 
   }
 
@@ -149,7 +149,6 @@ export class StudentComponent implements OnInit {
         this.listSchool.push(...res);
       }
     );
-    console.log(this.listSchool)
   }
 
   getMajorList(ref: string) {
