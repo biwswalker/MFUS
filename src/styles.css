@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @font-face {
-  font-family: THSarabunPSK;
+  font-family: 'THSarabunPSK';
   src: url('/assets/fonts/THSarabunPSK/THSarabunPSK.TTF') format('truetype');
 }
 
@@ -44,12 +44,18 @@
 
   /* set font family & Size */
 body,h1,h2,h3,h4,h5,label,input,p{
-  font-family: SSpace;
+  font-family: THSarabunPSK !important;
 }
 
 div.container-fixed {
   width: 1200px !important;
   margin: auto;
+}
+
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12{
+  min-height: 53px !important;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
 }
 
 /* BEGIN PANELMENU */
@@ -75,19 +81,40 @@ div.ui-panelmenu-content.ui-widget-content {
 }
 /* END PANELMENU */
 
+/* BEGIN LABEL */
+label.normal {
+  color: #b40000;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 15px;
+  width:100%;
+}
+
+label.normal-inline{
+  color: #b40000;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+
+
 /* BEGIN RADIOBUTTON */
 label.ui-radiobutton-label {
   margin-bottom: -1px;
   margin-right: 15px;
-  font-size:1.2em;
+  font-size:20px;
   font-weight: 100;
+  padding-top: 2px !important;
 }
 
 div.ui-radiobutton-box {
   width: 1.5em;
   height: 1.5em;
   line-height: 1.5em;
+  padding-top: 5px !important;
 }
+
 /* END RADIOBUTTON */
 
 /* BEGIN AUTOCOMPLETE */
@@ -177,8 +204,8 @@ div.ui-fileupload-content.ui-widget-content.ui-corner-bottom {
 
 /* INPUT TEXT */
 input.ui-inputtext{
-  padding:0.3em 0.5em !important;
-  font-size:1.2em !important;
+  /* padding:0.3em 0.5em !important; */
+  font-size:20px !important;
 }
 
 
@@ -206,4 +233,5 @@ input.ui-inputtext{
 .six-step .steps-custom ul li{
   width:16.66% !important;
 }
+
 

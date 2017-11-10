@@ -23,6 +23,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
 
 // Primeface
+<<<<<<< HEAD
 import { PanelMenuModule } from "primeng/primeng";
 import { InputTextModule } from "primeng/primeng";
 import { AutoCompleteModule } from "primeng/primeng";
@@ -42,6 +43,27 @@ import { EditorModule } from "primeng/primeng";
 import { TabViewModule } from "primeng/primeng";
 import { DataScrollerModule } from "primeng/primeng";
 import { DataListModule } from "primeng/primeng";
+=======
+import { PanelMenuModule } from 'primeng/primeng';
+import { InputTextModule } from 'primeng/primeng';
+import { AutoCompleteModule } from 'primeng/primeng';
+import { CalendarModule } from 'primeng/primeng';
+import { RadioButtonModule } from 'primeng/primeng';
+import { CheckboxModule } from 'primeng/primeng';
+import { DropdownModule } from 'primeng/primeng';
+import { ButtonModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule } from 'primeng/primeng';
+import { PanelModule } from 'primeng/primeng';
+import { InputTextareaModule } from 'primeng/primeng';
+import { SliderModule } from 'primeng/primeng';
+import { FileUploadModule } from 'primeng/primeng';
+import { StepsModule } from 'primeng/primeng';
+import { GrowlModule, TooltipModule, DialogModule } from 'primeng/primeng';
+import { EditorModule } from 'primeng/primeng';
+import { TabViewModule } from 'primeng/primeng';
+import { DataScrollerModule } from 'primeng/primeng';
+import {DataListModule} from 'primeng/primeng';
+>>>>>>> 690e4bc9ce6117a17613a24b38c8804e8b631358
 
 // Component
 import { HeaderComponent } from "./content/header/header.component";
@@ -223,7 +245,8 @@ export function startupServiceFactory(
     EditorModule,
     TabViewModule,
     FileUploadModule,
-    DataScrollerModule
+    DataScrollerModule,
+    DataListModule
   ],
   providers: [
     AuthenticationService,

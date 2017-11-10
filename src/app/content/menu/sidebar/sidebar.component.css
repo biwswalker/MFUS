@@ -1,6 +1,6 @@
 .sidebar-header {
   font-size: 25px;
-  font-family: SSpace;
+  font-weight: 600;
   color: #aa0000;
   margin-bottom: 5px;
 }
@@ -12,4 +12,8 @@ div.underline {
   height: 1px;
   width: 100%;
   background-color: #aa0000;
+}
+
+.ui-menuitem-text{
+  font-size: 20px !important;
 }

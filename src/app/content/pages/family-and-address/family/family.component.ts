@@ -1,3 +1,4 @@
+import { FamilyAndAddressComponent } from './../family-and-address.component';
 import { Component, OnInit } from "@angular/core";
 import { UtilsService } from './../../../../services/utils.service';
 import { RftSubDistrict } from './../../../models/rft-sub-district';
@@ -11,7 +12,7 @@ import { Response } from "@angular/http";
 @Component({
   selector: 'app-family',
   templateUrl: './family.component.html',
-  styleUrls: ['./family.component.css' , "../../pages.component.css"]
+  styleUrls: ['../family-and-address.component.css' , '../../pages.component.css']
 })
 export class FamilyComponent implements OnInit {
 
@@ -63,7 +64,7 @@ export class FamilyComponent implements OnInit {
   dropdownList: SelectItem[];
   dropdownValue: string;
 
-  constructor(private utilsService: UtilsService) {}
+  constructor(private utilsService: UtilsService, private familyAndAddress: FamilyAndAddressComponent) {}
 
   ngOnInit() {
     this.getProvince();
@@ -237,6 +238,11 @@ export class FamilyComponent implements OnInit {
 
   selectSubDistrict(event: SelectItem) {
     console.log('selectSubDistrict');
+  }
+
+  nextButtonOnClick(){
+    console.log('nextButtonOnClick');
+    this.familyAndAddress.onNext(1);
   }
 
 }

@@ -4,9 +4,11 @@
     <div class="underline-blue"></div>
   </div>
     <p-steps class="three-step" [model]="items" [(activeIndex)]="activeIndex" [readonly]="true" styleClass="steps-custom">
+    </p-steps>
 
-            </p-steps>
-  <app-family></app-family>
+    <app-family *ngIf="activeIndex == 0"></app-family>
+    <app-sibling *ngIf="activeIndex == 1"></app-sibling>
+    <app-address *ngIf="activeIndex == 2"></app-address>
 
 
 

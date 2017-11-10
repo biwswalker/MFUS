@@ -18,7 +18,7 @@
 
 .content-header-blue {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 25px;
   color: #224a86;
 }
 
@@ -51,21 +51,6 @@ div.underline-blue {
   padding: 20px 20px 5px 20px;
 }
 
-/* LABEL */
-label.normal {
-  color: #b40000;
-  font-size: 18px;
-  font-weight: 500;
-  margin-top: 15px;
-  width:100%;
-}
-
-label.normal-inline{
-  color: #b40000;
-  font-size: 18px;
-  font-weight: 500;
-  margin-top: 15px;
-}
 
 label.radio-inline.normal {
   color: rgb(90, 90, 90);
