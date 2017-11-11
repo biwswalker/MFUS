@@ -1926,7 +1926,8 @@ body .ui-steps .ui-steps-item .ui-menuitem-link .ui-steps-number {
     /* padding: 0.25em 0.563em; */
     color: #747a7f;
     position: relative;
-    width: 28px;
+    width: 30px;
+    height: 30px;
     margin-top: 0;
     font-size: 1em;
     top: 5px;
