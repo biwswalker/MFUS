@@ -21,7 +21,6 @@ export class FamilyComponent implements OnInit {
   msgs: Message[] = [];
 
   thisForm: FamilyAndAddressForm = new FamilyAndAddressForm();
-  thisFormGroup: FormGroup;
 
   dadDropdownMonths: SelectItem[];
   dadDropdownDays: SelectItem[];

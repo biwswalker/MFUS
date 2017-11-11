@@ -23,7 +23,7 @@
 
 
 .sibling-list .ui-datalist .ui-datalist-content ul li {
-  background: #005ba926;
+  background: rgba(206, 206, 206, 0.2);
   padding: 20px;
   margin-top: 5px;
 }
@@ -37,4 +37,9 @@
   font-weight: 600;
   color: #224a86;
   padding-top: 10px;
+}
+
+.home-direction-img{
+  width: 100%;
+  margin-top: 20px;
 }

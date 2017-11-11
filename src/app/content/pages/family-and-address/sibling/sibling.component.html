@@ -1,4 +1,4 @@
-<div class="content-box" id="parent-box">
+<div class="content-box" id="sibling-box">
   <div class="panel-header">
     <p class="panel-header-title">ข้อมูลพี่น้อง</p>
     <button pButton type="button" style="float:right" class="ui-button-success" label="เพิ่มรายการ"></button>
@@ -14,11 +14,11 @@
         <div class="row overide-row">
           <div class="col-xs-4">
             <label class="normal">ชื่อ - นามสกุล</label>
-            <input type="text" pInputText [(ngModel)]="sib.sibling_name">
+            <input type="text" class="input-name" pInputText [(ngModel)]="sib.sibling_name">
           </div>
           <div class="col-xs-4">
             <label class="normal">ปีเกิด</label>
-            <input type="text" pInputText [(ngModel)]="sib.born_year">
+            <input type="text" class="input-year" pInputText [(ngModel)]="sib.born_year">
           </div>
           <div class="col-xs-4" style="text-align: right;">
             <button pButton type="button" class="ui-button-danger" label="ลบรายการ"></button>

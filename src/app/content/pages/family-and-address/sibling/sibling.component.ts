@@ -6,7 +6,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   selector: 'app-sibling',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './sibling.component.html',
-  styleUrls: ['./sibling.component.css' , '../family-and-address.component.css' , '../../pages.component.css']
+  styleUrls: ['../family-and-address.component.css' , '../../pages.component.css']
 })
 export class SiblingComponent implements OnInit {
 
@@ -26,7 +26,7 @@ export class SiblingComponent implements OnInit {
 
   nextButtonOnClick(){
     console.log('nextButtonOnClick');
-    // this.familyAndAddress.onNext(1);
+    this.familyAndAddress.onNext(2);
     console.log(this.siblings);
   }
   prevButtonOnClick(){
