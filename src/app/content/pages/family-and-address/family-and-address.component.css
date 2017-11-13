@@ -22,7 +22,7 @@
 }
 
 
-.sibling-list .ui-datalist .ui-datalist-content ul li {
+.sibling-list .ui-datalist .ui-datalist-content ul li:not(.ui-dropdown-item) {
   background: rgba(206, 206, 206, 0.2);
   padding: 20px;
   margin-top: 5px;
