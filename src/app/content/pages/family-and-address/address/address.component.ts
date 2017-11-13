@@ -17,19 +17,34 @@ export class AddressComponent implements OnInit {
   thisForm: FamilyAndAddressForm = new FamilyAndAddressForm();
 
    // Autocomplete Province
-   provinceList: RftProvince[] = [];
-   provinceObject: RftProvince;
    listProvince: RftProvince[] = [];
 
+   homeProvinceList: RftProvince[] = [];
+   homeProvinceObject: RftProvince;
+
+   currentProvinceList: RftProvince[] = [];
+   currentProvinceObject: RftProvince;
+
+
    // Autocomplete District
-   districtList: RftDistrict[] = [];
-   districtObject: RftDistrict;
-   listDistrict: RftDistrict[] = [];
+   homeDistrictList: RftDistrict[] = [];
+   homeDistrictObject: RftDistrict;
+   homeListDistrict: RftDistrict[] = [];
+
+   currentDistrictList: RftDistrict[] = [];
+   currentDistrictObject: RftDistrict;
+   currentListDistrict: RftDistrict[] = [];
 
    // Autocomplete SubDistrict
-   subDistrictList: RftSubDistrict[] = [];
-   subDistrictObject: RftSubDistrict;
-   listSubDistrict: RftSubDistrict[] = [];
+   homeSubDistrictList: RftSubDistrict[] = [];
+   homeSubDistrictObject: RftSubDistrict;
+   homeListSubDistrict: RftSubDistrict[] = [];
+
+   currentSubDistrictList: RftSubDistrict[] = [];
+   currentSubDistrictObject: RftSubDistrict;
+   currentListSubDistrict: RftSubDistrict[] = [];
+
+
 
    postcode: string;
 
@@ -48,15 +63,15 @@ export class AddressComponent implements OnInit {
   autocompleteProvince(event) {
     console.log('autocompleteProvince');
     let query = event.query;
-    this.provinceList = [];
-    this.thisForm.rftDistrict = new RftDistrict();
-    this.thisForm.rftSubDistrict = new RftSubDistrict();
+    this.homeProvinceList = [];
+    this.thisForm.homeDistrict = new RftDistrict();
+    this.thisForm.homeSubDistrict = new RftSubDistrict();
     let objList: RftProvince[];
     objList = this.listProvince;
     for (let obj of objList) {
       // Filter By string event
       if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        this.provinceList.push(obj);
+        this.homeProvinceList.push(obj);
       }
     }
   }
@@ -65,38 +80,38 @@ export class AddressComponent implements OnInit {
   autocompleteDistrict(event) {
     console.log('autocompleteDistrict');
     let query = event.query;
-    this.districtList = [];
-    this.thisForm.rftSubDistrict = new RftSubDistrict();
+    this.homeDistrictList = [];
+    this.thisForm.homeSubDistrict = new RftSubDistrict();
     let objList: RftDistrict[];
-    objList = this.listDistrict;
+    objList = this.homeListDistrict;
     for (let obj of objList) {
       // Filter By string event
-      if (this.thisForm.rftProvince.province_ref === obj.province_ref) {
+      if (this.thisForm.homeProvince.province_ref === obj.province_ref) {
         if (
           obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
         ) {
-          this.districtList.push(obj);
+          this.homeDistrictList.push(obj);
         }
       }
     }
   }
 
   autocompleteSubDistrict(event) {
-    console.log("autocompleteSubDistrict: " + this.thisForm.rftDistrict.district_ref
+    console.log("autocompleteSubDistrict: " + this.thisForm.homeDistrict.district_ref
     );
     let query = event.query;
-    this.subDistrictList = [];
-    let objList: RftSubDistrict[] = this.listSubDistrict;
+    this.homeSubDistrictList = [];
+    let objList: RftSubDistrict[] = this.homeListSubDistrict;
     for (let obj of objList) {
       // Filter By string event
-      if (obj.province_ref == this.thisForm.rftProvince.province_ref) {
-        if (obj.district_ref == this.thisForm.rftDistrict.district_ref) {
+      if (obj.province_ref == this.thisForm.homeProvince.province_ref) {
+        if (obj.district_ref == this.thisForm.homeDistrict.district_ref) {
           if (
             obj.sub_district_name_t
               .toLowerCase()
               .indexOf(query.toLowerCase()) == 0
           ) {
-            this.subDistrictList.push(obj);
+            this.homeSubDistrictList.push(obj);
           }
         }
       }
@@ -105,15 +120,14 @@ export class AddressComponent implements OnInit {
 
   handleCompleteClickProvince() {
     console.log('handleCompleteClickProvince');
-    console.log(this.listProvince.length);
-    this.provinceList = [];
-    this.thisForm.rftProvince = new RftProvince();
-    this.thisForm.rftDistrict = new RftDistrict();
-    this.thisForm.rftSubDistrict = new RftSubDistrict();
+    this.homeProvinceList = [];
+    this.thisForm.homeProvince = new RftProvince();
+    this.thisForm.homeDistrict = new RftDistrict();
+    this.thisForm.homeSubDistrict = new RftSubDistrict();
     setTimeout(() => {
-      this.provinceList = this.listProvince;
-      this.districtList = [];
-      this.subDistrictList = [];
+      this.homeProvinceList = this.listProvince;
+      this.homeDistrictList = [];
+      this.homeSubDistrictList = [];
     }, 100);
 
   }
@@ -121,52 +135,49 @@ export class AddressComponent implements OnInit {
   handleCompleteClickDistrict() {
     console.log('handleCompleteClickDistrict');
 
-    this.districtList = [];
-    this.thisForm.rftDistrict = new RftDistrict();
-    this.thisForm.rftSubDistrict = new RftSubDistrict();
+    this.homeDistrictList = [];
+    this.thisForm.homeDistrict = new RftDistrict();
+    this.thisForm.homeSubDistrict = new RftSubDistrict();
     setTimeout(() => {
-      this.districtList = this.listDistrict;
-      this.subDistrictList = [];
+      this.homeDistrictList = this.homeListDistrict;
+      this.homeSubDistrictList = [];
     }, 100);
   }
 
   handleCompleteClickSubDistrict() {
     console.log('handleCompleteClickSubDistrict');
-    this.subDistrictList = [];
-    this.thisForm.rftSubDistrict = new RftSubDistrict();
+    this.homeSubDistrictList = [];
+    this.thisForm.homeSubDistrict = new RftSubDistrict();
 
     setTimeout(() => {
-      this.subDistrictList = this.listSubDistrict;
+      this.homeSubDistrictList = this.homeListSubDistrict;
     }, 100);
   }
 
    // Autocomplete Selected
    selectProvince(event: SelectItem) {
     console.log('selectProvince');
-    this.districtList = [];
-    this.subDistrictList = [];
+    this.homeDistrictList = [];
+    this.homeSubDistrictList = [];
 
     this.utilsService
-      .getDistrictsByProvinceRef(this.thisForm.rftProvince.province_ref)
+      .getDistrictsByProvinceRef(this.thisForm.homeProvince.province_ref)
       .subscribe((res: RftDistrict[]) => {
-        this.listDistrict = [];
-        this.listDistrict.push(...res);
-        console.log("district length: " + this.listDistrict.length);
+        this.homeListDistrict = [];
+        this.homeListDistrict.push(...res);
       });
-    console.log(this.listDistrict.length);
   }
 
   selectDistrict(event: SelectItem) {
     console.log('selectDistrict');
-    console.log(this.thisForm.rftDistrict);
+    console.log(this.thisForm.homeDistrict);
 
     this.utilsService
-      .getSubDistrictsByDistrictRef(this.thisForm.rftDistrict.district_ref)
+      .getSubDistrictsByDistrictRef(this.thisForm.homeDistrict.district_ref)
       .subscribe((res: RftSubDistrict[]) => {
-        this.listSubDistrict = [];
-        this.listSubDistrict.push(...res);
+        this.homeListSubDistrict = [];
+        this.homeListSubDistrict.push(...res);
 
-        console.log("listSubDistrict: " + this.listSubDistrict.length);
       });
   }
 
@@ -174,13 +185,14 @@ export class AddressComponent implements OnInit {
     console.log('selectSubDistrict');
   }
 
-  nextButtonOnClick(){
+  submitButtonOnClick(){
     console.log('nextButtonOnClick');
     // this.familyAndAddress.onNext(1);
     // console.log(this.siblings);
   }
   prevButtonOnClick(){
     console.log('prevButtonOnClick');
-    this.familyAndAddress.onNext(1);
+    this.familyAndAddress.onChangePanel(1, this.thisForm);
+    this.thisForm = new FamilyAndAddressForm();
   }
 }

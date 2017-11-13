@@ -42,19 +42,42 @@ export class FamilyComponent implements OnInit {
 
 
   // Autocomplete Province
-  provinceList: RftProvince[] = [];
-  provinceObject: RftProvince;
   listProvince: RftProvince[] = [];
 
+  fProvinceList: RftProvince[] = [];
+  fProvinceObject: RftProvince;
+
+  mProvinceList: RftProvince[] = [];
+  mProvinceObject: RftProvince;
+
+  pProvinceList: RftProvince[] = [];
+  pProvinceObject: RftProvince;
+
   // Autocomplete District
-  districtList: RftDistrict[] = [];
-  districtObject: RftDistrict;
-  listDistrict: RftDistrict[] = [];
+  fDistrictList: RftDistrict[] = [];
+  fDistrictObject: RftDistrict;
+  fListDistrict: RftDistrict[] = [];
+
+  mDistrictList: RftDistrict[] = [];
+  mDistrictObject: RftDistrict;
+  mListDistrict: RftDistrict[] = [];
+
+  pDistrictList: RftDistrict[] = [];
+  pDistrictObject: RftDistrict;
+  pListDistrict: RftDistrict[] = [];
 
   // Autocomplete SubDistrict
-  subDistrictList: RftSubDistrict[] = [];
-  subDistrictObject: RftSubDistrict;
-  listSubDistrict: RftSubDistrict[] = [];
+  fSubDistrictList: RftSubDistrict[] = [];
+  fSubDistrictObject: RftSubDistrict;
+  fListSubDistrict: RftSubDistrict[] = [];
+
+  mSubDistrictList: RftSubDistrict[] = [];
+  mSubDistrictObject: RftSubDistrict;
+  mListSubDistrict: RftSubDistrict[] = [];
+
+  pSubDistrictList: RftSubDistrict[] = [];
+  pSubDistrictObject: RftSubDistrict;
+  pListSubDistrict: RftSubDistrict[] = [];
 
   postcode: string;
 
@@ -69,12 +92,7 @@ export class FamilyComponent implements OnInit {
     this.getProvince();
     this.initBirthMonth();
 
-    this.thisForm.acParent.parent_flag = '1';
-    this.thisForm.acParent.relationship_status = '1';
-    this.thisForm.acParent.father_status = '1';
-    this.thisForm.acParent.mother_status = '1';
-    this.thisForm.acParent.patrol_status = '1';
-
+    this.thisForm = this.familyAndAddress.getData();
   }
 
 
@@ -113,15 +131,15 @@ export class FamilyComponent implements OnInit {
   autocompleteProvince(event) {
     console.log('autocompleteProvince');
     let query = event.query;
-    this.provinceList = [];
-    this.thisForm.rftDistrict = new RftDistrict();
-    this.thisForm.rftSubDistrict = new RftSubDistrict();
+    this.fProvinceList = [];
+    this.thisForm.dadDistrict = new RftDistrict();
+    this.thisForm.dadSubDistrict = new RftSubDistrict();
     let objList: RftProvince[];
     objList = this.listProvince;
     for (let obj of objList) {
       // Filter By string event
       if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        this.provinceList.push(obj);
+        this.fProvinceList.push(obj);
       }
     }
   }
@@ -130,118 +148,236 @@ export class FamilyComponent implements OnInit {
   autocompleteDistrict(event) {
     console.log('autocompleteDistrict');
     let query = event.query;
-    this.districtList = [];
-    this.thisForm.rftSubDistrict = new RftSubDistrict();
+    this.fDistrictList = [];
+    this.thisForm.dadSubDistrict = new RftSubDistrict();
     let objList: RftDistrict[];
-    objList = this.listDistrict;
+    objList = this.fListDistrict;
     for (let obj of objList) {
       // Filter By string event
-      if (this.thisForm.rftProvince.province_ref === obj.province_ref) {
+      if (this.thisForm.dadProvince.province_ref === obj.province_ref) {
         if (
           obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
         ) {
-          this.districtList.push(obj);
+          this.fDistrictList.push(obj);
         }
       }
     }
   }
 
   autocompleteSubDistrict(event) {
-    console.log("autocompleteSubDistrict: " + this.thisForm.rftDistrict.district_ref
+    console.log("autocompleteSubDistrict: " + this.thisForm.dadDistrict.district_ref
     );
     let query = event.query;
-    this.subDistrictList = [];
-    let objList: RftSubDistrict[] = this.listSubDistrict;
+    this.fSubDistrictList = [];
+    let objList: RftSubDistrict[] = this.fListSubDistrict;
     for (let obj of objList) {
       // Filter By string event
-      if (obj.province_ref == this.thisForm.rftProvince.province_ref) {
-        if (obj.district_ref == this.thisForm.rftDistrict.district_ref) {
+      if (obj.province_ref == this.thisForm.dadProvince.province_ref) {
+        if (obj.district_ref == this.thisForm.dadDistrict.district_ref) {
           if (
             obj.sub_district_name_t
               .toLowerCase()
               .indexOf(query.toLowerCase()) == 0
           ) {
-            this.subDistrictList.push(obj);
+            this.fSubDistrictList.push(obj);
           }
         }
       }
     }
   }
 
-  handleCompleteClickProvince() {
+  handleCompleteClickProvince(index: number) {
     console.log('handleCompleteClickProvince');
     console.log(this.listProvince.length);
-    this.provinceList = [];
-    this.thisForm.rftProvince = new RftProvince();
-    this.thisForm.rftDistrict = new RftDistrict();
-    this.thisForm.rftSubDistrict = new RftSubDistrict();
-    setTimeout(() => {
-      this.provinceList = this.listProvince;
-      this.districtList = [];
-      this.subDistrictList = [];
-    }, 100);
+    if(index == 0){
+      this.fProvinceList = [];
+      this.thisForm.dadProvince = new RftProvince();
+      this.thisForm.dadDistrict = new RftDistrict();
+      this.thisForm.dadSubDistrict = new RftSubDistrict();
+      setTimeout(() => {
+        this.fProvinceList = this.listProvince;
+        this.fDistrictList = [];
+        this.fSubDistrictList = [];
+      }, 100);
+    }
+    if(index == 1){
+      this.mProvinceList = [];
+      this.thisForm.momProvince = new RftProvince();
+      this.thisForm.momDistrict = new RftDistrict();
+      this.thisForm.momSubDistrict = new RftSubDistrict();
+      setTimeout(() => {
+        this.mProvinceList = this.listProvince;
+        this.mDistrictList = [];
+        this.mSubDistrictList = [];
+      }, 100);
+    }
+    if(index == 2){
+      this.pProvinceList = [];
+      this.thisForm.patrolProvince = new RftProvince();
+      this.thisForm.patrolDistrict = new RftDistrict();
+      this.thisForm.patrolSubDistrict = new RftSubDistrict();
+      setTimeout(() => {
+        this.pProvinceList = this.listProvince;
+        this.pDistrictList = [];
+        this.pSubDistrictList = [];
+      }, 100);
+    }
 
   }
 
-  handleCompleteClickDistrict() {
+  handleCompleteClickDistrict(index:number) {
     console.log('handleCompleteClickDistrict');
-
-    this.districtList = [];
-    this.thisForm.rftDistrict = new RftDistrict();
-    this.thisForm.rftSubDistrict = new RftSubDistrict();
-    setTimeout(() => {
-      this.districtList = this.listDistrict;
-      this.subDistrictList = [];
-    }, 100);
+    if(index == 0){
+      this.fDistrictList = [];
+      this.thisForm.dadDistrict = new RftDistrict();
+      this.thisForm.dadSubDistrict = new RftSubDistrict();
+      setTimeout(() => {
+        this.fDistrictList = this.fListDistrict;
+        this.fSubDistrictList = [];
+      }, 100);
+    }
+    if(index == 1){
+      this.mDistrictList = [];
+      this.thisForm.momDistrict = new RftDistrict();
+      this.thisForm.momSubDistrict = new RftSubDistrict();
+      setTimeout(() => {
+        this.mDistrictList = this.mListDistrict;
+        this.mSubDistrictList = [];
+      }, 100);
+    }
+    if(index == 2){
+      this.pDistrictList = [];
+      this.thisForm.patrolDistrict = new RftDistrict();
+      this.thisForm.patrolSubDistrict = new RftSubDistrict();
+      setTimeout(() => {
+        this.pDistrictList = this.pListDistrict;
+        this.pSubDistrictList = [];
+      }, 100);
+    }
   }
 
-  handleCompleteClickSubDistrict() {
+  handleCompleteClickSubDistrict(index: number) {
     console.log('handleCompleteClickSubDistrict');
-    this.subDistrictList = [];
-    this.thisForm.rftSubDistrict = new RftSubDistrict();
 
-    setTimeout(() => {
-      this.subDistrictList = this.listSubDistrict;
-    }, 100);
+    if(index == 0){
+      this.fSubDistrictList = [];
+      this.thisForm.dadSubDistrict = new RftSubDistrict();
+
+      setTimeout(() => {
+        this.fSubDistrictList = this.fListSubDistrict;
+      }, 100);
+    }
+
+    if(index == 1){
+      this.mSubDistrictList = [];
+      this.thisForm.momSubDistrict = new RftSubDistrict();
+
+      setTimeout(() => {
+        this.mSubDistrictList = this.mListSubDistrict;
+      }, 100);
+    }
+
+    if(index == 2){
+      this.pSubDistrictList = [];
+      this.thisForm.patrolSubDistrict = new RftSubDistrict();
+
+      setTimeout(() => {
+        this.pSubDistrictList = this.pListSubDistrict;
+      }, 100);
+    }
+
   }
 
    // Autocomplete Selected
-   selectProvince(event: SelectItem) {
+   selectProvince(index:number) {
     console.log('selectProvince');
-    this.districtList = [];
-    this.subDistrictList = [];
+    if(index == 0 ){
+      this.fDistrictList = [];
+      this.fSubDistrictList = [];
+      this.thisForm.acParent.father_postcode = null
+      this.utilsService.getDistrictsByProvinceRef(this.thisForm.dadProvince.province_ref)
+        .subscribe((res: RftDistrict[]) => {
+          this.fListDistrict = [];
+          this.fListDistrict.push(...res);
+        });
+    }
 
-    this.utilsService
-      .getDistrictsByProvinceRef(this.thisForm.rftProvince.province_ref)
-      .subscribe((res: RftDistrict[]) => {
-        this.listDistrict = [];
-        this.listDistrict.push(...res);
-        console.log("district length: " + this.listDistrict.length);
-      });
-    console.log(this.listDistrict.length);
+    if(index == 1 ){
+      this.mDistrictList = [];
+      this.mSubDistrictList = [];
+      this.thisForm.acParent.mother_postcode = null
+      this.utilsService.getDistrictsByProvinceRef(this.thisForm.momProvince.province_ref)
+        .subscribe((res: RftDistrict[]) => {
+          this.mListDistrict = [];
+          this.mListDistrict.push(...res);
+        });
+    }
+
+    if(index == 2 ){
+      this.pDistrictList = [];
+      this.pSubDistrictList = [];
+      this.thisForm.acParent.patrol_postcode = null
+      this.utilsService.getDistrictsByProvinceRef(this.thisForm.patrolProvince.province_ref)
+        .subscribe((res: RftDistrict[]) => {
+          this.pListDistrict = [];
+          this.pListDistrict.push(...res);
+        });
+    }
+
   }
 
-  selectDistrict(event: SelectItem) {
+  selectDistrict(index: number) {
     console.log('selectDistrict');
-    console.log(this.thisForm.rftDistrict);
+    if(index == 0){
+      this.fSubDistrictList = [];
 
-    this.utilsService
-      .getSubDistrictsByDistrictRef(this.thisForm.rftDistrict.district_ref)
-      .subscribe((res: RftSubDistrict[]) => {
-        this.listSubDistrict = [];
-        this.listSubDistrict.push(...res);
-
-        console.log("listSubDistrict: " + this.listSubDistrict.length);
-      });
+       this.thisForm.acParent.father_postcode = null;
+      this.utilsService
+        .getSubDistrictsByDistrictRef(this.thisForm.dadDistrict.district_ref)
+        .subscribe((res: RftSubDistrict[]) => {
+          this.fListSubDistrict = [];
+          this.fListSubDistrict.push(...res);
+        });
+    }
+    if(index == 1){
+      this.mSubDistrictList = [];
+      this.thisForm.acParent.mother_postcode = null;
+      this.utilsService
+        .getSubDistrictsByDistrictRef(this.thisForm.momDistrict.district_ref)
+        .subscribe((res: RftSubDistrict[]) => {
+          this.mListSubDistrict = [];
+          this.mListSubDistrict.push(...res);
+        });
+    }
+    if(index == 2){
+      this.pSubDistrictList = [];
+      this.thisForm.acParent.patrol_postcode = null;
+      this.utilsService
+        .getSubDistrictsByDistrictRef(this.thisForm.patrolDistrict.district_ref)
+        .subscribe((res: RftSubDistrict[]) => {
+          this.pListSubDistrict = [];
+          this.pListSubDistrict.push(...res);
+        });
+    }
   }
 
-  selectSubDistrict(event: SelectItem) {
+  selectSubDistrict(index: number) {
     console.log('selectSubDistrict');
+    if(index == 0){
+      this.thisForm.acParent.father_postcode = this.thisForm.dadDistrict.postcode;
+    }
+    if(index == 1){
+      this.thisForm.acParent.mother_postcode = this.thisForm.momDistrict.postcode;
+    }
+    if(index == 2){
+      this.thisForm.acParent.patrol_postcode = this.thisForm.patrolDistrict.postcode;
+    }
   }
 
   nextButtonOnClick(){
     console.log('nextButtonOnClick');
-    this.familyAndAddress.onNext(1);
+    this.familyAndAddress.onChangePanel(1,this.thisForm);
+    this.thisForm = new FamilyAndAddressForm();
   }
 
 }

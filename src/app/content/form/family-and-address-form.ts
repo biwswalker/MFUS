@@ -9,15 +9,48 @@ export class FamilyAndAddressForm {
   public acParent: AcParent;
   public acSibling: AcSibling;
   public acAddress: AcAddress;
-  public rftProvince: RftProvince;
-  public rftDistrict: RftDistrict;
-  public rftSubDistrict: RftSubDistrict;
+  public dadProvince: RftProvince;
+  public dadDistrict: RftDistrict;
+  public dadSubDistrict: RftSubDistrict;
+
+  public momProvince: RftProvince;
+  public momDistrict: RftDistrict;
+  public momSubDistrict: RftSubDistrict;
+
+  public patrolProvince: RftProvince;
+  public patrolDistrict: RftDistrict;
+  public patrolSubDistrict: RftSubDistrict;
+
+  public homeProvince: RftProvince;
+  public homeDistrict: RftDistrict;
+  public homeSubDistrict: RftSubDistrict;
+
+  public currentProvince: RftProvince;
+  public currentDistrict: RftDistrict;
+  public currentSubDistrict: RftSubDistrict;
+
+  public siblingList: AcSibling[];
   constructor() {
     this.acParent = new AcParent();
     this.acSibling = new AcSibling();
     this.acAddress = new AcAddress();
-    this.rftProvince = new RftProvince();
-    this.rftDistrict = new RftDistrict();
-    this.rftSubDistrict = new RftSubDistrict();
+    this.dadProvince = new RftProvince();
+    this.dadDistrict = new RftDistrict();
+    this.dadSubDistrict = new RftSubDistrict();
+    this.momProvince = new RftProvince();
+    this.momDistrict = new RftDistrict();
+    this.momSubDistrict = new RftSubDistrict();
+    this.patrolProvince = new RftProvince();
+    this.patrolDistrict = new RftDistrict();
+    this.patrolSubDistrict = new RftSubDistrict();
+
+    this.homeProvince = new RftProvince();
+    this.homeDistrict = new RftDistrict();
+    this.homeSubDistrict = new RftSubDistrict();
+    this.currentProvince = new RftProvince();
+    this.currentDistrict = new RftDistrict();
+    this.currentSubDistrict = new RftSubDistrict();
+
+    this.siblingList = [];
   }
 }

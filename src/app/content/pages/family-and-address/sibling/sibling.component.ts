@@ -1,3 +1,4 @@
+import { FamilyAndAddressForm } from './../../../form/family-and-address-form';
 import { AcSibling } from './../../../models/ac-sibling';
 import { FamilyAndAddressComponent } from './../family-and-address.component';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
@@ -9,28 +10,31 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   styleUrls: ['../family-and-address.component.css' , '../../pages.component.css']
 })
 export class SiblingComponent implements OnInit {
-
-  siblings: AcSibling[];
+  thisForm: FamilyAndAddressForm = new FamilyAndAddressForm();
   sibling: AcSibling = new AcSibling();
   constructor(private familyAndAddress: FamilyAndAddressComponent) { }
 
   ngOnInit() {
-    this.sibling = new AcSibling();
-    this.sibling.born_year = '2560';
-    this.siblings = [];
-    this.siblings.push(this.sibling);
-    this.sibling = new AcSibling();
-    this.siblings.push(this.sibling);
-    console.log('siblings: '+this.siblings.length);
+    this.thisForm = this.familyAndAddress.getData();
   }
 
+  addButtonOnClick(){
+    console.log('addButtonOnClick');
+    this.sibling = new AcSibling();
+    this.thisForm.siblingList.push(this.sibling);
+  }
+    deleteButtonOnClick(index){
+    console.log('deleteButtonOnClick');
+    this.thisForm.siblingList.splice(index,1);
+  }
   nextButtonOnClick(){
     console.log('nextButtonOnClick');
-    this.familyAndAddress.onNext(2);
-    console.log(this.siblings);
+    this.familyAndAddress.onChangePanel(2,this.thisForm);
+    this.thisForm = new FamilyAndAddressForm();
   }
   prevButtonOnClick(){
     console.log('prevButtonOnClick');
-    this.familyAndAddress.onNext(0);
+    this.familyAndAddress.onChangePanel(0,this.thisForm);
+    this.thisForm = new FamilyAndAddressForm();
   }
 }
