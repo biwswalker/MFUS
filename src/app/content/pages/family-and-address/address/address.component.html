@@ -7,15 +7,26 @@
   <div class="row overide-row">
     <div class="col-xs-12">
       <label class="normal">ที่อยู่</label>
-      <input type="text" pInputText class="input-address" name="mother-address" [(ngModel)]="thisForm.acParent.mother_address">
+      <input type="text" pInputText
+      class="input-address"
+      name="mother-address"
+      [(ngModel)]="thisForm.acAddress.home_address"
+      >
     </div>
   </div>
 
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">จังหวัด</label>
-      <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="thisForm.homeProvince" [suggestions]="homeProvinceList"
-        [size]="25" (onSelect)="selectProvince(0)" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(0)"
+      <p-autoComplete
+        name="autocompleteProvince"
+        field="province_name_t"
+        [(ngModel)]="homeProvince"
+        [suggestions]="homeProvinceList"
+        [size]="25" (onSelect)="selectProvince(0)"
+        forceselection="true"
+        [dropdown]="true"
+        (onDropdownClick)="handleCompleteClickProvince(0)"
         (completeMethod)="autocompleteProvince($event)">
         <ng-template let-obj pTemplate="obj">
           {{obj.province_name_t}}
@@ -24,9 +35,19 @@
     </div>
     <div class="col-xs-7">
       <label class="normal">อำเภอ</label>
-      <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="thisForm.homeDistrict" [suggestions]="homeDistrictList"
-        [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(0)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(0)"
-        (completeMethod)="autocompleteDistrict($event)">
+      <p-autoComplete
+        name="autocompleteDistrict"
+        field="district_name_t"
+        [(ngModel)]="homeDistrict"
+        [suggestions]="homeDistrictList"
+        [size]="25"
+        [dropdown]="true"
+        field="district_name_t"
+        (onSelect)="selectDistrict(0)"
+        forceSelection="true"
+        (onDropdownClick)="handleCompleteClickDistrict(0)"
+        (completeMethod)="autocompleteDistrict($event)"
+        [disabled]="!homeProvince.province_ref">
         <ng-template let-obj pTemplate="obj">
           {{obj.district_name_t}}
         </ng-template>
@@ -37,9 +58,18 @@
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">ตำบล</label>
-      <p-autoComplete name="sub_district" field="sub_district_name_t" [(ngModel)]="thisForm.homeSubDistrict" [suggestions]="homeSubDistrictList"
-        (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(0)" forceSelection="true"
-        (onDropdownClick)="handleCompleteClickSubDistrict(0)">
+      <p-autoComplete
+        name="sub_district"
+        field="sub_district_name_t"
+        [(ngModel)]="homeSubDistrict"
+        [suggestions]="homeSubDistrictList"
+        (completeMethod)="autocompleteSubDistrict($event)"
+        [size]="25"
+        [dropdown]="true"
+        (onSelect)="selectSubDistrict(0)"
+        forceSelection="true"
+        (onDropdownClick)="handleCompleteClickSubDistrict(0)"
+        [disabled]="!homeDistrict.district_ref">
         <ng-template let-obj pTemplate="obj">
           {{obj.sub_district_name_t}}
         </ng-template>
@@ -47,15 +77,20 @@
     </div>
     <div class="col-xs-7">
       <label class="normal">รหัสไปรษณีย์</label>
-      <input type="text" pInputText class="input-postcode" name="mother-postcode" [(ngModel)]="thisForm.acAddress.home_postcode">
+      <input type="text" pInputText class="input-postcode" name="mother-postcode"
+      [(ngModel)]="thisForm.acAddress.home_postcode"
+      [disabled]="!homeSubDistrict.sub_district_ref"
+      >
     </div>
   </div>
   <div class="row overide-row">
     <div class="col-xs-12">
       <label class="btn-positive normal-inline" label="เลือกไฟล์" pButton>
-        <input type="file" accept="image/*, application/pdf" class="display-none">
+        <input type="file"
+        accept="image/*, application/pdf"
+        class="display-none" >
       </label>
-      <label class="normal-inline">เลือกภาพแสดงการเดินทางไปยังบ้านของนักศึกษา</label>
+      <label class="normal-inline">เลือกรูปภาพแสดงการเดินทางไปยังบ้านของนักศึกษา</label>
     </div>
   </div>
   <div class="row overide-row">
@@ -75,15 +110,19 @@
   <div class="row overide-row">
     <div class="col-xs-12">
       <label class="normal">ที่อยู่</label>
-      <input type="text" pInputText class="input-address" name="mother-address" [(ngModel)]="thisForm.acParent.mother_address">
+      <input type="text" pInputText class="input-address"
+      name="mother-address"
+      [(ngModel)]="thisForm.acAddress.current_address"
+      >
     </div>
   </div>
 
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">จังหวัด</label>
-      <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="thisForm.currentProvince" [suggestions]="currentProvinceList"
-        [size]="25" (onSelect)="selectProvince(1)" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(1)"
+      <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="currentProvince" [suggestions]="currentProvinceList"
+        [size]="25" (onSelect)="selectProvince(1)" forceselection="true"
+        [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(1)"
         (completeMethod)="autocompleteProvince($event)">
         <ng-template let-obj pTemplate="obj">
           {{obj.province_name_t}}
@@ -92,8 +131,16 @@
     </div>
     <div class="col-xs-7">
       <label class="normal">อำเภอ</label>
-      <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="thisForm.currentDistrict" [suggestions]="currentDistrictList"
-        [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(1)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(1)"
+      <p-autoComplete name="autocompleteDistrict"
+        field="district_name_t"
+        [(ngModel)]="currentDistrict"
+        [suggestions]="currentDistrictList"
+        [size]="25"
+        [dropdown]="true"
+        field="district_name_t"
+        (onSelect)="selectDistrict(1)"
+        forceSelection="true"
+        (onDropdownClick)="handleCompleteClickDistrict(1)"
         (completeMethod)="autocompleteDistrict($event)">
         <ng-template let-obj pTemplate="obj">
           {{obj.district_name_t}}
@@ -105,8 +152,16 @@
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">ตำบล</label>
-      <p-autoComplete name="sub_district" field="sub_district_name_t" [(ngModel)]="thisForm.currentSubDistrict" [suggestions]="currentDistrictList"
-        (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(1)" forceSelection="true"
+      <p-autoComplete
+        name="sub_district"
+        field="sub_district_name_t"
+        [(ngModel)]="currentSubDistrict"
+        [suggestions]="currentDistrictList"
+        (completeMethod)="autocompleteSubDistrict($event)"
+        [size]="25"
+        [dropdown]="true"
+        (onSelect)="selectSubDistrict(1)"
+        forceSelection="true"
         (onDropdownClick)="handleCompleteClickSubDistrict(1)">
         <ng-template let-obj pTemplate="obj">
           {{obj.sub_district_name_t}}
@@ -115,7 +170,11 @@
     </div>
     <div class="col-xs-7">
       <label class="normal">รหัสไปรษณีย์</label>
-      <input type="text" pInputText class="input-postcode" name="current-postcode" [(ngModel)]="thisForm.acAddress.current_postcode">
+      <input type="text" pInputText class="input-postcode"
+      name="current-postcode"
+      [(ngModel)]="thisForm.acAddress.current_postcode"
+      formControlName="current_postcode"
+      >
     </div>
   </div>
 
@@ -123,6 +182,7 @@
   <div class="row overide-row formFooter">
     <div class="col-xs-12" style="text-align:right">
       <button pButton type="button" class="btn-primary" label="ย้อนกลับ" (click)="prevButtonOnClick()"></button>
-      <button pButton type="button" class="btn-primary" label="บันทึก"></button>
+      <button pButton type="submit" class="btn-primary" label="บันทึก" formnovalidate ></button>
     </div>
   </div>
+</div>

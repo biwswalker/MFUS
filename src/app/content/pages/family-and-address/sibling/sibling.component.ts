@@ -20,7 +20,7 @@ export class SiblingComponent implements OnInit {
   thisForm: FamilyAndAddressForm = new FamilyAndAddressForm();
   sibling: AcSibling = new AcSibling();
   educationLevel: SelectItem[];
-
+  newRow:boolean = true;
   constructor(
     private utilsService: UtilsService,
     private familyAndAddress: FamilyAndAddressComponent,
@@ -44,16 +44,30 @@ export class SiblingComponent implements OnInit {
       dropdown = [];
       dropdown = [{label: data.education_name_t, value: data.education_ref},];
       this.educationLevel = this.educationLevel.concat(dropdown);
-      console.log('dropdown lenght: '+this.educationLevel.length);
     }
 
   }
 
+  dataCheckcing(){
+    console.log("dataCheckcing");
+    this.newRow = true;
+    for(let data of this.thisForm.siblingList){
+      console.log('loop');
+      console.log(data.sibling_name);
+      if(data.sibling_name == ''|| data.sibling_name == undefined){
+        this.newRow = false;
+      }
+    }
+  }
 
   addButtonOnClick() {
     console.log("addButtonOnClick");
+    this.dataCheckcing();
     this.sibling = new AcSibling();
-    this.thisForm.siblingList.push(this.sibling);
+    if(this.newRow){
+      this.thisForm.siblingList.push(this.sibling);
+    }
+
   }
   deleteButtonOnClick(index) {
     console.log("deleteButtonOnClick");
@@ -61,12 +75,13 @@ export class SiblingComponent implements OnInit {
   }
   nextButtonOnClick() {
     console.log("nextButtonOnClick");
-    this.familyAndAddress.onChangePanel(2, this.thisForm);
-    this.thisForm = new FamilyAndAddressForm();
+    this.dataCheckcing();
+    if(this.newRow){
+      this.familyAndAddress.onChangePanel(2, this.thisForm);
+    }
   }
   prevButtonOnClick() {
     console.log("prevButtonOnClick");
     this.familyAndAddress.onChangePanel(0, this.thisForm);
-    this.thisForm = new FamilyAndAddressForm();
   }
 }

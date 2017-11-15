@@ -1,10 +1,10 @@
 export class RftSubDistrict {
-  public sub_district_ref: number;
+  public sub_district_ref: string;
   public sub_district_code: string;
   public sub_district_name_t: string;
   public sub_district_name_e: string;
-  public province_ref: number;
-  public district_ref: number;
+  public province_ref: string;
+  public district_ref: string;
   public geo_ref: number;
 
 }

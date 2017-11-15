@@ -407,9 +407,9 @@ export class OfficerComponent implements OnInit {
     this.mode = 'U';
     this.officerEditForm = new OfficerForm();
     this.officerEditForm = event.data;
-    this.officerEditForm.rftProvince = this.getSelectedProvince(Number(this.officerEditForm.acOfficer.province));
-    this.officerEditForm.rftDistrict = this.getSelectedDistrict(Number(this.officerEditForm.acOfficer.district));
-    this.officerEditForm.rftSubDistrict = this.getSelectedSubDistrict(Number(this.officerEditForm.acOfficer.sub_district));
+    this.officerEditForm.rftProvince = this.getSelectedProvince(this.officerEditForm.acOfficer.province);
+    this.officerEditForm.rftDistrict = this.getSelectedDistrict(this.officerEditForm.acOfficer.district);
+    this.officerEditForm.rftSubDistrict = this.getSelectedSubDistrict(this.officerEditForm.acOfficer.sub_district);
     this.image = this.officerEditForm.acOfficer.profile_image;
     this.img_name = this.officerEditForm.acOfficer.profile_name;
     this.img_type = this.officerEditForm.acOfficer.profile_type
@@ -449,7 +449,7 @@ export class OfficerComponent implements OnInit {
     );
   }
 
-  getSelectedProvince(code: number) {
+  getSelectedProvince(code: string) {
     this.provinceObject = new RftProvince();
     let objList: RftProvince[];
     objList = this.listProvince;
@@ -462,7 +462,7 @@ export class OfficerComponent implements OnInit {
     }
   }
 
-  getSelectedDistrict(code: number) {
+  getSelectedDistrict(code: string) {
     this.districtObject = new RftDistrict();
     let objList: RftDistrict[];
     objList = this.listDistrict;
@@ -475,7 +475,7 @@ export class OfficerComponent implements OnInit {
     }
   }
 
-  getSelectedSubDistrict(code: number) {
+  getSelectedSubDistrict(code: string) {
     this.subDistrictObject = new RftSubDistrict();
     let objList: RftSubDistrict[];
     objList = this.listSubDistrict;

@@ -96,7 +96,7 @@
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">จังหวัด</label>
-      <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="thisForm.dadProvince" [suggestions]="fProvinceList"
+      <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="dadProvince" [suggestions]="fProvinceList"
         [size]="25" (onSelect)="selectProvince(0)" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(0)"
         (completeMethod)="autocompleteProvince($event)">
         <ng-template let-obj pTemplate="obj">
@@ -106,9 +106,9 @@
     </div>
     <div class="col-xs-7">
       <label class="normal">อำเภอ</label>
-      <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="thisForm.dadDistrict" [suggestions]="fDistrictList"
+      <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="dadDistrict" [suggestions]="fDistrictList"
         [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(0)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(0)"
-        [disabled]="!thisForm.dadProvince.province_ref"
+        [disabled]="!dadProvince.province_ref"
         (completeMethod)="autocompleteDistrict($event)">
         <ng-template let-obj pTemplate="obj">
           {{obj.district_name_t}}
@@ -120,9 +120,9 @@
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">ตำบล</label>
-      <p-autoComplete name="sub_district" field="sub_district_name_t" [(ngModel)]="thisForm.dadSubDistrict" [suggestions]="fSubDistrictList"
+      <p-autoComplete name="sub_district" field="sub_district_name_t" [(ngModel)]="dadSubDistrict" [suggestions]="fSubDistrictList"
         (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(0)" forceSelection="true"
-        [disabled]="!thisForm.dadDistrict.district_ref"
+        [disabled]="!dadDistrict.district_ref"
         (onDropdownClick)="handleCompleteClickSubDistrict(0)">
         <ng-template let-obj pTemplate="obj">
           {{obj.sub_district_name_t}}
@@ -131,7 +131,10 @@
     </div>
     <div class="col-xs-7">
       <label class="normal">รหัสไปรษณีย์</label>
-      <input type="text" pInputText class="input-postcode" name="father-postcode" [(ngModel)]="thisForm.acParent.father_postcode">
+      <input type="text" pInputText class="input-postcode"
+      name="father-postcode" [(ngModel)]="thisForm.acParent.father_postcode"
+      [disabled]="!dadSubDistrict.sub_district_ref"
+      >
     </div>
   </div>
 
@@ -261,7 +264,7 @@
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">จังหวัด</label>
-      <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="thisForm.momProvince" [suggestions]="mProvinceList"
+      <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="momProvince" [suggestions]="mProvinceList"
         [size]="25" (onSelect)="selectProvince(1)" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(1)"
         (completeMethod)="autocompleteProvince($event)">
         <ng-template let-obj pTemplate="obj">
@@ -271,9 +274,9 @@
     </div>
     <div class="col-xs-7">
       <label class="normal">อำเภอ</label>
-      <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="thisForm.momDistrict" [suggestions]="mDistrictList"
+      <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="momDistrict" [suggestions]="mDistrictList"
         [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(1)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(1)"
-        [disabled]="!thisForm.momProvince.province_ref"
+        [disabled]="!momProvince.province_ref"
         (completeMethod)="autocompleteDistrict($event)">
         <ng-template let-obj pTemplate="obj">
           {{obj.district_name_t}}
@@ -285,9 +288,9 @@
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">ตำบล</label>
-      <p-autoComplete name="sub_district" field="sub_district_name_t" [(ngModel)]="thisForm.momSubDistrict" [suggestions]="mSubDistrictList"
+      <p-autoComplete name="sub_district" field="sub_district_name_t" [(ngModel)]="momSubDistrict" [suggestions]="mSubDistrictList"
         (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(1)" forceSelection="true"
-        [disabled]="!thisForm.momDistrict.district_ref"
+        [disabled]="!momDistrict.district_ref"
         (onDropdownClick)="handleCompleteClickSubDistrict(1)">
         <ng-template let-obj pTemplate="obj">
           {{obj.sub_district_name_t}}
@@ -296,7 +299,9 @@
     </div>
     <div class="col-xs-7">
       <label class="normal">รหัสไปรษณีย์</label>
-      <input type="text" pInputText class="input-postcode" name="mother-postcode" [(ngModel)]="thisForm.acParent.mother_postcode">
+      <input type="text" pInputText class="input-postcode"
+      name="mother-postcode" [(ngModel)]="thisForm.acParent.mother_postcode"
+      [disabled]="!momSubDistrict.sub_district_ref">
     </div>
   </div>
 
@@ -434,7 +439,7 @@
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">จังหวัด</label>
-      <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="thisForm.patrolProvince" [suggestions]="pProvinceList"
+      <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="patrolProvince" [suggestions]="pProvinceList"
         [size]="25" (onSelect)="selectProvince(2)" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(2)"
         (completeMethod)="autocompleteProvince($event)">
         <ng-template let-obj pTemplate="obj">
@@ -444,9 +449,9 @@
     </div>
     <div class="col-xs-7">
       <label class="normal">อำเภอ</label>
-      <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="thisForm.patrolDistrict" [suggestions]="pDistrictList"
+      <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="patrolDistrict" [suggestions]="pDistrictList"
         [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(2)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(2)"
-        [disabled]="!thisForm.patrolProvince.province_ref"
+        [disabled]="!patrolProvince.province_ref"
         (completeMethod)="autocompleteDistrict($event)">
         <ng-template let-obj pTemplate="obj">
           {{obj.district_name_t}}
@@ -458,9 +463,9 @@
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">ตำบล</label>
-      <p-autoComplete name="sub_district" field="sub_district_name_t" [(ngModel)]="thisForm.patrolSubDistrict" [suggestions]="pSubDistrictList"
+      <p-autoComplete name="sub_district" field="sub_district_name_t" [(ngModel)]="patrolSubDistrict" [suggestions]="pSubDistrictList"
         (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(2)" forceSelection="true"
-        [disabled]="!thisForm.patrolDistrict.district_ref"
+        [disabled]="!patrolDistrict.district_ref"
         (onDropdownClick)="handleCompleteClickSubDistrict(2)">
         <ng-template let-obj pTemplate="obj">
           {{obj.sub_district_name_t}}
@@ -469,7 +474,9 @@
     </div>
     <div class="col-xs-7">
       <label class="normal">รหัสไปรษณีย์</label>
-      <input type="text" pInputText class="input-postcode" name="patrol-postcode" [(ngModel)]="thisForm.acParent.patrol_postcode">
+      <input type="text" pInputText class="input-postcode"
+      name="patrol-postcode" [(ngModel)]="thisForm.acParent.patrol_postcode"
+      [disabled]="!patrolSubDistrict.sub_district_ref">
     </div>
   </div>
 
