@@ -9,7 +9,7 @@
       <label class="normal">ที่อยู่</label>
       <input type="text" pInputText
       class="input-address"
-      name="mother-address"
+      name="home-address"
       [(ngModel)]="thisForm.acAddress.home_address"
       >
     </div>
@@ -173,7 +173,6 @@
       <input type="text" pInputText class="input-postcode"
       name="current-postcode"
       [(ngModel)]="thisForm.acAddress.current_postcode"
-      formControlName="current_postcode"
       >
     </div>
   </div>
@@ -181,8 +180,8 @@
   <div class="row overide-row"></div>
   <div class="row overide-row formFooter">
     <div class="col-xs-12" style="text-align:right">
-      <button pButton type="button" class="btn-primary" label="ย้อนกลับ" (click)="prevButtonOnClick()"></button>
-      <button pButton type="submit" class="btn-primary" label="บันทึก" formnovalidate ></button>
+      <button pButton type="button" label="ย้อนกลับ" (click)="prevButtonOnClick()"></button>
+      <button pButton type="submit" class="ui-button-success" label="บันทึก" (click)="submitButtonOnClick()" ></button>
     </div>
   </div>
 </div>

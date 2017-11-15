@@ -160,16 +160,15 @@ export class AddressComponent implements OnInit {
     console.log("handleCompleteClickSubDistrict");
     if (index == 0) {
       this.homeSubDistrictList = [];
-      this.thisForm.acAddress.home_postcode = null;
       setTimeout(() => {
         this.homeSubDistrictList = this.homeListSubDistrict;
+        console.log("index:0 ==> "+this.homeSubDistrictList.length);
       }, 100);
     }
     if (index == 1) {
-      this.homeSubDistrictList = [];
-      this.thisForm.acAddress.current_postcode = null;
+      this.currentSubDistrictList = [];
       setTimeout(() => {
-        this.homeSubDistrictList = this.homeListSubDistrict;
+        this.currentSubDistrictList = this.currentListSubDistrict;
       }, 100);
     }
   }
@@ -213,6 +212,7 @@ export class AddressComponent implements OnInit {
         .subscribe((res: RftSubDistrict[]) => {
           this.homeListSubDistrict = [];
           this.homeListSubDistrict.push(...res);
+          console.log("index:0 ==> "+this.homeListSubDistrict.length);
         });
     }
     if (index == 1) {
@@ -231,10 +231,10 @@ export class AddressComponent implements OnInit {
   selectSubDistrict(index: number) {
     console.log("selectSubDistrict");
     if(index==0){
-      this.thisForm.acAddress.home_postcode = this.homeDistrict.postcode;
+      this.thisForm.acAddress.home_postcode = this.homeSubDistrict.postcode;
     }
     if(index==1){
-      this.thisForm.acAddress.current_postcode = this.currentDistrict.postcode;
+      this.thisForm.acAddress.current_postcode = this.currentSubDistrict.postcode;
     }
   }
 
@@ -242,7 +242,15 @@ export class AddressComponent implements OnInit {
     console.log("nextButtonOnClick");
     // set home address
     this.thisForm.acAddress.home_province = this.homeProvince.province_ref;
+    this.thisForm.acAddress.home_district = this.homeDistrict.district_ref;
+    this.thisForm.acAddress.home_sub_district = this.homeSubDistrict.sub_district_ref;
 
+    // set home address
+    this.thisForm.acAddress.current_province = this.currentProvince.province_ref;
+    this.thisForm.acAddress.current_district = this.currentDistrict.district_ref;
+    this.thisForm.acAddress.current_sub_district = this.currentSubDistrict.sub_district_ref;
+
+    this.familyAndAddress.onSubmit(this.thisForm);
     // this.familyAndAddress.onNext(1);
     // console.log(this.siblings);
   }

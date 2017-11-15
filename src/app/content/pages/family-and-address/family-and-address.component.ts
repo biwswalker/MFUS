@@ -89,4 +89,10 @@ export class FamilyAndAddressComponent implements OnInit {
     console.log("activeIndex = " + this.activeIndex);
     //   console.log('data = ' + this.applyScholarshipForm);
   }
+
+  onSubmit(form: FamilyAndAddressForm){
+    this.familyAndAddressForm = new FamilyAndAddressForm();
+    this.familyAndAddressForm = form;
+    console.log("home_address = " + this.familyAndAddressForm.acAddress.home_address);
+  }
 }

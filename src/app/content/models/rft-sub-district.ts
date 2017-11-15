@@ -5,6 +5,6 @@ export class RftSubDistrict {
   public sub_district_name_e: string;
   public province_ref: string;
   public district_ref: string;
-  public geo_ref: number;
+  public postcode: string;
 
 }
