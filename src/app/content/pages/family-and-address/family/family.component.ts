@@ -349,13 +349,13 @@ export class FamilyComponent implements OnInit {
   selectSubDistrict(index: number) {
     console.log("selectSubDistrict");
     if (index == 0) {
-      this.thisForm.acParent.father_postcode = this.dadDistrict.postcode;
+      this.thisForm.acParent.father_postcode = this.dadSubDistrict.postcode;
     }
     if (index == 1) {
-      this.thisForm.acParent.mother_postcode = this.momDistrict.postcode;
+      this.thisForm.acParent.mother_postcode = this.momSubDistrict.postcode;
     }
     if (index == 2) {
-      this.thisForm.acParent.patrol_postcode = this.patrolDistrict.postcode;
+      this.thisForm.acParent.patrol_postcode = this.patrolSubDistrict.postcode;
     }
   }
 

@@ -88,7 +88,7 @@ export class OfficerComponent implements OnInit {
     this.officerEditForm.acOfficer.gender = 'M';
     this.officerEditForm.acOfficer.title_ref = '';
     this.image = './assets/images/empty_profile.png';
-    this.postcode = this.officerEditForm.rftDistrict.postcode;
+    this.postcode = this.officerEditForm.rftSubDistrict.postcode;
     this.validatorEditForm();
     this.submitBtn = 'สร้าง';
   }
@@ -244,7 +244,7 @@ export class OfficerComponent implements OnInit {
   }
 
   selectSubDistrict(event: SelectItem) {
-    this.postcode = this.officerEditForm.rftDistrict.postcode;
+    this.postcode = this.officerEditForm.rftSubDistrict.postcode;
   }
 
   // //End Autocomplete Province---------------------------------------------------------------------------
@@ -413,7 +413,7 @@ export class OfficerComponent implements OnInit {
     this.image = this.officerEditForm.acOfficer.profile_image;
     this.img_name = this.officerEditForm.acOfficer.profile_name;
     this.img_type = this.officerEditForm.acOfficer.profile_type
-    this.postcode = this.officerEditForm.rftDistrict.postcode;
+    this.postcode = this.officerEditForm.rftSubDistrict.postcode;
     this.manage_status = this.getManageStatus(this.officerEditForm.acOfficer.manage_officer_flag);
     this.submitBtn = 'แก้ไข';
     this.validatorEditForm();

@@ -382,7 +382,7 @@ export class SponsorsComponent implements OnInit {
   }
 
   selectSubDistrict(event: SelectItem) {
-    this.postcode = this.sponsorsForm.rftDistrict.postcode;
+    this.postcode = this.sponsorsForm.rftSubDistrict.postcode;
   }
   //--------- End select ----------------
 
