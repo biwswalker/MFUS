@@ -432,7 +432,7 @@ export class SponsorsComponent implements OnInit {
   }
 
    //--------- get Seleted ---------------
-  getSelectedProvince(code: number) {
+  getSelectedProvince(code: string) {
     this.provinceObject = new RftProvince();
     let objList: RftProvince[];
     objList = this.rftProvinceList;
@@ -445,7 +445,7 @@ export class SponsorsComponent implements OnInit {
     }
   }
 
-  getSelectedDistrict(code: number) {
+  getSelectedDistrict(code: string) {
     this.districtObject = new RftDistrict();
     let objList: RftDistrict[];
     objList = this.rftDistrictList;
@@ -458,7 +458,7 @@ export class SponsorsComponent implements OnInit {
     }
   }
 
-  getSelectedSubDistrict(code: number) {
+  getSelectedSubDistrict(code: string) {
     this.subDistrictObject = new RftSubDistrict();
     let objList: RftSubDistrict[];
     objList = this.rftSubDistrictList;

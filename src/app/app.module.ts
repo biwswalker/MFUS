@@ -1,4 +1,5 @@
-import { UploadDocumentComponent } from "./content/pages/apply-scholarship/upload-document/upload-document.component";
+import { EducationLevelService } from './services/educationlevel.service';
+import { UploadDocumentComponent } from './content/pages/apply-scholarship/upload-document/upload-document.component';
 
 import { StartupService } from "./services/startup.service";
 import { ApplyscholarshipService } from "./services/applyscholarship.service";
@@ -241,6 +242,7 @@ export function startupServiceFactory(
     UserService,
     StartupService,
     StudentService,
+    EducationLevelService,
     {
       provide: APP_INITIALIZER,
       useFactory: startupServiceFactory,

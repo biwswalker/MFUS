@@ -2,6 +2,7 @@ export class AcAddress {
  public address_ref: string;
  public student_ref: string;
  public home_address: string;
+ public home_province: string;
  public home_district: string;
  public home_sub_district: string;
  public home_postcode: string;

@@ -102,7 +102,7 @@ export class UtilsService {
       );
   }
 
-  getDistrictsByProvinceRef(ref: number): Observable<RftDistrict[]> {
+  getDistrictsByProvinceRef(ref: string): Observable<RftDistrict[]> {
     console.log('ref' + ref)
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -115,7 +115,7 @@ export class UtilsService {
       );
   }
 
-  getSubDistrictsByDistrictRef(ref: number): Observable<RftSubDistrict[]> {
+  getSubDistrictsByDistrictRef(ref: string): Observable<RftSubDistrict[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let criteria = '/district_ref=' + ref;
@@ -137,6 +137,7 @@ export class UtilsService {
         }
       );
   }
+
 
   getDropdownMonthShort():SelectItem[]{
     let months: SelectItem[];
