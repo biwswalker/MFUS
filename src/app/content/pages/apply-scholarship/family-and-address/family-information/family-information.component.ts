@@ -7,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FamilyInformationComponent implements OnInit {
 
+  mode: string;
+
   constructor() { }
 
   ngOnInit() {
     console.log('Begin family information')
+    this.mode = 'S';
   }
 
+  onEdit()  {
+    this.mode = 'U'
+  }
 }

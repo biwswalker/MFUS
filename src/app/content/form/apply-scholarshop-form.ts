@@ -22,9 +22,8 @@ export class ApplyScholarshipForm {
   public rftTitleName: RftTitleName;
 
   public age: number;
-  public scholarship_seq = [];
-  public student_loan_seq = [];
-
+  public scholarship_seq: any[] = [];
+  public student_loan_seq: any[] = [];
 
   constructor() {
     this.acStudent = new AcStudent();

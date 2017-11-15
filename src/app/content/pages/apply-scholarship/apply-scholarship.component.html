@@ -3,7 +3,7 @@
         <p>สมัครทุนการศึกษา</p>
         <div class="underline-blue"></div>
     </div>
-    <div class="row">
+    <div class="row overide-row">
         <div class="col-xs-12">
             <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false" styleClass="steps-custom" class="five-step">
             </p-steps>
@@ -45,17 +45,6 @@
                 </div>
                 <div class="space"></div>
                 <app-upload-document></app-upload-document>
-            </div>
-        </div>
-    </div>
-    <div class="space"></div>
-    <div class="row formFooter">
-        <div class="col-xs-12">
-            <div *ngIf="activeIndex !=4">
-                <button pButton type="button" class="btn-primary" (click)="onNext()" label="ต่อไป" style="float:right;"></button>
-            </div>
-            <div *ngIf="activeIndex !=0">
-                <button pButton type="button" class="ui-button-warning" (click)="onPrevious()" label="กลับ" style="float:right;"></button>
             </div>
         </div>
     </div>

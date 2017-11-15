@@ -56,7 +56,6 @@ export class ApplyScholarshipComponent implements OnInit {
     ];
   }
 
-
   onNext() {
     this.activeIndex++
     this.applyscholarshipService.nextIndex(this.activeIndex);
@@ -73,13 +72,5 @@ export class ApplyScholarshipComponent implements OnInit {
     //  this.applyScholarshipForm = this.applyscholarshipService.getData();
       console.log('activeIndex = ' + this.activeIndex);
       console.log('data = ' , this.applyScholarshipForm);
-  }
-
-  disable() {
-    if(this.activeIndex == 0) {
-      return true;
-    }else if(this.activeIndex == 4) {
-      return true;
-    }
   }
 }

@@ -4,6 +4,7 @@ import { ApplyscholarshipService } from './../../../../services/applyscholarship
 import { ApplyScholarshipForm } from "../../../form/apply-scholarshop-form";
 import { ApFamilyDebt } from "../../../models/ap-family-debt";
 import { Component, OnInit } from "@angular/core";
+import { ApplyScholarshipComponent } from '../apply-scholarship.component';
 
 @Component({
   selector: "app-family-financial",
@@ -12,74 +13,51 @@ import { Component, OnInit } from "@angular/core";
 })
 export class FamilyFinancialComponent implements OnInit {
 
-  msgs: Message[];
-
-
-  debtList: ApplyScholarshipForm[] = [];
-  index: number= 0;
-  debt: ApplyScholarshipForm;
+  debtList: ApFamilyDebt[] = [];
+  debt: ApFamilyDebt;
   financial: ApplyScholarshipForm;
 
-  constructor(private applyscholarshipService: ApplyscholarshipService) {}
+  constructor(public applyScholarship: ApplyScholarshipComponent,
+              private applyscholarshipService: ApplyscholarshipService) {}
 
   ngOnInit() {
     this.financial = new ApplyScholarshipForm();
-    this.debt = new ApplyScholarshipForm();
+    this.debt = new ApFamilyDebt();
     console.log("Begin apFamilyDept");
-    this.index = 1
   }
 
   addRow() {
-    this.debt = new ApplyScholarshipForm();
-    this.debt.apFamilyDebt.seq = this.index
+    this.debt = new ApFamilyDebt();
+    this.debt.seq = this.debtList.length+1
     let debtList = [...this.debtList];
     debtList.push(this.debt);
     this.debtList = debtList;
     debtList = [];
-    this.index++
-    console.log(this.debtList)
   }
 
-  deleteRow(obj: ApplyScholarshipForm) {
-   console.log(obj)
+  deleteRow(obj: ApFamilyDebt) {
    let index = this.debtList.indexOf(obj);
-   console.log(index);
    this.debtList.splice(index,1);
   }
 
-  onPrevious() {
-
+  addDebt() {
+    console.log(this.debtList)
+    let objList: ApFamilyDebt[] = this.debtList;
+    for(let obj of objList){
+      this.applyScholarship.applyScholarshipForm.apFamilyDebt = obj;
+    }
   }
 
   onNext() {
-    this.addFinancial();
     this.addDebt();
+
+    this.applyscholarshipService.nextIndex(3);
+    this.applyScholarship.activeIndex = this.applyscholarshipService.getIndex();
+    console.log('data = ' , this.applyScholarship.applyScholarshipForm);
   }
 
-  addFinancial() {
-    console.log('addFinancial')
-    this.financial.apFamilyFinancial.application_ref = '11111';
-    console.log(this.financial.apFamilyFinancial)
-    // this.applyscholarshipService.addFamilyFinancial(this.financial).subscribe(
-    //   (res: Response) =>{
-    //     this.showSuccess('บันทึกข้อมูลเจ้าหน้าที่เรียบร้อยแล้ว รหัสอ้างอิงคือ ' + res.json().family_financial_ref);
-    //   }
-    // )
-  }
-
-  addDebt() {
-    console.log('this.addDebt')
-    console.log(this.debtList)
-
-  }
-
-  showSuccess(message: string) {
-    this.msgs = [];
-    this.msgs.push({ severity: 'success', summary: 'บันทีกข้อมูลสำเร็จ', detail: message });
-  }
-
-  showError(message: string) {
-    this.msgs = [];
-    this.msgs.push({ severity: 'error', summary: 'ไม่สามารถบันทึกข้อมูลได้', detail: message });
+  onPrevious() {
+      this.applyscholarshipService.nextIndex(1);
+      this.applyScholarship.activeIndex = this.applyscholarshipService.getIndex();
   }
 }
