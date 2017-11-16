@@ -25,21 +25,21 @@ export class FamilyComponent implements OnInit {
 
   dadDropdownMonths: SelectItem[];
   dadDropdownDays: SelectItem[];
-  dadMonth: number = null;
-  dadDay: number = null;
-  dadYear: number = null;
+  dadMonth: string = null;
+  dadDay: string = null;
+  dadYear: string = null;
 
   momDropdownMonths: SelectItem[];
   momDropdownDays: SelectItem[];
-  momMonth: number = null;
-  momDay: number = null;
-  momYear: number = null;
+  momMonth: string = null;
+  momDay: string = null;
+  momYear: string = null;
 
   patrolDropdownMonths: SelectItem[];
   patrolDropdownDays: SelectItem[];
-  patrolMonth: number = null;
-  patrolDay: number = null;
-  patrolYear: number = null;
+  patrolMonth: string = null;
+  patrolDay: string = null;
+  patrolYear: string = null;
 
   // Autocomplete Province
   listProvince: RftProvince[] = [];
@@ -361,6 +361,8 @@ export class FamilyComponent implements OnInit {
 
   nextButtonOnClick() {
     console.log("nextButtonOnClick");
+    // set father data
+
     this.familyAndAddress.onChangePanel(1, this.thisForm);
     this.thisForm = new FamilyAndAddressForm();
   }
