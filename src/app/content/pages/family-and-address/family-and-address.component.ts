@@ -1,3 +1,4 @@
+import { FamilyAndAddressService } from './../../../services/familyandaddress.service';
 import { RftEducationLevel } from './../../models/rft-education-level';
 import { EducationLevelService } from './../../../services/educationlevel.service';
 import { AcSibling } from "./../../models/ac-sibling";
@@ -20,7 +21,7 @@ export class FamilyAndAddressComponent implements OnInit {
 
 
   educationLevelList: RftEducationLevel[];
-  constructor(private utilsService: UtilsService,private educationLevelService: EducationLevelService) {}
+  constructor(private utilsService: UtilsService,private educationLevelService: EducationLevelService, private FamilyAndAddressService) {}
 
   ngOnInit() {
     this.familyAndAddressForm = new FamilyAndAddressForm();
@@ -30,6 +31,9 @@ export class FamilyAndAddressComponent implements OnInit {
     this.familyAndAddressForm.acParent.father_status = "1";
     this.familyAndAddressForm.acParent.mother_status = "1";
     this.familyAndAddressForm.acParent.patrol_status = "1";
+    this.familyAndAddressForm.acParent.father_land_flag = "1";
+    this.familyAndAddressForm.acParent.mother_land_flag = "1";
+    this.familyAndAddressForm.acParent.patrol_land_flag = "1";
 
     this.familyAndAddressForm.siblingList = [];
     this.sibling = new AcSibling();
@@ -82,9 +86,7 @@ export class FamilyAndAddressComponent implements OnInit {
     this.familyAndAddressForm = form;
 
     console.log(this.familyAndAddressForm.siblingList);
-    // this.applyscholarshipService.nextIndex(index);
-    // this.activeIndex = this.applyscholarshipService.getIndex();
-    // //  this.applyScholarshipForm = this.applyscholarshipService.getData();
+
     this.activeIndex = index;
     console.log("activeIndex = " + this.activeIndex);
     //   console.log('data = ' + this.applyScholarshipForm);
@@ -94,5 +96,7 @@ export class FamilyAndAddressComponent implements OnInit {
     this.familyAndAddressForm = new FamilyAndAddressForm();
     this.familyAndAddressForm = form;
     console.log("home_address = " + this.familyAndAddressForm.acAddress.home_address);
+
+    this.FamilyAndAddressService.
   }
 }

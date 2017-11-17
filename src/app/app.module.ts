@@ -99,6 +99,7 @@ import { FamilyFinancialComponent } from "./content/pages/apply-scholarship/fami
 import { MainNewsComponent } from "./content/pages/main-news/main-news.component";
 import { SiblingComponent } from "./content/pages/family-and-address/sibling/sibling.component";
 import { AddressComponent } from "./content/pages/family-and-address/address/address.component";
+import { FamilyAndAddressService } from './services/familyandaddress.service';
 
 //Router
 const appRoutes: Routes = [
@@ -246,6 +247,7 @@ export function startupServiceFactory(
     StartupService,
     StudentService,
     EducationLevelService,
+    FamilyAndAddressService
     {
       provide: APP_INITIALIZER,
       useFactory: startupServiceFactory,
