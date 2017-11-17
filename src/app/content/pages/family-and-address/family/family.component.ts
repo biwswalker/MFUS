@@ -362,6 +362,19 @@ export class FamilyComponent implements OnInit {
   nextButtonOnClick() {
     console.log("nextButtonOnClick");
     // set father data
+    this.thisForm.acParent.father_province = this.dadProvince.province_ref;
+    this.thisForm.acParent.father_district = this.dadDistrict.district_ref;
+    this.thisForm.acParent.father_sub_district = this.dadSubDistrict.sub_district_ref;
+
+    // set father data
+    this.thisForm.acParent.mother_province = this.momProvince.province_ref;
+    this.thisForm.acParent.mother_district = this.momDistrict.district_ref;
+    this.thisForm.acParent.mother_sub_district = this.momSubDistrict.sub_district_ref;
+
+    // set father data
+    this.thisForm.acParent.patrol_province = this.patrolProvince.province_ref;
+    this.thisForm.acParent.patrol_district = this.patrolDistrict.district_ref;
+    this.thisForm.acParent.patrol_sub_district = this.patrolSubDistrict.sub_district_ref;
 
     this.familyAndAddress.onChangePanel(1, this.thisForm);
     this.thisForm = new FamilyAndAddressForm();
