@@ -30,6 +30,9 @@ export class FamilyAndAddressComponent implements OnInit {
     this.familyAndAddressForm.acParent.father_status = "1";
     this.familyAndAddressForm.acParent.mother_status = "1";
     this.familyAndAddressForm.acParent.patrol_status = "1";
+    this.familyAndAddressForm.acParent.father_land_flag = "1";
+    this.familyAndAddressForm.acParent.mother_land_flag = "1";
+    this.familyAndAddressForm.acParent.patrol_land_flag = "1";
 
     this.familyAndAddressForm.siblingList = [];
     this.sibling = new AcSibling();

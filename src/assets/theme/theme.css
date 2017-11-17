@@ -33,6 +33,8 @@ body .ui-icon {
 }
 body .ui-state-disabled,
 body .ui-widget:disabled {
+    background: #3a8db7;
+    color: #ffffff;
     opacity: .6;
     filter: Alpha(Opacity= 35);
     background-image: none;
