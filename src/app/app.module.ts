@@ -1,3 +1,4 @@
+import { DocumentsscreeningComponent } from './content/pages/documentsscreening/documentsscreening.component';
 import { EducationLevelService } from './services/educationlevel.service';
 import { UploadDocumentComponent } from './content/pages/apply-scholarship/upload-document/upload-document.component';
 
@@ -119,6 +120,7 @@ const appRoutes: Routes = [
         path: "announcement-detail",
         component: ScholarshipAnnouncementDetailComponent
       },
+      { path: "documents-screening", component: DocumentsscreeningComponent},
       { path: "officer", component: OfficerComponent },
       { path: "reguser", component: ReguserComponent },
       { path: "school", component: SchoolComponent },
@@ -195,7 +197,8 @@ export function startupServiceFactory(
     FamilyComponent,
     SiblingComponent,
     AddressComponent,
-    DateFormatPipe
+    DateFormatPipe,
+    DocumentsscreeningComponent
   ],
   imports: [
     BrowserModule,
