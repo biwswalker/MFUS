@@ -28,12 +28,12 @@ export class StudentComponent implements OnInit {
   listTitle: SelectItem[] = [];
 
   monthList: SelectItem[];
-  birthMmonth: number = 0;
+  birthMmonth: string;
 
   dayList: SelectItem[];
-  birthDay: number = 0;
+  birthDay: string;
 
-  birthYear: number;
+  birthYear: string;
   birthDate:string;
   studentFormGroup: FormGroup;
   studentEditForm: StudentForm;
@@ -252,7 +252,7 @@ export class StudentComponent implements OnInit {
     value.major_ref = this.studentEditForm.rftMajor.major_ref;
     value.create_user = this.studentEditForm.acStudent.create_user;
     value.update_user = this.studentEditForm.acStudent.update_user;
-    value.birth_date = this.birthMmonth.toString().concat(this.birthDay.toString()).concat(this.birthYear.toString())
+    value.birth_date = this.birthYear.concat(this.birthMmonth).concat(this.birthDay)
     console.log(value);
     this.studentService.addStudent(value).subscribe(
       (res: Response) => {
