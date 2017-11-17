@@ -110,8 +110,8 @@ export class NewsComponent implements OnInit {
     value.news_image = this.image;
     value.news_name = this.file.name;
     value.news_type = this.file.type;
-
-    value.publish_date = moment(value.publish_date).format('YYYY-MM-DD');
+    let previewDate = moment(this.newsForm.smNews.publish_date).set('year', moment(this.previewDate).get('year')+543);
+    value.publish_date = moment(previewDate).format('YYYY-MM-DD');
     value.active_flag = 'Y';
     value.create_user = 'phai';
     value.update_user = 'phai';

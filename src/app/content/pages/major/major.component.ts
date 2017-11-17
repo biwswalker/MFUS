@@ -276,12 +276,6 @@ export class MajorComponent implements OnInit {
     this.initSearchData();
   }
 
-
-
-
-
-
-
   //dropdown
   getStatusList() {
     this.statusList = [];

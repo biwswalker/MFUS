@@ -56,13 +56,21 @@ export class ApplyScholarshipComponent implements OnInit {
     ];
   }
 
-
-  onNext(index) {
-    this.applyscholarshipService.nextIndex(index);
+  onNext() {
+    this.activeIndex++
+    this.applyscholarshipService.nextIndex(this.activeIndex);
     this.activeIndex = this.applyscholarshipService.getIndex();
   //  this.applyScholarshipForm = this.applyscholarshipService.getData();
     console.log('activeIndex = ' + this.activeIndex);
-    console.log('data = ' + this.applyScholarshipForm);
+    console.log('data = ' , this.applyScholarshipForm);
   }
 
+  onPrevious() {
+      this.activeIndex--
+      this.applyscholarshipService.nextIndex(this.activeIndex);
+      this.activeIndex = this.applyscholarshipService.getIndex();
+    //  this.applyScholarshipForm = this.applyscholarshipService.getData();
+      console.log('activeIndex = ' + this.activeIndex);
+      console.log('data = ' , this.applyScholarshipForm);
+  }
 }

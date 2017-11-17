@@ -1,4 +1,4 @@
-import { FamilyAndAddressComponent } from "./../family-and-address.component";
+import { FamilyAndAddressComponent } from "./../../family-and-address/family-and-address.component";
 import { Component, OnInit } from "@angular/core";
 import { UtilsService } from "./../../../../services/utils.service";
 import { RftSubDistrict } from "./../../../models/rft-sub-district";
@@ -78,7 +78,7 @@ export class FamilyComponent implements OnInit {
 
   constructor(
     private utilsService: UtilsService,
-    private familyAndAddress: FamilyAndAddressComponent
+    public familyAndAddress: FamilyAndAddressComponent
   ) {}
 
   ngOnInit() {
