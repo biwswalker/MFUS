@@ -26,6 +26,11 @@
                 <label class="normal">เกรดขั้นต่ำ</label> {{applyScholarship.applyScholarshipForm.smScholarshipAnnouncement.min_gpax}}
             </div>
         </div>
+        <div class="row overide_row">
+            <div class="col-xs-12">
+                <label for="" class="normal">รายละเอียดทุนการศึกษา</label>
+            </div>
+        </div>
         <div class="row overide-row">
             <div class="col-xs-12">
                 <div class="content-header-blue">
@@ -36,9 +41,9 @@
         <div class="row overide-row">
             <div class="col-xs-12">
                 <p-dataTable [value]="historyList" [immutable]="false">
-                    <p-column [sortable]="true" header="ลำดับ">
-                        <ng-template ngFor let-seq [ngForOf]="historyList" let-i="index" pTemplate="body">
-                            {{i+1}}
+                    <p-column [sortable]="true" header="ลำดับ" field="seq">
+                        <ng-template let-col let-obj="rowIndex" pTemplate="body">
+                            {{obj+1}}
                         </ng-template>
                     </p-column>
                     <p-column [sortable]="true" header="ชื่อทุนการศึกษา" field="scholarship_name">
@@ -73,7 +78,8 @@
                 <label class="content-header-blue-normal"><p>กองทุนกู้ยืมเพื่อการศึกษา</p></label>
                 <p-dataTable [value]="stdLoanList" [immutable]="false">
                     <p-column [sortable]="true" header="ลำดับ" field="student_loan_seq">
-                        <ng-template let-col let-obj="rowData" pTemplate="body">
+                        <ng-template let-col let-obj="rowIndex" pTemplate="body">
+                            {{obj+1}}
                         </ng-template>
                     </p-column>
                     <p-column [sortable]="true" header="ปีการศึกษา" field="year">

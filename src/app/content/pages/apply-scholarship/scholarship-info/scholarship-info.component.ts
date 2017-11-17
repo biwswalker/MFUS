@@ -23,7 +23,6 @@ import { ApScholarshipHistory } from '../../../models/ap-scholarship-history';
 })
 export class ScholarshipInfoComponent implements OnInit {
 
-  i:number = 0;
   scholarshipInfo: ApplyScholarshipForm;
   historyList: ApScholarshipHistory[] = [];
   history: ApScholarshipHistory;
@@ -47,12 +46,14 @@ export class ScholarshipInfoComponent implements OnInit {
 
   getScholarshipHistory() {
     console.log('Get scholarshipHistory')
-    this.applyscholarshipService.getScholarshipHistory().subscribe(
+    this.applyscholarshipService.getScholarshipHistory()
+    .subscribe(
       (res: ApScholarshipHistory[]) => {
-        this.historyList.push(...res);
+        for(let obj of res) {
+          this.historyList.push(obj);
+        }
       }
     );
-    console.log(this.applyScholarship.applyScholarshipForm)
    return this.applyScholarship.applyScholarshipForm;
   }
 
@@ -60,10 +61,11 @@ export class ScholarshipInfoComponent implements OnInit {
     console.log('Get getStdLoan')
     this.applyscholarshipService.getStdLoan().subscribe(
       (res: ApStudentLoanFund[]) => {
-        this.stdLoanList.push(...res);
+        for(let obj of res) {
+          this.stdLoanList.push(obj)
+        }
       }
     );
-    console.log(this.applyScholarship.applyScholarshipForm)
    return this.applyScholarship.applyScholarshipForm;
   }
 
@@ -73,7 +75,6 @@ export class ScholarshipInfoComponent implements OnInit {
         this.listScholarship.push(...res);
       }
     );
-    console.log(this.listScholarship)
   }
 
   autocompleteScholarship(event) {
@@ -104,7 +105,6 @@ export class ScholarshipInfoComponent implements OnInit {
     let historyList = [...this.historyList];
     historyList.push(this.history);
     this.historyList = historyList;
-    this.applyScholarship.applyScholarshipForm.scholarship_seq.push(this.historyList.length)
   }
 
   deleteScholarship(obj: ApScholarshipHistory) {
@@ -117,7 +117,6 @@ export class ScholarshipInfoComponent implements OnInit {
     let stdLoanList = [...this.stdLoanList];
     stdLoanList.push(this.stdLoan);
     this.stdLoanList = stdLoanList;
-    // this.stdLoan.student_loan_seq.push(this.stdLoanList.length)
   }
 
   deleteStdLoan(obj: ApStudentLoanFund) {
