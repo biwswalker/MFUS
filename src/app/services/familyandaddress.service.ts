@@ -3,11 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 @Injectable()
-export class ApplyscholarshipService {
-  private activeIndex = 0;
+export class FamilyAndAddressService {
   constructor(private http: Http) { }
 
-  getIndex(){
-    return this.activeIndex;
+  insertFamilyAndAddress(){
+
   }
 }
