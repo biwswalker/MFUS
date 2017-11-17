@@ -74,20 +74,17 @@ export class FamilyInformationComponent implements OnInit {
     patrolSubDistrict: RftSubDistrict = new RftSubDistrict;
 
   constructor(private utilService: UtilsService,
-              private familyInformationService: FamilyInformationService,
               private applysholarshipcomponent: ApplyScholarshipComponent ) { }
 
   ngOnInit() {
     console.log('Begin family information')
     this.mode = 'S';
-    this.initBirthMonth();
     this.getProvince();
     this.getFamilyInformation();
   }
 
   getFamilyInformation() {
-    let ref = this.applysholarshipcomponent.applyScholarshipForm.acStudent.student_ref;
-    this.familyInformationService.getFamilyInformationFromRef(ref);
+
   }
 
   getProvince() {
@@ -95,42 +92,7 @@ export class FamilyInformationComponent implements OnInit {
     this.listProvince = this.utilService.getProvincesList();
   }
 
-  initBirthMonth() {
-    this.dadDropdownMonths = this.utilService.getDropdownMonthShort();
-    this.dadDropdownDays = this.utilService.getDropdownDayInMonth(
-      this.dadMonth
-    );
-    this.momDropdownMonths = this.utilService.getDropdownMonthShort();
-    this.momDropdownDays = this.utilService.getDropdownDayInMonth(
-      this.dadMonth
-    );
-    this.patrolDropdownMonths = this.utilService.getDropdownMonthShort();
-    this.patrolDropdownDays = this.utilService.getDropdownDayInMonth(
-      this.dadMonth
-    );
-  }
 
-  selectMonth(seq: number) {
-    console.log("sequence: " + seq);
-    if (seq == 1) {
-      this.dadDropdownDays = this.utilService.getDropdownDayInMonth(
-        this.dadMonth
-      );
-      this.dadDay = null;
-    }
-    if (seq == 2) {
-      this.momDropdownDays = this.utilService.getDropdownDayInMonth(
-        this.momMonth
-      );
-      this.momDay = null;
-    }
-    if (seq == 3) {
-      this.patrolDropdownDays = this.utilService.getDropdownDayInMonth(
-        this.patrolMonth
-      );
-      this.patrolDay = null;
-    }
-  }
 
   autocompleteProvince(event) {
     console.log("autocompleteProvince");
