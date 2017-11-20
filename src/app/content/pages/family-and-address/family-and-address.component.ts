@@ -97,6 +97,7 @@ export class FamilyAndAddressComponent implements OnInit {
     this.familyAndAddressForm = form;
     console.log("home_address = " + this.familyAndAddressForm.acAddress.home_address);
 
+
     this.familyAndAddressService.insertFamilyAndAddress(this.familyAndAddressForm);
   }
 }

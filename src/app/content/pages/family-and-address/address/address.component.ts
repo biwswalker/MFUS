@@ -44,7 +44,12 @@ export class AddressComponent implements OnInit {
   currentDistrict: RftDistrict = new RftDistrict();
   currentSubDistrict: RftSubDistrict = new RftSubDistrict();
 
-  files: File[];
+  image: any;
+  fileList: FileList;
+  binaryString: string;
+  file: File;
+  img_name: string;
+  img_type: string;
 
   constructor(
     private utilsService: UtilsService,
@@ -240,13 +245,37 @@ export class AddressComponent implements OnInit {
     }
   }
 
+
   uploadDirection(event){
     console.log("uploadDirection");
-    console.log(event.target.files);
+    this.fileList = event.target.files;
+    if (this.fileList.length > 0) {
+      this.file = this.fileList[0];
+      // 10 MB
+      if (this.file.size < 10000000) {
+        let reader = new FileReader();
+        reader.onload = this.handleReaderLoaded.bind(this);
+        reader.readAsBinaryString(this.file);
+      } else {
 
-    this.files = event.target.files;
-    console.log(this.files);
+      }
+    }
   }
+
+  handleReaderLoaded(readerEvent) {
+    this.binaryString = readerEvent.target.result;
+    this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
+    // console.log(btoa(this.binaryString));
+    this.img_name = this.file.name;
+    this.img_type = this.file.type;
+
+    this.thisForm.acAddress.direction_name = this.img_name;
+    this.thisForm.acAddress.direction_type = this.img_type;
+    console.log(this.file.name);
+    console.log(this.file.size);
+    console.log(this.file.type);
+  }
+
 
   submitButtonOnClick() {
     console.log("nextButtonOnClick");
