@@ -6,6 +6,7 @@ import { Response } from '@angular/http';
 import { Validators } from '@angular/forms';
 import { NewsForm } from "../../form/news-form";
 import { NewsService } from './../../../services/news.service';
+import { NgProgress } from 'ngx-progressbar';
 
 
 @Component({
@@ -21,19 +22,25 @@ criretiaForm: NewsForm = new NewsForm();
 newsList: NewsForm[] = [];
 dateString: any;
 newDate: any;
-  constructor(private newsService: NewsService) { }
+
+  constructor(public ngProgress: NgProgress,public newsService: NewsService) { }
 
   ngOnInit() {
+    this.ngProgress.start();
     this.criretiaForm = new NewsForm();
     this.onSearch();
     this.dateString = '1968-11-16T00:00:00' 
     this.newDate = new Date(this.dateString);
-    
+    setTimeout(
+      () =>  this.ngProgress.done(),2000
+    );
+   
   }
 
   onSearch(){
     this.newsList = [];
     this.searchNews();
+   
   }
 
   searchNews(): NewsForm[] {
@@ -47,7 +54,9 @@ newDate: any;
         this.showError(error);
       }
     );
+   
     return resultList;
+    
   }
 
   showError(message: string){

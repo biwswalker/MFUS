@@ -100,7 +100,7 @@ import { MainNewsComponent } from "./content/pages/main-news/main-news.component
 import { SiblingComponent } from "./content/pages/family-and-address/sibling/sibling.component";
 import { AddressComponent } from "./content/pages/family-and-address/address/address.component";
 import { FamilyAndAddressService } from './services/familyandaddress.service';
-
+import { NgProgressModule } from 'ngx-progressbar';
 //Router
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -230,6 +230,7 @@ export function startupServiceFactory(
     FileUploadModule,
     DataScrollerModule,
     DataListModule,
+    NgProgressModule,
   ],
   providers: [
     AuthenticationService,
