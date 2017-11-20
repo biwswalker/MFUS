@@ -77,6 +77,7 @@ export class SponsorsComponent implements OnInit {
     this.initEditData();
     this.initSearchData();
     this.image = '../../../../assets/images/empty_profile.png';
+    this.postcode = this.sponsorsForm.rftSubDistrict.postcode;
     this.sponsorsFormList = [];
     this.getProvinceList();
     this.getDistrictList();
@@ -220,9 +221,8 @@ export class SponsorsComponent implements OnInit {
   onUpdateSponsors() {
     const value = this.sponsorsFormGroup.value;
     value.sponsors_ref = this.smSponsors.sponsors_ref;
-
-    value.district = this.rftDistrict.district_ref;
     value.province = this.rftProvince.province_ref;
+    value.district = this.rftDistrict.district_ref;
     value.sub_district = this.rftSubDistrict.sub_district_ref;
     value.profile_image = this.imagePath;
     value.profile_name = this.file.name;

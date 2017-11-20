@@ -1,6 +1,7 @@
 export class SmSponsors {
 
  public sponsors_ref: string;
+ public sponsors_id: string;
  public sponsors_name: string;
  public address: string;
  public province: string;
