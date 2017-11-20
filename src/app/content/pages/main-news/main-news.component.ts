@@ -28,6 +28,7 @@ newDate: any;
     this.onSearch();
     this.dateString = '1968-11-16T00:00:00' 
     this.newDate = new Date(this.dateString);
+    
   }
 
   onSearch(){

@@ -247,7 +247,7 @@ export function startupServiceFactory(
     StartupService,
     StudentService,
     EducationLevelService,
-    FamilyAndAddressService
+    FamilyAndAddressService,
     {
       provide: APP_INITIALIZER,
       useFactory: startupServiceFactory,
