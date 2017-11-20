@@ -130,7 +130,7 @@ const appRoutes: Routes = [
       { path: "regscholarship", component: RegscholarshipComponent },
       { path: "titlename", component: TitlenameComponent },
       { path: "student", component: StudentComponent },
-      { path: "family-and-address", component: FamilyAndAddressComponent }
+      { path: "family-and-address", component: FamilyAndAddressComponent },
     ]
   },
   { path: "news", component: MainNewsComponent },
