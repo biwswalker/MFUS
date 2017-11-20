@@ -101,4 +101,3 @@ export class FamilyAndAddressComponent implements OnInit {
     this.familyAndAddressService.insertFamilyAndAddress(this.familyAndAddressForm);
   }
 }
-}
