@@ -15,13 +15,13 @@ import { Response } from "@angular/http";
 })
 export class FamilyAndAddressComponent implements OnInit {
   items: MenuItem[];
-  activeIndex: number = 0;
+  activeIndex: number = 2;
   familyAndAddressForm: FamilyAndAddressForm = new FamilyAndAddressForm();
   sibling: AcSibling = new AcSibling();
 
 
   educationLevelList: RftEducationLevel[];
-  constructor(private utilsService: UtilsService,private educationLevelService: EducationLevelService, private FamilyAndAddressService) {}
+  constructor(private utilsService: UtilsService,private educationLevelService: EducationLevelService, private familyAndAddressService: FamilyAndAddressService) {}
 
   ngOnInit() {
     this.familyAndAddressForm = new FamilyAndAddressForm();
@@ -97,7 +97,7 @@ export class FamilyAndAddressComponent implements OnInit {
     this.familyAndAddressForm = form;
     console.log("home_address = " + this.familyAndAddressForm.acAddress.home_address);
 
-    this.FamilyAndAddressService.
+    this.familyAndAddressService.insertFamilyAndAddress(this.familyAndAddressForm);
   }
 }
 }

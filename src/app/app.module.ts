@@ -229,7 +229,7 @@ export function startupServiceFactory(
     TabViewModule,
     FileUploadModule,
     DataScrollerModule,
-    DataListModule
+    DataListModule,
   ],
   providers: [
     AuthenticationService,

@@ -48,7 +48,7 @@
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">เลขประจำตัวประชาชน</label>
+      <label class="normal">เลขประจำตัวประชาชน *</label>
       <input type="text" pInputText name="father_pid" class="personal-id" [(ngModel)]="thisForm.acParent.father_pid" required>
     </div>
     <div class="col-xs-4">
@@ -68,34 +68,34 @@
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">ชื่อ-นามสกุล</label>
+      <label class="normal">ชื่อ-นามสกุล *</label>
       <input type="text" pInputText class="input-name" name="father-name" [(ngModel)]="thisForm.acParent.father_name" required>
     </div>
     <div class="col-xs-7">
-      <label class="normal">วันเกิด(เดือน/วัน/ปี)</label>
+      <label class="normal">วันเกิด(เดือน/วัน/ปี) *</label>
       <div>
         <p-dropdown name="fatherBirthMonth" laceholder="เดือน" optionField="birth-month" [options]="dadDropdownMonths" [(ngModel)]="dadMonth"
-          (onChange)="selectMonth(1)" required>
+          (onChange)="selectMonth(1)">
         </p-dropdown>
         <p-dropdown laceholder="วัน" optionField="birth-day" [options]="dadDropdownDays" [(ngModel)]="dadDay" [disabled]="!dadMonth"
-          name="fatherBirthDay" required>
+          name="fatherBirthDay">
         </p-dropdown>
         <input type="number" pInputText class="input-year" name="fatherBirthYear" minlength="4" maxlength="4" placeholder="ปี พ.ศ."
-          [(ngModel)]="dadYear" required>
+          [(ngModel)]="dadYear">
       </div>
     </div>
   </div>
 
   <div class="row overide-row">
     <div class="col-xs-12">
-      <label class="normal">ที่อยู่</label>
+      <label class="normal">ที่อยู่ *</label>
       <input type="text" pInputText class="input-address" name="father-address" [(ngModel)]="thisForm.acParent.father_address" required>
     </div>
   </div>
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">จังหวัด</label>
+      <label class="normal">จังหวัด *</label>
       <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="dadProvince" [suggestions]="fProvinceList"
         [size]="25" (onSelect)="selectProvince(0)" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(0)"
         (completeMethod)="autocompleteProvince($event)" [required]="true">
@@ -105,7 +105,7 @@
       </p-autoComplete>
     </div>
     <div class="col-xs-7">
-      <label class="normal">อำเภอ</label>
+      <label class="normal">อำเภอ *</label>
       <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="dadDistrict" [suggestions]="fDistrictList"
         [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(0)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(0)"
         [disabled]="!dadProvince.province_ref"
@@ -119,7 +119,7 @@
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">ตำบล</label>
+      <label class="normal">ตำบล *</label>
       <p-autoComplete name="sub_district" field="sub_district_name_t" [(ngModel)]="dadSubDistrict" [suggestions]="fSubDistrictList"
         (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(0)" forceSelection="true"
         [disabled]="!dadDistrict.district_ref"
@@ -141,22 +141,22 @@
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">เบอร์โทรศัพท์</label>
-      <input type="text" pInputText class="input-postcode" name="father-postcode" [(ngModel)]="thisForm.acParent.father_phone">
+      <input type="text" pInputText class="input-postcode"  [(ngModel)]="thisForm.acParent.father_phone">
     </div>
     <div class="col-xs-7">
       <label class="normal">อีเมล</label>
-      <input type="text" pInputText class="input-postcode" name="father-postcode" [(ngModel)]="thisForm.acParent.father_email">
+      <input type="text" pInputText class="input-postcode"  [(ngModel)]="thisForm.acParent.father_email">
     </div>
   </div>
 
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">อาชีพ</label>
-      <input type="text" pInputText class="input-postcode" name="father-postcode" [(ngModel)]="thisForm.acParent.father_occupation">
+      <input type="text" pInputText class="input-postcode"  [(ngModel)]="thisForm.acParent.father_occupation">
     </div>
     <div class="col-xs-7">
       <label class="normal">ตำแหน่ง</label>
-      <input type="text" pInputText class="input-postcode" name="father-postcode" [(ngModel)]="thisForm.acParent.father_position">
+      <input type="text" pInputText class="input-postcode"  [(ngModel)]="thisForm.acParent.father_position">
     </div>
   </div>
 
@@ -170,11 +170,11 @@
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
-      <input type="text" pInputText class="input-postcode" name="father-postcode" [(ngModel)]="thisForm.acParent.father_work_phone">
+      <input type="text" pInputText class="input-postcode"  [(ngModel)]="thisForm.acParent.father_work_phone">
     </div>
     <div class="col-xs-7">
       <label class="normal">แฟ็กซ์</label>
-      <input type="text" pInputText class="input-postcode" name="father-postcode" [(ngModel)]="thisForm.acParent.father_work_fax">
+      <input type="text" pInputText class="input-postcode"  [(ngModel)]="thisForm.acParent.father_work_fax">
     </div>
   </div>
 
@@ -217,7 +217,7 @@
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">เลขประจำตัวประชาชน</label>
+      <label class="normal">เลขประจำตัวประชาชน *</label>
       <input type="text" pInputText name="mother_pid" class="personal-id" [(ngModel)]="thisForm.acParent.mother_pid">
     </div>
     <div class="col-xs-4">
@@ -236,11 +236,11 @@
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">ชื่อ-นามสกุล</label>
+      <label class="normal">ชื่อ-นามสกุล *</label>
       <input type="text" pInputText class="input-name" name="mother-name" [(ngModel)]="thisForm.acParent.mother_name">
     </div>
     <div class="col-xs-7">
-      <label class="normal">วันเกิด(เดือน/วัน/ปี)</label>
+      <label class="normal">วันเกิด(เดือน/วัน/ปี) *</label>
       <div>
         <p-dropdown name="motherBirthMonth" laceholder="เดือน" optionField="birth-month" [options]="momDropdownMonths" [(ngModel)]="momMonth"
           (onChange)="selectMonth(2)">
@@ -256,14 +256,14 @@
 
   <div class="row overide-row">
     <div class="col-xs-12">
-      <label class="normal">ที่อยู่</label>
+      <label class="normal">ที่อยู่ *</label>
       <input type="text" pInputText class="input-address" name="mother-address" [(ngModel)]="thisForm.acParent.mother_address">
     </div>
   </div>
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">จังหวัด</label>
+      <label class="normal">จังหวัด *</label>
       <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="momProvince" [suggestions]="mProvinceList"
         [size]="25" (onSelect)="selectProvince(1)" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(1)"
         (completeMethod)="autocompleteProvince($event)">
@@ -273,7 +273,7 @@
       </p-autoComplete>
     </div>
     <div class="col-xs-7">
-      <label class="normal">อำเภอ</label>
+      <label class="normal">อำเภอ *</label>
       <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="momDistrict" [suggestions]="mDistrictList"
         [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(1)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(1)"
         [disabled]="!momProvince.province_ref"
@@ -287,7 +287,7 @@
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">ตำบล</label>
+      <label class="normal">ตำบล *</label>
       <p-autoComplete name="sub_district" field="sub_district_name_t" [(ngModel)]="momSubDistrict" [suggestions]="mSubDistrictList"
         (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(1)" forceSelection="true"
         [disabled]="!momDistrict.district_ref"
@@ -385,14 +385,14 @@
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">ความสัมพันธ์</label>
+      <label class="normal">ความสัมพันธ์ *</label>
       <input type="text" pInputText name="patrol_relationship" class="relationship" [(ngModel)]="thisForm.acParent.patrol_relationship">
     </div>
   </div>
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">เลขประจำตัวประชาชน</label>
+      <label class="normal">เลขประจำตัวประชาชน *</label>
       <input type="text" pInputText name="patrol_pid" class="personal-id" [(ngModel)]="thisForm.acParent.patrol_pid">
     </div>
     <div class="col-xs-4">
@@ -411,11 +411,11 @@
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">ชื่อ-นามสกุล</label>
+      <label class="normal">ชื่อ-นามสกุล *</label>
       <input type="text" pInputText class="input-name" name="patrol-name" [(ngModel)]="thisForm.acParent.patrol_name">
     </div>
     <div class="col-xs-7">
-      <label class="normal">วันเกิด(เดือน/วัน/ปี)</label>
+      <label class="normal">วันเกิด(เดือน/วัน/ปี) *</label>
       <div>
         <p-dropdown name="patrolBirthMonth" laceholder="เดือน" optionField="birth-month" [options]="patrolDropdownMonths" [(ngModel)]="dadMonth"
           (onChange)="selectMonth(3)">
@@ -431,14 +431,14 @@
 
   <div class="row overide-row">
     <div class="col-xs-12">
-      <label class="normal">ที่อยู่</label>
+      <label class="normal">ที่อยู่ *</label>
       <input type="text" pInputText class="input-address" name="patrol-address" [(ngModel)]="thisForm.acParent.patrol_address">
     </div>
   </div>
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">จังหวัด</label>
+      <label class="normal">จังหวัด *</label>
       <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="patrolProvince" [suggestions]="pProvinceList"
         [size]="25" (onSelect)="selectProvince(2)" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(2)"
         (completeMethod)="autocompleteProvince($event)">
@@ -448,7 +448,7 @@
       </p-autoComplete>
     </div>
     <div class="col-xs-7">
-      <label class="normal">อำเภอ</label>
+      <label class="normal">อำเภอ *</label>
       <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="patrolDistrict" [suggestions]="pDistrictList"
         [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(2)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(2)"
         [disabled]="!patrolProvince.province_ref"
@@ -462,7 +462,7 @@
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">ตำบล</label>
+      <label class="normal">ตำบล *</label>
       <p-autoComplete name="sub_district" field="sub_district_name_t" [(ngModel)]="patrolSubDistrict" [suggestions]="pSubDistrictList"
         (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(2)" forceSelection="true"
         [disabled]="!patrolDistrict.district_ref"
