@@ -8,7 +8,8 @@ import { FamilyAndAddressForm } from "./../../../form/family-and-address-form";
 import { Message, SelectItem } from "primeng/primeng";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Response } from "@angular/http";
-
+declare var jquery:any;
+declare var $ :any;
 @Component({
   selector: "app-family",
   templateUrl: "./family.component.html",

@@ -44,6 +44,8 @@ export class AddressComponent implements OnInit {
   currentDistrict: RftDistrict = new RftDistrict();
   currentSubDistrict: RftSubDistrict = new RftSubDistrict();
 
+  files: File[];
+
   constructor(
     private utilsService: UtilsService,
     private familyAndAddress: FamilyAndAddressComponent
@@ -236,6 +238,14 @@ export class AddressComponent implements OnInit {
     if(index==1){
       this.thisForm.acAddress.current_postcode = this.currentSubDistrict.postcode;
     }
+  }
+
+  uploadDirection(event){
+    console.log("uploadDirection");
+    console.log(event.target.files);
+
+    this.files = event.target.files;
+    console.log(this.files);
   }
 
   submitButtonOnClick() {

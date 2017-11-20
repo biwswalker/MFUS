@@ -88,14 +88,14 @@
       <label class="btn-positive normal-inline" label="เลือกไฟล์" pButton>
         <input type="file"
         accept="image/*, application/pdf"
-        class="display-none" >
+        class="display-none" (change)="uploadDirection($event)">
       </label>
       <label class="normal-inline">เลือกรูปภาพแสดงการเดินทางไปยังบ้านของนักศึกษา</label>
     </div>
   </div>
   <div class="row overide-row">
     <div class="col-xs-12">
-      <img src="./assets/images/vim-screen.png" alt="" class="home-direction-img">
+      <img src="" alt="" class="home-direction-img">
     </div>
   </div>
 
