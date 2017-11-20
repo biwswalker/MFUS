@@ -59,6 +59,12 @@ export class AddressComponent implements OnInit {
   ngOnInit() {
     this.getProvince();
     this.thisForm = this.familyAndAddress.getData();
+    if(this.thisForm.acAddress.direction_image != undefined){
+      this.binaryString = this.thisForm.acAddress.direction_image;
+      this.img_name = this.thisForm.acAddress.direction_name;
+      this.img_type = this.thisForm.acAddress.direction_type;
+      this.image = 'data:' + this.img_type + ';base64,' + btoa(this.binaryString);
+    }
   }
 
 
@@ -269,6 +275,7 @@ export class AddressComponent implements OnInit {
     this.img_name = this.file.name;
     this.img_type = this.file.type;
 
+    this.thisForm.acAddress.direction_image = this.binaryString;
     this.thisForm.acAddress.direction_name = this.img_name;
     this.thisForm.acAddress.direction_type = this.img_type;
     console.log(this.file.name);

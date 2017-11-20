@@ -1,3 +1,4 @@
+import { AcParent } from './../../models/ac-parent';
 import { FamilyAndAddressService } from './../../../services/familyandaddress.service';
 import { RftEducationLevel } from './../../models/rft-education-level';
 import { EducationLevelService } from './../../../services/educationlevel.service';
@@ -7,6 +8,9 @@ import { SelectItem, StepsModule, MenuItem } from "primeng/primeng";
 import { Component, OnInit } from "@angular/core";
 import { UtilsService } from "../../../services/utils.service";
 import { Response } from "@angular/http";
+import { ParentService } from '../../../services/parent.service';
+import { AcAddress } from '../../models/ac-address';
+import { AddressService } from '../../../services/address.service';
 
 @Component({
   selector: "app-family-and-address",
@@ -15,30 +19,24 @@ import { Response } from "@angular/http";
 })
 export class FamilyAndAddressComponent implements OnInit {
   items: MenuItem[];
-  activeIndex: number = 2;
+  activeIndex: number = 0;
   familyAndAddressForm: FamilyAndAddressForm = new FamilyAndAddressForm();
   sibling: AcSibling = new AcSibling();
 
 
   educationLevelList: RftEducationLevel[];
-  constructor(private utilsService: UtilsService,private educationLevelService: EducationLevelService, private familyAndAddressService: FamilyAndAddressService) {}
+  constructor(private utilsService: UtilsService,
+    private educationLevelService: EducationLevelService,
+    private familyAndAddressService: FamilyAndAddressService,
+    private parentService: ParentService,
+    private addressService: AddressService) {}
 
   ngOnInit() {
     this.familyAndAddressForm = new FamilyAndAddressForm();
     this.stepDisplay();
-    this.familyAndAddressForm.acParent.parent_flag = "1";
-    this.familyAndAddressForm.acParent.relationship_status = "1";
-    this.familyAndAddressForm.acParent.father_status = "1";
-    this.familyAndAddressForm.acParent.mother_status = "1";
-    this.familyAndAddressForm.acParent.patrol_status = "1";
-    this.familyAndAddressForm.acParent.father_land_flag = "1";
-    this.familyAndAddressForm.acParent.mother_land_flag = "1";
-    this.familyAndAddressForm.acParent.patrol_land_flag = "1";
 
-    this.familyAndAddressForm.siblingList = [];
-    this.sibling = new AcSibling();
-    this.familyAndAddressForm.siblingList.push(this.sibling);
 
+    this.findDataFromServer();
     this.getEducationDropDown();
   }
 
@@ -48,10 +46,28 @@ export class FamilyAndAddressComponent implements OnInit {
     .subscribe((res: RftEducationLevel[]) => {
       this.educationLevelList = [];
       this.educationLevelList.push(...res);
-      console.log(this.educationLevelList.length);
+
     });
   }
+  initialSetup(){
+    this.familyAndAddressForm.acParent.parent_flag = "1";
+    this.familyAndAddressForm.acParent.relationship_status = "1";
+    this.familyAndAddressForm.acParent.father_status = "1";
+    this.familyAndAddressForm.acParent.mother_status = "1";
+    this.familyAndAddressForm.acParent.patrol_status = "1";
+    this.familyAndAddressForm.acParent.father_land_flag = "1";
+    this.familyAndAddressForm.acParent.mother_land_flag = "1";
+    this.familyAndAddressForm.acParent.patrol_land_flag = "1";
 
+
+    this.familyAndAddressForm.acParent.student_ref = '1';
+    this.familyAndAddressForm.acAddress.student_ref = '1';
+
+    this.familyAndAddressForm.siblingList = [];
+    this.sibling = new AcSibling();
+    this.sibling.student_ref = '1';
+    this.familyAndAddressForm.siblingList.push(this.sibling);
+  }
   stepDisplay() {
     this.items = [
       {
@@ -73,6 +89,18 @@ export class FamilyAndAddressComponent implements OnInit {
         }
       }
     ];
+  }
+
+  findDataFromServer(){
+    console.log('findDataFromServer');
+    let parent :AcParent = null;
+    let addess :AcAddress = null;
+    this.parentService.getParentByStudentRef('1').subscribe((res: AcParent) => {
+        this.familyAndAddressForm.acParent = res;
+    });
+    this.addressService.getAddressByStudentRef('1').subscribe((res: AcAddress) => {
+      this.familyAndAddressForm.acAddress = res;
+    });
   }
 
   getData(): FamilyAndAddressForm {

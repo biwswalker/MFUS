@@ -52,8 +52,6 @@ export class SiblingComponent implements OnInit {
     console.log("dataCheckcing");
     this.newRow = true;
     for(let data of this.thisForm.siblingList){
-      console.log('loop');
-      console.log(data.sibling_name);
       if(data.sibling_name == ''|| data.sibling_name == undefined){
         this.newRow = false;
       }
@@ -65,6 +63,7 @@ export class SiblingComponent implements OnInit {
     this.dataCheckcing();
     this.sibling = new AcSibling();
     if(this.newRow){
+      this.sibling.student_ref = '1';
       this.thisForm.siblingList.push(this.sibling);
     }
 
