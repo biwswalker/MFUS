@@ -1,8 +1,8 @@
-import { AcParent } from './../content/models/ac-parent';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { config } from './../app.config';
+import { AcParent } from '../content/models/ac-parent';
 
 @Injectable()
 export class ParentService {
@@ -17,7 +17,8 @@ export class ParentService {
     return this.http.get(this.mainUrl+'parent-info/' + student_ref,{headers:headers})
       .map(
         (res: Response) => {
-          return res.json();
+          console.log(res)
+          return null;
         }
       );
   }

@@ -1,7 +1,8 @@
+import { StudentService } from './../../../../services/student.service';
 import { Response } from "@angular/http";
 import { UtilsService } from "./../../../../services/utils.service";
 import { ApplyscholarshipService } from "./../../../../services/applyscholarship.service";
-import { SelectItem, Message } from 'primeng/primeng';
+import { SelectItem, Message } from "primeng/primeng";
 import { ApplyScholarshipComponent } from "./../apply-scholarship.component";
 import { Component, OnInit } from "@angular/core";
 
@@ -12,7 +13,7 @@ import { Component, OnInit } from "@angular/core";
 })
 export class ApplicantInfoComponent implements OnInit {
   image: any;
-  msgs: Message[]
+  msgs: Message[];
   //ชั้นปี
   collageYears: SelectItem[];
   data: any;
@@ -20,7 +21,9 @@ export class ApplicantInfoComponent implements OnInit {
   constructor(
     public applyScholarship: ApplyScholarshipComponent,
     private applyscholarshipService: ApplyscholarshipService,
-    private utilsService: UtilsService) {}
+    private studentService: StudentService,
+    private utilsService: UtilsService
+  ) {}
 
   ngOnInit() {
     console.log(this.applyScholarship.applyScholarshipForm);
@@ -32,10 +35,24 @@ export class ApplicantInfoComponent implements OnInit {
     this.collageYears.push({ label: "4", value: 4 });
     this.collageYears.push({ label: "5", value: 5 });
     this.collageYears.push({ label: "6", value: 6 });
+    // this.getAge();
+  }
+
+  getAge() {
+    console.log(
+      this.applyScholarship.applyScholarshipForm.acStudent.birth_date
+    );
+    let birth_year = parseInt(
+      this.applyScholarship.applyScholarshipForm.acStudent.birth_date
+        .toString()
+        .substring(3, 7)
+    );
+    let current_year = new Date().getFullYear() + 543;
+    this.applyScholarship.applyScholarshipForm.age = current_year - birth_year;
   }
 
   addApplicationInfo() {
-    console.log(this.applyScholarship.applyScholarshipForm)
+    console.log(this.applyScholarship.applyScholarshipForm);
     let form = this.applyScholarship.applyScholarshipForm;
     form.apApplication.student_ref = form.acStudent.student_ref;
     form.apApplication.annoucement_ref = form.acStudent.student_ref;
@@ -45,8 +62,8 @@ export class ApplicantInfoComponent implements OnInit {
 
   onNext() {
     this.addApplicationInfo();
-        console.log("Data: ", this.applyScholarship.applyScholarshipForm);
-        this.applyscholarshipService.nextIndex(1);
-        this.applyScholarship.activeIndex = this.applyscholarshipService.getIndex();
+    console.log("Data: ", this.applyScholarship.applyScholarshipForm);
+    this.applyscholarshipService.nextIndex(1);
+    this.applyScholarship.activeIndex = this.applyscholarshipService.getIndex();
   }
 }

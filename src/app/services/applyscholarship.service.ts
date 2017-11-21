@@ -42,6 +42,7 @@ export class ApplyscholarshipService {
     console.log("url = " + url);
 
     return this.http.get(url, options).map((res: Response) => {
+      console.log(res)
       let result: ApplyScholarshipForm = new ApplyScholarshipForm();
       for (let data of res.json()) {
         result.acStudent = data.ac_student;
