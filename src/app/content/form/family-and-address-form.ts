@@ -6,9 +6,8 @@ export class FamilyAndAddressForm {
   public acParent: AcParent;
   public acSibling: AcSibling;
   public acAddress: AcAddress;
-
-
   public siblingList: AcSibling[];
+
   constructor() {
     this.acParent = new AcParent();
     this.acSibling = new AcSibling();

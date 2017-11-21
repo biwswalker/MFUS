@@ -27,6 +27,4 @@ export class StartupService {
       .then((data: any) => this.provinceList = data)
       .catch((err: any) => Promise.resolve());
   }
-
-
 }

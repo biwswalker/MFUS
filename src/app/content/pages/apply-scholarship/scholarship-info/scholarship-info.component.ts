@@ -39,9 +39,10 @@ export class ScholarshipInfoComponent implements OnInit {
               private applyscholarshipService: ApplyscholarshipService) {}
 
   ngOnInit() {
-    this.getScholarshipAnnouncement();
-    this.getScholarshipHistory();
-    this.getStdLoan();
+    console.log(this.applyScholarship.applyScholarshipForm)
+    // this.getScholarshipAnnouncement();
+    // this.getScholarshipHistory();
+    // this.getStdLoan();
   }
 
   getScholarshipHistory() {
@@ -67,14 +68,6 @@ export class ScholarshipInfoComponent implements OnInit {
       }
     );
    return this.applyScholarship.applyScholarshipForm;
-  }
-
-  getScholarshipAnnouncement() {
-    this.utilService.getScholarshipList().subscribe(
-      (res: SmScholarshipAnnouncement[]) => {
-        this.listScholarship.push(...res);
-      }
-    );
   }
 
   autocompleteScholarship(event) {

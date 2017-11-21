@@ -3,7 +3,7 @@ export class AcStudent {
  public  personal_id: string;
  public  student_id: string;
  public  gender: string;
- public  birth_date: Date;
+ public  birth_date: string
  public  title_ref: string;
  public  first_name_t: string;
  public  last_name_t: string;
@@ -23,6 +23,4 @@ export class AcStudent {
  public  create_datetime: Date;
  public  update_user: string;
  public  update_datetime: Date;
-
-
 }

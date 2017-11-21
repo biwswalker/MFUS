@@ -24,7 +24,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
 
 // Primeface
-import { PanelMenuModule } from 'primeng/primeng';
+import { PanelMenuModule, } from 'primeng/primeng';
 import { InputTextModule } from 'primeng/primeng';
 import { AutoCompleteModule } from 'primeng/primeng';
 import { CalendarModule } from 'primeng/primeng';
@@ -43,6 +43,7 @@ import { EditorModule } from 'primeng/primeng';
 import { TabViewModule } from 'primeng/primeng';
 import { DataScrollerModule } from 'primeng/primeng';
 import {DataListModule} from 'primeng/primeng';
+import {ProgressBarModule} from 'primeng/primeng';
 
 // Component
 import { HeaderComponent } from "./content/header/header.component";
@@ -225,7 +226,8 @@ export function startupServiceFactory(
     TabViewModule,
     FileUploadModule,
     DataScrollerModule,
-    DataListModule
+    DataListModule,
+    ProgressBarModule,
   ],
   providers: [
     AuthenticationService,

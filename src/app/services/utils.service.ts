@@ -1,3 +1,4 @@
+import { ApDocumentUpload } from './../content/models/ap-document-upload';
 import { SelectItem } from 'primeng/primeng';
 import { RftTitleName } from '../content/models/rft-title-name';
 import { StartupService } from './startup.service';
@@ -287,6 +288,19 @@ return days;
         return res.json();
       }
       );
+  }
+
+  getDocument(): Observable<ApDocumentUpload[]> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(url+'application-document', options)
+      .map(
+      (res: Response) => {
+        console.log(res.json())
+        return res.json();
+      }
+      );
+
   }
 
 }

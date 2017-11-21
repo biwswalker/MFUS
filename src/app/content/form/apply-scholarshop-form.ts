@@ -1,3 +1,4 @@
+import { AcParent } from './../models/ac-parent';
 import { SmScholarshipAnnouncement } from './../models/sm-scholarship-announcement';
 import { ApFamilyFinancial } from '../models/ap-family-financial';
 import { ApScholarshipHistory } from '../models/ap-scholarship-history';
@@ -6,11 +7,14 @@ import { RftTitleName } from './../models/rft-title-name';
 import { RftMajor } from './../models/rft-major';
 import { RftSchool } from './../models/rft-school';
 import { ApApplication } from './../models/ap-application';
-import { AcStudent } from './../models/ac-student';
 import { ApStudentLoanFund } from '../models/ap-student-loan-fund';
+import { ApDocumentUpload } from '../models/ap-document-upload';
+import { AcSibling } from '../models/ac-sibling';
+import { AcAddress } from '../models/ac-address';
+import { AcStudent } from '../models/ac-student';
 export class ApplyScholarshipForm {
 
-  public acStudent: AcStudent;
+  // public acStudent: AcStudent;
   public apApplication: ApApplication;
   public apFamilyFinancial: ApFamilyFinancial;
   public apFamilyDebt: ApFamilyDebt;
@@ -20,13 +24,17 @@ export class ApplyScholarshipForm {
   public rftSchool: RftSchool;
   public rftMajor: RftMajor;
   public rftTitleName: RftTitleName;
+  public apDocumentUpload: ApDocumentUpload;
+  public acParent: AcParent;
+  public acSibling: AcSibling;
+  public acAddress: AcAddress;
+  public acStudent: AcStudent;
 
   public age: number;
-  public scholarship_seq: any[] = [];
-  public student_loan_seq: any[] = [];
 
   constructor() {
-    this.acStudent = new AcStudent();
+    // this.acStudent = new AcStudent();
+
     this.apApplication = new ApApplication();
     this.apFamilyFinancial = new ApFamilyFinancial();
     this.apFamilyDebt = new ApFamilyDebt();
@@ -36,6 +44,10 @@ export class ApplyScholarshipForm {
     this.rftSchool = new RftSchool();
     this.rftMajor = new RftMajor();
     this.rftTitleName = new RftTitleName();
-
+    this.apDocumentUpload = new ApDocumentUpload();
+    this.acAddress = new AcAddress();
+    this.acParent = new AcParent();
+    this.acSibling = new AcSibling();
+    this.acStudent = new AcStudent();
   }
 }

@@ -1,9 +1,35 @@
-<div class="content-header-blue-normal">
-    อัพโหลดเอกสาร
-</div>
-<div class="underline-blue"></div>
-<div class="row">
-    <div class="col-xs-3"></div>
-    <div class="col-xs-6"></div>
-    <div class="col-xs-3"></div>
+<div class="row overide-row">
+    <div class="col-xs-12">
+        <p-dataTable [value]="documentList" [immutable]=false>
+            <p-column>
+                <ng-template let-col let-obj="rowIndex" pTemplate="body">
+                    {{obj+1}}
+                </ng-template>
+            </p-column>
+            <p-column header="รายการเอกสาร">
+                <ng-template let-col let-obj="rowData" pTemplate="body">
+                    {{obj.document_name}}
+                </ng-template>
+            </p-column>
+            <p-column header="สถานะ">
+                <ng-template let-col let-obj="rowData" pTemplate="body">
+                    <label pButton class="btn-positive" label="อัพโหลด" (change)="onUpload($event, obj.document_code)">
+                        <input type="file"
+                          accept="image/*, application/pdf"
+                          class="display-none">
+                          </label>
+                </ng-template>
+            </p-column>
+            <p-column>
+                <ng-template let-col let-obj="rowData" pTemplate="body">
+                    <button type="button" label="ดูเอกสาร" pButton></button>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <button type="button" (click)="showDetail()" label="Click" pButton></button>
+        </div>
+    </div>
 </div>
