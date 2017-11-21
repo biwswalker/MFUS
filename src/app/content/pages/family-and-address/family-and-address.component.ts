@@ -90,7 +90,6 @@ export class FamilyAndAddressComponent implements OnInit {
 
       setTimeout(() => {
         this.parentService.getParentByStudentRef('1').subscribe((res: AcParent) => {
-          this.familyAndAddressForm.acParent = new AcParent();
           this.familyAndAddressForm.acParent = res;
           if(res)
           observer.next(true);
@@ -100,7 +99,6 @@ export class FamilyAndAddressComponent implements OnInit {
 
       setTimeout(() => {
         this.addressService.getAddressByStudentRef('1').subscribe((res: AcAddress) => {
-          this.familyAndAddressForm.acAddress = new AcAddress();
           this.familyAndAddressForm.acAddress = res;
           if(res)
           console.log('2');
