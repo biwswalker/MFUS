@@ -44,14 +44,33 @@ export class AddressComponent implements OnInit {
   currentDistrict: RftDistrict = new RftDistrict();
   currentSubDistrict: RftSubDistrict = new RftSubDistrict();
 
+  image: any;
+  fileList: FileList;
+  binaryString: string;
+  file: File;
+  img_name: string;
+  img_type: string;
+
   constructor(
     private utilsService: UtilsService,
     private familyAndAddress: FamilyAndAddressComponent
   ) {}
 
   ngOnInit() {
-    this.getProvince();
+    console.log("ngOnInit");
+    this.thisForm = new FamilyAndAddressForm();
     this.thisForm = this.familyAndAddress.getData();
+    this.getProvince();
+    this.setupImage();
+  }
+
+  setupImage(){
+    console.log('setupImage');
+    this.image = null;
+    if(this.thisForm.acAddress.direction_image != '' || this.thisForm.acAddress.direction_image != undefined){
+      this.binaryString = this.thisForm.acAddress.direction_image;
+      this.image = 'data:' + this.thisForm.acAddress.direction_type + ';base64,' + btoa(this.binaryString);
+    }
   }
 
 
@@ -238,8 +257,44 @@ export class AddressComponent implements OnInit {
     }
   }
 
+
+  uploadDirection(event){
+    console.log("uploadDirection");
+    this.fileList = event.target.files;
+    if (this.fileList.length > 0) {
+      this.file = this.fileList[0];
+      // 10 MB
+      if (this.file.size < 10000000) {
+        let reader = new FileReader();
+        reader.onload = this.handleReaderLoaded.bind(this);
+        reader.readAsBinaryString(this.file);
+      } else {
+
+      }
+    }
+  }
+
+  handleReaderLoaded(readerEvent) {
+    console.log("handleReaderLoaded");
+    this.binaryString = readerEvent.target.result;
+    this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
+    // console.log(btoa(this.binaryString));
+    this.img_name = this.file.name;
+    this.img_type = this.file.type;
+
+    this.thisForm.acAddress.direction_image = this.binaryString;
+    this.thisForm.acAddress.direction_name = this.img_name;
+    this.thisForm.acAddress.direction_type = this.img_type;
+    console.log(this.file.name);
+    console.log(this.file.size);
+    console.log(this.file.type);
+  }
+
+
   submitButtonOnClick() {
     console.log("nextButtonOnClick");
+    // set home address
+    console.log(this.thisForm.acAddress[0]);
     // set home address
     this.thisForm.acAddress.home_province = this.homeProvince.province_ref;
     this.thisForm.acAddress.home_district = this.homeDistrict.district_ref;
@@ -249,7 +304,7 @@ export class AddressComponent implements OnInit {
     this.thisForm.acAddress.current_province = this.currentProvince.province_ref;
     this.thisForm.acAddress.current_district = this.currentDistrict.district_ref;
     this.thisForm.acAddress.current_sub_district = this.currentSubDistrict.sub_district_ref;
-
+    console.log(this.thisForm.acAddress[0].home_address);
     this.familyAndAddress.onSubmit(this.thisForm);
     // this.familyAndAddress.onNext(1);
     // console.log(this.siblings);

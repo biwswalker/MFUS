@@ -1,3 +1,6 @@
+import { AddressService } from './services/address.service';
+import { ParentService } from './services/parent.service';
+import { DocumentsscreeningComponent } from './content/pages/documentsscreening/documentsscreening.component';
 import { EducationLevelService } from './services/educationlevel.service';
 import { UploadDocumentComponent } from './content/pages/apply-scholarship/upload-document/upload-document.component';
 
@@ -99,7 +102,10 @@ import { FamilyFinancialComponent } from "./content/pages/apply-scholarship/fami
 import { MainNewsComponent } from "./content/pages/main-news/main-news.component";
 import { SiblingComponent } from "./content/pages/family-and-address/sibling/sibling.component";
 import { AddressComponent } from "./content/pages/family-and-address/address/address.component";
+import { FamilyAndAddressService } from './services/familyandaddress.service';
+import { SiblingService } from './services/sibling.service';
 
+import { NgProgressModule } from 'ngx-progressbar';
 //Router
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -120,6 +126,7 @@ const appRoutes: Routes = [
         path: "announcement-detail",
         component: ScholarshipAnnouncementDetailComponent
       },
+      { path: "documents-screening", component: DocumentsscreeningComponent},
       { path: "officer", component: OfficerComponent },
       { path: "reguser", component: ReguserComponent },
       { path: "school", component: SchoolComponent },
@@ -128,7 +135,7 @@ const appRoutes: Routes = [
       { path: "regscholarship", component: RegscholarshipComponent },
       { path: "titlename", component: TitlenameComponent },
       { path: "student", component: StudentComponent },
-      { path: "family-and-address", component: FamilyAndAddressComponent }
+      { path: "family-and-address", component: FamilyAndAddressComponent },
     ]
   },
   { path: "news", component: MainNewsComponent },
@@ -196,7 +203,8 @@ export function startupServiceFactory(
     FamilyComponent,
     SiblingComponent,
     AddressComponent,
-    DateFormatPipe
+    DateFormatPipe,
+    DocumentsscreeningComponent
   ],
   imports: [
     BrowserModule,
@@ -228,6 +236,7 @@ export function startupServiceFactory(
     DataScrollerModule,
     DataListModule,
     ProgressBarModule,
+    NgProgressModule,
   ],
   providers: [
     AuthenticationService,
@@ -245,6 +254,10 @@ export function startupServiceFactory(
     StartupService,
     StudentService,
     EducationLevelService,
+    FamilyAndAddressService,
+    ParentService,
+    AddressService,
+    SiblingService,
     {
       provide: APP_INITIALIZER,
       useFactory: startupServiceFactory,

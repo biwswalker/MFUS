@@ -1,3 +1,4 @@
+import { NgProgress } from 'ngx-progressbar';
 import { FamilyAndAddressComponent } from "./../../family-and-address/family-and-address.component";
 import { Component, OnInit } from "@angular/core";
 import { UtilsService } from "./../../../../services/utils.service";
@@ -8,7 +9,8 @@ import { FamilyAndAddressForm } from "./../../../form/family-and-address-form";
 import { Message, SelectItem } from "primeng/primeng";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Response } from "@angular/http";
-
+declare var jquery:any;
+declare var $ :any;
 @Component({
   selector: "app-family",
   templateUrl: "./family.component.html",
@@ -78,15 +80,44 @@ export class FamilyComponent implements OnInit {
 
   constructor(
     private utilsService: UtilsService,
-    public familyAndAddress: FamilyAndAddressComponent
+    public familyAndAddress: FamilyAndAddressComponent,
+
   ) {}
 
   ngOnInit() {
-
+    console.log("FamilyComponent.ngOnInit ");
     this.getProvince();
     this.initBirthMonth();
 
     this.thisForm = this.familyAndAddress.getData();
+    if(this.thisForm.acParent.parent_ref != '' || this.thisForm.acParent.parent_ref != undefined){
+      this.prepareParentData();
+
+    }
+  }
+
+  prepareParentData(){
+
+    if(this.thisForm.acParent.parent_flag == '1'){
+
+
+        this.dadYear = this.thisForm.acParent.father_birth_date.substr(0,4);
+        this.dadMonth = this.thisForm.acParent.father_birth_date.substr(4,2);
+        this.dadDay =  this.thisForm.acParent.father_birth_date.substr(6,2);
+
+        this.momYear = this.thisForm.acParent.mother_birth_date.substr(0,4);
+        this.momMonth = this.thisForm.acParent.mother_birth_date.substr(4,2);
+        this.momDay =  this.thisForm.acParent.mother_birth_date.substr(6,2);
+    }else{
+      this.dadYear = this.thisForm.acParent.patrol_birth_date.substr(0,4);
+      this.dadMonth = this.thisForm.acParent.patrol_birth_date.substr(4,2);
+      this.dadDay =  this.thisForm.acParent.patrol_birth_date.substr(6,2);
+    }
+
+
+    this.initBirthMonth();
+    // console.log('dad year: '+this.dadDay+'/'+this.dadMonth+'/'+this.dadYear);
+
   }
 
   initBirthMonth() {
@@ -277,6 +308,8 @@ export class FamilyComponent implements OnInit {
     if (index == 0) {
       this.fDistrictList = [];
       this.fSubDistrictList = [];
+      this.dadDistrict = new RftDistrict;
+      this.dadSubDistrict = new RftSubDistrict;
       this.thisForm.acParent.father_postcode = null;
       this.utilsService
         .getDistrictsByProvinceRef(this.dadProvince.province_ref)
@@ -289,6 +322,8 @@ export class FamilyComponent implements OnInit {
     if (index == 1) {
       this.mDistrictList = [];
       this.mSubDistrictList = [];
+      this.momDistrict = new RftDistrict;
+      this.momSubDistrict = new RftSubDistrict;
       this.thisForm.acParent.mother_postcode = null;
       this.utilsService
         .getDistrictsByProvinceRef(this.momProvince.province_ref)
@@ -301,6 +336,8 @@ export class FamilyComponent implements OnInit {
     if (index == 2) {
       this.pDistrictList = [];
       this.pSubDistrictList = [];
+      this.patrolDistrict = new RftDistrict;
+      this.patrolSubDistrict = new RftSubDistrict;
       this.thisForm.acParent.patrol_postcode = null;
       this.utilsService
         .getDistrictsByProvinceRef(this.patrolProvince.province_ref)
@@ -315,7 +352,7 @@ export class FamilyComponent implements OnInit {
     console.log("selectDistrict");
     if (index == 0) {
       this.fSubDistrictList = [];
-
+      this.dadSubDistrict = new RftSubDistrict;
       this.thisForm.acParent.father_postcode = null;
       this.utilsService
         .getSubDistrictsByDistrictRef(this.dadDistrict.district_ref)
@@ -326,6 +363,7 @@ export class FamilyComponent implements OnInit {
     }
     if (index == 1) {
       this.mSubDistrictList = [];
+      this.momSubDistrict = new RftSubDistrict;
       this.thisForm.acParent.mother_postcode = null;
       this.utilsService
         .getSubDistrictsByDistrictRef(this.momDistrict.district_ref)
@@ -336,6 +374,7 @@ export class FamilyComponent implements OnInit {
     }
     if (index == 2) {
       this.pSubDistrictList = [];
+      this.patrolSubDistrict = new RftSubDistrict;
       this.thisForm.acParent.patrol_postcode = null;
       this.utilsService
         .getSubDistrictsByDistrictRef(this.patrolDistrict.district_ref)
@@ -361,20 +400,27 @@ export class FamilyComponent implements OnInit {
 
   nextButtonOnClick() {
     console.log("nextButtonOnClick");
-    // set father data
-    this.thisForm.acParent.father_province = this.dadProvince.province_ref;
-    this.thisForm.acParent.father_district = this.dadDistrict.district_ref;
-    this.thisForm.acParent.father_sub_district = this.dadSubDistrict.sub_district_ref;
+    if(this.thisForm.acParent.parent_flag == '1'){
+      // set father data
+      this.thisForm.acParent.father_birth_date = this.dadYear+this.dadMonth+this.dadDay;
+      this.thisForm.acParent.father_province = this.dadProvince.province_ref;
+      this.thisForm.acParent.father_district = this.dadDistrict.district_ref;
+      this.thisForm.acParent.father_sub_district = this.dadSubDistrict.sub_district_ref;
 
-    // set father data
-    this.thisForm.acParent.mother_province = this.momProvince.province_ref;
-    this.thisForm.acParent.mother_district = this.momDistrict.district_ref;
-    this.thisForm.acParent.mother_sub_district = this.momSubDistrict.sub_district_ref;
+      // set father data
+      this.thisForm.acParent.mother_birth_date = this.momYear+this.momMonth+this.momDay;
+      this.thisForm.acParent.mother_province = this.momProvince.province_ref;
+      this.thisForm.acParent.mother_district = this.momDistrict.district_ref;
+      this.thisForm.acParent.mother_sub_district = this.momSubDistrict.sub_district_ref;
+    }else{
+      // set father data
+      this.thisForm.acParent.patrol_birth_date = this.patrolYear.concat(this.patrolMonth).concat(this.patrolDay);
+      this.thisForm.acParent.patrol_province = this.patrolProvince.province_ref;
+      this.thisForm.acParent.patrol_district = this.patrolDistrict.district_ref;
+      this.thisForm.acParent.patrol_sub_district = this.patrolSubDistrict.sub_district_ref;
+    }
 
-    // set father data
-    this.thisForm.acParent.patrol_province = this.patrolProvince.province_ref;
-    this.thisForm.acParent.patrol_district = this.patrolDistrict.district_ref;
-    this.thisForm.acParent.patrol_sub_district = this.patrolSubDistrict.sub_district_ref;
+
 
     this.familyAndAddress.onChangePanel(1, this.thisForm);
     this.thisForm = new FamilyAndAddressForm();

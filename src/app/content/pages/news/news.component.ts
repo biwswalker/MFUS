@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { NewsForm } from '../../form/news-form';
 import * as moment from 'moment';
 
+
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',

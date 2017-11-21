@@ -1,5 +1,9 @@
 <app-header></app-header>
 <app-navbar></app-navbar>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1"
+[speed]="50" [showSpinner]="true" [direction]="'lefttToRightIncreased'"
+[color]="'red'" [trickleSpeed]="100" [thick]="true" [ease]="'linear'"
+></ng-progress>
 <div class="row container-fixed">
     <router-outlet></router-outlet>
 </div>

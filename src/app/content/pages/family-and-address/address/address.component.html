@@ -3,10 +3,9 @@
     <p class="panel-header-title">ข้อมูลที่อยู่ตามทะเบียนบ้าน</p>
   </div>
   <div class="underline-blue" style="clear: both"></div>
-
   <div class="row overide-row">
     <div class="col-xs-12">
-      <label class="normal">ที่อยู่</label>
+      <label class="normal">ที่อยู่ *</label>
       <input type="text" pInputText
       class="input-address"
       name="home-address"
@@ -17,7 +16,7 @@
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">จังหวัด</label>
+      <label class="normal">จังหวัด *</label>
       <p-autoComplete
         name="autocompleteProvince"
         field="province_name_t"
@@ -34,7 +33,7 @@
       </p-autoComplete>
     </div>
     <div class="col-xs-7">
-      <label class="normal">อำเภอ</label>
+      <label class="normal">อำเภอ *</label>
       <p-autoComplete
         name="autocompleteDistrict"
         field="district_name_t"
@@ -57,7 +56,7 @@
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">ตำบล</label>
+      <label class="normal">ตำบล *</label>
       <p-autoComplete
         name="sub_district"
         field="sub_district_name_t"
@@ -79,7 +78,7 @@
       <label class="normal">รหัสไปรษณีย์</label>
       <input type="text" pInputText class="input-postcode" name="mother-postcode"
       [(ngModel)]="thisForm.acAddress.home_postcode"
-      [disabled]="!homeSubDistrict.sub_district_ref"
+      [disabled]="true"
       >
     </div>
   </div>
@@ -88,14 +87,14 @@
       <label class="btn-positive normal-inline" label="เลือกไฟล์" pButton>
         <input type="file"
         accept="image/*, application/pdf"
-        class="display-none" >
+        class="display-none" (change)="uploadDirection($event)">
       </label>
       <label class="normal-inline">เลือกรูปภาพแสดงการเดินทางไปยังบ้านของนักศึกษา</label>
     </div>
   </div>
   <div class="row overide-row">
     <div class="col-xs-12">
-      <img src="./assets/images/vim-screen.png" alt="" class="home-direction-img">
+      <img src="{{image}}" alt="" class="home-direction-img">
     </div>
   </div>
 
@@ -109,7 +108,7 @@
 
   <div class="row overide-row">
     <div class="col-xs-12">
-      <label class="normal">ที่อยู่</label>
+      <label class="normal">ที่อยู่ *</label>
       <input type="text" pInputText class="input-address"
       name="mother-address"
       [(ngModel)]="thisForm.acAddress.current_address"
@@ -119,7 +118,7 @@
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">จังหวัด</label>
+      <label class="normal">จังหวัด *</label>
       <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="currentProvince" [suggestions]="currentProvinceList"
         [size]="25" (onSelect)="selectProvince(1)" forceselection="true"
         [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(1)"
@@ -130,7 +129,7 @@
       </p-autoComplete>
     </div>
     <div class="col-xs-7">
-      <label class="normal">อำเภอ</label>
+      <label class="normal">อำเภอ *</label>
       <p-autoComplete name="autocompleteDistrict"
         field="district_name_t"
         [(ngModel)]="currentDistrict"
@@ -151,12 +150,12 @@
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">ตำบล</label>
+      <label class="normal">ตำบล *</label>
       <p-autoComplete
         name="sub_district"
         field="sub_district_name_t"
         [(ngModel)]="currentSubDistrict"
-        [suggestions]="currentDistrictList"
+        [suggestions]="currentSubDistrictList"
         (completeMethod)="autocompleteSubDistrict($event)"
         [size]="25"
         [dropdown]="true"
@@ -173,6 +172,7 @@
       <input type="text" pInputText class="input-postcode"
       name="current-postcode"
       [(ngModel)]="thisForm.acAddress.current_postcode"
+      [disabled]="true"
       >
     </div>
   </div>

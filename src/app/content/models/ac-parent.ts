@@ -53,7 +53,7 @@ public  patrol_pid: string;
 public  patrol_status: string;
 public  patrol_died_year: string;
 public  patrol_name: string;
-public  patrol_birth_date: Date;
+public  patrol_birth_date: string;
 public  patrol_address: string;
 public  patrol_province: string;
 public  patrol_district: string;

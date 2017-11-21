@@ -1,0 +1,120 @@
+
+
+<!--mode search -->
+<div class="content">
+    <div class="content-header-blue">
+        <p>คัดกรองเอกสาร</p>
+        <div class="underline-blue"></div>
+      </div>
+      <div class="row space"></div>
+<div class="col-xs-12">
+
+<div class="col-xs-12">
+    <div class="col-xs-2">
+        <label class="normal">ปี *</label>
+        <div>
+          <input  name="year" type="text" id="year" maxlength="20" size="5"
+            pInputText>
+        </div>
+    </div>
+    <div class="col-xs-8">
+        <label class="normal">ทุนการศึกษา *</label>
+      <div>
+      <p-dropdown name="scholarship"
+      [style]="{'width':'480px'}">
+      </p-dropdown>
+      </div>
+      </div>
+    <div class="col-xs-2">
+          <label class="normal">รอบ *</label>
+            <div>
+            <p-dropdown name="round"
+            [style]="{'width':'70px'}">
+            </p-dropdown>
+            </div>
+          </div>
+
+          <div class="row">  </div>
+          <div class="col-xs-4">
+              <label class="normal">สำนักวิชา</label>
+                <div>
+                <p-dropdown name="school"
+                [style]="{'width':'150px'}">
+                </p-dropdown>
+                </div>
+                </div>
+          <div class="col-xs-4">
+                    <label class="normal">สาขาวิชา</label>
+                      <div>
+                      <p-dropdown name="Major"
+                      [style]="{'width':'150px'}">
+                      </p-dropdown>
+                      </div>
+                      </div>
+          <div class="col-xs-4">
+             <label class="normal">สถานะการคัดกรอง</label>
+               <div>
+               <p-dropdown name="screening status"
+                [style]="{'width':'220px'}">
+                </p-dropdown>
+                </div>
+                </div>
+
+  </div>
+
+
+
+<div class="col-xs-12">
+  <div class="row space"></div>
+    <button pButton
+            type="button"
+            (click)="onSearch()"
+            class="btn-primary"
+            label="ค้นหา"></button>
+    <button pButton
+            type="button"
+            class="btn-primary"
+            (click)="onResetSearch()"
+            label="ล้างข้อมูล"></button>
+  </div>
+
+  <div class="col-xs-12">
+      <div class="row space"></div>
+    <p-dataTable [value]="DocumentList"
+                 selectionMode="single"
+                 [(selection)]="selectDocuments"
+                 [rows]="10"
+                 [paginator]="true"
+                 [rowsPerPageOptions]="[5,10,20]"
+                 sortMode="multiple"
+                 (onRowSelect)="onRowSelect($event)">
+
+      <p-column [sortable]="true"
+                [style]="{'width':'120px'}"
+                field="application code"
+                header="หมายเลขเอกสาร"></p-column>
+      <p-column [sortable]="true"
+                [style]="{'width':'120px'}"
+                header="ชื่อ-สกุลนักศึกษา"></p-column>
+      <p-column [sortable]="true"
+                [style]="{'width':'160px'}"
+
+                header="สำนักวิชา"></p-column>
+      <p-column [sortable]="true"
+                [style]="{'width':'130px'}"
+
+                header="สาขาวิชา"></p-column>
+
+      <p-column [sortable]="true"
+                [style]="{'width':'90px'}"
+
+                header="ชั้นปีการศึกษา"></p-column>
+      <p-column [sortable]="true"
+                [style]="{'width':'90px'}"
+
+                header="สถานะเอกสาร"></p-column>
+    </p-dataTable>
+  </div>
+
+</div>
+</div>
