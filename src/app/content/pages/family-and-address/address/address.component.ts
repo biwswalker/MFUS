@@ -1,4 +1,3 @@
-import { AcAddress } from './../../../models/ac-address';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { SelectItem } from "primeng/primeng";
 import { FamilyAndAddressForm } from "./../../../form/family-and-address-form";
@@ -19,7 +18,6 @@ import { Component, OnInit } from "@angular/core";
 })
 export class AddressComponent implements OnInit {
   thisForm: FamilyAndAddressForm = new FamilyAndAddressForm();
-  acAddress: AcAddress = new AcAddress();
   // Autocomplete Province
   listProvince: RftProvince[] = [];
 
@@ -62,7 +60,6 @@ export class AddressComponent implements OnInit {
     console.log("ngOnInit");
     this.thisForm = new FamilyAndAddressForm();
     this.thisForm = this.familyAndAddress.getData();
-    this.acAddress = this.thisForm.acAddress
     this.getProvince();
     this.setupImage();
   }
