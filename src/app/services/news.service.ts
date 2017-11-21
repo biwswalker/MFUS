@@ -49,6 +49,12 @@ export class NewsService {
         criteria = criteria + 'active_flag=' + news.smNews.active_flag + '&'
       }
 
+      
+      if(news.smNews.news_ref !=null
+        && news.smNews.news_ref != '') {
+        criteria = criteria + 'news_ref=' + news.smNews.news_ref
+      }
+
       console.log('criteria :', criteria);
       if(criteria.length > 1){
         criteria = criteria.substr(0,criteria.length-1);

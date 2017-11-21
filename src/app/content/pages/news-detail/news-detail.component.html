@@ -1,3 +1,38 @@
-<p>
-  news-detail works!
-</p>
+<div class="content">
+    <div class="space"></div>
+    <div class="row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-10">
+            <div class="content-header-red news-header">
+                {{newsForm.smNews.news_topic}}
+            </div>
+            <div class="underline-blue"></div>
+            <div class="space"></div>
+        </div>
+        <div class="col-xs-1"></div>
+    </div>
+    <div class="row" >
+        <div class="col-xs-1"></div>
+        <div class="col-xs-10" >
+            <img src="{{newsForm.smNews.news_image}}" class="news-img" >
+        </div>
+        <div class="col-xs-1"></div>
+    </div>
+    <div class="space"></div>
+    <div class="row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-10">
+            <div class="news-content" [innerHTML]="newsForm.smNews.news_detail"></div>
+        </div>
+        <div class="col-xs-1"></div>
+    </div>
+    <div class="space"></div>
+    <div class="row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-10 news-content publish-date">
+            วันที่ประกาศข่าว : {{newsForm.newDate}}
+        </div>
+        <div class="col-xs-1"></div>
+    </div>
+</div>
+
