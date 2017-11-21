@@ -1,3 +1,4 @@
+import { AcAddress } from './../../../models/ac-address';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { SelectItem } from "primeng/primeng";
 import { FamilyAndAddressForm } from "./../../../form/family-and-address-form";
@@ -18,6 +19,7 @@ import { Component, OnInit } from "@angular/core";
 })
 export class AddressComponent implements OnInit {
   thisForm: FamilyAndAddressForm = new FamilyAndAddressForm();
+  acAddress: AcAddress = new AcAddress();
   // Autocomplete Province
   listProvince: RftProvince[] = [];
 
@@ -57,13 +59,20 @@ export class AddressComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getProvince();
+    console.log("ngOnInit");
+    this.thisForm = new FamilyAndAddressForm();
     this.thisForm = this.familyAndAddress.getData();
-    if(this.thisForm.acAddress.direction_image != undefined){
+    this.acAddress = this.thisForm.acAddress
+    this.getProvince();
+    this.setupImage();
+  }
+
+  setupImage(){
+    console.log('setupImage');
+    this.image = null;
+    if(this.thisForm.acAddress.direction_image != '' || this.thisForm.acAddress.direction_image != undefined){
       this.binaryString = this.thisForm.acAddress.direction_image;
-      this.img_name = this.thisForm.acAddress.direction_name;
-      this.img_type = this.thisForm.acAddress.direction_type;
-      this.image = 'data:' + this.img_type + ';base64,' + btoa(this.binaryString);
+      this.image = 'data:' + this.thisForm.acAddress.direction_type + ';base64,' + btoa(this.binaryString);
     }
   }
 
@@ -269,6 +278,7 @@ export class AddressComponent implements OnInit {
   }
 
   handleReaderLoaded(readerEvent) {
+    console.log("handleReaderLoaded");
     this.binaryString = readerEvent.target.result;
     this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
     // console.log(btoa(this.binaryString));
@@ -287,6 +297,8 @@ export class AddressComponent implements OnInit {
   submitButtonOnClick() {
     console.log("nextButtonOnClick");
     // set home address
+    console.log(this.thisForm.acAddress[0]);
+    // set home address
     this.thisForm.acAddress.home_province = this.homeProvince.province_ref;
     this.thisForm.acAddress.home_district = this.homeDistrict.district_ref;
     this.thisForm.acAddress.home_sub_district = this.homeSubDistrict.sub_district_ref;
@@ -295,7 +307,7 @@ export class AddressComponent implements OnInit {
     this.thisForm.acAddress.current_province = this.currentProvince.province_ref;
     this.thisForm.acAddress.current_district = this.currentDistrict.district_ref;
     this.thisForm.acAddress.current_sub_district = this.currentSubDistrict.sub_district_ref;
-
+    console.log(this.thisForm.acAddress[0].home_address);
     this.familyAndAddress.onSubmit(this.thisForm);
     // this.familyAndAddress.onNext(1);
     // console.log(this.siblings);

@@ -1,3 +1,4 @@
+import { NgProgress } from 'ngx-progressbar';
 import { FamilyAndAddressComponent } from "./../../family-and-address/family-and-address.component";
 import { Component, OnInit } from "@angular/core";
 import { UtilsService } from "./../../../../services/utils.service";
@@ -79,15 +80,44 @@ export class FamilyComponent implements OnInit {
 
   constructor(
     private utilsService: UtilsService,
-    public familyAndAddress: FamilyAndAddressComponent
+    public familyAndAddress: FamilyAndAddressComponent,
+
   ) {}
 
   ngOnInit() {
-
+    console.log("FamilyComponent.ngOnInit ");
     this.getProvince();
     this.initBirthMonth();
 
     this.thisForm = this.familyAndAddress.getData();
+    if(this.thisForm.acParent.parent_ref != '' || this.thisForm.acParent.parent_ref != undefined){
+      this.prepareParentData();
+
+    }
+  }
+
+  prepareParentData(){
+
+    if(this.thisForm.acParent.parent_flag == '1'){
+
+
+        this.dadYear = this.thisForm.acParent.father_birth_date.substr(0,4);
+        this.dadMonth = this.thisForm.acParent.father_birth_date.substr(4,2);
+        this.dadDay =  this.thisForm.acParent.father_birth_date.substr(6,2);
+
+        this.momYear = this.thisForm.acParent.mother_birth_date.substr(0,4);
+        this.momMonth = this.thisForm.acParent.mother_birth_date.substr(4,2);
+        this.momDay =  this.thisForm.acParent.mother_birth_date.substr(6,2);
+    }else{
+      this.dadYear = this.thisForm.acParent.patrol_birth_date.substr(0,4);
+      this.dadMonth = this.thisForm.acParent.patrol_birth_date.substr(4,2);
+      this.dadDay =  this.thisForm.acParent.patrol_birth_date.substr(6,2);
+    }
+
+
+    this.initBirthMonth();
+    // console.log('dad year: '+this.dadDay+'/'+this.dadMonth+'/'+this.dadYear);
+
   }
 
   initBirthMonth() {

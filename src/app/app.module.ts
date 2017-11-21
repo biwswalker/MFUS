@@ -104,6 +104,7 @@ import { AddressComponent } from "./content/pages/family-and-address/address/add
 import { FamilyAndAddressService } from './services/familyandaddress.service';
 import { SiblingService } from './services/sibling.service';
 
+import { NgProgressModule } from 'ngx-progressbar';
 //Router
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -233,6 +234,7 @@ export function startupServiceFactory(
     FileUploadModule,
     DataScrollerModule,
     DataListModule,
+    NgProgressModule,
   ],
   providers: [
     AuthenticationService,
