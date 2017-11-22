@@ -447,45 +447,34 @@ export class FamilyComponent implements OnInit {
 
   setupDistictList(){
     console.log("setupDistictList");
-      if(this.thisForm.acParent.parent_flag == '1'){
-        this.utilsService.getDistrictsByProvinceRef(this.thisForm.acParent.father_province).subscribe((res: RftDistrict[]) => {
-          this.fListDistrict = [];
-          this.fListDistrict.push(...res);
-        });
-        this.utilsService.getDistrictsByProvinceRef(this.thisForm.acParent.mother_province).subscribe((res: RftDistrict[]) => {
-          this.mListDistrict = [];
-          this.mListDistrict.push(...res);
-        });
-      }
+    this.fListDistrict = [];
+    this.mListDistrict = [];
+    this.pListDistrict = [];
+    if(this.thisForm.acParent.parent_flag == '1'){
+      this.fListDistrict = this.utilsService.getDistrictListByProvinceRef(this.thisForm.acParent.father_province);
+      this.mListDistrict = this.utilsService.getDistrictListByProvinceRef(this.thisForm.acParent.mother_province);
+    }
 
-      if(this.thisForm.acParent.parent_flag == '2'){
-        this.utilsService.getDistrictsByProvinceRef(this.thisForm.acParent.patrol_province).subscribe((res: RftDistrict[]) => {
-          this.pListDistrict = [];
-          this.pListDistrict.push(...res);
-        });
-      }
+    if(this.thisForm.acParent.parent_flag == '2'){
+      this.pListDistrict = this.utilsService.getDistrictListByProvinceRef(this.thisForm.acParent.patrol_province);
+    }
   }
 
   setupSubDistictList(){
     console.log("setupSubDistictList");
+    this.fListSubDistrict = [];
+    this.mListSubDistrict = [];
+    this.pListSubDistrict = [];
       if(this.thisForm.acParent.parent_flag == '1'){
-        this.utilsService.getSubDistrictsByDistrictRef(this.thisForm.acParent.father_district).subscribe((res: RftSubDistrict[]) => {
-          this.fListSubDistrict = [];
-          this.fListSubDistrict.push(...res);
-        });
-        this.utilsService.getSubDistrictsByDistrictRef(this.thisForm.acParent.mother_district).subscribe((res: RftSubDistrict[]) => {
-          this.mListSubDistrict = [];
-          this.mListSubDistrict.push(...res);
-        });
+        this.fListSubDistrict = this.utilsService.getSubDistrictListByDistrictRef(this.thisForm.acParent.father_district);
+        this.mListSubDistrict = this.utilsService.getSubDistrictListByDistrictRef(this.thisForm.acParent.mother_district);
       }
-
       if(this.thisForm.acParent.parent_flag == '2'){
-        this.utilsService.getSubDistrictsByDistrictRef(this.thisForm.acParent.patrol_district).subscribe((res: RftSubDistrict[]) => {
-          this.pListSubDistrict = [];
-          this.pListSubDistrict.push(...res);
-        });
+        this.pListSubDistrict = this.utilsService.getSubDistrictListByDistrictRef(this.thisForm.acParent.patrol_district);
       }
   }
+
+
   nextButtonOnClick() {
     console.log("nextButtonOnClick");
     if(this.thisForm.acParent.parent_flag == '1'){

@@ -124,10 +124,12 @@ export class UtilsService {
       );
   }
 
-  getSubDistricts(): Observable<RftSubDistrict[]> {
+  getDistrictsByProvinceRef(ref: string): Observable<RftDistrict[]> {
+    console.log('ref' + ref)
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.url+'subdistrict', options)
+    let criteria = '/province_ref=' + ref;
+    return this.http.get(this.url+'atpdistrict' + criteria, options)
       .map(
       (res: Response) => {
         return res.json();
@@ -135,12 +137,18 @@ export class UtilsService {
       );
   }
 
-  getDistrictsByProvinceRef(ref: string): Observable<RftDistrict[]> {
-    console.log('ref' + ref)
+  getDistrictListByProvinceRef(ref: string):RftDistrict[]{
+    let districtList = [];
+    this.getDistrictsByProvinceRef(ref).subscribe((res: RftDistrict[]) => {
+      districtList.push(...res);
+    });
+    return districtList;
+  }
+
+  getSubDistricts(): Observable<RftSubDistrict[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    let criteria = '/province_ref=' + ref;
-    return this.http.get(this.url+'atpdistrict' + criteria, options)
+    return this.http.get(this.url+'subdistrict', options)
       .map(
       (res: Response) => {
         return res.json();
@@ -158,6 +166,14 @@ export class UtilsService {
         return res.json();
       }
       );
+  }
+
+  getSubDistrictListByDistrictRef(ref: string):RftSubDistrict[]{
+    let subDistrictList = [];
+    this.getSubDistrictsByDistrictRef(ref).subscribe((res: RftSubDistrict[]) => {
+      subDistrictList.push(...res);
+    });
+    return subDistrictList;
   }
 
   getTitleList(): Observable<RftTitleName[]> {
