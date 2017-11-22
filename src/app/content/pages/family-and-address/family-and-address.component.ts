@@ -92,6 +92,7 @@ export class FamilyAndAddressComponent implements OnInit {
         this.parentService.getParentByStudentRef('1').subscribe((res: AcParent) => {
           this.familyAndAddressForm.acParent = res;
           if(res)
+          console.log('1');
           observer.next(true);
         });
 

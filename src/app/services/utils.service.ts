@@ -76,6 +76,39 @@ export class UtilsService {
       );
   }
 
+  getProvinceByRef(ref: string): Observable<RftProvince> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(this.url+'province-by-ref/'+ref, options)
+      .map(
+      (res: Response) => {
+        return res.json();
+      }
+      );
+  }
+
+  getDistrictByRef(ref: string): Observable<RftDistrict> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(this.url+'district-by-ref/'+ref, options)
+      .map(
+      (res: Response) => {
+        return res.json();
+      }
+      );
+  }
+
+  getSubDistrictByRef(ref: string): Observable<RftSubDistrict> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(this.url+'subdistrict-by-ref/'+ref, options)
+      .map(
+      (res: Response) => {
+        return res.json();
+      }
+      );
+  }
+
   getProvincesList() {
     return this.startupService.provinceList;
   }
