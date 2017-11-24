@@ -1,3 +1,4 @@
+import { DocumentsService } from './services/documents.service';
 import { AddressService } from './services/address.service';
 import { ParentService } from './services/parent.service';
 import { DocumentsscreeningComponent } from './content/pages/documentsscreening/documentsscreening.component';
@@ -103,7 +104,6 @@ import { SiblingComponent } from "./content/pages/family-and-address/sibling/sib
 import { AddressComponent } from "./content/pages/family-and-address/address/address.component";
 import { FamilyAndAddressService } from './services/familyandaddress.service';
 import { SiblingService } from './services/sibling.service';
-
 import { NgProgressModule } from 'ngx-progressbar';
 //Router
 const appRoutes: Routes = [
@@ -256,6 +256,7 @@ export function startupServiceFactory(
     ParentService,
     AddressService,
     SiblingService,
+    DocumentsService,
     {
       provide: APP_INITIALIZER,
       useFactory: startupServiceFactory,
