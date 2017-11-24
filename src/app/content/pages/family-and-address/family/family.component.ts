@@ -1,3 +1,5 @@
+import { Observer } from 'rxjs/Observer';
+import { Observable } from 'rxjs/Rx';
 import { NgProgress } from 'ngx-progressbar';
 import { FamilyAndAddressComponent } from "./../../family-and-address/family-and-address.component";
 import { Component, OnInit } from "@angular/core";
@@ -9,6 +11,7 @@ import { FamilyAndAddressForm } from "./../../../form/family-and-address-form";
 import { Message, SelectItem } from "primeng/primeng";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Response } from "@angular/http";
+import { forEach } from '@angular/router/src/utils/collection';
 declare var jquery:any;
 declare var $ :any;
 @Component({
@@ -91,12 +94,13 @@ export class FamilyComponent implements OnInit {
 
     this.thisForm = this.familyAndAddress.getData();
     if(this.thisForm.acParent.parent_ref != '' || this.thisForm.acParent.parent_ref != undefined){
-      this.prepareParentData();
+      this.prepareBirthDateData();
+      this.prepareAddressData();
 
     }
   }
 
-  prepareParentData(){
+  prepareBirthDateData(){
 
     if(this.thisForm.acParent.parent_flag == '1'){
 
@@ -118,6 +122,47 @@ export class FamilyComponent implements OnInit {
     this.initBirthMonth();
     // console.log('dad year: '+this.dadDay+'/'+this.dadMonth+'/'+this.dadYear);
 
+  }
+
+
+  prepareAddressData(){
+
+    if(this.thisForm.acParent.parent_flag == '1'){
+
+        //Setup dad address
+        this.utilsService.getProvinceByRef(this.thisForm.acParent.father_province).subscribe((res: RftProvince) => {
+          this.dadProvince = res;
+        });
+        this.utilsService.getDistrictByRef(this.thisForm.acParent.father_district).subscribe((res: RftDistrict) => {
+          this.dadDistrict = res;
+        });
+        this.utilsService.getSubDistrictByRef(this.thisForm.acParent.father_sub_district).subscribe((res: RftSubDistrict) => {
+          this.dadSubDistrict = res;
+        });
+
+        //Setup mom address
+        this.utilsService.getProvinceByRef(this.thisForm.acParent.mother_province).subscribe((res: RftProvince) => {
+          this.momProvince = res;
+        });
+        this.utilsService.getDistrictByRef(this.thisForm.acParent.mother_district).subscribe((res: RftDistrict) => {
+          this.momDistrict = res;
+        });
+        this.utilsService.getSubDistrictByRef(this.thisForm.acParent.mother_sub_district).subscribe((res: RftSubDistrict) => {
+          this.momSubDistrict = res;
+        });
+    }else{
+      this.utilsService.getProvinceByRef(this.thisForm.acParent.patrol_province).subscribe((res: RftProvince) => {
+        this.patrolProvince = res;
+      });
+      this.utilsService.getDistrictByRef(this.thisForm.acParent.patrol_district).subscribe((res: RftDistrict) => {
+        this.patrolDistrict = res;
+      });
+      this.utilsService.getSubDistrictByRef(this.thisForm.acParent.patrol_sub_district).subscribe((res: RftSubDistrict) => {
+        this.patrolSubDistrict = res;
+      });
+    }
+    this.setupDistictList();
+    this.setupSubDistictList();
   }
 
   initBirthMonth() {
@@ -348,6 +393,7 @@ export class FamilyComponent implements OnInit {
     }
   }
 
+
   selectDistrict(index: number) {
     console.log("selectDistrict");
     if (index == 0) {
@@ -359,6 +405,7 @@ export class FamilyComponent implements OnInit {
         .subscribe((res: RftSubDistrict[]) => {
           this.fListSubDistrict = [];
           this.fListSubDistrict.push(...res);
+
         });
     }
     if (index == 1) {
@@ -397,6 +444,36 @@ export class FamilyComponent implements OnInit {
       this.thisForm.acParent.patrol_postcode = this.patrolSubDistrict.postcode;
     }
   }
+
+  setupDistictList(){
+    console.log("setupDistictList");
+    this.fListDistrict = [];
+    this.mListDistrict = [];
+    this.pListDistrict = [];
+    if(this.thisForm.acParent.parent_flag == '1'){
+      this.fListDistrict = this.utilsService.getDistrictListByProvinceRef(this.thisForm.acParent.father_province);
+      this.mListDistrict = this.utilsService.getDistrictListByProvinceRef(this.thisForm.acParent.mother_province);
+    }
+
+    if(this.thisForm.acParent.parent_flag == '2'){
+      this.pListDistrict = this.utilsService.getDistrictListByProvinceRef(this.thisForm.acParent.patrol_province);
+    }
+  }
+
+  setupSubDistictList(){
+    console.log("setupSubDistictList");
+    this.fListSubDistrict = [];
+    this.mListSubDistrict = [];
+    this.pListSubDistrict = [];
+      if(this.thisForm.acParent.parent_flag == '1'){
+        this.fListSubDistrict = this.utilsService.getSubDistrictListByDistrictRef(this.thisForm.acParent.father_district);
+        this.mListSubDistrict = this.utilsService.getSubDistrictListByDistrictRef(this.thisForm.acParent.mother_district);
+      }
+      if(this.thisForm.acParent.parent_flag == '2'){
+        this.pListSubDistrict = this.utilsService.getSubDistrictListByDistrictRef(this.thisForm.acParent.patrol_district);
+      }
+  }
+
 
   nextButtonOnClick() {
     console.log("nextButtonOnClick");

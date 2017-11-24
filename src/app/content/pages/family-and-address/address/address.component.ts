@@ -62,6 +62,11 @@ export class AddressComponent implements OnInit {
     this.thisForm = this.familyAndAddress.getData();
     this.getProvince();
     this.setupImage();
+    if(this.thisForm.acAddress.address_ref != '' || this.thisForm.acAddress.address_ref != undefined){
+
+      this.prepareAddressData();
+    }
+
   }
 
   setupImage(){
@@ -77,6 +82,34 @@ export class AddressComponent implements OnInit {
   getProvince() {
     this.listProvince = [];
     this.listProvince = this.utilsService.getProvincesList();
+  }
+
+  prepareAddressData(){
+
+
+      this.utilsService.getProvinceByRef(this.thisForm.acAddress.home_province).subscribe((res: RftProvince) => {
+        this.homeProvince = res;
+      });
+      this.utilsService.getProvinceByRef(this.thisForm.acAddress.current_province).subscribe((res: RftProvince) => {
+        this.currentProvince = res;
+      });
+
+      this.utilsService.getDistrictByRef(this.thisForm.acAddress.home_district).subscribe((res: RftDistrict) => {
+        this.homeDistrict = res;
+      });
+      this.utilsService.getDistrictByRef(this.thisForm.acAddress.current_district).subscribe((res: RftDistrict) => {
+        this.currentDistrict = res;
+      });
+
+      this.utilsService.getSubDistrictByRef(this.thisForm.acAddress.home_sub_district).subscribe((res: RftSubDistrict) => {
+        this.homeSubDistrict = res;
+      });
+      this.utilsService.getSubDistrictByRef(this.thisForm.acAddress.current_sub_district).subscribe((res: RftSubDistrict) => {
+        this.currentSubDistrict = res;
+      });
+
+      this.setupDistictList();
+      this.setupSubDistictList();
   }
 
   autocompleteProvince(event) {
@@ -257,6 +290,26 @@ export class AddressComponent implements OnInit {
     }
   }
 
+  setupDistictList(){
+    console.log("setupDistictList");
+
+    this.homeListDistrict = [];
+    this.currentListDistrict = [];
+
+    this.homeListDistrict = this.utilsService.getDistrictListByProvinceRef(this.thisForm.acAddress.home_province);
+    this.currentListDistrict = this.utilsService.getDistrictListByProvinceRef(this.thisForm.acAddress.current_province);
+
+
+  }
+
+  setupSubDistictList(){
+    console.log("setupSubDistictList");
+    this.homeListSubDistrict = [];
+    this.currentListSubDistrict = [];
+
+    this.homeListSubDistrict = this.utilsService.getSubDistrictListByDistrictRef(this.thisForm.acAddress.home_district);
+    this.currentListSubDistrict = this.utilsService.getSubDistrictListByDistrictRef(this.thisForm.acAddress.current_district);
+  }
 
   uploadDirection(event){
     console.log("uploadDirection");
@@ -294,7 +347,6 @@ export class AddressComponent implements OnInit {
   submitButtonOnClick() {
     console.log("nextButtonOnClick");
     // set home address
-    console.log(this.thisForm.acAddress[0]);
     // set home address
     this.thisForm.acAddress.home_province = this.homeProvince.province_ref;
     this.thisForm.acAddress.home_district = this.homeDistrict.district_ref;
@@ -304,7 +356,6 @@ export class AddressComponent implements OnInit {
     this.thisForm.acAddress.current_province = this.currentProvince.province_ref;
     this.thisForm.acAddress.current_district = this.currentDistrict.district_ref;
     this.thisForm.acAddress.current_sub_district = this.currentSubDistrict.sub_district_ref;
-    console.log(this.thisForm.acAddress[0].home_address);
     this.familyAndAddress.onSubmit(this.thisForm);
     // this.familyAndAddress.onNext(1);
     // console.log(this.siblings);

@@ -29,6 +29,7 @@ export class SiblingComponent implements OnInit {
 
   ngOnInit() {
     this.thisForm = this.familyAndAddress.getData();
+    console.log(this.thisForm.siblingList);
     this.getDropDown();
   }
 

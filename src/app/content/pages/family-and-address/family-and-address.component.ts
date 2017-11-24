@@ -92,6 +92,7 @@ export class FamilyAndAddressComponent implements OnInit {
         this.parentService.getParentByStudentRef('1').subscribe((res: AcParent) => {
           this.familyAndAddressForm.acParent = res;
           if(res)
+          console.log('1');
           observer.next(true);
         });
 
@@ -163,6 +164,6 @@ export class FamilyAndAddressComponent implements OnInit {
     console.log("home_address = " + this.familyAndAddressForm.acAddress.home_address);
 
 
-    // this.familyAndAddressService.insertFamilyAndAddress(this.familyAndAddressForm);
+    this.familyAndAddressService.insertFamilyAndAddress(this.familyAndAddressForm);
   }
 }
