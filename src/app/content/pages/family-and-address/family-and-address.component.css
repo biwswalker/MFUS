@@ -14,7 +14,8 @@
 }
 
 .land-amt{
-  width:50px;
+  width:100px;
+  text-align: right;
 }
 .fake-label{
   display: block;
