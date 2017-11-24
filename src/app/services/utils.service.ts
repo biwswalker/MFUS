@@ -79,6 +79,7 @@ export class UtilsService {
   }
 
   getProvinceByRef(ref: string): Observable<RftProvince> {
+    console.log(ref)
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.get(this.url+'province-by-ref/'+ref, options)

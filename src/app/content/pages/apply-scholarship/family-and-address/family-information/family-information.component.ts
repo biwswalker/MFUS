@@ -3,7 +3,6 @@ import { ApplyScholarshipComponent } from './../../apply-scholarship.component';
 import { RftSubDistrict } from './../../../../models/rft-sub-district';
 import { RftDistrict } from './../../../../models/rft-district';
 import { RftProvince } from './../../../../models/rft-province';
-
 import { UtilsService } from '../../../../../services/utils.service';
 import { FamilyAndAddressForm } from '../../../../form/family-and-address-form';
 import { Component, OnInit } from '@angular/core';

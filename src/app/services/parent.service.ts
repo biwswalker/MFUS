@@ -11,10 +11,11 @@ export class ParentService {
 
   getParentByStudentRef(student_ref: string): Observable<AcParent> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.get(this.mainUrl+'parent-info/' + student_ref,{headers:headers})
+    return this.http.get(this.mainUrl + 'parent-info/' + student_ref, { headers: headers })
       .map((res: Response) => {
-          return res.json();
-        }
+        console.log(res)
+        return res.json();
+      }
       );
   }
 }
