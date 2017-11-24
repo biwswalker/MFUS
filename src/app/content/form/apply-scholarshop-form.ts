@@ -12,6 +12,9 @@ import { ApDocumentUpload } from '../models/ap-document-upload';
 import { AcSibling } from '../models/ac-sibling';
 import { AcAddress } from '../models/ac-address';
 import { AcStudent } from '../models/ac-student';
+import { SmScholarship } from '../models/sm-scholarship';
+import { SmSponsors } from '../models/sm-sponsors';
+
 export class ApplyScholarshipForm {
 
   // public acStudent: AcStudent;
@@ -29,6 +32,8 @@ export class ApplyScholarshipForm {
   public acSibling: AcSibling;
   public acAddress: AcAddress;
   public acStudent: AcStudent;
+  public smScholarship: SmScholarship;
+  public smSponsors: SmSponsors;
 
   public age: number;
 
@@ -49,5 +54,7 @@ export class ApplyScholarshipForm {
     this.acParent = new AcParent();
     this.acSibling = new AcSibling();
     this.acStudent = new AcStudent();
+    this.smScholarship = new SmScholarship();
+    this.smSponsors = new SmSponsors();
   }
 }

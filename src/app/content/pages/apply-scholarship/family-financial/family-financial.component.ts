@@ -23,7 +23,6 @@ export class FamilyFinancialComponent implements OnInit {
   ngOnInit() {
     this.financial = new ApplyScholarshipForm();
     this.debt = new ApFamilyDebt();
-    console.log("Begin apFamilyDept");
   }
 
   addRow() {
@@ -41,19 +40,15 @@ export class FamilyFinancialComponent implements OnInit {
   }
 
   addDebt() {
-    console.log(this.debtList)
-    let objList: ApFamilyDebt[] = this.debtList;
-    for(let obj of objList){
-      this.applyScholarship.applyScholarshipForm.apFamilyDebt = obj;
-    }
+    this.applyscholarshipService.setDebtList(this.debtList);
   }
 
   onNext() {
     this.addDebt();
-
+    console.log(this.applyScholarship.applyScholarshipForm)
+    console.log(this.applyscholarshipService.getDebtList)
     this.applyscholarshipService.nextIndex(3);
     this.applyScholarship.activeIndex = this.applyscholarshipService.getIndex();
-    console.log('data = ' , this.applyScholarship.applyScholarshipForm);
   }
 
   onPrevious() {

@@ -13,7 +13,7 @@
             </p-column>
             <p-column header="สถานะ">
                 <ng-template let-col let-obj="rowData" pTemplate="body">
-                    <label pButton class="btn-positive" label="อัพโหลด" (change)="onUpload($event, obj.document_code)">
+                    <label pButton class="btn-positive" label="อัพโหลด" (change)="upload($event, obj.document_ref)">
                         <input type="file"
                           accept="image/*, application/pdf"
                           class="display-none">
@@ -22,14 +22,14 @@
             </p-column>
             <p-column>
                 <ng-template let-col let-obj="rowData" pTemplate="body">
-                    <button type="button" label="ดูเอกสาร" pButton></button>
+
                 </ng-template>
             </p-column>
         </p-dataTable>
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <button type="button" (click)="showDetail()" label="Click" pButton></button>
+            <button type="button" (click)="uploadFileToList()" label="ถัดไป" pButton></button>
         </div>
     </div>
 </div>

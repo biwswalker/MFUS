@@ -69,7 +69,6 @@ export class ApplyScholarshipComponent implements OnInit {
         }
       }
     ];
-
     this.getApplyScholarshipInformation();
   }
 
@@ -81,45 +80,43 @@ export class ApplyScholarshipComponent implements OnInit {
           this.applyScholarshipForm.rftMajor = res.rftMajor;
           this.applyScholarshipForm.rftSchool = res.rftSchool;
           this.applyScholarshipForm.rftTitleName = res.rftTitleName;
+            let birth_year = parseInt(
+              this.applyScholarshipForm.acStudent.birth_date
+                .toString()
+                .substring(3, 7)
+            );
+            let current_year = new Date().getFullYear() + 543;
+            this.applyScholarshipForm.age = current_year - birth_year;
+
           if(res){
             observer.next(true);
           }
         })
       }, 1000);
       setTimeout(() => {
-        console.log('1')
         this.parentService.getParentByStudentRef(this.applyScholarshipForm.acStudent.student_ref).subscribe((res: AcParent)=>{
-          console.log('getParent')
-          console.log(res);
           this.applyScholarshipForm.acParent = res;
-          console.log(this.applyScholarshipForm)
           if(res){
             observer.next(true);
           }
         })
       }, 2000);
       setTimeout(() => {
-      this.addressService.getAddressByStudentRef(this.applyScholarshipForm.acStudent.student_ref).subscribe((res: AcAddress)=>{
-        console.log('getAddress')
-        console.log(res);
+      this.addressService.getAddressByStudentRef('5a03e52ce518a').subscribe((res: AcAddress)=>{
         this.applyScholarshipForm.acAddress = res;
-        console.log(this.applyScholarshipForm)
       })
       }, 3000);
       setTimeout(() => {
         this.siblingService.getSiblingByStudentRef(this.applyScholarshipForm.acStudent.student_ref).subscribe((res: AcSibling[])=>{
-          console.log(res);
           for(let obj of res) {
             this.applyScholarshipForm.acSibling = obj;
           }
-          console.log(this.applyScholarshipForm)
         })
         }, 3000);
     }).subscribe()
   }
 
   getApplyScholarshipInfo() {
-    console.log(this.applyScholarshipForm);
     this.applyscholarshipService.getApplyscholarshipData(
       this.applyScholarshipForm
     );

@@ -6,13 +6,23 @@ import { ApplyScholarshipForm } from "./../content/form/apply-scholarshop-form";
 import { Http, Headers, Response, RequestOptions } from "@angular/http";
 import { Injectable } from "@angular/core";
 import { ApApplication } from "../content/models/ap-application";
-import { ApStudentLoanFund } from "../content/models/ap-student-loan-fund";
+import { ApStudentLoanFund } from '../content/models/ap-student-loan-fund';
+import { ApFamilyDebt } from '../content/models/ap-family-debt';
+import { ApFamilyFinancial } from '../content/models/ap-family-financial';
+import { ApDocumentUpload } from '../content/models/ap-document-upload';
 
 @Injectable()
 export class ApplyscholarshipService {
+
   private activeIndex = 0;
+
   private applyScholarshipForm: ApplyScholarshipForm = new ApplyScholarshipForm();
   private form: ApplyScholarshipForm = new ApplyScholarshipForm();
+
+  private scholarshipHistoryList: ApScholarshipHistory[] = [];
+  private studentLoanFundList: ApStudentLoanFund[] = [];
+  private debtList: ApFamilyDebt[] = [];
+  private fileList: ApDocumentUpload[] = []
 
   private mainUrl: string = config.backendUrl;
 
@@ -74,14 +84,7 @@ export class ApplyscholarshipService {
     )
   }
 
-  addFamilyFinancial(form: ApplyScholarshipForm) {
-    const url = this.mainUrl + "familyFinancial";
-    const headers = new Headers({ "Content-Type": "application/json" });
-    const body = JSON.stringify(form.apFamilyFinancial);
-    return this.http.post(url, body, { headers: headers });
-  }
-
-  getScholarshipHistory(): Observable<ApScholarshipHistory[]> {
+getScholarshipHistory(): Observable<ApScholarshipHistory[]> {
     console.log("service.getScholarshipHistory");
     const url = this.mainUrl + "scholarship-history";
     const headers = new Headers({ "Content-Type": "application/json" });
@@ -92,7 +95,7 @@ export class ApplyscholarshipService {
     });
   }
 
-  getStdLoan(): Observable<ApStudentLoanFund[]> {
+   getStdLoan(): Observable<ApStudentLoanFund[]> {
     console.log("service.getStdLoan");
     const url = this.mainUrl + "student-loan-fund";
     const headers = new Headers({ "Content-Type": "application/json" });
@@ -101,6 +104,45 @@ export class ApplyscholarshipService {
       console.log(res.json());
       return res.json();
     });
+  }
+
+  setscholarshipHistory(data: ApScholarshipHistory[]) {
+    this.scholarshipHistoryList = data;
+  }
+
+  getScholarshipHistoryList() {
+    return this.scholarshipHistoryList;
+  }
+
+  setStudentLoanFundList(data: ApStudentLoanFund[]) {
+    this.studentLoanFundList = data;
+  }
+
+  getStudentLoanFundList() {
+    return this.studentLoanFundList;
+  }
+
+  setDebtList(data: ApFamilyDebt[]) {
+    this.debtList = data;
+  }
+
+  getDebtList() {
+    return this.debtList;
+  }
+
+  setUploadList(data: ApDocumentUpload[]) {
+    this.fileList = data;
+  }
+
+  getUploadList() {
+    return this.fileList;
+  }
+
+  addFamilyFinancial(form: ApplyScholarshipForm) {
+    const url = this.mainUrl + "familyFinancial";
+    const headers = new Headers({ "Content-Type": "application/json" });
+    const body = JSON.stringify(form.apFamilyFinancial);
+    return this.http.post(url, body, { headers: headers });
   }
 
   addApplication(form: ApApplication) {

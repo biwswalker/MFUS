@@ -19,7 +19,6 @@ export class StudentService {
     const url = this.mainUrl + "student";
     const body = JSON.stringify(form);
     const headers = new Headers({ "content-type": "application/json" });
-    console.log(body);
     return this.http.post(url, body, { headers: headers });
   }
 
@@ -28,12 +27,10 @@ export class StudentService {
     return this.http
       .get(this.mainUrl + "student-info/" + ref, { headers: headers })
       .map((res: Response) => {
-        console.log(res)
         this.applyScholarshipForm.acStudent = res.json().ac_student;
-        this.applyScholarshipForm.rftTitleName = res.json().rft_titleName;
+        this.applyScholarshipForm.rftTitleName = res.json().rft_title;
         this.applyScholarshipForm.rftMajor = res.json().rft_major;
         this.applyScholarshipForm.rftSchool = res.json().rft_school;
-        console.log(this.applyScholarshipForm)
         return this.applyScholarshipForm;
       });
   }

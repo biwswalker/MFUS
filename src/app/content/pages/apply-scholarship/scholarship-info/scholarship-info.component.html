@@ -3,32 +3,32 @@
         <div class="row overide-row">
             <div class="col-xs-3">
                 <label class="normal">ปีการศึกษา *</label>
-                <input type="text" size="10" pInputText>
+                <input type="text" size="10" [(ngModel)]="year" (blur)="searchScholarshipAnnouncementFromYear()" pInputText>
             </div>
             <div class="col-xs-6">
                 <label class="normal">ทุนการศึกษา *</label>
-                <p-autoComplete [suggestions]="scholarshipList" [(ngModel)]="applyScholarship.applyScholarshipForm.smScholarshipAnnouncement" [dropdown]="true" (completeMethod)="autocompleteScholarship($event)" (onDropdownClick)="handleCompleteClickautocompleteScholarship($event)"
-                    field="scholarship_ref" size="35" forceselection="true" name="autocompleteScholarship">
+                <p-autoComplete [suggestions]="scholarshipList" [(ngModel)]="applyScholarship.applyScholarshipForm.smScholarshipAnnouncement" (onSelect)="selectedData()" [dropdown]="true" (completeMethod)="autocompleteScholarship($event)" (onDropdownClick)="handleCompleteClickautocompleteScholarship($event)"
+                    field="scholarship_name" size="35" forceselection="true" name="autocompleteScholarship">
                 </p-autoComplete>
             </div>
             <div class="col-xs-3">
-                <label class="normal">รอบที่</label> {{applyScholarship.applyScholarshipForm.smScholarshipAnnouncement.round}}
+                <label class="normal">รอบที่</label> {{round}}
             </div>
         </div>
         <div class="row overide-row">
             <div class="col-xs-3">
-                <label class="normal">ประเภททุนการศึกษา</label> {{applyScholarship.applyScholarshipForm.smScholarshipAnnouncement.round}}
+                <label class="normal">ประเภททุนการศึกษา</label> {{type}}
             </div>
             <div class="col-xs-6">
-                <label class="normal">ผู้สนับสนุน</label> {{applyScholarship.applyScholarshipForm.smScholarshipAnnouncement.round}}
+                <label class="normal">ผู้สนับสนุน</label> {{sponsor}}
             </div>
             <div class="col-xs-3">
-                <label class="normal">เกรดขั้นต่ำ</label> {{applyScholarship.applyScholarshipForm.smScholarshipAnnouncement.min_gpax}}
+                <label class="normal">เกรดขั้นต่ำ</label> {{gpax}}
             </div>
         </div>
-        <div class="row overide_row">
+        <div class="row overide-row">
             <div class="col-xs-12">
-                <label for="" class="normal">รายละเอียดทุนการศึกษา</label>
+                <label for="" class="normal">รายละเอียดทุนการศึกษา</label>{{detail}}
             </div>
         </div>
         <div class="row overide-row">

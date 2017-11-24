@@ -1,3 +1,4 @@
+import { ApplyScholarshipComponent } from '../../apply-scholarship.component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddressInformationComponent implements OnInit {
 
-  constructor() { }
+
+
+  constructor(
+    public applyScholarship: ApplyScholarshipComponent
+  ) { }
 
   ngOnInit() {
   }
+
 
 }

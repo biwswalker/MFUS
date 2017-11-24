@@ -11,6 +11,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { SmScholarship } from '../content/models/sm-scholarship';
 import { SmScholarshipAnnouncement } from '../content/models/sm-scholarship-announcement';
+import { RftApplicationDocument } from '../content/models/rft-application-document';
 
 const url: string = config.backendUrl;
 
@@ -290,17 +291,15 @@ return days;
       );
   }
 
-  getDocument(): Observable<ApDocumentUpload[]> {
+  getDocument(): Observable<RftApplicationDocument[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.get(url+'application-document', options)
       .map(
       (res: Response) => {
-        console.log(res.json())
         return res.json();
       }
       );
-
   }
 
 }

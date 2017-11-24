@@ -12,6 +12,7 @@ import { SmScholarshipAnnouncement } from '../../../models/sm-scholarship-announ
 import { ApplicantInfoComponent } from '../applicant-info/applicant-info.component';
 import { ApplyscholarshipService } from '../../../../services/applyscholarship.service';
 import { ApScholarshipHistory } from '../../../models/ap-scholarship-history';
+import { ScholarshipannouncementService } from '../../../../services/scholarshipannouncement.service';
 
 @Component({
   selector: "app-scholarship-info",
@@ -31,22 +32,38 @@ export class ScholarshipInfoComponent implements OnInit {
   stdLoanList: ApStudentLoanFund[] = [];
 
   scholarshipList: SmScholarshipAnnouncement[] = [];
-  selectedScholarship: SmScholarshipAnnouncement;
+  selectedScholarship: any;
   listScholarship: SmScholarshipAnnouncement[] = [];
+
+  year: string;
+
+  round: number;
+  type: string;
+  detail: string;
+  gpax: string;
+  sponsor: string;
 
   constructor(public applyScholarship: ApplyScholarshipComponent,
               private utilService: UtilsService,
-              private applyscholarshipService: ApplyscholarshipService) {}
+              private applyscholarshipService: ApplyscholarshipService,
+              private scholarshipAnnoucementService: ScholarshipannouncementService) {}
 
   ngOnInit() {
-    console.log(this.applyScholarship.applyScholarshipForm)
-    // this.getScholarshipAnnouncement();
-    // this.getScholarshipHistory();
-    // this.getStdLoan();
+
+  }
+
+  searchScholarshipAnnouncementFromYear() {
+    this.listScholarship = []
+    this.scholarshipList = []
+    this.scholarshipAnnoucementService.searchScholarshipAnnouncementFromYear(this.year)
+    .subscribe(
+      (res: any[])=>{
+        console.log(res)
+        this.listScholarship.push(...res);
+      })
   }
 
   getScholarshipHistory() {
-    console.log('Get scholarshipHistory')
     this.applyscholarshipService.getScholarshipHistory()
     .subscribe(
       (res: ApScholarshipHistory[]) => {
@@ -59,7 +76,6 @@ export class ScholarshipInfoComponent implements OnInit {
   }
 
   getStdLoan() {
-    console.log('Get getStdLoan')
     this.applyscholarshipService.getStdLoan().subscribe(
       (res: ApStudentLoanFund[]) => {
         for(let obj of res) {
@@ -89,9 +105,18 @@ export class ScholarshipInfoComponent implements OnInit {
 
     setTimeout(() => {
       this.scholarshipList = this.listScholarship;
+      console.log(this.scholarshipList)
     }, 100)
   }
 
+  selectedData(){
+    this.selectedScholarship = this.applyScholarship.applyScholarshipForm.smScholarshipAnnouncement;
+    this.sponsor = this.selectedScholarship.sponsors_name
+    this.type = this.selectedScholarship.scholarship_type
+    this.gpax = this.selectedScholarship.min_gpax
+    this.round = this.selectedScholarship.round
+    this.detail = this.selectedScholarship.detail
+  }
 
   addScholarship() {
     this.history = new ApScholarshipHistory();
@@ -118,17 +143,11 @@ export class ScholarshipInfoComponent implements OnInit {
   }
 
   addScholarshipHistory() {
-    let objlist: ApScholarshipHistory[] = this.historyList;
-    for(let obj of objlist) {
-      this.applyScholarship.applyScholarshipForm.apScholarshipHistory = obj;
-    }
+    this.applyscholarshipService.setscholarshipHistory(this.historyList);
   }
 
   addStudentLoan() {
-    let objlist: ApStudentLoanFund[] = this.stdLoanList;
-    for(let obj of objlist) {
-      this.applyScholarship.applyScholarshipForm.apStudentLoanFund = obj;
-    }
+    this.applyscholarshipService.setStudentLoanFundList(this.stdLoanList);
   }
 
 

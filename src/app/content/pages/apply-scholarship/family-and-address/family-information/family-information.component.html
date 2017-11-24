@@ -1,180 +1,267 @@
 <div class="content">
     <div class="row">
         <div class="col-xs-6">
-            <label class="normal">ผู้ปกครอง</label>
+            <label class="normal">ผู้ปกครอง</label> {{familyAndAddress.flag}}
         </div>
         <div class="col-xs-6"></div>
     </div>
     <div class="row">
         <div class="col-xs-6">
-            <label for="" class="normal">สถานะความสัมพันธ์</label>
+            <label for="" class="normal">สถานะความสัมพันธ์</label> {{familyAndAddress.status}}
         </div>
         <div class="col-xs-6">
-            <label class="normal-inline">เหตุผล</label>
+            <label class="normal-inline">เหตุผล</label> {{applyScholarship.applyScholarshipForm.acParent.because}}
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="content-header-blue-normal">บิดา</div>
-            <div class="underline-blue"></div>
+    <div class="row" *ngIf="applyScholarship.applyScholarshipForm.acParent.parent_flag == '1'">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="content-header-blue-normal">บิดา</div>
+                <div class="underline-blue"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">เลขประจำตัวประชาชน</label> {{applyScholarship.applyScholarshipForm.acParent.father_pid}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">สถานะ</label> {{applyScholarship.applyScholarshipForm.acParent.father_status}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">ชื่อ - สกุล</label> {{applyScholarship.applyScholarshipForm.acParent.father_name}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">วันเกิด</label> {{applyScholarship.applyScholarshipForm.acParent.father_birth_date}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+
+                <label for="" class="normal">ที่อยู่</label> {{applyScholarship.applyScholarshipForm.acParent.father_address}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">จังหวัด</label> {{applyScholarship.applyScholarshipForm.acParent.father_province}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">อำเภอ</label> {{applyScholarship.applyScholarshipForm.acParent.father_district}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">ตำบล</label> {{applyScholarship.applyScholarshipForm.acParent.father_sub_district}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">รหัสไปรษณีย์</label> {{applyScholarship.applyScholarshipForm.acParent.father_postcode}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">เบอร์โทรศัพท์</label> {{applyScholarship.applyScholarshipForm.acParent.father_phone}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">อีเมลล์</label> {{applyScholarship.applyScholarshipForm.acParent.father_email}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">อาชีพ</label> {{applyScholarship.applyScholarshipForm.acParent.father_occupation}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">ตำแหน่ง</label> {{applyScholarship.applyScholarshipForm.acParent.father_position}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <label for="" class="normal">สถานที่ทำงาน</label> {{applyScholarship.applyScholarshipForm.acParent.father_work_address}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">เบอร์โทรศัพท์ที่ทำงาน</label> {{applyScholarship.applyScholarshipForm.acParent.father_work_phone}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">แฟกต์</label> {{applyScholarship.applyScholarshipForm.acParent.father_work_fax}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <label for="" class="normal">ที่ดิน</label> {{applyScholarship.applyScholarshipForm.acParent.father_land_flag}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <label for="" class="normal">รายได้เฉลี่ยต่อเดือน</label> {{applyScholarship.applyScholarshipForm.acParent.father_income_monthly}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="content-header-blue-normal">มารดา</div>
+                <div class="underline-blue"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">เลขประจำตัวประชาชน</label> {{applyScholarship.applyScholarshipForm.acParent.mother_pid}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">สถานะ</label> {{applyScholarship.applyScholarshipForm.acParent.mother_status}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">ชื่อ - สกุล</label> {{applyScholarship.applyScholarshipForm.acParent.mother_name}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">วันเกิด</label> {{applyScholarship.applyScholarshipForm.acParent.mother_birth_date}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <label for="" class="normal">ที่อยู่</label> {{applyScholarship.applyScholarshipForm.acParent.mother_address}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">จังหวัด</label> {{applyScholarship.applyScholarshipForm.acParent.mother_province}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">อำเภอ</label> {{applyScholarship.applyScholarshipForm.acParent.mother_district}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">ตำบล</label> {{applyScholarship.applyScholarshipForm.acParent.mother_sub_district}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">รหัสไปรษณีย์</label> {{applyScholarship.applyScholarshipForm.acParent.mother_postcode}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">เบอร์โทรศัพท์</label> {{applyScholarship.applyScholarshipForm.acParent.mother_phone}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">อีเมลล์</label> {{applyScholarship.applyScholarshipForm.acParent.mother_email}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">อาชีพ</label> {{applyScholarship.applyScholarshipForm.acParent.mother_occupation}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">ตำแหน่ง</label> {{applyScholarship.applyScholarshipForm.acParent.mother_position}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <label for="" class="normal">สถานที่ทำงาน</label> {{applyScholarship.applyScholarshipForm.acParent.mother_work_address}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">เบอร์โทรศัพท์ที่ทำงาน</label> {{applyScholarship.applyScholarshipForm.acParent.mother_work_phone}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">แฟกต์</label> {{applyScholarship.applyScholarshipForm.acParent.mother_work_fax}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <label for="" class="normal">ที่ดิน</label> {{applyScholarship.applyScholarshipForm.acParent.mother_land_flag}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <label for="" class="normal">รายได้เฉลี่ยต่อเดือน</label> {{applyScholarship.applyScholarshipForm.acParent.mother_income_monthly}}
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="" class="normal">เลขประจำตัวประชาชน</label>
+    <div class="row" *ngIf="applyScholarship.applyScholarshipForm.acParent.parent_flag != '1'">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="content-header-blue-normal">ผู้ปกครอง</div>
+                <div class="underline-blue"></div>
+            </div>
         </div>
-        <div class="col-xs-6">
-            <label for="" class="normal">สถานะ</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">เลขประจำตัวประชาชน</label> {{applyScholarship.applyScholarshipForm.acParent.father_pid}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">สถานะ</label> {{applyScholarship.applyScholarshipForm.acParent.father_status}}
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="" class="normal">ชื่อ - สกุล</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">ชื่อ - สกุล</label> {{applyScholarship.applyScholarshipForm.acParent.father_name}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">วันเกิด</label> {{applyScholarship.applyScholarshipForm.acParent.father_birth_date}}
+            </div>
         </div>
-        <div class="col-xs-6">
-            <label for="" class="normal">วันเกิด</label>
+        <div class="row">
+            <div class="col-xs-12">
+
+                <label for="" class="normal">ที่อยู่</label> {{applyScholarship.applyScholarshipForm.acParent.father_address}}
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <label for="" class="normal">ที่อยู่</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">จังหวัด</label> {{applyScholarship.applyScholarshipForm.acParent.father_province}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">อำเภอ</label> {{applyScholarship.applyScholarshipForm.acParent.father_district}}
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="" class="normal">จังหวัด</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">ตำบล</label> {{applyScholarship.applyScholarshipForm.acParent.father_sub_district}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">รหัสไปรษณีย์</label> {{applyScholarship.applyScholarshipForm.acParent.father_postcode}}
+            </div>
         </div>
-        <div class="col-xs-6">
-            <label for="" class="normal">อำเภอ</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">เบอร์โทรศัพท์</label> {{applyScholarship.applyScholarshipForm.acParent.father_phone}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">อีเมลล์</label> {{applyScholarship.applyScholarshipForm.acParent.father_email}}
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="" class="normal">ตำบล</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">อาชีพ</label> {{applyScholarship.applyScholarshipForm.acParent.father_occupation}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">ตำแหน่ง</label> {{applyScholarship.applyScholarshipForm.acParent.father_position}}
+            </div>
         </div>
-        <div class="col-xs-6">
-            <label for="" class="normal">รหัสไปรษณีย์</label>
+        <div class="row">
+            <div class="col-xs-12">
+                <label for="" class="normal">สถานที่ทำงาน</label> {{applyScholarship.applyScholarshipForm.acParent.father_work_address}}
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="" class="normal">เบอร์โทรศัพท์</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="" class="normal">เบอร์โทรศัพท์ที่ทำงาน</label> {{applyScholarship.applyScholarshipForm.acParent.father_work_phone}}
+            </div>
+            <div class="col-xs-6">
+                <label for="" class="normal">แฟกต์</label> {{applyScholarship.applyScholarshipForm.acParent.father_work_fax}}
+            </div>
         </div>
-        <div class="col-xs-6">
-            <label for="" class="normal">อีเมลล์</label>
+        <div class="row">
+            <div class="col-xs-12">
+                <label for="" class="normal">ที่ดิน</label> {{applyScholarship.applyScholarshipForm.acParent.father_land_flag}}
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="" class="normal">อาชีพ</label>
-        </div>
-        <div class="col-xs-6">
-            <label for="" class="normal">ตำแหน่ง</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <label for="" class="normal">สถานที่ทำงาน</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="" class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
-        </div>
-        <div class="col-xs-6">
-            <label for="" class="normal">แฟกต์</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <label for="" class="normal">ที่ดิน</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <label for="" class="normal">รายได้เฉลี่ยต่อเดือน</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="content-header-blue-normal">มารดา</div>
-            <div class="underline-blue"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="" class="normal">เลขประจำตัวประชาชน</label>
-        </div>
-        <div class="col-xs-6">
-            <label for="" class="normal">สถานะ</label>
+        <div class="row">
+            <div class="col-xs-12">
+                <label for="" class="normal">รายได้เฉลี่ยต่อเดือน</label> {{applyScholarship.applyScholarshipForm.acParent.father_income_monthly}}
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="" class="normal">ชื่อ - สกุล</label>
-        </div>
-        <div class="col-xs-6">
-            <label for="" class="normal">วันเกิด</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <label for="" class="normal">ที่อยู่</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="" class="normal">จังหวัด</label>
-        </div>
-        <div class="col-xs-6">
-            <label for="" class="normal">อำเภอ</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="" class="normal">ตำบล</label>
-        </div>
-        <div class="col-xs-6">
-            <label for="" class="normal">รหัสไปรษณีย์</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="" class="normal">เบอร์โทรศัพท์</label>
-        </div>
-        <div class="col-xs-6">
-            <label for="" class="normal">อีเมลล์</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="" class="normal">อาชีพ</label>
-        </div>
-        <div class="col-xs-6">
-            <label for="" class="normal">ตำแหน่ง</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <label for="" class="normal">สถานที่ทำงาน</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="" class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
-        </div>
-        <div class="col-xs-6">
-            <label for="" class="normal">แฟกต์</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <label for="" class="normal">ที่ดิน</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <label for="" class="normal">รายได้เฉลี่ยต่อเดือน</label>
-        </div>
-    </div>
-</div>

@@ -1,3 +1,8 @@
+import { ApplyscholarshipService } from './../../../../services/applyscholarship.service';
+import { ApplyScholarshipForm } from '../../../form/apply-scholarshop-form';
+import { Observer } from 'rxjs/Observer';
+import { Observable } from 'rxjs/Rx';
+import { RftApplicationDocument } from './../../../models/rft-application-document';
 import { Response } from '@angular/http';
 import { UtilsService } from './../../../../services/utils.service';
 import { Component, OnInit } from "@angular/core";
@@ -22,50 +27,77 @@ export class UploadDocumentComponent implements OnInit {
   img_name: string;
   img_type: string;
 
+  document: ApDocumentUpload;
+  documentList: RftApplicationDocument[] = [];
 
-  documentList: ApDocumentUpload[] = [];
+  uploadList: ApDocumentUpload[] = [];
+
   constructor(private utilService: UtilsService,
-              public applyScholarship: ApplyScholarshipComponent) {}
+    public applyScholarship: ApplyScholarshipComponent,
+    private applyscholarshipService: ApplyscholarshipService) { }
 
-  ngOnInit(  ) {
+  ngOnInit() {
     this.getDocument();
   }
 
   getDocument() {
     this.utilService.getDocument().subscribe(
-      (res: ApDocumentUpload[])=>{
-        console.log(res)
+      (res: RftApplicationDocument[]) => {
         this.documentList.push(...res)
       }
     );
-    console.log(this.applyScholarship.applyScholarshipForm.apDocumentUpload)
   }
 
-  onUpload(event, ref:number) {
-    this.fileList = event.target.files;
-    if (this.fileList.length > 0) {
-      this.file = this.fileList[0];
-      // 10 MB
-      if (this.file.size < 10000000) {
-        let reader = new FileReader();
-        reader.onload = this.handleReaderLoaded.bind(this);
-        reader.readAsBinaryString(this.file);
-      }
-    }
-  }
-
-  handleReaderLoaded(readerEvent) {
+  handleReaderLoaded(readerEvent, ref: string) {
     this.binaryString = readerEvent.target.result;
     this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
-    // console.log(btoa(this.binaryString));
     this.img_name = this.file.name;
     this.img_type = this.file.type;
-    console.log(this.file.name);
-    console.log(this.file.size);
-    console.log(this.file.type);
   }
 
-  showDetail() {
-    console.log(this.applyScholarship.applyScholarshipForm.apDocumentUpload)
+  upload(event, ref: string) {
+    new Observable((observer: Observer<boolean>) => {
+      setTimeout(() => {
+        this.fileList = event.target.files;
+        if (this.fileList.length > 0) {
+          this.file = this.fileList[0];
+          // 10 MB
+          if (this.file.size < 10000000) {
+            let reader = new FileReader();
+            reader.onload = this.handleReaderLoaded.bind(this);
+            reader.readAsBinaryString(this.file);
+          }
+        }
+        observer.next(true);
+      }, 1000);
+      setTimeout(() => {
+        this.document = new ApDocumentUpload();
+        this.document.document_ref = ref;
+        this.document.document_image = this.image;
+        this.document.document_name = this.img_name;
+        this.document.document_type = this.img_type;
+        if (this.uploadList.length == 0) {
+          this.uploadList.push(this.document)
+        } else {
+          let index = new ApDocumentUpload();
+          index = this.uploadList.find(i => i.document_ref == ref)
+          if (typeof index === "undefined") {
+            this.uploadList.push(this.document)
+          } else {
+            this.uploadList[this.uploadList.indexOf(index)] = this.document;
+          }
+        }
+      }, 2000);
+    }).subscribe()
+  }
+
+  uploadFileToList() {
+    let service = this.applyscholarshipService
+    this.applyscholarshipService.setUploadList(this.uploadList)
+    console.log(service.getScholarshipHistoryList())
+    console.log(service.getStudentLoanFundList())
+    console.log(service.getDebtList())
+    console.log(service.getUploadList())
+    console.log(this.applyScholarship.applyScholarshipForm)
   }
 }
