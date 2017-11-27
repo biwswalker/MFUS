@@ -1,3 +1,6 @@
+import { Observer } from "rxjs/Observer";
+import { Observable } from "rxjs/Rx";
+import { NgProgress } from "ngx-progressbar";
 import { FamilyAndAddressComponent } from "./../../family-and-address/family-and-address.component";
 import { Component, OnInit } from "@angular/core";
 import { UtilsService } from "./../../../../services/utils.service";
@@ -5,11 +8,13 @@ import { RftSubDistrict } from "./../../../models/rft-sub-district";
 import { RftDistrict } from "./../../../models/rft-district";
 import { RftProvince } from "./../../../models/rft-province";
 import { FamilyAndAddressForm } from "./../../../form/family-and-address-form";
-import { Message, SelectItem } from "primeng/primeng";
+import { Message, SelectItem, RadioButtonModule } from "primeng/primeng";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Response } from "@angular/http";
-declare var jquery:any;
-declare var $ :any;
+import { forEach } from "@angular/router/src/utils/collection";
+import { setTimeout } from "timers";
+declare var jquery: any;
+declare var $: any;
 @Component({
   selector: "app-family",
   templateUrl: "./family.component.html",
@@ -23,6 +28,7 @@ export class FamilyComponent implements OnInit {
   msgs: Message[] = [];
 
   thisForm: FamilyAndAddressForm = new FamilyAndAddressForm();
+  thisFormGroup: FormGroup;
 
   dadDropdownMonths: SelectItem[];
   dadDropdownDays: SelectItem[];
@@ -65,17 +71,17 @@ export class FamilyComponent implements OnInit {
   pSubDistrictList: RftSubDistrict[] = [];
   pListSubDistrict: RftSubDistrict[] = [];
 
-  dadProvince: RftProvince = new RftProvince;
-  dadDistrict: RftDistrict = new RftDistrict;
-  dadSubDistrict: RftSubDistrict = new RftSubDistrict;
+  dadProvince: RftProvince = new RftProvince();
+  dadDistrict: RftDistrict = new RftDistrict();
+  dadSubDistrict: RftSubDistrict = new RftSubDistrict();
 
-  momProvince: RftProvince = new RftProvince;
-  momDistrict: RftDistrict = new RftDistrict;
-  momSubDistrict: RftSubDistrict = new RftSubDistrict;
+  momProvince: RftProvince = new RftProvince();
+  momDistrict: RftDistrict = new RftDistrict();
+  momSubDistrict: RftSubDistrict = new RftSubDistrict();
 
-  patrolProvince: RftProvince = new RftProvince;
-  patrolDistrict: RftDistrict = new RftDistrict;
-  patrolSubDistrict: RftSubDistrict = new RftSubDistrict;
+  patrolProvince: RftProvince = new RftProvince();
+  patrolDistrict: RftDistrict = new RftDistrict();
+  patrolSubDistrict: RftSubDistrict = new RftSubDistrict();
 
   constructor(
     private utilsService: UtilsService,
@@ -83,11 +89,277 @@ export class FamilyComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
+    console.log("FamilyComponent.ngOnInit ");
     this.getProvince();
     this.initBirthMonth();
 
     this.thisForm = this.familyAndAddress.getData();
+    if (
+      this.thisForm.acParent.parent_ref != "" ||
+      this.thisForm.acParent.parent_ref != undefined
+    ) {
+      this.prepareBirthDateData();
+      this.prepareAddressData();
+    }
+    this.validatorForm();
+
+    this.whenChangeParentFlag(parseInt(this.thisForm.acParent.parent_flag));
+  }
+
+  validatorForm() {
+    this.thisFormGroup = new FormGroup({
+      parent_flag: new FormControl(this.thisForm.acParent.parent_flag),
+      relationship_status: new FormControl(this.thisForm.acParent.relationship_status),
+      because: new FormControl(this.thisForm.acParent.because),
+      father_pid: new FormControl(this.thisForm.acParent.father_pid,Validators.compose([Validators.required])),
+      father_status: new FormControl(this.thisForm.acParent.father_status),
+      father_died_year: new FormControl(this.thisForm.acParent.father_died_year),
+      father_name: new FormControl(this.thisForm.acParent.father_name,Validators.compose([Validators.required])),
+      dadMonth: new FormControl(this.dadMonth,Validators.compose([Validators.required])),
+      dadDay: new FormControl(this.dadDay,Validators.compose([Validators.required])),
+      dadYear: new FormControl(this.dadYear,Validators.compose([Validators.required])),
+      father_address: new FormControl(this.thisForm.acParent.father_address,Validators.compose([Validators.required])),
+      father_province: new FormControl(this.dadProvince.province_ref,Validators.compose([Validators.required])),
+      father_district: new FormControl(this.dadDistrict.district_ref,Validators.compose([Validators.required])),
+      father_sub_district: new FormControl(this.dadSubDistrict.sub_district_ref,Validators.compose([Validators.required])),
+      father_postcode: new FormControl(this.thisForm.acParent.father_postcode),
+      father_phone: new FormControl(this.thisForm.acParent.father_phone),
+      father_email: new FormControl(this.thisForm.acParent.father_email),
+      father_occupation: new FormControl(this.thisForm.acParent.father_occupation),
+      father_position: new FormControl(this.thisForm.acParent.father_position),
+      father_work_address: new FormControl(this.thisForm.acParent.father_work_address),
+      father_work_phone: new FormControl(this.thisForm.acParent.father_work_phone),
+      father_work_fax: new FormControl(this.thisForm.acParent.father_work_fax),
+      father_land_flag: new FormControl(this.thisForm.acParent.father_land_flag),
+      father_land_all: new FormControl(this.thisForm.acParent.father_land_all),
+      father_land_own: new FormControl(this.thisForm.acParent.father_land_own),
+      father_land_rent: new FormControl(this.thisForm.acParent.father_land_rent),
+      father_income_monthly: new FormControl(this.thisForm.acParent.father_income_monthly),
+
+      mother_pid: new FormControl(this.thisForm.acParent.mother_pid,Validators.compose([Validators.required])),
+      mother_status: new FormControl(this.thisForm.acParent.mother_status),
+      mother_died_year: new FormControl(this.thisForm.acParent.mother_died_year),
+      mother_name: new FormControl(this.thisForm.acParent.mother_name,Validators.compose([Validators.required])),
+      momMonth: new FormControl(this.momMonth,Validators.compose([Validators.required])),
+      momDay: new FormControl(this.momDay,Validators.compose([Validators.required])),
+      momYear: new FormControl(this.momYear, Validators.compose([Validators.required])),
+      mother_address: new FormControl(this.thisForm.acParent.mother_address,Validators.compose([Validators.required])),
+      mother_province: new FormControl(this.momProvince.province_ref,Validators.compose([Validators.required])),
+      mother_district: new FormControl(this.momDistrict.district_ref,Validators.compose([Validators.required])),
+      mother_sub_district: new FormControl(this.momSubDistrict.sub_district_ref,Validators.compose([Validators.required])),
+      mother_postcode: new FormControl(this.thisForm.acParent.mother_postcode),
+      mother_phone: new FormControl(this.thisForm.acParent.mother_phone),
+      mother_email: new FormControl(this.thisForm.acParent.mother_email),
+      mother_occupation: new FormControl(this.thisForm.acParent.mother_occupation),
+      mother_position: new FormControl(this.thisForm.acParent.mother_position),
+      mother_work_address: new FormControl(this.thisForm.acParent.mother_work_address),
+      mother_work_phone: new FormControl(this.thisForm.acParent.mother_work_phone),
+      mother_work_fax: new FormControl(this.thisForm.acParent.mother_work_fax),
+      mother_land_flag: new FormControl(this.thisForm.acParent.mother_land_flag),
+      mother_land_all: new FormControl(this.thisForm.acParent.mother_land_all),
+      mother_land_own: new FormControl(this.thisForm.acParent.mother_land_own),
+      mother_land_rent: new FormControl(this.thisForm.acParent.mother_land_rent),
+      mother_income_monthly: new FormControl(this.thisForm.acParent.mother_income_monthly),
+
+      patrol_relationship: new FormControl(this.thisForm.acParent.patrol_relationship),
+      patrol_pid: new FormControl(this.thisForm.acParent.patrol_pid),
+      patrol_status: new FormControl(this.thisForm.acParent.patrol_status),
+      patrol_died_year: new FormControl(this.thisForm.acParent.patrol_died_year),
+      patrol_name: new FormControl(this.thisForm.acParent.patrol_name),
+      patrolMonth: new FormControl(this.patrolMonth),
+      patrolDay: new FormControl(this.patrolDay),
+      patrolYear: new FormControl(this.patrolYear),
+      patrol_address: new FormControl(this.thisForm.acParent.patrol_address),
+      patrol_province: new FormControl(this.patrolProvince.province_ref),
+      patrol_district: new FormControl(this.patrolDistrict.district_ref),
+      patrol_sub_district: new FormControl(this.patrolSubDistrict.sub_district_ref),
+      patrol_postcode: new FormControl(this.thisForm.acParent.patrol_postcode),
+      patrol_phone: new FormControl(this.thisForm.acParent.patrol_phone),
+      patrol_email: new FormControl(this.thisForm.acParent.patrol_email),
+      patrol_occupation: new FormControl(this.thisForm.acParent.patrol_occupation),
+      patrol_position: new FormControl(this.thisForm.acParent.patrol_position),
+      patrol_work_address: new FormControl(this.thisForm.acParent.patrol_work_address),
+      patrol_work_phone: new FormControl(this.thisForm.acParent.patrol_work_phone),
+      patrol_work_fax: new FormControl(this.thisForm.acParent.patrol_work_fax),
+      patrol_land_flag: new FormControl(this.thisForm.acParent.patrol_land_flag),
+      patrol_land_all: new FormControl(this.thisForm.acParent.patrol_land_all),
+      patrol_land_own: new FormControl(this.thisForm.acParent.patrol_land_own),
+      patrol_land_rent: new FormControl(this.thisForm.acParent.patrol_land_rent),
+      patrol_income_monthly: new FormControl(this.thisForm.acParent.patrol_income_monthly)
+    });
+
+  }
+
+  whenChangeParentFlag(index: number) {
+      console.log("whenChangeParentFlag: " + index);
+      if (index == 1) {
+
+          this.thisFormGroup.controls["father_pid"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["father_name"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["dadMonth"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["dadDay"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["dadYear"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["father_address"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["father_province"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["father_district"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["father_sub_district"].setValidators([Validators.required]);
+
+          this.thisFormGroup.controls["mother_pid"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["mother_name"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["momMonth"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["momDay"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["momYear"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["mother_address"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["mother_province"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["mother_district"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["mother_sub_district"].setValidators([Validators.required]);
+
+          this.thisFormGroup.controls["patrol_relationship"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_relationship"].updateValueAndValidity();
+          this.thisFormGroup.controls["patrol_pid"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_pid"].updateValueAndValidity();
+          this.thisFormGroup.controls["patrol_name"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_name"].updateValueAndValidity();
+          this.thisFormGroup.controls["patrolMonth"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrolMonth"].updateValueAndValidity();
+          this.thisFormGroup.controls["patrolDay"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrolDay"].updateValueAndValidity();
+          this.thisFormGroup.controls["patrolYear"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrolYear"].updateValueAndValidity();
+          this.thisFormGroup.controls["patrol_address"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_address"].updateValueAndValidity();
+          this.thisFormGroup.controls["patrol_province"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_province"].updateValueAndValidity();
+          this.thisFormGroup.controls["patrol_district"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_district"].updateValueAndValidity();
+          this.thisFormGroup.controls["patrol_sub_district"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+        }else{
+          this.thisFormGroup.controls["father_pid"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+          this.thisFormGroup.controls["father_name"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+          this.thisFormGroup.controls["dadMonth"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+          this.thisFormGroup.controls["dadDay"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+          this.thisFormGroup.controls["dadYear"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+          this.thisFormGroup.controls["father_address"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+          this.thisFormGroup.controls["father_province"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+          this.thisFormGroup.controls["father_district"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+          this.thisFormGroup.controls["father_sub_district"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+
+          this.thisFormGroup.controls["mother_pid"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["mother_pid"].updateValueAndValidity();
+          this.thisFormGroup.controls["mother_name"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["mother_name"].updateValueAndValidity();
+          this.thisFormGroup.controls["momMonth"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["momMonth"].updateValueAndValidity();
+          this.thisFormGroup.controls["momDay"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["momDay"].updateValueAndValidity();
+          this.thisFormGroup.controls["momYear"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["momYear"].updateValueAndValidity();
+          this.thisFormGroup.controls["mother_address"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["mother_address"].updateValueAndValidity();
+          this.thisFormGroup.controls["mother_province"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["mother_province"].updateValueAndValidity();
+          this.thisFormGroup.controls["mother_district"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["mother_district"].updateValueAndValidity();
+          this.thisFormGroup.controls["mother_sub_district"].setValidators([Validators.nullValidator]);
+          this.thisFormGroup.controls["mother_sub_district"].updateValueAndValidity();
+
+          this.thisFormGroup.controls["patrol_relationship"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["patrol_pid"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["patrol_name"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["patrolMonth"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["patrolDay"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["patrolYear"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["patrol_address"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["patrol_province"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["patrol_district"].setValidators([Validators.required]);
+          this.thisFormGroup.controls["patrol_sub_district"].setValidators([Validators.required]);
+      }
+
+
+  }
+
+  prepareBirthDateData() {
+    if (this.thisForm.acParent.parent_flag == "1") {
+      this.dadYear = this.thisForm.acParent.father_birth_date.substr(0, 4);
+      this.dadMonth = this.thisForm.acParent.father_birth_date.substr(4, 2);
+      this.dadDay = this.thisForm.acParent.father_birth_date.substr(6, 2);
+
+      this.momYear = this.thisForm.acParent.mother_birth_date.substr(0, 4);
+      this.momMonth = this.thisForm.acParent.mother_birth_date.substr(4, 2);
+      this.momDay = this.thisForm.acParent.mother_birth_date.substr(6, 2);
+    } else {
+      this.dadYear = this.thisForm.acParent.patrol_birth_date.substr(0, 4);
+      this.dadMonth = this.thisForm.acParent.patrol_birth_date.substr(4, 2);
+      this.dadDay = this.thisForm.acParent.patrol_birth_date.substr(6, 2);
+    }
+
+    this.initBirthMonth();
+  }
+
+  prepareAddressData() {
+    if (this.thisForm.acParent.parent_flag == "1") {
+      //Setup dad address
+      this.utilsService
+        .getProvinceByRef(this.thisForm.acParent.father_province)
+        .subscribe((res: RftProvince) => {
+          this.dadProvince = res;
+        });
+      this.utilsService
+        .getDistrictByRef(this.thisForm.acParent.father_district)
+        .subscribe((res: RftDistrict) => {
+          this.dadDistrict = res;
+        });
+      this.utilsService
+        .getSubDistrictByRef(this.thisForm.acParent.father_sub_district)
+        .subscribe((res: RftSubDistrict) => {
+          this.dadSubDistrict = res;
+        });
+
+      //Setup mom address
+      this.utilsService
+        .getProvinceByRef(this.thisForm.acParent.mother_province)
+        .subscribe((res: RftProvince) => {
+          this.momProvince = res;
+        });
+      this.utilsService
+        .getDistrictByRef(this.thisForm.acParent.mother_district)
+        .subscribe((res: RftDistrict) => {
+          this.momDistrict = res;
+        });
+      this.utilsService
+        .getSubDistrictByRef(this.thisForm.acParent.mother_sub_district)
+        .subscribe((res: RftSubDistrict) => {
+          this.momSubDistrict = res;
+        });
+    } else {
+      this.utilsService
+        .getProvinceByRef(this.thisForm.acParent.patrol_province)
+        .subscribe((res: RftProvince) => {
+          this.patrolProvince = res;
+        });
+      this.utilsService
+        .getDistrictByRef(this.thisForm.acParent.patrol_district)
+        .subscribe((res: RftDistrict) => {
+          this.patrolDistrict = res;
+        });
+      this.utilsService
+        .getSubDistrictByRef(this.thisForm.acParent.patrol_sub_district)
+        .subscribe((res: RftSubDistrict) => {
+          this.patrolSubDistrict = res;
+        });
+    }
+    this.setupDistictList();
+    this.setupSubDistictList();
   }
 
   initBirthMonth() {
@@ -278,8 +550,8 @@ export class FamilyComponent implements OnInit {
     if (index == 0) {
       this.fDistrictList = [];
       this.fSubDistrictList = [];
-      this.dadDistrict = new RftDistrict;
-      this.dadSubDistrict = new RftSubDistrict;
+      this.dadDistrict = new RftDistrict();
+      this.dadSubDistrict = new RftSubDistrict();
       this.thisForm.acParent.father_postcode = null;
       this.utilsService
         .getDistrictsByProvinceRef(this.dadProvince.province_ref)
@@ -292,8 +564,8 @@ export class FamilyComponent implements OnInit {
     if (index == 1) {
       this.mDistrictList = [];
       this.mSubDistrictList = [];
-      this.momDistrict = new RftDistrict;
-      this.momSubDistrict = new RftSubDistrict;
+      this.momDistrict = new RftDistrict();
+      this.momSubDistrict = new RftSubDistrict();
       this.thisForm.acParent.mother_postcode = null;
       this.utilsService
         .getDistrictsByProvinceRef(this.momProvince.province_ref)
@@ -306,8 +578,8 @@ export class FamilyComponent implements OnInit {
     if (index == 2) {
       this.pDistrictList = [];
       this.pSubDistrictList = [];
-      this.patrolDistrict = new RftDistrict;
-      this.patrolSubDistrict = new RftSubDistrict;
+      this.patrolDistrict = new RftDistrict();
+      this.patrolSubDistrict = new RftSubDistrict();
       this.thisForm.acParent.patrol_postcode = null;
       this.utilsService
         .getDistrictsByProvinceRef(this.patrolProvince.province_ref)
@@ -322,7 +594,7 @@ export class FamilyComponent implements OnInit {
     console.log("selectDistrict");
     if (index == 0) {
       this.fSubDistrictList = [];
-      this.dadSubDistrict = new RftSubDistrict;
+      this.dadSubDistrict = new RftSubDistrict();
       this.thisForm.acParent.father_postcode = null;
       this.utilsService
         .getSubDistrictsByDistrictRef(this.dadDistrict.district_ref)
@@ -333,7 +605,7 @@ export class FamilyComponent implements OnInit {
     }
     if (index == 1) {
       this.mSubDistrictList = [];
-      this.momSubDistrict = new RftSubDistrict;
+      this.momSubDistrict = new RftSubDistrict();
       this.thisForm.acParent.mother_postcode = null;
       this.utilsService
         .getSubDistrictsByDistrictRef(this.momDistrict.district_ref)
@@ -344,7 +616,7 @@ export class FamilyComponent implements OnInit {
     }
     if (index == 2) {
       this.pSubDistrictList = [];
-      this.patrolSubDistrict = new RftSubDistrict;
+      this.patrolSubDistrict = new RftSubDistrict();
       this.thisForm.acParent.patrol_postcode = null;
       this.utilsService
         .getSubDistrictsByDistrictRef(this.patrolDistrict.district_ref)
@@ -368,31 +640,112 @@ export class FamilyComponent implements OnInit {
     }
   }
 
-  nextButtonOnClick() {
-    console.log("nextButtonOnClick");
-    if(this.thisForm.acParent.parent_flag == '1'){
-      // set father data
-      this.thisForm.acParent.father_birth_date = this.dadYear+this.dadMonth+this.dadDay;
-      this.thisForm.acParent.father_province = this.dadProvince.province_ref;
-      this.thisForm.acParent.father_district = this.dadDistrict.district_ref;
-      this.thisForm.acParent.father_sub_district = this.dadSubDistrict.sub_district_ref;
-
-      // set father data
-      this.thisForm.acParent.mother_birth_date = this.momYear+this.momMonth+this.momDay;
-      this.thisForm.acParent.mother_province = this.momProvince.province_ref;
-      this.thisForm.acParent.mother_district = this.momDistrict.district_ref;
-      this.thisForm.acParent.mother_sub_district = this.momSubDistrict.sub_district_ref;
-    }else{
-      // set father data
-      this.thisForm.acParent.patrol_birth_date = this.patrolYear.concat(this.patrolMonth).concat(this.patrolDay);
-      this.thisForm.acParent.patrol_province = this.patrolProvince.province_ref;
-      this.thisForm.acParent.patrol_district = this.patrolDistrict.district_ref;
-      this.thisForm.acParent.patrol_sub_district = this.patrolSubDistrict.sub_district_ref;
+  setupDistictList() {
+    console.log("setupDistictList");
+    this.fListDistrict = [];
+    this.mListDistrict = [];
+    this.pListDistrict = [];
+    if (this.thisForm.acParent.parent_flag == "1") {
+      this.fListDistrict = this.utilsService.getDistrictListByProvinceRef(
+        this.thisForm.acParent.father_province
+      );
+      this.mListDistrict = this.utilsService.getDistrictListByProvinceRef(
+        this.thisForm.acParent.mother_province
+      );
     }
 
+    if (this.thisForm.acParent.parent_flag == "2") {
+      this.pListDistrict = this.utilsService.getDistrictListByProvinceRef(
+        this.thisForm.acParent.patrol_province
+      );
+    }
+  }
 
+  setupSubDistictList() {
+    console.log("setupSubDistictList");
+    this.fListSubDistrict = [];
+    this.mListSubDistrict = [];
+    this.pListSubDistrict = [];
+    if (this.thisForm.acParent.parent_flag == "1") {
+      this.fListSubDistrict = this.utilsService.getSubDistrictListByDistrictRef(
+        this.thisForm.acParent.father_district
+      );
+      this.mListSubDistrict = this.utilsService.getSubDistrictListByDistrictRef(
+        this.thisForm.acParent.mother_district
+      );
+    }
+    if (this.thisForm.acParent.parent_flag == "2") {
+      this.pListSubDistrict = this.utilsService.getSubDistrictListByDistrictRef(
+        this.thisForm.acParent.patrol_district
+      );
+    }
+  }
 
-    this.familyAndAddress.onChangePanel(1, this.thisForm);
-    this.thisForm = new FamilyAndAddressForm();
+  nextButtonOnClick() {
+    console.log("nextButtonOnClick");
+    console.log(this.thisFormGroup.status);
+    console.log(this.thisFormGroup.value);
+    if(this.thisFormGroup.invalid){
+      this.thisFormGroup.controls["father_pid"].markAsDirty();
+      this.thisFormGroup.controls["father_died_year"].markAsDirty();
+      this.thisFormGroup.controls["father_name"].markAsDirty();
+      this.thisFormGroup.controls["dadMonth"].markAsDirty();
+      this.thisFormGroup.controls["dadDay"].markAsDirty();
+      this.thisFormGroup.controls["dadYear"].markAsDirty();
+      this.thisFormGroup.controls["father_address"].markAsDirty();
+      this.thisFormGroup.controls["father_province"].markAsDirty();
+      this.thisFormGroup.controls["father_district"].markAsDirty();
+      this.thisFormGroup.controls["father_sub_district"].markAsDirty();
+
+      this.thisFormGroup.controls["mother_pid"].markAsDirty();
+      this.thisFormGroup.controls["mother_died_year"].markAsDirty();
+      this.thisFormGroup.controls["mother_name"].markAsDirty();
+      this.thisFormGroup.controls["momMonth"].markAsDirty();
+      this.thisFormGroup.controls["momDay"].markAsDirty();
+      this.thisFormGroup.controls["momYear"].markAsDirty();
+      this.thisFormGroup.controls["mother_address"].markAsDirty();
+      this.thisFormGroup.controls["mother_province"].markAsDirty();
+      this.thisFormGroup.controls["mother_district"].markAsDirty();
+      this.thisFormGroup.controls["mother_sub_district"].markAsDirty();
+
+      this.thisFormGroup.controls["patrol_relationship"].markAsDirty();
+      this.thisFormGroup.controls["patrol_pid"].markAsDirty();
+      this.thisFormGroup.controls["patrol_died_year"].markAsDirty();
+      this.thisFormGroup.controls["patrol_name"].markAsDirty();
+      this.thisFormGroup.controls["patrolMonth"].markAsDirty();
+      this.thisFormGroup.controls["patrolDay"].markAsDirty();
+      this.thisFormGroup.controls["patrolYear"].markAsDirty();
+      this.thisFormGroup.controls["patrol_address"].markAsDirty();
+      this.thisFormGroup.controls["patrol_province"].markAsDirty();
+      this.thisFormGroup.controls["patrol_district"].markAsDirty();
+      this.thisFormGroup.controls["patrol_sub_district"].markAsDirty();
+    }else{
+        if (this.thisForm.acParent.parent_flag == "1") {
+          // set father data
+          this.thisForm.acParent.father_birth_date =
+            this.dadYear + this.dadMonth + this.dadDay;
+          this.thisForm.acParent.father_province = this.dadProvince.province_ref;
+          this.thisForm.acParent.father_district = this.dadDistrict.district_ref;
+          this.thisForm.acParent.father_sub_district = this.dadSubDistrict.sub_district_ref;
+
+          // set father data
+          this.thisForm.acParent.mother_birth_date =
+            this.momYear + this.momMonth + this.momDay;
+          this.thisForm.acParent.mother_province = this.momProvince.province_ref;
+          this.thisForm.acParent.mother_district = this.momDistrict.district_ref;
+          this.thisForm.acParent.mother_sub_district = this.momSubDistrict.sub_district_ref;
+        } else {
+          // set father data
+          this.thisForm.acParent.patrol_birth_date = this.patrolYear
+            .concat(this.patrolMonth)
+            .concat(this.patrolDay);
+          this.thisForm.acParent.patrol_province = this.patrolProvince.province_ref;
+          this.thisForm.acParent.patrol_district = this.patrolDistrict.district_ref;
+          this.thisForm.acParent.patrol_sub_district = this.patrolSubDistrict.sub_district_ref;
+        }
+
+        this.familyAndAddress.onChangePanel(1, this.thisForm);
+        this.thisForm = new FamilyAndAddressForm();
+    }
   }
 }

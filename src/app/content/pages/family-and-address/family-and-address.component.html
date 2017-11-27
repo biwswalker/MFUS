@@ -6,9 +6,9 @@
     <p-steps class="three-step" [model]="items" [(activeIndex)]="activeIndex" [readonly]="true" styleClass="steps-custom">
     </p-steps>
 
-    <app-family *ngIf="activeIndex == 0"></app-family>
-    <app-sibling *ngIf="activeIndex == 1"></app-sibling>
-    <app-address *ngIf="activeIndex == 2"></app-address>
+    <app-family *ngIf="activeIndex == 0 && onLoaded"></app-family>
+    <app-sibling *ngIf="activeIndex == 1 && onLoaded"></app-sibling>
+    <app-address *ngIf="activeIndex == 2 && onLoaded" ></app-address>
 
 
 

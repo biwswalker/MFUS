@@ -1,3 +1,6 @@
+import { DocumentsService } from './services/documents.service';
+import { AddressService } from './services/address.service';
+import { ParentService } from './services/parent.service';
 import { DocumentsscreeningComponent } from './content/pages/documentsscreening/documentsscreening.component';
 import { EducationLevelService } from './services/educationlevel.service';
 import { UploadDocumentComponent } from './content/pages/apply-scholarship/upload-document/upload-document.component';
@@ -100,6 +103,7 @@ import { MainNewsComponent } from "./content/pages/main-news/main-news.component
 import { SiblingComponent } from "./content/pages/family-and-address/sibling/sibling.component";
 import { AddressComponent } from "./content/pages/family-and-address/address/address.component";
 import { FamilyAndAddressService } from './services/familyandaddress.service';
+import { SiblingService } from './services/sibling.service';
 import { NgProgressModule } from 'ngx-progressbar';
 import { DocumentRequestComponent } from './content/pages/document-request/document-request.component';
 import { DocumentrequestService } from './services/documentrequest.service';
@@ -258,6 +262,10 @@ export function startupServiceFactory(
     EducationLevelService,
     FamilyAndAddressService,
     DocumentrequestService,
+    ParentService,
+    AddressService,
+    SiblingService,
+    DocumentsService,
     {
       provide: APP_INITIALIZER,
       useFactory: startupServiceFactory,
