@@ -85,7 +85,7 @@
       class="personal-id"
       formControlName="father_pid"
       [(ngModel)]="thisForm.acParent.father_pid"
-      required>
+      >
     </div>
     <div class="col-xs-4">
       <label class="normal">สถานะ</label>
@@ -112,7 +112,7 @@
       class="input-year"
       formControlName="father_died_year"
       [(ngModel)]="thisForm.acParent.father_died_year"
-      [required]="thisForm.acParent.father_status == '2'">
+      >
     </div>
 
   </div>
@@ -123,7 +123,7 @@
       <input type="text" pInputText
       class="input-name"
       formControlName="father_name"
-      [(ngModel)]="thisForm.acParent.father_name" required>
+      [(ngModel)]="thisForm.acParent.father_name" >
     </div>
     <div class="col-xs-7">
       <label class="normal">วันเกิด(เดือน/วัน/ปี) *</label>
@@ -161,7 +161,7 @@
       class="input-address"
       name="father-address"
       formControlName="father_address"
-      [(ngModel)]="thisForm.acParent.father_address" required>
+      [(ngModel)]="thisForm.acParent.father_address" >
     </div>
   </div>
 
@@ -170,7 +170,7 @@
       <label class="normal">จังหวัด *</label>
       <p-autoComplete field="province_name_t" [(ngModel)]="dadProvince" [suggestions]="fProvinceList"
         [size]="25" (onSelect)="selectProvince(0)" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(0)"
-        (completeMethod)="autocompleteProvince($event)" [required]="true"
+        (completeMethod)="autocompleteProvince($event)"
         formControlName="father_province">
         <ng-template let-obj pTemplate="obj">
           {{obj.province_name_t}}
@@ -182,7 +182,7 @@
       <p-autoComplete field="district_name_t" [(ngModel)]="dadDistrict" [suggestions]="fDistrictList"
         [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(0)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(0)"
         [disabled]="!dadProvince.province_ref"
-        (completeMethod)="autocompleteDistrict($event)" [required]="true"
+        (completeMethod)="autocompleteDistrict($event)"
         formControlName="father_district">
         <ng-template let-obj pTemplate="obj">
           {{obj.district_name_t}}
@@ -197,7 +197,7 @@
       <p-autoComplete field="sub_district_name_t" [(ngModel)]="dadSubDistrict" [suggestions]="fSubDistrictList"
         (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(0)" forceSelection="true"
         [disabled]="!dadDistrict.district_ref"
-        (onDropdownClick)="handleCompleteClickSubDistrict(0)" [required]="true"
+        (onDropdownClick)="handleCompleteClickSubDistrict(0)"
         formControlName="father_sub_district">
         <ng-template let-obj pTemplate="obj">
           {{obj.sub_district_name_t}}
@@ -217,7 +217,7 @@
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">เบอร์โทรศัพท์ *</label>
+      <label class="normal">เบอร์โทรศัพท์</label>
       <input type="text" pInputText
       class="input-postcode"
       formControlName="father_phone"
@@ -472,7 +472,7 @@
 
   <div class="row overide-row">
     <div class="col-xs-5">
-      <label class="normal">เบอร์โทรศัพท์ *</label>
+      <label class="normal">เบอร์โทรศัพท์</label>
       <input type="text" pInputText
       class="input-postcode"
       name="mother-postcode"
@@ -657,7 +657,7 @@
         optionField="birth-month"
         [options]="patrolDropdownMonths"
         formControlName="dadMonth"
-        [(ngModel)]="dadMonth"
+        [(ngModel)]="patrolMonth"
         (onChange)="selectMonth(3)">
         </p-dropdown>
         <p-dropdown placeholder="วัน"

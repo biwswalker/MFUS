@@ -1,3 +1,4 @@
+
 import { RftEducationLevel } from './../../../models/rft-education-level';
 import { FamilyAndAddressComponent } from './../family-and-address.component';
 import { UtilsService } from './../../../../services/utils.service';
@@ -18,6 +19,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SiblingComponent implements OnInit {
   thisForm: FamilyAndAddressForm = new FamilyAndAddressForm();
+
   sibling: AcSibling = new AcSibling();
   educationLevel: SelectItem[];
   newRow:boolean = true;
@@ -31,6 +33,7 @@ export class SiblingComponent implements OnInit {
     this.thisForm = this.familyAndAddress.getData();
     console.log(this.thisForm.siblingList);
     this.getDropDown();
+    // this.validatorForm();
   }
 
 
@@ -55,6 +58,7 @@ export class SiblingComponent implements OnInit {
     for(let data of this.thisForm.siblingList){
       if(data.sibling_name == ''|| data.sibling_name == undefined){
         this.newRow = false;
+        // this.thisFormGroup.controls["sibling_name"].markAsDirty();
       }
     }
   }

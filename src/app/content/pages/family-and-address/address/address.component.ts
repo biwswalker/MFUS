@@ -1,4 +1,7 @@
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Observer } from 'rxjs/Observer';
+import { Observable } from 'rxjs/Rx';
+import { AcAddress } from './../../../models/ac-address';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SelectItem } from "primeng/primeng";
 import { FamilyAndAddressForm } from "./../../../form/family-and-address-form";
 import { UtilsService } from "./../../../../services/utils.service";
@@ -7,7 +10,7 @@ import { RftDistrict } from "./../../../models/rft-district";
 import { RftProvince } from "./../../../models/rft-province";
 import { FamilyAndAddressComponent } from "./../family-and-address.component";
 import { Component, OnInit } from "@angular/core";
-
+import { NgProgress } from 'ngx-progressbar';
 @Component({
   selector: "app-address",
   templateUrl: "./address.component.html",
@@ -17,7 +20,9 @@ import { Component, OnInit } from "@angular/core";
   ]
 })
 export class AddressComponent implements OnInit {
+  pageReady :boolean = false;
   thisForm: FamilyAndAddressForm = new FamilyAndAddressForm();
+  thisFormGroup: FormGroup;
   // Autocomplete Province
   listProvince: RftProvince[] = [];
 
@@ -53,20 +58,56 @@ export class AddressComponent implements OnInit {
 
   constructor(
     private utilsService: UtilsService,
-    private familyAndAddress: FamilyAndAddressComponent
+    private familyAndAddress: FamilyAndAddressComponent,
+    public ngProgress: NgProgress
   ) {}
 
   ngOnInit() {
     console.log("ngOnInit");
+    this.ngProgress.start();
     this.thisForm = new FamilyAndAddressForm();
-    this.thisForm = this.familyAndAddress.getData();
-    this.getProvince();
-    this.setupImage();
-    if(this.thisForm.acAddress.address_ref != '' || this.thisForm.acAddress.address_ref != undefined){
+    new Observable((observer: Observer<boolean>) => {
 
-      this.prepareAddressData();
-    }
+      setTimeout(() => {
+        this.thisForm = this.familyAndAddress.getData();
+        this.getProvince();
 
+        observer.next(true);
+      },4000);
+      setTimeout(() => {
+        if(this.thisForm.acAddress.address_ref != '' || this.thisForm.acAddress.address_ref != undefined)
+        this.prepareAddressData();
+
+        observer.next(true);
+      },5000);
+
+      setTimeout(() => {
+        this.setupImage();
+        this.validatorForm();
+        this.pageReady = true;
+        this.ngProgress.done();
+        observer.complete();
+      },6000);
+
+    }).subscribe();
+
+
+
+  }
+
+  validatorForm() {
+    this.thisFormGroup = new FormGroup({
+      home_address: new FormControl(this.thisForm.acAddress.home_address,Validators.compose([Validators.required])),
+      homeProvince: new FormControl(this.homeProvince.province_ref,Validators.compose([Validators.required])),
+      homeDistrict: new FormControl(this.homeDistrict.district_ref,Validators.compose([Validators.required])),
+      homeSubDistrict: new FormControl(this.homeSubDistrict.sub_district_ref,Validators.compose([Validators.required])),
+      home_postcode: new FormControl(this.thisForm.acAddress.home_postcode),
+      current_address: new FormControl(this.thisForm.acAddress.current_address,Validators.compose([Validators.required])),
+      currentProvince: new FormControl(this.currentProvince.province_ref,Validators.compose([Validators.required])),
+      currentDistrict: new FormControl(this.currentDistrict.district_ref,Validators.compose([Validators.required])),
+      currentSubDistrict: new FormControl(this.currentSubDistrict.sub_district_ref,Validators.compose([Validators.required])),
+      current_postcode: new FormControl(this.thisForm.acAddress.current_postcode),
+    });
   }
 
   setupImage(){
@@ -87,29 +128,33 @@ export class AddressComponent implements OnInit {
   prepareAddressData(){
 
 
-      this.utilsService.getProvinceByRef(this.thisForm.acAddress.home_province).subscribe((res: RftProvince) => {
-        this.homeProvince = res;
-      });
-      this.utilsService.getProvinceByRef(this.thisForm.acAddress.current_province).subscribe((res: RftProvince) => {
-        this.currentProvince = res;
-      });
+    this.utilsService.getProvinceByRef(this.thisForm.acAddress.home_province).subscribe((res: RftProvince) => {
+      this.homeProvince = res;
+    });
+    this.utilsService.getProvinceByRef(this.thisForm.acAddress.current_province).subscribe((res: RftProvince) => {
+      this.currentProvince = res;
+    });
 
-      this.utilsService.getDistrictByRef(this.thisForm.acAddress.home_district).subscribe((res: RftDistrict) => {
-        this.homeDistrict = res;
-      });
-      this.utilsService.getDistrictByRef(this.thisForm.acAddress.current_district).subscribe((res: RftDistrict) => {
-        this.currentDistrict = res;
-      });
+    this.utilsService.getDistrictByRef(this.thisForm.acAddress.home_district).subscribe((res: RftDistrict) => {
+      this.homeDistrict = res;
+    });
+    this.utilsService.getDistrictByRef(this.thisForm.acAddress.current_district).subscribe((res: RftDistrict) => {
+      this.currentDistrict = res;
+    });
 
-      this.utilsService.getSubDistrictByRef(this.thisForm.acAddress.home_sub_district).subscribe((res: RftSubDistrict) => {
-        this.homeSubDistrict = res;
-      });
-      this.utilsService.getSubDistrictByRef(this.thisForm.acAddress.current_sub_district).subscribe((res: RftSubDistrict) => {
-        this.currentSubDistrict = res;
-      });
+    this.utilsService.getSubDistrictByRef(this.thisForm.acAddress.home_sub_district).subscribe((res: RftSubDistrict) => {
+      this.homeSubDistrict = res;
+    });
+    this.utilsService.getSubDistrictByRef(this.thisForm.acAddress.current_sub_district).subscribe((res: RftSubDistrict) => {
+      this.currentSubDistrict = res;
+    });
 
-      this.setupDistictList();
-      this.setupSubDistictList();
+
+    this.setupDistictList();
+    this.setupSubDistictList();
+
+
+
   }
 
   autocompleteProvince(event) {
@@ -345,8 +390,19 @@ export class AddressComponent implements OnInit {
 
 
   submitButtonOnClick() {
-    console.log("nextButtonOnClick");
-    // set home address
+    console.log("submitButtonOnClick");
+
+    if(this.thisFormGroup.invalid){
+      this.thisFormGroup.controls["home_address"].markAsDirty();
+      this.thisFormGroup.controls["homeProvince"].markAsDirty();
+      this.thisFormGroup.controls["homeDistrict"].markAsDirty();
+      this.thisFormGroup.controls["homeSubDistrict"].markAsDirty();
+      this.thisFormGroup.controls["current_address"].markAsDirty();
+      this.thisFormGroup.controls["currentProvince"].markAsDirty();
+      this.thisFormGroup.controls["currentDistrict"].markAsDirty();
+      this.thisFormGroup.controls["currentSubDistrict"].markAsDirty();
+    }else{
+         // set home address
     // set home address
     this.thisForm.acAddress.home_province = this.homeProvince.province_ref;
     this.thisForm.acAddress.home_district = this.homeDistrict.district_ref;
@@ -356,9 +412,9 @@ export class AddressComponent implements OnInit {
     this.thisForm.acAddress.current_province = this.currentProvince.province_ref;
     this.thisForm.acAddress.current_district = this.currentDistrict.district_ref;
     this.thisForm.acAddress.current_sub_district = this.currentSubDistrict.sub_district_ref;
-    this.familyAndAddress.onSubmit(this.thisForm);
-    // this.familyAndAddress.onNext(1);
-    // console.log(this.siblings);
+      this.familyAndAddress.onSubmit(this.thisForm);
+    }
+
   }
   prevButtonOnClick() {
     console.log("prevButtonOnClick");
