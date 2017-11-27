@@ -101,6 +101,10 @@ import { SiblingComponent } from "./content/pages/family-and-address/sibling/sib
 import { AddressComponent } from "./content/pages/family-and-address/address/address.component";
 import { FamilyAndAddressService } from './services/familyandaddress.service';
 import { NgProgressModule } from 'ngx-progressbar';
+import { DocumentRequestComponent } from './content/pages/document-request/document-request.component';
+import { DocumentrequestService } from './services/documentrequest.service';
+import { ApplicationDocumentComponent } from './content/pages/application-document/application-document.component';
+import { ApplicationDocumentService } from './services/application-document.service';
 //Router
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -131,6 +135,8 @@ const appRoutes: Routes = [
       { path: "titlename", component: TitlenameComponent },
       { path: "student", component: StudentComponent },
       { path: "family-and-address", component: FamilyAndAddressComponent },
+      { path: "document-request", component: DocumentRequestComponent},
+      { path: "application-document", component: ApplicationDocumentComponent},
     ]
   },
   { path: "news", component: MainNewsComponent },
@@ -199,7 +205,9 @@ export function startupServiceFactory(
     SiblingComponent,
     AddressComponent,
     DateFormatPipe,
-    DocumentsscreeningComponent
+    DocumentsscreeningComponent,
+    DocumentRequestComponent,
+    ApplicationDocumentComponent
   ],
   imports: [
     BrowserModule,
@@ -249,13 +257,15 @@ export function startupServiceFactory(
     StudentService,
     EducationLevelService,
     FamilyAndAddressService,
+    DocumentrequestService,
     {
       provide: APP_INITIALIZER,
       useFactory: startupServiceFactory,
       deps: [StartupService],
       multi: true
     },
-    TitleNameService
+    TitleNameService,
+    ApplicationDocumentService
   ],
   bootstrap: [AppComponent]
 })

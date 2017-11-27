@@ -1,0 +1,96 @@
+<div class="content" *ngIf="mode !== 'S'">
+  <div class="content-header-blue">
+    <p>ข้อมูลเอกสารการสมัคร</p>
+    <div class="underline-blue"></div>
+  </div>
+
+  <p-growl [(value)]="msgs"></p-growl>
+  <div class="content">
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" *ngIf="mode !== 'S'">
+      <div class="row">
+        <div class="col-xs-8">
+          <label class="normal">รหัสเอกสารการสมัคร</label>
+          <div>
+            <input class="normal form-code" type="text" formControlName="document_code" name="document_code" id="documnet_code" maxlength="5"
+              pInputText [(ngModel)]="form.rftApplicationDocument.document_code" disabled="true">
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <label class="normal">สถานะ</label>
+          <div>
+            <p-dropdown name="active_flag" formControlName="active_flag" [options]="statusList" [style]="{'width':'150px'}">
+            </p-dropdown>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <label class="normal">ชื่อเอกสารการสมัคร</label>
+          <div>
+            <input class="normal form-name" type="text" formControlName="document_name" name="document_name" id="documnet_name" maxlength="200"
+              pTooltip="กรุณาระบุรหัสเอกสารการสมัคร" toolTipEvent="focus" showDelay="500" hideDelay="100" pInputText>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <label class="normal">ชื่อ PDF file</label>
+          <div>
+            <input class="normal form-name" type="text" formControlName="pdf_name" [(ngModel)]="form.rftApplicationDocument.pdf_name"
+              name="pdf_name" id="pdf_name" maxlength="200" pInputText>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <label class="normal">ไฟล์เอกสารการสมัคร</label>
+          <label pButton class="btn-positive" label="อัพโหลด" (change)="onUpload($event)">
+            <input type="file" accept=" application/pdf" class="display-none">
+          </label>
+          <label>* เลือกไฟล์ .pdf เท่านั้น</label>
+        </div>
+      </div>
+
+
+      <!--button-->
+      <div class="space"></div>
+      <div class="row">
+        <div class="col-xs-12">
+          <button pButton type="submit" class="btn-positive" label="บันทึก"></button>
+          <button pButton type="button" class="btn-normal" (click)="onResetEdit();" label="เริ่มใหม่"></button>
+          <button pButton type="button" style="float: right;" class="btn-negative" (click)="onPageSearch()" label="กลับ"></button>
+        </div>
+      </div>
+      <!--button-->
+
+    </form>
+  </div>
+
+
+</div>
+
+<div class="content" *ngIf="mode == 'S'">
+  <div class="content-header-blue">
+    <p>ค้นหาข้อมูลเอกสารการสมัคร</p>
+    <div class="underline-blue"></div>
+  </div>
+
+
+  <!-- button -->
+  <div class="space"></div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button pButton type="button" (click)="onSearch()" class="btn-positive" label="ค้นหา">
+      </button>
+      <button pButton type="button" class="btn-normal" (click)="onResetSearch()" label="เริ่มใหม่">
+      </button>
+      <button pButton type="button" style="float: right;" class="btn-negative" (click)="onPageInsert()" label="สร้างใหม่">
+      </button>
+    </div>
+  </div>
+  <!-- button -->
+
+</div>

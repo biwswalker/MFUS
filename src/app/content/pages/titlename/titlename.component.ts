@@ -108,6 +108,8 @@ export class TitlenameComponent implements OnInit {
       let resultList: TitleNameForm[] = [];
       console.log("criteria: "+this.titleCriteriaForm.rftTitleName.title_name_t);
       console.log("criteria: "+this.titleCriteriaForm.rftTitleName.title_name_e);
+      
+      console.log("criteria-gender: "+this.titleNameFormGroup.controls['gender'].value);
       this.titleNameService.searchTitlename(this.titleCriteriaForm)
       .subscribe(
         result => {
