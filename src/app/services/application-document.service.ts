@@ -11,11 +11,10 @@ export class ApplicationDocumentService {
   constructor(private http: Http) { }
 
   addApplicationDocument(applicationDocument: ApplicationDocumentForm){
-    console.log("addApplicationDocument.....");
     const url = this.mainUrl + this.pageUrl;
-    const body = JSON.stringify(applicationDocument);
+   
+    const body = JSON.stringify(applicationDocument.rftApplicationDocument);
     console.log("url: "+url);
-    console.log(body);
     const headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post(url, body, {headers: headers});
   }

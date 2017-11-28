@@ -29,7 +29,7 @@
           <label class="normal">ชื่อเอกสารการสมัคร</label>
           <div>
             <input class="normal form-name" type="text" formControlName="document_name" name="document_name" id="documnet_name" maxlength="200"
-              pTooltip="กรุณาระบุรหัสเอกสารการสมัคร" toolTipEvent="focus" showDelay="500" hideDelay="100" pInputText>
+              pInputText [(ngModel)]="form.rftApplicationDocument.document_name">
           </div>
         </div>
       </div>

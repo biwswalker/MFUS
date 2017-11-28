@@ -6,6 +6,7 @@ import { Response } from '@angular/http';
 import { ApplicationDocumentForm } from '../../form/application-document-form';
 import { ApplicationDocumentService } from '../../../services/application-document.service';
 import { Event } from '@angular/router/src/events';
+import { error } from 'selenium-webdriver';
 
 
 @Component({
@@ -88,17 +89,28 @@ export class ApplicationDocumentComponent implements OnInit {
   }
 
   onAddApplicationDocument(){
-    console.log("onAddApplicationDocument.....");
+
     const value = this.formGroup.value;
     value.active_flag = 'Y';
-    value.pdf_file = this.file;
-    this.applicationDocumentService.addApplicationDocument(value)
+    this.form.rftApplicationDocument.document_code = value.document_code;
+    this.form.rftApplicationDocument.document_name = value.document_name;
+    this.form.rftApplicationDocument.pdf_name = value.pdf_name;
+    this.applicationDocumentService.addApplicationDocument(this.form)
     .subscribe(
       (res: Response)=>{
         let ref = res.json().document_ref;
         this.formGroup.reset();
         this.initEditData();
+        this.getMaxCode();
         this.showSuccess('บันทึกข้อมูลเอกสารเรียบร้อยแล้ว รหัสอ้างอิงคือ '+ref);
+      },
+      (error)=>{
+        let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        if(error.status == 409) {
+          message = 'มีการบันทึกเอกสารนี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
+        }
+        this.showError(message);
+        return;
       }
     );
     
@@ -126,10 +138,12 @@ export class ApplicationDocumentComponent implements OnInit {
   }
 
   handleReaderLoaded(readerEvent) {
+    console.log("handleReaderLoaded..................");
     this.binaryString = readerEvent.target.result;
     this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);    
-    this.form.rftApplicationDocument.pdf_name = this.file_name;
+    this.form.rftApplicationDocument.pdf_name = this.file.name;
     this.form.rftApplicationDocument.pdf_file = btoa(this.binaryString)
+    console.log(this.form.rftApplicationDocument.pdf_file);
   }
 
   onDelete() {
@@ -151,7 +165,10 @@ export class ApplicationDocumentComponent implements OnInit {
   }
 
   onResetEdit(){
+    this.form = null;
     this.initEditData();
+    this.getMaxCode();
+    this.validatorEditForm();
   }
 
   onPageSearch(){
@@ -162,6 +179,11 @@ export class ApplicationDocumentComponent implements OnInit {
   showSuccess(message: string){
     this.msgs = [];
     this.msgs.push({severity:'success', summary:'บันทึกข้อมูลสำเร็จ', detail: message});
+  }
+
+  showError(message: string){
+    this.msgs = [];
+    this.msgs.push({severity:'error', summary:'ไม่สามารถบันทึกข้อมูลได้',detail: message});
   }
 
   onSearch(){
@@ -175,6 +197,15 @@ export class ApplicationDocumentComponent implements OnInit {
   onPageInsert(){
     this.mode = 'I';
     this.initEditData();
+   this.getMaxCode();
+    
+  }
+
+  onRowSelect(event){
+
+  }
+
+  getMaxCode(){
     this.applicationDocumentService.getMax()
     .subscribe(
       (res: string) => {
@@ -185,10 +216,5 @@ export class ApplicationDocumentComponent implements OnInit {
         return;
       }
     );
-    
-  }
-
-  onRowSelect(event){
-
   }
 }
