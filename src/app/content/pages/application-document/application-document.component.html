@@ -78,6 +78,32 @@
     <div class="underline-blue"></div>
   </div>
 
+  <div class="row">
+    <div class="col-xs-6">
+      <label class="normal">รหัสเอกสารการสมัคร</label>
+      <div>
+        <input class="normal form-code" type="text" name="document_code" id="documentCode" maxlength="5" [(ngModel)]="criteriaForm.rftApplicationDocument.document_code"
+          pInputText>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <label class="normal">ชื่อเอกสารการสมัคร</label>
+      <div>
+        <input class="normal form-name" type="text" name="document_name" id="documentName" maxlength="5" [(ngModel)]="criteriaForm.rftApplicationDocument.document_name"
+          pInputText>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <label class="normal">ชื่อ PDF</label>
+      <div>
+        <input class="normal form-name" type="text" name="pdf_name" id="pdfName" maxlength="5" [(ngModel)]="criteriaForm.rftApplicationDocument.pdf_name"
+          pInputText>
+      </div>
+    </div>
+  </div>
+
 
   <!-- button -->
   <div class="space"></div>
@@ -93,4 +119,21 @@
   </div>
   <!-- button -->
 
-</div>
+  <div class="space"></div>
+  <div class="row">
+    <p-dataTable
+     [value]="formList"
+     selectionMode="single"
+     [(selection)]="selectedForm"
+     [rows]="10"
+     [paginator]="true"
+     [rowsPerPageOptions]="[5,10,20]"
+     (onRowSelect)="onRowSelect($event)"
+     dataKey="rftApplicationDocument.document_ref"
+     sortMode="multiple">
+     <p-column [sortable]="true" field="rftApplicationDocument.document_code" header="รหัสเอกสารการสมัคร"></p-column>
+     <p-column [sortable]="true" field="rftApplicationDocument.document_name" header="ชื่อเอกสารการสมัคร"></p-column>
+     <p-column [sortable]="true" field="rftApplicationDocument.pdf_name" header="ชื่อ PDF"></p-column>
+    </p-dataTable>
+  </div>
+  </div>

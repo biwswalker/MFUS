@@ -130,8 +130,6 @@ export class ApplicationDocumentComponent implements OnInit {
         let reader = new FileReader();
         reader.onload = this.handleReaderLoaded.bind(this);
         reader.readAsBinaryString(this.file);
-      } else {
-        this.onDelete();
       }
     }
    
@@ -144,24 +142,6 @@ export class ApplicationDocumentComponent implements OnInit {
     this.form.rftApplicationDocument.pdf_name = this.file.name;
     this.form.rftApplicationDocument.pdf_file = btoa(this.binaryString)
     console.log(this.form.rftApplicationDocument.pdf_file);
-  }
-
-  onDelete() {
-    /*this.applicationDocumentService.deleteNews(this.newsForm.smNews.news_ref)
-    .subscribe((res: Response) => {
-      let news_ref = res.json().news_ref;
-      console.log(res.json());
-      console.log(res.json().news_ref);
-      console.log(res.statusText);
-
-      this.newsFormGroup.reset();
-
-      this.onPageSearch();
-
-      this.showSuccess('ลบข้อมูลเรียบร้อยแล้ว');
-
-    },
-  )*/
   }
 
   onResetEdit(){
@@ -187,7 +167,17 @@ export class ApplicationDocumentComponent implements OnInit {
   }
 
   onSearch(){
-    
+    this.formList = [];
+    let resultList: ApplicationDocumentForm[] = [];
+    this.applicationDocumentService.searchApplicationDocument(this.criteriaForm)
+    .subscribe(
+      result => {
+        this.formList = result;
+      },
+      (error) => {
+        this.showError(error);
+      }
+    );
   }
 
   onResetSearch(){
