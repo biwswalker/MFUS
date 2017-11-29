@@ -45,6 +45,7 @@ export class ApplicationDocumentService {
                 for (let data of res.json()) {
                     form = new ApplicationDocumentForm();
                     form.rftApplicationDocument = data;
+                    console.log(form.rftApplicationDocument.pdf_name);
                     results.push(form);
                 }
                 return results;
@@ -63,6 +64,15 @@ export class ApplicationDocumentService {
                 return res.json().result;
             }
             );
+    }
+
+    update(form: ApplicationDocumentForm, ref: string){
+        const url = this.mainUrl + this.pageUrl + '/' + ref;
+        console.log(url);
+        const body = JSON.stringify(form);
+        console.log(body);
+        const headers = new Headers({'Content-Type':'application/json'});
+        return this.http.put(url, body , {headers: headers});
     }
 
 }

@@ -117,7 +117,22 @@ export class ApplicationDocumentComponent implements OnInit {
   }
 
   onUpdateApplicationDocument(){
-
+    const value = this.formGroup.value;
+    this.applicationDocumentService.update(value, this.form.rftApplicationDocument.document_ref).subscribe(
+      (res: Response)=>{
+        let documentRef = res.json().document_ref;
+        this.showSuccess('แก้ไขข้อมูลเรียบร้อบแล้ว');
+    },
+      (error)=>{
+        console.log(error);
+        let message = 'กรุณาตรวจสอบข้อมูลอีกครั้ง';
+        if(error.status == 409){
+          message = 'มีการบันทึกเอกสารนี้แล้ว กรุณาตรวจสอบข้อมูล';
+        }
+        this.showError(message);
+        return;
+      }      
+    );
   }
 
   onUpload(event) {
@@ -192,7 +207,13 @@ export class ApplicationDocumentComponent implements OnInit {
   }
 
   onRowSelect(event){
-
+    this.form = new ApplicationDocumentForm();
+    this.form = this.selectedForm;
+    console.log(this.form.rftApplicationDocument.pdf_name);
+    this.validatorEditForm();
+    this.mode = 'U';
+    this.statusList = [];
+    this.getStatusList();
   }
 
   getMaxCode(){
