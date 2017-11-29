@@ -106,10 +106,6 @@ export class TitlenameComponent implements OnInit {
 
     searchTitleName() : TitleNameForm[] {
       let resultList: TitleNameForm[] = [];
-      console.log("criteria: "+this.titleCriteriaForm.rftTitleName.title_name_t);
-      console.log("criteria: "+this.titleCriteriaForm.rftTitleName.title_name_e);
-      
-      console.log("criteria-gender: "+this.titleNameFormGroup.controls['gender'].value);
       this.titleNameService.searchTitlename(this.titleCriteriaForm)
       .subscribe(
         result => {
@@ -185,10 +181,6 @@ onAddTitle(){
       .subscribe(
         (res: Response) => {
         let title_ref = res.json().title_ref;
-
-       // this.titleNameFormGroup.reset()
-
-        //this.initEditData();
 
         this.showSuccess('แก้ไขข้อมูลคำนำหน้าชื่อเรียบร้อยแล้ว');
 
