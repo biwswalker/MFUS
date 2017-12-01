@@ -1,3 +1,4 @@
+import { AcParent } from './../../../models/ac-parent';
 import { Observer } from "rxjs/Observer";
 import { Observable } from "rxjs/Rx";
 import { NgProgress } from "ngx-progressbar";
@@ -119,9 +120,9 @@ export class FamilyComponent implements OnInit {
       dadDay: new FormControl(this.dadDay,Validators.compose([Validators.required])),
       dadYear: new FormControl(this.dadYear,Validators.compose([Validators.required])),
       father_address: new FormControl(this.thisForm.acParent.father_address,Validators.compose([Validators.required])),
-      father_province: new FormControl(this.dadProvince.province_ref,Validators.compose([Validators.required])),
-      father_district: new FormControl(this.dadDistrict.district_ref,Validators.compose([Validators.required])),
-      father_sub_district: new FormControl(this.dadSubDistrict.sub_district_ref,Validators.compose([Validators.required])),
+      father_province: new FormControl(this.thisForm.acParent.father_province,Validators.compose([Validators.required])),
+      father_district: new FormControl(this.thisForm.acParent.father_district,Validators.compose([Validators.required])),
+      father_sub_district: new FormControl(this.thisForm.acParent.father_sub_district,Validators.compose([Validators.required])),
       father_postcode: new FormControl(this.thisForm.acParent.father_postcode),
       father_phone: new FormControl(this.thisForm.acParent.father_phone),
       father_email: new FormControl(this.thisForm.acParent.father_email),
@@ -144,9 +145,9 @@ export class FamilyComponent implements OnInit {
       momDay: new FormControl(this.momDay,Validators.compose([Validators.required])),
       momYear: new FormControl(this.momYear, Validators.compose([Validators.required])),
       mother_address: new FormControl(this.thisForm.acParent.mother_address,Validators.compose([Validators.required])),
-      mother_province: new FormControl(this.momProvince.province_ref,Validators.compose([Validators.required])),
-      mother_district: new FormControl(this.momDistrict.district_ref,Validators.compose([Validators.required])),
-      mother_sub_district: new FormControl(this.momSubDistrict.sub_district_ref,Validators.compose([Validators.required])),
+      mother_province: new FormControl(this.momProvince,Validators.compose([Validators.required])),
+      mother_district: new FormControl(this.momDistrict,Validators.compose([Validators.required])),
+      mother_sub_district: new FormControl(this.momSubDistrict,Validators.compose([Validators.required])),
       mother_postcode: new FormControl(this.thisForm.acParent.mother_postcode),
       mother_phone: new FormControl(this.thisForm.acParent.mother_phone),
       mother_email: new FormControl(this.thisForm.acParent.mother_email),
@@ -170,9 +171,9 @@ export class FamilyComponent implements OnInit {
       patrolDay: new FormControl(this.patrolDay),
       patrolYear: new FormControl(this.patrolYear),
       patrol_address: new FormControl(this.thisForm.acParent.patrol_address),
-      patrol_province: new FormControl(this.patrolProvince.province_ref),
-      patrol_district: new FormControl(this.patrolDistrict.district_ref),
-      patrol_sub_district: new FormControl(this.patrolSubDistrict.sub_district_ref),
+      patrol_province: new FormControl(this.patrolProvince),
+      patrol_district: new FormControl(this.patrolDistrict),
+      patrol_sub_district: new FormControl(this.patrolSubDistrict),
       patrol_postcode: new FormControl(this.thisForm.acParent.patrol_postcode),
       patrol_phone: new FormControl(this.thisForm.acParent.patrol_phone),
       patrol_email: new FormControl(this.thisForm.acParent.patrol_email),
@@ -404,20 +405,53 @@ export class FamilyComponent implements OnInit {
     this.listProvince = this.utilsService.getProvincesList();
   }
 
-  autocompleteProvince(event) {
-    console.log("autocompleteProvince");
+  autocompleteProvince(event,seq: number) {
+    console.log("autocompleteProvince: "+seq);
     let query = event.query;
-    this.fProvinceList = [];
-    this.dadDistrict = new RftDistrict();
-    this.dadSubDistrict = new RftSubDistrict();
-    let objList: RftProvince[];
-    objList = this.listProvince;
-    for (let obj of objList) {
-      // Filter By string event
-      if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        this.fProvinceList.push(obj);
+    if(seq == 1){
+      this.fProvinceList = [];
+      this.dadDistrict = new RftDistrict();
+      this.dadSubDistrict = new RftSubDistrict();
+      this.thisForm.acParent.father_province = null;
+      this.thisForm.acParent.father_postcode = null;
+      let objList: RftProvince[];
+      objList = this.listProvince;
+      for (let obj of objList) {
+        // Filter By string event
+        if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+          this.fProvinceList.push(obj);
+        }
       }
     }
+    if(seq == 2){
+      this.mProvinceList = [];
+      this.momDistrict = new RftDistrict();
+      this.momSubDistrict = new RftSubDistrict();
+      this.thisForm.acParent.mother_postcode = null;
+      let objList: RftProvince[];
+      objList = this.listProvince;
+      for (let obj of objList) {
+        // Filter By string event
+        if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+          this.mProvinceList.push(obj);
+        }
+      }
+    }
+    if(seq == 3){
+      this.pProvinceList = [];
+      this.patrolDistrict = new RftDistrict();
+      this.patrolSubDistrict = new RftSubDistrict();
+      this.thisForm.acParent.patrol_postcode = null;
+      let objList: RftProvince[];
+      objList = this.listProvince;
+      for (let obj of objList) {
+        // Filter By string event
+        if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+          this.pProvinceList.push(obj);
+        }
+      }
+    }
+
   }
 
   // Autocomplete filter
@@ -683,6 +717,43 @@ export class FamilyComponent implements OnInit {
 
   nextButtonOnClick() {
     console.log("nextButtonOnClick");
+    if (this.thisForm.acParent.parent_flag == "1") {
+      // set father data
+      this.thisForm.acParent.father_birth_date =
+        this.dadYear + this.dadMonth + this.dadDay;
+      this.thisForm.acParent.father_province = this.dadProvince.province_ref;
+      this.thisForm.acParent.father_district = this.dadDistrict.district_ref;
+      this.thisForm.acParent.father_sub_district = this.dadSubDistrict.sub_district_ref;
+
+      // set father data
+      this.thisForm.acParent.mother_birth_date =
+        this.momYear + this.momMonth + this.momDay;
+      this.thisForm.acParent.mother_province = this.momProvince.province_ref;
+      this.thisForm.acParent.mother_district = this.momDistrict.district_ref;
+      this.thisForm.acParent.mother_sub_district = this.momSubDistrict.sub_district_ref;
+    } else {
+      // set father data
+      this.thisForm.acParent.patrol_birth_date = this.patrolYear+this.patrolMonth+this.patrolDay;
+      this.thisForm.acParent.patrol_province = this.patrolProvince.province_ref;
+      this.thisForm.acParent.patrol_district = this.patrolDistrict.district_ref;
+      this.thisForm.acParent.patrol_sub_district = this.patrolSubDistrict.sub_district_ref;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     console.log(this.thisFormGroup.status);
     console.log(this.thisFormGroup.value);
     if(this.thisFormGroup.invalid){
@@ -696,6 +767,8 @@ export class FamilyComponent implements OnInit {
       this.thisFormGroup.controls["father_province"].markAsDirty();
       this.thisFormGroup.controls["father_district"].markAsDirty();
       this.thisFormGroup.controls["father_sub_district"].markAsDirty();
+      this.thisFormGroup.controls["father_land_all"].markAsDirty();
+
 
       this.thisFormGroup.controls["mother_pid"].markAsDirty();
       this.thisFormGroup.controls["mother_died_year"].markAsDirty();
@@ -720,31 +793,7 @@ export class FamilyComponent implements OnInit {
       this.thisFormGroup.controls["patrol_district"].markAsDirty();
       this.thisFormGroup.controls["patrol_sub_district"].markAsDirty();
     }else{
-        if (this.thisForm.acParent.parent_flag == "1") {
-          // set father data
-          this.thisForm.acParent.father_birth_date =
-            this.dadYear + this.dadMonth + this.dadDay;
-          this.thisForm.acParent.father_province = this.dadProvince.province_ref;
-          this.thisForm.acParent.father_district = this.dadDistrict.district_ref;
-          this.thisForm.acParent.father_sub_district = this.dadSubDistrict.sub_district_ref;
-
-          // set father data
-          this.thisForm.acParent.mother_birth_date =
-            this.momYear + this.momMonth + this.momDay;
-          this.thisForm.acParent.mother_province = this.momProvince.province_ref;
-          this.thisForm.acParent.mother_district = this.momDistrict.district_ref;
-          this.thisForm.acParent.mother_sub_district = this.momSubDistrict.sub_district_ref;
-        } else {
-          // set father data
-          this.thisForm.acParent.patrol_birth_date = this.patrolYear
-            .concat(this.patrolMonth)
-            .concat(this.patrolDay);
-          this.thisForm.acParent.patrol_province = this.patrolProvince.province_ref;
-          this.thisForm.acParent.patrol_district = this.patrolDistrict.district_ref;
-          this.thisForm.acParent.patrol_sub_district = this.patrolSubDistrict.sub_district_ref;
-        }
-
-        this.familyAndAddress.onChangePanel(1, this.thisForm);
+                this.familyAndAddress.onChangePanel(1, this.thisForm);
         this.thisForm = new FamilyAndAddressForm();
     }
   }
