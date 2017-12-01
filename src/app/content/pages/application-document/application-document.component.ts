@@ -7,6 +7,7 @@ import { ApplicationDocumentForm } from '../../form/application-document-form';
 import { ApplicationDocumentService } from '../../../services/application-document.service';
 import { Event } from '@angular/router/src/events';
 import { error } from 'selenium-webdriver';
+import { NgProgress } from 'ngx-progressbar';
 
 
 @Component({
@@ -33,7 +34,10 @@ export class ApplicationDocumentComponent implements OnInit {
   file_type: string;
 
 
-  constructor(private applicationDocumentService: ApplicationDocumentService) { }
+  constructor(
+    private applicationDocumentService: ApplicationDocumentService,
+    public ngProgress: NgProgress
+  ) { }
 
   ngOnInit() {
     this.initEditData();
@@ -89,7 +93,8 @@ export class ApplicationDocumentComponent implements OnInit {
   }
 
   onAddApplicationDocument(){
-
+    this.ngProgress.start();
+  
     const value = this.formGroup.value;
     value.active_flag = 'Y';
     this.form.rftApplicationDocument.document_code = value.document_code;
@@ -103,6 +108,9 @@ export class ApplicationDocumentComponent implements OnInit {
         this.initEditData();
         this.getMaxCode();
         this.showSuccess('บันทึกข้อมูลเอกสารเรียบร้อยแล้ว รหัสอ้างอิงคือ '+ref);
+     
+        this.ngProgress.done();
+      
       },
       (error)=>{
         let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
@@ -110,6 +118,7 @@ export class ApplicationDocumentComponent implements OnInit {
           message = 'มีการบันทึกเอกสารนี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
         }
         this.showError(message);
+        this.ngProgress.done();
         return;
       }
     );
@@ -117,11 +126,13 @@ export class ApplicationDocumentComponent implements OnInit {
   }
 
   onUpdateApplicationDocument(){
+    this.ngProgress.start();
     const value = this.formGroup.value;
     this.applicationDocumentService.update(value, this.form.rftApplicationDocument.document_ref).subscribe(
       (res: Response)=>{
         let documentRef = res.json().document_ref;
         this.showSuccess('แก้ไขข้อมูลเรียบร้อบแล้ว');
+        this.ngProgress.done();
     },
       (error)=>{
         console.log(error);
@@ -130,6 +141,7 @@ export class ApplicationDocumentComponent implements OnInit {
           message = 'มีการบันทึกเอกสารนี้แล้ว กรุณาตรวจสอบข้อมูล';
         }
         this.showError(message);
+        this.ngProgress.done();
         return;
       }      
     );
@@ -182,14 +194,18 @@ export class ApplicationDocumentComponent implements OnInit {
   }
 
   onSearch(){
+    this.ngProgress.start();
+  
     this.formList = [];
     let resultList: ApplicationDocumentForm[] = [];
     this.applicationDocumentService.searchApplicationDocument(this.criteriaForm)
     .subscribe(
       result => {
+        this.ngProgress.done();
         this.formList = result;
       },
       (error) => {
+        this.ngProgress.done();
         this.showError(error);
       }
     );
