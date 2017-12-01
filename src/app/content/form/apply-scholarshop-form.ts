@@ -34,12 +34,14 @@ export class ApplyScholarshipForm {
   public acStudent: AcStudent;
   public smScholarship: SmScholarship;
   public smSponsors: SmSponsors;
+  public scholarshipHistoryList;
+  public studentLoanFundList: ApStudentLoanFund[] = [];
+  public debtList: ApFamilyDebt[] = [];
+  public fileList: ApDocumentUpload[] = []
 
   public age: number;
 
   constructor() {
-    // this.acStudent = new AcStudent();
-
     this.apApplication = new ApApplication();
     this.apFamilyFinancial = new ApFamilyFinancial();
     this.apFamilyDebt = new ApFamilyDebt();
@@ -56,5 +58,8 @@ export class ApplyScholarshipForm {
     this.acStudent = new AcStudent();
     this.smScholarship = new SmScholarship();
     this.smSponsors = new SmSponsors();
+    this.studentLoanFundList = [];
+    this.debtList = [];
+    this.fileList = [];
   }
 }

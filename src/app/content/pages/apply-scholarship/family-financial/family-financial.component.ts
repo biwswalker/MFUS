@@ -15,13 +15,11 @@ export class FamilyFinancialComponent implements OnInit {
 
   debtList: ApFamilyDebt[] = [];
   debt: ApFamilyDebt;
-  financial: ApplyScholarshipForm;
 
   constructor(public applyScholarship: ApplyScholarshipComponent,
               private applyscholarshipService: ApplyscholarshipService) {}
 
   ngOnInit() {
-    this.financial = new ApplyScholarshipForm();
     this.debt = new ApFamilyDebt();
   }
 
@@ -40,13 +38,12 @@ export class FamilyFinancialComponent implements OnInit {
   }
 
   addDebt() {
-    this.applyscholarshipService.setDebtList(this.debtList);
+    this.applyScholarship.applyScholarshipForm.debtList = this.debtList
   }
 
   onNext() {
     this.addDebt();
-    console.log(this.applyScholarship.applyScholarshipForm)
-    console.log(this.applyscholarshipService.getDebtList)
+    console.log("data: ", this.applyScholarship.applyScholarshipForm)
     this.applyscholarshipService.nextIndex(3);
     this.applyScholarship.activeIndex = this.applyscholarshipService.getIndex();
   }

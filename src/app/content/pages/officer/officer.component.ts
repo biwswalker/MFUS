@@ -118,7 +118,6 @@ export class OfficerComponent implements OnInit {
       'profile_image': new FormControl(this.image)
     });
 
-
     if(this.mode == 'I') {
       this.officerFormGroup.controls['active_flag'].disable();
     }else if (this.mode == 'U') {

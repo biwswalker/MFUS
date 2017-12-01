@@ -25,7 +25,7 @@
                 <label for="" class="normal">เลขประจำตัวประชาชน</label> {{applyScholarship.applyScholarshipForm.acParent.father_pid}}
             </div>
             <div class="col-xs-6">
-                <label for="" class="normal">สถานะ</label> {{applyScholarship.applyScholarshipForm.acParent.father_status}}
+                <label for="" class="normal">สถานะ</label> {{familyAndAddress.getstatus(applyScholarship.applyScholarshipForm.acParent.father_status)}}
             </div>
         </div>
         <div class="row">
@@ -108,7 +108,7 @@
                 <label for="" class="normal">เลขประจำตัวประชาชน</label> {{applyScholarship.applyScholarshipForm.acParent.mother_pid}}
             </div>
             <div class="col-xs-6">
-                <label for="" class="normal">สถานะ</label> {{applyScholarship.applyScholarshipForm.acParent.mother_status}}
+                <label for="" class="normal">สถานะ</label> {{familyAndAddress.getstatus(applyScholarship.applyScholarshipForm.acParent.mother_status)}}
             </div>
         </div>
         <div class="row">
@@ -126,18 +126,18 @@
         </div>
         <div class="row">
             <div class="col-xs-6">
-                <label for="" class="normal">จังหวัด</label> {{applyScholarship.applyScholarshipForm.acParent.mother_province}}
+                <label for="" class="normal">จังหวัด</label> {{familyAndAddress.momProvince.province_name_t}}
             </div>
             <div class="col-xs-6">
-                <label for="" class="normal">อำเภอ</label> {{applyScholarship.applyScholarshipForm.acParent.mother_district}}
+                <label for="" class="normal">อำเภอ</label> {{familyAndAddress.momDistrict.district_name_t}}
             </div>
         </div>
         <div class="row">
             <div class="col-xs-6">
-                <label for="" class="normal">ตำบล</label> {{applyScholarship.applyScholarshipForm.acParent.mother_sub_district}}
+                <label for="" class="normal">ตำบล</label> {{familyAndAddress.momSubDistrict.sub_district_name_t}}
             </div>
             <div class="col-xs-6">
-                <label for="" class="normal">รหัสไปรษณีย์</label> {{applyScholarship.applyScholarshipForm.acParent.mother_postcode}}
+                <label for="" class="normal">รหัสไปรษณีย์</label> {{familyAndAddress.momSubDistrict.postcode}}
             </div>
         </div>
         <div class="row">
@@ -189,7 +189,7 @@
         </div>
         <div class="row">
             <div class="col-xs-6">
-                <label for="" class="normal">เลขประจำตัวประชาชน</label> {{applyScholarship.applyScholarshipForm.acParent.father_pid}}
+                <label for="" class="normal">เลขประจำตัวประชาชน</label> {{applyScholarship.applyScholarshipForm.acParent.patrol_pid}}
             </div>
             <div class="col-xs-6">
                 <label for="" class="normal">สถานะ</label> {{applyScholarship.applyScholarshipForm.acParent.father_status}}
@@ -197,32 +197,32 @@
         </div>
         <div class="row">
             <div class="col-xs-6">
-                <label for="" class="normal">ชื่อ - สกุล</label> {{applyScholarship.applyScholarshipForm.acParent.father_name}}
+                <label for="" class="normal">ชื่อ - สกุล</label> {{applyScholarship.applyScholarshipForm.acParent.patrol_name}}
             </div>
             <div class="col-xs-6">
-                <label for="" class="normal">วันเกิด</label> {{applyScholarship.applyScholarshipForm.acParent.father_birth_date}}
+                <label for="" class="normal">วันเกิด</label> {{applyScholarship.applyScholarshipForm.acParent.patrol_birth_date}}
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12">
 
-                <label for="" class="normal">ที่อยู่</label> {{applyScholarship.applyScholarshipForm.acParent.father_address}}
+                <label for="" class="normal">ที่อยู่</label> {{applyScholarship.applyScholarshipForm.acParent.patrol_address}}
             </div>
         </div>
         <div class="row">
             <div class="col-xs-6">
-                <label for="" class="normal">จังหวัด</label> {{applyScholarship.applyScholarshipForm.acParent.father_province}}
+                <label for="" class="normal">จังหวัด</label> {{familyAndAddress.patrolProvince.province_name_t}}
             </div>
             <div class="col-xs-6">
-                <label for="" class="normal">อำเภอ</label> {{applyScholarship.applyScholarshipForm.acParent.father_district}}
+                <label for="" class="normal">อำเภอ</label> {{familyAndAddress.patrolDistrict.district_name_t}}
             </div>
         </div>
         <div class="row">
             <div class="col-xs-6">
-                <label for="" class="normal">ตำบล</label> {{applyScholarship.applyScholarshipForm.acParent.father_sub_district}}
+                <label for="" class="normal">ตำบล</label> {{familyAndAddress.patrolSubDistrict.sub_district_name_t}}
             </div>
             <div class="col-xs-6">
-                <label for="" class="normal">รหัสไปรษณีย์</label> {{applyScholarship.applyScholarshipForm.acParent.father_postcode}}
+                <label for="" class="normal">รหัสไปรษณีย์</label> {{familyAndAddress.patrolSubDistrict.postcode}}
             </div>
         </div>
         <div class="row">

@@ -10,6 +10,7 @@ export class ParentService {
   constructor(private http: Http) { }
 
   getParentByStudentRef(student_ref: string): Observable<AcParent> {
+    console.log(student_ref)
     const headers = new Headers({ 'Content-Type': 'application/json' });
     return this.http.get(this.mainUrl + 'parent-info/' + student_ref, { headers: headers })
       .map((res: Response) => {

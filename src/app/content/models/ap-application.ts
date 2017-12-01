@@ -2,7 +2,7 @@ export class ApApplication {
   public application_ref: string;
   public application_code: string;
   public student_ref: string;
-  public collage_year: number;
+  public collage_year: string;
   public school_year: string;
   public gpax: number;
   public advisor_name: string;

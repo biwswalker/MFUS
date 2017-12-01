@@ -8,4 +8,5 @@ export class ApScholarshipHistory {
   public update_user: string;
   public update_datetime: Date;
   public money_amount: number;
+  public student_ref: string;
 }

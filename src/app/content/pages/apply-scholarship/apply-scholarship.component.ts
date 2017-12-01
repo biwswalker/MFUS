@@ -93,19 +93,10 @@ export class ApplyScholarshipComponent implements OnInit {
         })
       }, 1000);
       setTimeout(() => {
-        console.log(this.applyScholarshipForm.acStudent.student_ref)
-        this.parentService.getParentByStudentRef(this.applyScholarshipForm.acStudent.student_ref).subscribe((res: AcParent)=>{
-          this.applyScholarshipForm.acParent = res;
-          if(res){
-            observer.next(true);
-          }
-        })
-      }, 2000);
-      setTimeout(() => {
       this.addressService.getAddressByStudentRef(this.applyScholarshipForm.acStudent.student_ref).subscribe((res: AcAddress)=>{
         this.applyScholarshipForm.acAddress = res;
       })
-      }, 3000);
+      }, 2000);
       setTimeout(() => {
         this.siblingService.getSiblingByStudentRef(this.applyScholarshipForm.acStudent.student_ref).subscribe((res: AcSibling[])=>{
           for(let obj of res) {
@@ -127,16 +118,11 @@ export class ApplyScholarshipComponent implements OnInit {
     this.applyscholarshipService.nextIndex(this.activeIndex);
     this.activeIndex = this.applyscholarshipService.getIndex();
     this.applyScholarshipForm = this.applyscholarshipService.getData();
-    console.log("activeIndex = " + this.activeIndex);
-    console.log("data = ", this.applyScholarshipForm);
   }
 
   onPrevious() {
     this.activeIndex--;
     this.applyscholarshipService.nextIndex(this.activeIndex);
     this.activeIndex = this.applyscholarshipService.getIndex();
-    //  this.applyScholarshipForm = this.applyscholarshipService.getData();
-    console.log("activeIndex = " + this.activeIndex);
-    console.log("data = ", this.applyScholarshipForm);
   }
 }

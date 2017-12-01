@@ -12,23 +12,23 @@
                 </p-autoComplete>
             </div>
             <div class="col-xs-3">
-                <label class="normal">รอบที่</label> {{round}}
+                <label class="normal">รอบที่</label> {{applyScholarship.applyScholarshipForm.smScholarshipAnnouncement.round}}
             </div>
         </div>
         <div class="row overide-row">
             <div class="col-xs-3">
-                <label class="normal">ประเภททุนการศึกษา</label> {{type}}
+                <label class="normal">ประเภททุนการศึกษา</label> {{applyScholarship.applyScholarshipForm.smScholarship.scholarship_type}}
             </div>
             <div class="col-xs-6">
-                <label class="normal">ผู้สนับสนุน</label> {{sponsor}}
+                <label class="normal">ผู้สนับสนุน</label> {{applyScholarship.applyScholarshipForm.smSponsors.sponsors_name}}
             </div>
             <div class="col-xs-3">
-                <label class="normal">เกรดขั้นต่ำ</label> {{gpax}}
+                <label class="normal">เกรดขั้นต่ำ</label> {{applyScholarship.applyScholarshipForm.smScholarshipAnnouncement.min_gpax}}
             </div>
         </div>
         <div class="row overide-row">
             <div class="col-xs-12">
-                <label for="" class="normal">รายละเอียดทุนการศึกษา</label>{{detail}}
+                <label for="" class="normal">รายละเอียดทุนการศึกษา</label>{{applyScholarship.applyScholarshipForm.smScholarship.detail}}
             </div>
         </div>
         <div class="row overide-row">
@@ -58,7 +58,7 @@
                     </p-column>
                     <p-column [sortable]="true" header="จำนวน(บาท)" field="debt_amount">
                         <ng-template let-col let-obj="rowData" pTemplate="body">
-                            <input type="text" [(ngModel)]="obj.debt_amount" size="10" pInputText>
+                            <input type="text" [(ngModel)]="obj.money_amount" size="10" pInputText>
                         </ng-template>
                     </p-column>
                     <p-column styleClass="col-button">

@@ -111,11 +111,11 @@ export class ScholarshipInfoComponent implements OnInit {
 
   selectedData(){
     this.selectedScholarship = this.applyScholarship.applyScholarshipForm.smScholarshipAnnouncement;
-    this.sponsor = this.selectedScholarship.sponsors_name
-    this.type = this.selectedScholarship.scholarship_type
-    this.gpax = this.selectedScholarship.min_gpax
-    this.round = this.selectedScholarship.round
-    this.detail = this.selectedScholarship.detail
+    this.applyScholarship.applyScholarshipForm.smSponsors.sponsors_name = this.selectedScholarship.sponsors_name
+    this.applyScholarship.applyScholarshipForm.smScholarship.scholarship_type = this.selectedScholarship.scholarship_type
+    this.applyScholarship.applyScholarshipForm.smScholarshipAnnouncement.min_gpax = this.selectedScholarship.min_gpax
+    this.applyScholarship.applyScholarshipForm.smScholarshipAnnouncement.round = this.selectedScholarship.round
+    this.applyScholarship.applyScholarshipForm.smScholarship.detail = this.selectedScholarship.detail
   }
 
   addScholarship() {
@@ -143,11 +143,11 @@ export class ScholarshipInfoComponent implements OnInit {
   }
 
   addScholarshipHistory() {
-    this.applyscholarshipService.setscholarshipHistory(this.historyList);
+    this.applyScholarship.applyScholarshipForm.scholarshipHistoryList = this.historyList;
   }
 
   addStudentLoan() {
-    this.applyscholarshipService.setStudentLoanFundList(this.stdLoanList);
+    this.applyScholarship.applyScholarshipForm.studentLoanFundList = this.stdLoanList;
   }
 
 

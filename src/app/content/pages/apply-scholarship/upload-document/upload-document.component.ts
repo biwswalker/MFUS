@@ -8,6 +8,7 @@ import { UtilsService } from './../../../../services/utils.service';
 import { Component, OnInit } from "@angular/core";
 import { ApDocumentUpload } from '../../../models/ap-document-upload';
 import { ApplyScholarshipComponent } from '../apply-scholarship.component';
+import { AcStudent } from '../../../models/ac-student';
 
 @Component({
   selector: "app-upload-document",
@@ -92,12 +93,12 @@ export class UploadDocumentComponent implements OnInit {
   }
 
   uploadFileToList() {
-    let service = this.applyscholarshipService
-    this.applyscholarshipService.setUploadList(this.uploadList)
-    console.log(service.getScholarshipHistoryList())
-    console.log(service.getStudentLoanFundList())
-    console.log(service.getDebtList())
-    console.log(service.getUploadList())
-    console.log(this.applyScholarship.applyScholarshipForm)
+    this.applyScholarship.applyScholarshipForm.fileList = this.uploadList;
+  }
+
+  onNext() {
+    this.uploadFileToList();
+    console.log("data: ", this.applyScholarship.applyScholarshipForm)
+    this.applyscholarshipService.insertData( this.applyScholarship.applyScholarshipForm);
   }
 }

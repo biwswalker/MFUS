@@ -85,6 +85,7 @@ export class UtilsService {
     return this.http.get(this.url+'province-by-ref/'+ref, options)
       .map(
       (res: Response) => {
+        console.log(res)
         return res.json();
       }
       );

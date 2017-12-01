@@ -1,3 +1,4 @@
+import { AcParent } from './../../../models/ac-parent';
 import { RftDistrict } from './../../../models/rft-district';
 import { UtilsService } from '../../../../services/utils.service';
 import { Router } from '@angular/router';
@@ -6,6 +7,7 @@ import { ApplyScholarshipComponent } from '../apply-scholarship.component';
 import { ApplyscholarshipService } from '../../../../services/applyscholarship.service';
 import { RftProvince } from '../../../models/rft-province';
 import { RftSubDistrict } from '../../../models/rft-sub-district';
+import { ParentService } from '../../../../services/parent.service';
 
 @Component({
   selector: 'app-family-and-address-info',
@@ -15,7 +17,6 @@ import { RftSubDistrict } from '../../../models/rft-sub-district';
 export class FamilyAndAddressInfoComponent implements OnInit {
 
   flag: string;
-  status: string;
 
   dadProvince: RftProvince = new RftProvince();
   dadDistrict: RftDistrict = new RftDistrict();
@@ -32,13 +33,22 @@ export class FamilyAndAddressInfoComponent implements OnInit {
   constructor(private router: Router,
     public applyScholarship: ApplyScholarshipComponent,
     public applyscholarshipService: ApplyscholarshipService,
-    private utilsService: UtilsService) { }
+    private utilsService: UtilsService,
+    private parentService: ParentService) { }
 
   ngOnInit() {
-    this.getParentFlag();
-    this.getRelationshipStatus();
-    this.prepareAddressData();
+    console.log('Begin Family and Address Component')
+    this.getFamilyData();
   }
+
+  getFamilyData() {
+    this.parentService.getParentByStudentRef(this.applyScholarship.applyScholarshipForm.acStudent.student_ref).subscribe((res: AcParent)=>{
+      this.applyScholarship.applyScholarshipForm.acParent = res;
+      this.getParentFlag();
+      this.getRelationshipStatus();
+      this.prepareAddressData();
+  });
+}
 
   getParentFlag() {
     let flag = this.applyScholarship.applyScholarshipForm.acParent.parent_flag;
@@ -52,19 +62,25 @@ export class FamilyAndAddressInfoComponent implements OnInit {
   getRelationshipStatus() {
     let status = this.applyScholarship.applyScholarshipForm.acParent.relationship_status;
     switch (status) {
-      case "1": this.status = "สมรสอยู่ด้วยกัน"; break;
-      case "2": this.status = "สมรสแยกกันอยู่"; break;
-      case "3": this.status = "หย่าร้าง";
+      case "1": status = "สมรสอยู่ด้วยกัน"; break;
+      case "2": status = "สมรสแยกกันอยู่"; break;
+      case "3": status = "หย่าร้าง";
     }
+    return status;
+  }
+
+  getstatus(status: string){
+        switch (status){
+          case "1": status = "มีชีวิตอยู่"; break;
+          case "2": status = "เสียชีวิต";
+        }
+        return status;
   }
 
   prepareAddressData() {
-    console.log(this.applyScholarship.applyScholarshipForm.acParent)
-    console.log(this.applyScholarship.applyScholarshipForm.acParent.father_province)
-    // if (this.applyScholarship.applyScholarshipForm.acParent.parent_flag == '1') {
-
-      //Setup dad address
+    if (this.applyScholarship.applyScholarshipForm.acParent.parent_flag == '1') {
       console.log(this.applyScholarship.applyScholarshipForm.acParent.father_province)
+      //Setup dad address
       this.utilsService.getProvinceByRef(this.applyScholarship.applyScholarshipForm.acParent.father_province).subscribe((res: RftProvince) => {
         this.dadProvince = res;
       });
@@ -85,7 +101,8 @@ export class FamilyAndAddressInfoComponent implements OnInit {
       this.utilsService.getSubDistrictByRef(this.applyScholarship.applyScholarshipForm.acParent.mother_sub_district).subscribe((res: RftSubDistrict) => {
         this.momSubDistrict = res;
       });
-    // } else {
+    } else {
+      console.log(this.applyScholarship.applyScholarshipForm.acParent.patrol_province)
       this.utilsService.getProvinceByRef(this.applyScholarship.applyScholarshipForm.acParent.patrol_province).subscribe((res: RftProvince) => {
         this.patrolProvince = res;
       });
@@ -95,9 +112,7 @@ export class FamilyAndAddressInfoComponent implements OnInit {
       this.utilsService.getSubDistrictByRef(this.applyScholarship.applyScholarshipForm.acParent.patrol_sub_district).subscribe((res: RftSubDistrict) => {
         this.patrolSubDistrict = res;
       });
-    // }
-    // this.setupDistictList();
-    // this.setupSubDistictList();
+    }
   }
 
 

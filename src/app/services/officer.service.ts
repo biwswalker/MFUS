@@ -1,3 +1,4 @@
+import { config } from './../app.config';
 import { RftProvince } from './../content/models/rft-province';
 import { OfficerForm } from '../content/form/officer-form';
 import { OfficerComponent } from '../content/pages/officer/officer.component';
@@ -9,7 +10,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class OfficerService {
 
-  private mainUrl = 'http://127.0.0.1:8000/';
+  private mainUrl =  config.backendUrl;
   private getStatus: OfficerComponent;
     constructor(private http: Http) { }
 
@@ -129,6 +130,5 @@ export class OfficerService {
       const headers = new Headers({'Content-Type': 'application/json'});
       console.log('body: ',body)
       return this.http.put(url, body, { headers: headers });
-
     }
 }
