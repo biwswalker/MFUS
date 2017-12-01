@@ -3,10 +3,12 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { RftTitleName } from './../content/models/rft-title-name';
 import { TitleNameForm } from './../content/form/titlename-form';
 import { Injectable } from '@angular/core';
+import { config } from './../app.config';
+
 
 @Injectable()
 export class TitleNameService {
-    private mainUrl: string = 'http://127.0.0.1:8000/';
+    private mainUrl: string =  config.backendUrl;
     constructor(private http: Http) { }
 
     getTitleNames(): Observable<RftTitleName[]> {
@@ -32,7 +34,7 @@ export class TitleNameService {
 
     searchTitlename(titlename: TitleNameForm): Observable<TitleNameForm[]> {
         const url = this.mainUrl + 'titlename';
-        const headers = new Headers({ 'Content-Type': 'application/jsan' });
+        const headers = new Headers({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(titlename);
         let criteria = '/';
         if (titlename.rftTitleName.title_code != null &&
@@ -46,6 +48,11 @@ export class TitleNameService {
         if (titlename.rftTitleName.title_name_e != null &&
             titlename.rftTitleName.title_name_e != '') {
             criteria = criteria + 'title_name_e=' + titlename.rftTitleName.title_name_e + '&';
+        }
+        console.log(titlename.rftTitleName.gender);
+        if (titlename.rftTitleName.gender != null &&
+            titlename.rftTitleName.gender != '') {
+            criteria = criteria + 'gender=' + titlename.rftTitleName.gender + '&';
         }
         if (criteria.length > 1) {
             criteria = criteria.substr(0, criteria.length - 1);

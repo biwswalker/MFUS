@@ -15,6 +15,14 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.items = [
       {
+        label: 'สมัครทุนการศึกษา',
+        items: [
+          { label: 'สมัครทุน', routerLink: ['/pages/sponsors'] },
+          { label: 'ตรวจสอบสถานะการขอทุน', routerLink: ['/pages/scholarships'] },
+          { label: 'บันทึกข้อมูลเอกสารเพิ่มเติม', routerLink: ['/pages/document-request'] }
+        ]
+      },
+      {
         label: 'จัดการทุนการศึกษา',
         items: [
           { label: 'บันทึกผู้ให้ทุนการศึกษา', routerLink: ['/pages/sponsors'] },
@@ -44,8 +52,11 @@ export class SidebarComponent implements OnInit {
           {
             label: 'ข้อมูลคำนำหน้าชื่อ',
             routerLink: ['/pages/titlename']
+          },
+          {
+            label: 'ข้อมูลข้อมูลเอกสาร/หลักฐาน',
+            routerLink: ['/pages/application-document']
           }
-
         ]
       },
       {

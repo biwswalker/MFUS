@@ -1,3 +1,5 @@
+
+<form *ngIf="pageReady"  [formGroup]="thisFormGroup" (ngSubmit)="submitButtonOnClick()" >
 <div class="content-box" id="้home-address-box">
   <div class="panel-header">
     <p class="panel-header-title">ข้อมูลที่อยู่ตามทะเบียนบ้าน</p>
@@ -9,6 +11,7 @@
       <input type="text" pInputText
       class="input-address"
       name="home-address"
+      formControlName="home_address"
       [(ngModel)]="thisForm.acAddress.home_address"
       >
     </div>
@@ -25,6 +28,7 @@
         [size]="25" (onSelect)="selectProvince(0)"
         forceselection="true"
         [dropdown]="true"
+        formControlName="homeProvince"
         (onDropdownClick)="handleCompleteClickProvince(0)"
         (completeMethod)="autocompleteProvince($event)">
         <ng-template let-obj pTemplate="obj">
@@ -44,6 +48,7 @@
         field="district_name_t"
         (onSelect)="selectDistrict(0)"
         forceSelection="true"
+        formControlName="homeDistrict"
         (onDropdownClick)="handleCompleteClickDistrict(0)"
         (completeMethod)="autocompleteDistrict($event)"
         [disabled]="!homeProvince.province_ref">
@@ -67,6 +72,7 @@
         [dropdown]="true"
         (onSelect)="selectSubDistrict(0)"
         forceSelection="true"
+        formControlName="homeSubDistrict"
         (onDropdownClick)="handleCompleteClickSubDistrict(0)"
         [disabled]="!homeDistrict.district_ref">
         <ng-template let-obj pTemplate="obj">
@@ -76,7 +82,10 @@
     </div>
     <div class="col-xs-7">
       <label class="normal">รหัสไปรษณีย์</label>
-      <input type="text" pInputText class="input-postcode" name="mother-postcode"
+      <input type="text" pInputText
+      class="input-postcode"
+      name="mother-postcode"
+      formControlName="home_postcode"
       [(ngModel)]="thisForm.acAddress.home_postcode"
       [disabled]="true"
       >
@@ -109,8 +118,10 @@
   <div class="row overide-row">
     <div class="col-xs-12">
       <label class="normal">ที่อยู่ *</label>
-      <input type="text" pInputText class="input-address"
+      <input type="text" pInputText
+      class="input-address"
       name="mother-address"
+      formControlName="current_address"
       [(ngModel)]="thisForm.acAddress.current_address"
       >
     </div>
@@ -119,8 +130,14 @@
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">จังหวัด *</label>
-      <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="currentProvince" [suggestions]="currentProvinceList"
-        [size]="25" (onSelect)="selectProvince(1)" forceselection="true"
+      <p-autoComplete name="autocompleteProvince"
+        field="province_name_t"
+        [(ngModel)]="currentProvince"
+        [suggestions]="currentProvinceList"
+        [size]="25"
+        (onSelect)="selectProvince(1)"
+        forceselection="true"
+        formControlName="currentProvince"
         [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(1)"
         (completeMethod)="autocompleteProvince($event)">
         <ng-template let-obj pTemplate="obj">
@@ -139,6 +156,7 @@
         field="district_name_t"
         (onSelect)="selectDistrict(1)"
         forceSelection="true"
+        formControlName="currentDistrict"
         (onDropdownClick)="handleCompleteClickDistrict(1)"
         (completeMethod)="autocompleteDistrict($event)">
         <ng-template let-obj pTemplate="obj">
@@ -161,6 +179,7 @@
         [dropdown]="true"
         (onSelect)="selectSubDistrict(1)"
         forceSelection="true"
+        formControlName="currentSubDistrict"
         (onDropdownClick)="handleCompleteClickSubDistrict(1)">
         <ng-template let-obj pTemplate="obj">
           {{obj.sub_district_name_t}}
@@ -171,6 +190,7 @@
       <label class="normal">รหัสไปรษณีย์</label>
       <input type="text" pInputText class="input-postcode"
       name="current-postcode"
+      formControlName="current_postcode"
       [(ngModel)]="thisForm.acAddress.current_postcode"
       [disabled]="true"
       >
@@ -185,3 +205,4 @@
     </div>
   </div>
 </div>
+</form>

@@ -21,7 +21,9 @@
         <label class="normal">ทุนการศึกษา *</label>
       <div>
       <p-dropdown name="scholarship"
-      [style]="{'width':'480px'}">
+      [style]="{'width':'480px'}"
+      [options]="scholarshipList"
+      [(ngModel)]="getScholarshipList">
       </p-dropdown>
       </div>
       </div>
@@ -39,15 +41,20 @@
               <label class="normal">สำนักวิชา</label>
                 <div>
                 <p-dropdown name="school"
-                [style]="{'width':'150px'}">
+                [style]="{'width':'250px'}"
+                [options]="schoolTestList"
+                [(ngModel)]=" getSchoolList">
                 </p-dropdown>
+
                 </div>
                 </div>
           <div class="col-xs-4">
                     <label class="normal">สาขาวิชา</label>
                       <div>
                       <p-dropdown name="Major"
-                      [style]="{'width':'150px'}">
+                      [style]="{'width':'250px'}"
+                      [options]="majorTestList"
+                      [(ngModel)]=" getMajorList">
                       </p-dropdown>
                       </div>
                       </div>
@@ -55,7 +62,10 @@
              <label class="normal">สถานะการคัดกรอง</label>
                <div>
                <p-dropdown name="screening status"
-                [style]="{'width':'220px'}">
+                 [options]="screeningStatusList"
+                 [(ngModel)]=" getScreeningStatusList"
+                 [style]="{'width':'210px'}">
+
                 </p-dropdown>
                 </div>
                 </div>
@@ -66,12 +76,13 @@
 
 <div class="col-xs-12">
   <div class="row space"></div>
-    <button pButton
+        <button pButton
             type="button"
-            (click)="onSearch()"
             class="btn-primary"
+            (click)="onSearch()"
             label="ค้นหา"></button>
-    <button pButton
+
+        <button pButton
             type="button"
             class="btn-primary"
             (click)="onResetSearch()"
@@ -109,9 +120,9 @@
                 [style]="{'width':'90px'}"
 
                 header="ชั้นปีการศึกษา"></p-column>
-      <p-column [sortable]="true"
+                <p-column [sortable]="true"
                 [style]="{'width':'90px'}"
-
+                field="ap_application.collage_year "
                 header="สถานะเอกสาร"></p-column>
     </p-dataTable>
   </div>

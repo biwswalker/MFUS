@@ -7,6 +7,7 @@
 </div>
 
 <p-growl [(value)]="msgs" ></p-growl>
+<div class="content">
 <!-- mode insert -->
 <form [formGroup]="titleNameFormGroup" (ngSubmit)="onSubmit()" *ngIf="mode !== 'S'">
   <div class="row">
@@ -115,6 +116,8 @@
     </div>
 
 </form>
+</div>
+
 
 <!-- mode search -->
 <div class="content" *ngIf="mode === 'S'">
