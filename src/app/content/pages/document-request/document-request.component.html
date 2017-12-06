@@ -1,43 +1,68 @@
 <div class="content">
+  <div class="row">
   <div class="content-header-blue">
     <p>บันทึกข้อมูลเอกสารเพิ่มเติม</p>
     <div class="underline-blue"></div>
   </div>
 </div>
-
-<div class="container">
+<div class="row">
+  <form (ngSubmit)="onSubmit()">
   <p-dataScroller [value]="documentList" [rows]="10" [lazy]="true">
-    <ng-template let-doc pTemplate="item">
+    <ng-template let-doc pTemplate="item" class="">
+        <div class="ng-temp-panel row">
+      <div  class="col-xs-9 seperator">
       <div class="ui-grid ui-grid-responsive ui-fluid">
-        Application Code: {{doc.apApplication.application_code}}
+       <span class="content-header-blue-normal"> เลขที่ใบสมัคร:</span> <span> {{doc.applicationCode}} 
+       </span>
+      </div>
+      <div class="ui-grid ui-grid-responsive ui-fluid content-header-red">
+        {{doc.scholarshipName}}
       </div>
       <div class="ui-grid ui-grid-responsive ui-fluid">
-        {{doc.smScholarship.scholarship_name}}
+        <span class="doc-message-header">ข้อความ:</span> <span class="doc-message"> {{doc.smDocumentRequest.message}}</span>
       </div>
       <div class="ui-grid ui-grid-responsive ui-fluid">
-        Message: {{doc.smDocumentRequest.message}}
-      </div>
-      <div class="ui-grid ui-grid-responsive ui-fluid">
-        Request document(s):
-      </div>     
+        เอกสารที่ขอเพิ่มเติม:
+      </div>    
+      <div class="ng-temp-panel"> 
       <div class="ui-grid ui-grid-responsive ui-fluid">
           <p-dataList [value]="doc.smDocumentRequestDetail">
               <ng-template let-detail pTemplate="item">
                 <div class="ui-grid ui-grid-responsive ui-fluid content-layout">
                   <div class="ui-grid-row">
                     <div class="ui-grid-col-1 doc-detail-checkbox">
-                      <input type="checkbox" >
+                      <input type="checkbox" [checked]="true">
                     </div>
-                    <div class="ui-grid-col-11">
-                        {{detail.document_request_detail_ref}}
+                    <div class="ui-grid-col-11 doc-datalist">
+                          <span> {{detail.document_name}}
+                              <label pButton class="doc-upload" label="อัพโหลด"  (change)="onUpload($event,detail)">
+                                  <input type="file" accept=" application/pdf" class="display-none">
+                              </label>
+                          </span>                     
                     </div>
                   </div>
-                </div>
-                 
+                </div>                 
               </ng-template>
-          </p-dataList>
-                 
+          </p-dataList>     
       </div>
+      </div>
+    </div> 
+    <div class="col-xs-3">
+        <div class="ui-grid ui-grid-responsive ui-fluid">
+          <div class="center">
+          <span class="content-header-blue-normal">Due date</span>
+          <br/>
+          <span class="content-red-normal">{{doc.smDocumentRequest.due_date}}</span>
+        </div>
+        <div class="center">
+            <button pButton type="submit" class="btn-positive small-btn" label="บันทึก"></button>
+        </div>
+        </div>
+      </div>
+     </div>   
     </ng-template>
+    
   </p-dataScroller>
+</form>
 </div>
+  </div>

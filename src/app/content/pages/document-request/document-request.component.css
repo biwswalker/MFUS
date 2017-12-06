@@ -1,3 +1,35 @@
-.doc-detail-checkbox{
-    text-align: right
+.doc-detail-checkbox{   
+    padding-left: 30px;
+    background-color: #F1F1F1;
 }
+
+.doc-datalist{
+    background-color: #F1F1F1;
+}
+
+.doc-upload{
+    width:100px;
+    font-weight: normal;
+    padding: 0px;
+    margin: 0px;
+    background: transparent;
+    color: rgb(32, 14, 148);
+}
+
+.doc-message{
+ color: #926C12;
+}
+
+.doc-message-header{
+    color: #926C12;
+    font-weight: bold;
+   }
+
+   .seperator{
+    border-right: 3px solid #AFD6E0;
+   }
+
+   .small-btn{
+       width: 100px;
+   } 
+
