@@ -1,3 +1,8 @@
+.menuside {
+  /*PADDING : TOP RIGHT BOTTOM LEFT*/
+  padding:20px 20px 5px 35px;
+}
+
 .sidebar-header {
   font-size: 25px;
   font-weight: 600;

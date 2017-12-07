@@ -1,12 +1,9 @@
 
-.menuside {
-  /*PADDING : TOP RIGHT BOTTOM LEFT*/
-  padding:35px 20px 5px 35px;
-}
+
 
 .content {
   /*PADDING : TOP RIGHT BOTTOM LEFT*/
-  padding:5px 25px 5px 40px;
+  padding:20px 25px 5px 40px;
 }
 
 /* BEGIN HEADER */
@@ -102,7 +99,7 @@ input.display-none {
 .ng-temp-panel{
   background-color: #F1F1F1;
   padding-left: 10px;
-  padding-right: 10px; 
+  padding-right: 10px;
 }
 
 .content-red-normal{
