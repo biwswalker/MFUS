@@ -27,6 +27,9 @@ export class FamilyAndAddressComponent implements OnInit {
   familyAndAddressForm: FamilyAndAddressForm = new FamilyAndAddressForm();
   sibling: AcSibling = new AcSibling();
   onLoaded = false;
+  private data: Observable<number>;
+  private values: Array<number> = [];
+  private status: string;
 
 
   educationLevelList: RftEducationLevel[];
@@ -53,6 +56,9 @@ export class FamilyAndAddressComponent implements OnInit {
 
   initialSetup(){
     console.log('initialSetup');
+    if(this.familyAndAddressForm.acParent.parent_ref == '' || this.familyAndAddressForm.acParent.parent_ref == undefined){
+
+
     this.familyAndAddressForm.acParent.parent_flag = "1";
     this.familyAndAddressForm.acParent.relationship_status = "1";
     this.familyAndAddressForm.acParent.father_status = "1";
@@ -71,6 +77,7 @@ export class FamilyAndAddressComponent implements OnInit {
     this.sibling.student_ref = '1';
     this.familyAndAddressForm.siblingList.push(this.sibling);
   }
+  }
   stepDisplay() {
     this.items = [
       {
@@ -86,16 +93,15 @@ export class FamilyAndAddressComponent implements OnInit {
     console.log('findDataFromServer');
 
     this.ngProgress.start();
-    new Observable((observer: Observer<boolean>) => {
+    this.data = new Observable(observer => {
 
       setTimeout(() => {
         this.parentService.getParentByStudentRef('1').subscribe((res: AcParent) => {
           this.familyAndAddressForm.acParent = res;
-          if(res)
           console.log('1');
-          observer.next(true);
         });
 
+        observer.next(1);
       }, 1000);
 
       setTimeout(() => {
@@ -103,30 +109,31 @@ export class FamilyAndAddressComponent implements OnInit {
           this.familyAndAddressForm.acAddress = res;
           if(res)
           console.log('2');
-          observer.next(true);
-        });
 
+        });
+        observer.next(2);
       }, 2000);
 
       setTimeout(() => {
         this.siblingService.getSiblingByStudentRef('1').subscribe((res: AcSibling[]) => {
           this.familyAndAddressForm.siblingList.push(...res);
-          if(res)
-          console.log('3');
-          observer.next(true);
         });
-
+        observer.next(3);
       }, 3000);
       setTimeout(() => {
         console.log(this.familyAndAddressForm);
 
-        this.onLoaded = true;
-        if(this.familyAndAddressForm.acParent.parent_ref == '' || this.familyAndAddressForm.acParent.parent_ref == undefined)
-        this.initialSetup();
+
+
+
         observer.complete();
-        this.ngProgress.done();
+
     }, 4000);
-    }).subscribe();
+    this.status = "Started";
+    });
+
+    let subscription = this.data.forEach(v => this.values.push(v))
+    .then(() => [this.initialSetup(), this.onLoaded = true, this.ngProgress.done()]);
   }
 
 

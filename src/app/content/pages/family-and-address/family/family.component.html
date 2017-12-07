@@ -57,6 +57,7 @@
         style="width:430px"
         maxlength="100"
         formControlName="because"
+        [attr.disabled]="(thisForm.acParent.relationship_status != '2')?'':null"
         [(ngModel)]="thisForm.acParent.because">
       </div>
       <div class="col-xs-12">
@@ -112,6 +113,7 @@
       <label class="normal-inline">เมื่อ พ.ศ.</label>
       <input type="text" pInputText
       class="input-year"
+      [attr.disabled]="(thisForm.acParent.father_status != '2')?'':null"
       pattern="\d*"
       maxlength="4"
       minlength="4"
@@ -417,6 +419,7 @@
       <label class="fake-label"></label>
       <label class="normal-inline">เมื่อ พ.ศ.</label>
       <input type="text" pInputText
+      [attr.disabled]="(thisForm.acParent.mother_status != '2')?'':null"
       pattern="\d*"
       maxlength="4"
       minlength="4"
@@ -733,6 +736,7 @@
       <label class="fake-label"></label>
       <label class="normal-inline">เมื่อ พ.ศ.</label>
       <input type="text" pInputText
+      [attr.disabled]="(thisForm.acParent.patrol_status != '2')?'':null"
       pattern="\d*"
       maxlength="4"
       minlength="4"

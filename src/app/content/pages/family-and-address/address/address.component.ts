@@ -56,6 +56,10 @@ export class AddressComponent implements OnInit {
   img_name: string;
   img_type: string;
 
+  private data: Observable<number>;
+  private values: Array<number> = [];
+  private status: string;
+
   constructor(
     private utilsService: UtilsService,
     private familyAndAddress: FamilyAndAddressComponent,
@@ -66,32 +70,31 @@ export class AddressComponent implements OnInit {
     console.log("ngOnInit");
     this.ngProgress.start();
     this.thisForm = new FamilyAndAddressForm();
-    new Observable((observer: Observer<boolean>) => {
+    this.data = new Observable(observer => {
 
       setTimeout(() => {
         this.thisForm = this.familyAndAddress.getData();
         this.getProvince();
 
-        observer.next(true);
+        observer.next(1);
       },4000);
       setTimeout(() => {
         if(this.thisForm.acAddress.address_ref != '' || this.thisForm.acAddress.address_ref != undefined)
         this.prepareAddressData();
 
-        observer.next(true);
+        observer.next(2);
       },5000);
 
       setTimeout(() => {
         this.setupImage();
         this.validatorForm();
-        this.pageReady = true;
-        this.ngProgress.done();
         observer.complete();
       },6000);
 
-    }).subscribe();
+    });
 
-
+    let subscription = this.data.forEach(v => this.values.push(v))
+    .then(() => [this.pageReady = true, this.ngProgress.done()]);
 
   }
 
