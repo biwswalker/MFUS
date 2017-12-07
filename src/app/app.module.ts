@@ -109,6 +109,8 @@ import { DocumentRequestComponent } from './content/pages/document-request/docum
 import { DocumentrequestService } from './services/documentrequest.service';
 import { ApplicationDocumentComponent } from './content/pages/application-document/application-document.component';
 import { ApplicationDocumentService } from './services/application-document.service';
+
+import { CurrencyMaskModule } from "ng2-currency-mask";
 //Router
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -243,6 +245,7 @@ export function startupServiceFactory(
     DataScrollerModule,
     DataListModule,
     NgProgressModule,
+    CurrencyMaskModule,
   ],
   providers: [
     AuthenticationService,
