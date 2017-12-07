@@ -98,3 +98,13 @@ input.display-none {
 .form-name{
   width: 400px;
 }
+
+.ng-temp-panel{
+  background-color: #F1F1F1;
+  padding-left: 10px;
+  padding-right: 10px; 
+}
+
+.content-red-normal{
+  color:red;
+}
