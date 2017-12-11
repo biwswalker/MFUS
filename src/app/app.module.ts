@@ -1,3 +1,4 @@
+import { LoginComponent } from './content/pages/login/login.component';
 import { DocumentsService } from './services/documents.service';
 import { AddressService } from './services/address.service';
 import { ParentService } from './services/parent.service';
@@ -213,7 +214,8 @@ export function startupServiceFactory(
     DateFormatPipe,
     DocumentsscreeningComponent,
     DocumentRequestComponent,
-    ApplicationDocumentComponent
+    ApplicationDocumentComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
