@@ -1,4 +1,5 @@
-import { ScholarshipService } from './../../../services/scholarship.service';
+import { ScholarshipannouncementService } from './../../../services/scholarshipannouncement.service';
+
 import { SelectItem } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,11 +9,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./interviewees-selection.component.css','../pages.component.css']
 })
 export class IntervieweesSelectionComponent implements OnInit {
-  scholarshipList: SelectItem[];
-  constructor(private scholarshipService: ScholarshipService) { }
+  scholarshipAnnounceList: SelectItem[];
+  criYear : number;
+  constructor(private scholarshipannouncementService: ScholarshipannouncementService) { }
 
   ngOnInit() {
-
+    this.criYear = (new Date()).getFullYear();
+    console.log('year: '+this.criYear);
   }
 
 }

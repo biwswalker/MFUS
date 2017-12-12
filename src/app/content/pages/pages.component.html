@@ -1,4 +1,4 @@
-<div *ngIf="authenService.isUserLogedIn()">
+<div>
     <div class="col-xs-3">
         <app-sidebar></app-sidebar>
     </div>
@@ -6,8 +6,8 @@
         <router-outlet></router-outlet>
     </div>
 </div>
-<div *ngIf="!authenService.isUserLogedIn()">
+<!-- <div *ngIf="!authenService.isUserLogedIn()">
     <div class="col-xs-12 content">
         <router-outlet></router-outlet>
     </div>
-</div>
+</div> -->
