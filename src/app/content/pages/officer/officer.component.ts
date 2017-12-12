@@ -56,7 +56,7 @@ export class OfficerComponent implements OnInit {
 
   postcode: string;
 
-  submitBtn:string;
+  submitBtn: string;
 
   fileList: FileList;
   binaryString: string;
@@ -65,11 +65,10 @@ export class OfficerComponent implements OnInit {
   manage_status: boolean;
 
   constructor(private officerService: OfficerService,
-              private utilService: UtilsService,
-              private userService: UserService) { }
+    private utilService: UtilsService,
+    private userService: UserService) { }
 
   ngOnInit() {
-    // Get List
     this.getStatusList();
     this.getTitleList();
     this.initEditData();
@@ -88,7 +87,6 @@ export class OfficerComponent implements OnInit {
     this.officerEditForm.acOfficer.gender = 'M';
     this.officerEditForm.acOfficer.title_ref = '';
     this.image = './assets/images/empty_profile.png';
-    this.postcode = this.officerEditForm.rftSubDistrict.postcode;
     this.validatorEditForm();
     this.submitBtn = 'สร้าง';
   }
@@ -99,7 +97,6 @@ export class OfficerComponent implements OnInit {
 
   validatorEditForm() {
     this.officerFormGroup = new FormGroup({
-      //OfficerForm-----------------------------------------------------------------------------------
       'officer_code': new FormControl(this.officerEditForm.acOfficer.officer_code,
         Validators.compose([Validators.required])),
       'active_flag': new FormControl(this.officerEditForm.acOfficer.active_flag,
@@ -118,9 +115,9 @@ export class OfficerComponent implements OnInit {
       'profile_image': new FormControl(this.image)
     });
 
-    if(this.mode == 'I') {
+    if (this.mode == 'I') {
       this.officerFormGroup.controls['active_flag'].disable();
-    }else if (this.mode == 'U') {
+    } else if (this.mode == 'U') {
       this.officerFormGroup.controls['active_flag'].enable();
       this.officerFormGroup.controls['officer_code'].disable();
       this.officerFormGroup.controls['personal_id'].disable();
@@ -128,7 +125,6 @@ export class OfficerComponent implements OnInit {
     }
   }
 
-  // Make Data List
   getStatusList() {
     this.statusList = [];
     this.statusList.push({ label: 'ไม่ระบุ', value: '' });
@@ -144,9 +140,7 @@ export class OfficerComponent implements OnInit {
     this.titleList.push({ label: 'นางสาว', value: 'Mrs' });
   }
 
-  //Begin Province Autocomplete Method // On key wording
   autocompleteProvince(event) {
-    console.log('auto');
     let query = event.query;
     this.provinceList = [];
     this.officerEditForm.rftDistrict = new RftDistrict();
@@ -154,10 +148,9 @@ export class OfficerComponent implements OnInit {
     let objList: RftProvince[];
     objList = this.listProvince;
     for (let obj of objList) {
-      // Filter By string event
-        if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-          this.provinceList.push(obj);
-        }
+      if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        this.provinceList.push(obj);
+      }
     }
   }
 
@@ -166,16 +159,8 @@ export class OfficerComponent implements OnInit {
     this.listProvince = this.utilService.getProvincesList();
   }
 
-  // On Click Autocomplete Dropdown Button
   handleCompleteClickProvince() {
-    console.log('handleCompleteClickProvince');
-    console.log(this.listProvince.length)
-    let objList: RftProvince[];
     this.provinceList = [];
-    this.officerEditForm.rftProvince = new RftProvince();
-    this.officerEditForm.rftDistrict = new RftDistrict();
-    this.officerEditForm.rftSubDistrict = new RftSubDistrict();
-    objList = this.listProvince;
 
     setTimeout(() => {
       this.provinceList = this.listProvince;
@@ -183,10 +168,7 @@ export class OfficerComponent implements OnInit {
       this.subDistrictList = [];
     }, 100)
   }
-//End Autocomplete Province------------------------------------------------------------------------------------
 
-
-  //Begin District Autocomplete Method // On key wording
   autocompleteDistrict(event) {
     let query = event.query;
     this.districtList = [];
@@ -194,8 +176,7 @@ export class OfficerComponent implements OnInit {
     let objList: RftDistrict[];
     objList = this.listDistrict;
     for (let obj of objList) {
-      // Filter By string event
-      if(this.officerEditForm.rftProvince.province_ref === obj.province_ref) {
+      if (this.officerEditForm.rftProvince.province_ref === obj.province_ref) {
         if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
           this.districtList.push(obj);
         }
@@ -203,80 +184,62 @@ export class OfficerComponent implements OnInit {
     }
   }
 
-  // On Click Autocomplete Dropdown Button
   handleCompleteClickDistrict() {
-    //mimic remote call
-
     this.districtList = [];
-    this.officerEditForm.rftDistrict = new RftDistrict();
-    this.officerEditForm.rftSubDistrict = new RftSubDistrict();
-    console.log(this.listDistrict.length)
     setTimeout(() => {
       this.districtList = this.listDistrict;
       this.subDistrictList = [];
     }, 100)
-    console.log(this.districtList.length)
   }
 
-  //End Autocomplete District------------------------------------------------------------------------------------
-
   selectProvince(event: SelectItem) {
-    this.listDistrict = [];
+    this.districtList = [];
+    this.subDistrictList = [];
     this.officerEditForm.rftDistrict = new RftDistrict();
+    this.officerEditForm.rftSubDistrict = new RftSubDistrict();
     this.utilService.getDistrictsByProvinceRef(this.officerEditForm.rftProvince.province_ref)
-    .subscribe((res: RftDistrict[]) => {
-      this.listDistrict.push(...res);
+      .subscribe((res: RftDistrict[]) => {
+        this.listDistrict = [];
+        this.listDistrict.push(...res);
       }
-    );
-    console.log(this.listDistrict.length);
+      );
   }
 
   selectDistrict(event: SelectItem) {
     this.listSubDistrict = [];
     this.officerEditForm.rftSubDistrict = new RftSubDistrict();
     this.utilService.getSubDistrictsByDistrictRef(this.officerEditForm.rftDistrict.district_ref)
-    .subscribe((res: RftSubDistrict[]) => {
-      this.listSubDistrict.push(...res);
+      .subscribe((res: RftSubDistrict[]) => {
+        this.listSubDistrict.push(...res);
       }
-    );
-    console.log(this.listSubDistrict.length);
+      );
   }
 
   selectSubDistrict(event: SelectItem) {
-    this.postcode = this.officerEditForm.rftSubDistrict.postcode;
+    this.officerEditForm.acOfficer.postcode = this.officerEditForm.rftSubDistrict.postcode;
   }
 
-  // //End Autocomplete Province---------------------------------------------------------------------------
-
-   // SubDistrict Autocomplete Method // On key wording
-   autocompleteSubDistrict(event) {
+  autocompleteSubDistrict(event) {
     let query = event.query;
     this.subDistrictList = [];
     let objList: RftSubDistrict[] = this.listSubDistrict;
     for (let obj of objList) {
-      // Filter By string event
-      if(obj.province_ref == this.officerEditForm.rftProvince.province_ref) {
-        if(obj.district_ref == this.officerEditForm.rftDistrict.district_ref) {
+      if (obj.province_ref == this.officerEditForm.rftProvince.province_ref) {
+        if (obj.district_ref == this.officerEditForm.rftDistrict.district_ref) {
           if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-           this.subDistrictList.push(obj);
+            this.listSubDistrict.push(obj);
           }
         }
       }
     }
   }
 
-  // On Click Autocomplete Dropdown Button
   handleCompleteClickSubDistrict() {
-    //mimic remote call
     this.subDistrictList = [];
-    this.officerEditForm.rftSubDistrict = new RftSubDistrict();
     setTimeout(() => {
       this.subDistrictList = this.listSubDistrict;
     }, 100)
   }
-
-  //End Autocomplete Province------------------------------------------------------------------------------------
-
 
   onUpload(event) {
     this.fileList = event.target.files;
@@ -306,15 +269,26 @@ export class OfficerComponent implements OnInit {
 
   onSubmit() {
     console.log('Begin onSubmit');
-      if (this.mode === 'I') {
-          this.addAcOfficer();
-          this.addAcUser();
-        } else if (this.mode === 'U') {
-          this.updateAcOfficer();
-      }
+    if (this.mode === 'I') {
+      this.addAcOfficer();
+      this.addAcUser();
+    } else if (this.mode === 'U') {
+      this.updateAcOfficer();
+    }
   }
 
   addAcOfficer() {
+    if (this.officerFormGroup.invalid) {
+      this.officerFormGroup.controls["officer_code"].markAsDirty();
+      this.officerFormGroup.controls["personal_id"].markAsDirty();
+      this.officerFormGroup.controls["first_name"].markAsDirty();
+      this.officerFormGroup.controls["last_name"].markAsDirty();
+      this.officerFormGroup.controls["address"].markAsDirty();
+      this.officerFormGroup.controls["phone_no"].markAsDirty();
+      this.officerFormGroup.controls["email"].markAsDirty();
+      this.officerFormGroup.controls["profile_image"].markAsDirty();
+      return;
+    }
     const value = this.officerFormGroup.value;
     value.profile_image = this.image;
     value.profile_name = this.officerEditForm.acOfficer.personal_id;
@@ -322,12 +296,13 @@ export class OfficerComponent implements OnInit {
     value.province = this.officerEditForm.rftProvince.province_code;
     value.district = this.officerEditForm.rftDistrict.district_code;
     value.sub_district = this.officerEditForm.rftSubDistrict.sub_district_code;
+    value.postcode = this.officerEditForm.rftSubDistrict.postcode;
     value.create_user = 'phai';
     value.update_user = 'phai';
     value.active_flag = this.getStatus(this.officerEditForm.acOfficer.active_flag);
     value.manage_officer_flag = this.manage_status;
     this.officerService.addOfficer(value)
-    .subscribe(
+      .subscribe(
       (res: Response) => {
         const officer_ref = res.json().officer_ref;
         console.log(res.statusText);
@@ -345,7 +320,7 @@ export class OfficerComponent implements OnInit {
         this.showError(message);
         return;
       }
-    );
+      );
   }
 
   addAcUser() {
@@ -356,7 +331,7 @@ export class OfficerComponent implements OnInit {
     value.create_user = 'phai';
     value.update_user = 'phai';
     this.userService.addUser(value)
-    .subscribe(
+      .subscribe(
       (res: Response) => {
         const officer_ref = res.json().officer_ref;
         console.log(res.statusText);
@@ -373,7 +348,7 @@ export class OfficerComponent implements OnInit {
         this.showError(message);
         return;
       }
-    );
+      );
   }
 
   onPageSearch() {
@@ -399,94 +374,67 @@ export class OfficerComponent implements OnInit {
         console.log(error);
         this.showError(error);
       }
-      );
+    );
   }
 
   onRowSelect(event) {
     this.mode = 'U';
     this.officerEditForm = new OfficerForm();
     this.officerEditForm = event.data;
-    this.officerEditForm.rftProvince = this.getSelectedProvince(this.officerEditForm.acOfficer.province);
-    this.officerEditForm.rftDistrict = this.getSelectedDistrict(this.officerEditForm.acOfficer.district);
-    this.officerEditForm.rftSubDistrict = this.getSelectedSubDistrict(this.officerEditForm.acOfficer.sub_district);
+    this.utilService.getProvinceByRef(this.officerEditForm.acOfficer.province).subscribe((res: RftProvince) => { return this.officerEditForm.rftProvince = res });
+    this.utilService.getDistrictByRef(this.officerEditForm.acOfficer.district).subscribe((res: RftDistrict) => { return this.officerEditForm.rftDistrict = res });
+    this.utilService.getSubDistrictByRef(this.officerEditForm.acOfficer.sub_district).subscribe((res: RftSubDistrict) => { return this.officerEditForm.rftSubDistrict = res });
+    this.getdistrictList();
+    this.getSubdistrictList();
     this.image = this.officerEditForm.acOfficer.profile_image;
     this.img_name = this.officerEditForm.acOfficer.profile_name;
     this.img_type = this.officerEditForm.acOfficer.profile_type
-    this.postcode = this.officerEditForm.rftSubDistrict.postcode;
     this.manage_status = this.getManageStatus(this.officerEditForm.acOfficer.manage_officer_flag);
     this.submitBtn = 'แก้ไข';
+    console.log(this.officerEditForm)
     this.validatorEditForm();
+  }
+
+  getdistrictList() {
+    this.listDistrict = [];
+    this.listDistrict = this.utilService.getDistrictListByProvinceRef(this.officerEditForm.acOfficer.province)
+  }
+
+  getSubdistrictList() {
+    this.listSubDistrict = [];
+    this.listSubDistrict = this.utilService.getSubDistrictListByDistrictRef(this.officerEditForm.acOfficer.district)
   }
 
   updateAcOfficer() {
     const value = this.officerFormGroup.value;
     value.officer_ref = this.officerEditForm.acOfficer.officer_ref;
+    value.province = this.officerEditForm.rftProvince.province_ref;
+    value.district = this.officerEditForm.rftDistrict.district_ref;
+    value.sub_district = this.officerEditForm.rftSubDistrict.sub_district_ref;
     value.profile_image = this.image;
     value.profile_name = this.officerEditForm.acOfficer.personal_id;
     value.profile_type = this.img_type;
     value.manage_officer_flag = this.getStatus(this.manage_status);
     this.officerService.updateOfficer(value, this.officerEditForm.acOfficer.officer_ref)
-    .subscribe(
+      .subscribe(
       (res: Response) => {
         let officer_ref = res.json().officer_ref;
-        console.log(res.json());
-        console.log(res.json().officer_ref);
-        console.log(res.statusText);
         this.officerFormGroup.reset();
+        this.officerEditForm = new OfficerForm();
         this.onPageSearch();
         this.showSuccess('แก้ไขข้อมูลเจ้าหน้าที่เรียบร้อยแล้ว');
       },
-      (error) =>{
+      (error) => {
         console.log(error);
         let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
-        if(error.status == 409) {
+        if (error.status == 409) {
           message = 'มีการใช้รหัสเจ้าหน้าที่นี้แล้ว กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
         }
         this.showError(message);
         return;
       }
-    );
+      );
   }
-
-  getSelectedProvince(code: string) {
-    this.provinceObject = new RftProvince();
-    let objList: RftProvince[];
-    objList = this.listProvince;
-    for (let obj of objList) {
-      // Filter By string event
-        if (obj.province_ref == code) {
-          this.provinceObject = obj;
-          return this.provinceObject;
-        }
-    }
-  }
-
-  getSelectedDistrict(code: string) {
-    this.districtObject = new RftDistrict();
-    let objList: RftDistrict[];
-    objList = this.listDistrict;
-    for (let obj of objList) {
-      // Filter By string event
-        if (obj.district_ref == code) {
-          this.districtObject = obj;
-          return this.districtObject;
-        }
-    }
-  }
-
-  getSelectedSubDistrict(code: string) {
-    this.subDistrictObject = new RftSubDistrict();
-    let objList: RftSubDistrict[];
-    objList = this.listSubDistrict;
-    for (let obj of objList) {
-      // Filter By string event
-        if (obj.sub_district_ref == code) {
-          this.subDistrictObject = obj;
-          return this.subDistrictObject;
-        }
-    }
-  }
-
 
   showSuccess(message: string) {
     this.msgs = [];
@@ -499,16 +447,16 @@ export class OfficerComponent implements OnInit {
   }
 
   getManageStatus(value: any) {
-    switch(value) {
+    switch (value) {
       case '2': { return true; };
       case '1': { return false; };
     }
   }
 
   getStatus(value) {
-    switch(value) {
-    case true: { return '2'; };
-    case false: { return '1'; };
+    switch (value) {
+      case true: { return '2'; };
+      case false: { return '1'; };
     }
   }
 }

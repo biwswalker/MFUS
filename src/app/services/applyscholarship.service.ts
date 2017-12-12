@@ -1,3 +1,4 @@
+import { UtilsService } from './utils.service';
 import { Observer } from 'rxjs/Observer';
 import { AcStudent } from '../content/models/ac-student';
 import { ScholarshipannouncementService } from './scholarshipannouncement.service';
@@ -29,7 +30,8 @@ export class ApplyscholarshipService {
   private familyFinancial: ApFamilyFinancial = new ApFamilyFinancial();
   private mainUrl: string = config.backendUrl;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http,
+              private utilsService: UtilsService) { }
 
   nextIndex(index) {
     this.activeIndex = index;
@@ -48,27 +50,48 @@ export class ApplyscholarshipService {
     return this.form;
   }
 
-  getStudentInfo(studentRef: string): Observable<ApplyScholarshipForm> {
-    const url = this.mainUrl + "student/student_ref=" + studentRef;
-    const headers = new Headers({ "Content-Type": "application/json" });
-    let options = new RequestOptions({ headers: headers });
-    console.log("url = " + url);
+  getApplyScholarshipData(studentRef: string) {
+    let form: ApplyScholarshipForm = new ApplyScholarshipForm();
+    this.findStudentByRef(studentRef)
+      .subscribe((res: ApplyScholarshipForm) => {
+        console.log(res);
+        this.getApplicationData(studentRef)
+        .subscribe((res:Response)=>{
+          console.log(res)
+        })
+      })
+  }
 
-    return this.http.get(url, options).map((res: Response) => {
-      console.log(res)
-      let result: ApplyScholarshipForm = new ApplyScholarshipForm();
-      for (let data of res.json()) {
-        result.acStudent = data.ac_student;
-        result.rftMajor = data.rft_major;
-        result.rftSchool = data.rft_school;
-        result.rftTitleName = data.rft_title_name;
-      }
-      return result;
-    });
+  findStudentByRef(ref: string): Observable<ApplyScholarshipForm> {
+    const headers = new Headers({ "Content-Type": "application/json" });
+    return this.http
+      .get(this.mainUrl + "student-info/" + ref, { headers: headers })
+      .map((res: Response) => {
+        this.applyScholarshipForm.acStudent = res.json().ac_student;
+        this.applyScholarshipForm.rftTitleName = res.json().rft_title;
+        this.applyScholarshipForm.rftMajor = res.json().rft_major;
+        this.applyScholarshipForm.rftSchool = res.json().rft_school;
+        if(this.applyScholarshipForm.acStudent.gender == "M") {
+          this.applyScholarshipForm.acStudent.gender = "ชาย";
+        }else{
+          this.applyScholarshipForm.acStudent.gender = "หญิง"
+        }
+        this.applyScholarshipForm.acStudent.birth_date = this.utilsService.displayDate(this.applyScholarshipForm.acStudent.birth_date);
+        this.applyScholarshipForm.age = this.utilsService.getAge(this.applyScholarshipForm.acStudent.birth_date);
+        return this.applyScholarshipForm;
+      });
+  }
+
+  getApplicationData(student_ref: string) {
+    const url = this.mainUrl + 'application';
+    const headers= new Headers({"Content-Type": "application/json"})
+    let options = new RequestOptions({headers: headers});
+    console.log("url: " + url);
+
+    return this.http.get(url, options);
   }
 
   getApplyscholarshipData(ref: ApplyScholarshipForm) {
-    console.log(ref)
     const url = this.mainUrl + "apply-scholarship";
     const headers = new Headers({ "Content-Type": "application/json" });
     const body = JSON.stringify(ref.acStudent);
@@ -87,7 +110,7 @@ export class ApplyscholarshipService {
     )
   }
 
-  getScholarshipHistory(): Observable<ApScholarshipHistory[]> {
+  getScholarshipHistory(student_ref: string): Observable<ApScholarshipHistory[]> {
     console.log("service.getScholarshipHistory");
     const url = this.mainUrl + "scholarship-history";
     const headers = new Headers({ "Content-Type": "application/json" });
@@ -161,8 +184,8 @@ export class ApplyscholarshipService {
     return this.http.post(url, body, { headers: headers });
   }
 
-  addDocumentUpload(list: ApDocumentUpload[], application_ref: string){
-    for(let obj of list){
+  addDocumentUpload(list: ApDocumentUpload[], application_ref: string) {
+    for (let obj of list) {
       obj.application_ref = application_ref;
       obj.create_user = 'phai';
       obj.update_user = 'phai';
@@ -175,7 +198,7 @@ export class ApplyscholarshipService {
   }
 
   addFamilyDebt(list: ApFamilyDebt[], family_financial_ref: string) {
-    for(let obj of list){
+    for (let obj of list) {
       obj.family_financial_ref = family_financial_ref;
       obj.create_user = 'phai'
       obj.update_user = 'phai'
@@ -203,9 +226,9 @@ export class ApplyscholarshipService {
                         this.addFamilyDebt(form.debtList, form.apFamilyFinancial.family_financial_ref)
                           .subscribe((res) => {
                             this.addDocumentUpload(form.fileList, form.apApplication.application_ref)
-                            .subscribe((res)=>{
-                              console.log("success")
-                            })
+                              .subscribe((res) => {
+                                console.log("success")
+                              })
                           })
                       })
                   })

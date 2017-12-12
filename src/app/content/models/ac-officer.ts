@@ -22,5 +22,4 @@ export class AcOfficer {
   public create_datetime: Date;
   public update_user: string;
   public update_datetime: Date;
-
 }

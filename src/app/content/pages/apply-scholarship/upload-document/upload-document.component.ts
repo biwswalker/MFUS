@@ -1,3 +1,5 @@
+import { DocumentDatatableForm } from './../../../form/documentDatatable-form';
+import { ViewEncapsulation } from '@angular/core';
 import { ApplyscholarshipService } from './../../../../services/applyscholarship.service';
 import { ApplyScholarshipForm } from '../../../form/apply-scholarshop-form';
 import { Observer } from 'rxjs/Observer';
@@ -12,12 +14,14 @@ import { AcStudent } from '../../../models/ac-student';
 
 @Component({
   selector: "app-upload-document",
+  encapsulation: ViewEncapsulation.None,
   templateUrl: "./upload-document.component.html",
   styleUrls: [
-    "./upload-document.component.css",
+    "../apply-scholarship.component.css",
     "../../../pages/pages.component.css"
   ]
 })
+
 export class UploadDocumentComponent implements OnInit {
 
 
@@ -25,13 +29,16 @@ export class UploadDocumentComponent implements OnInit {
   fileList: FileList;
   binaryString: string;
   file: File;
-  img_name: string;
-  img_type: string;
+  file_name: string;
+  file_type: string;
 
   document: ApDocumentUpload;
   documentList: RftApplicationDocument[] = [];
 
   uploadList: ApDocumentUpload[] = [];
+
+  documentDatatable: DocumentDatatableForm[] = [];
+
 
   constructor(private utilService: UtilsService,
     public applyScholarship: ApplyScholarshipComponent,
@@ -44,7 +51,8 @@ export class UploadDocumentComponent implements OnInit {
   getDocument() {
     this.utilService.getDocument().subscribe(
       (res: RftApplicationDocument[]) => {
-        this.documentList.push(...res)
+        this.documentList = res;
+
       }
     );
   }
@@ -52,8 +60,8 @@ export class UploadDocumentComponent implements OnInit {
   handleReaderLoaded(readerEvent, ref: string) {
     this.binaryString = readerEvent.target.result;
     this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
-    this.img_name = this.file.name;
-    this.img_type = this.file.type;
+    this.file_name = this.file.name;
+    this.file_type = this.file.type;
   }
 
   upload(event, ref: string) {
@@ -75,8 +83,8 @@ export class UploadDocumentComponent implements OnInit {
         this.document = new ApDocumentUpload();
         this.document.document_ref = ref;
         this.document.document_image = this.image;
-        this.document.document_name = this.img_name;
-        this.document.document_type = this.img_type;
+        this.document.document_name = this.file_name;
+        this.document.document_type = this.file_type;
         if (this.uploadList.length == 0) {
           this.uploadList.push(this.document)
         } else {
@@ -99,6 +107,8 @@ export class UploadDocumentComponent implements OnInit {
   onNext() {
     this.uploadFileToList();
     console.log("data: ", this.applyScholarship.applyScholarshipForm)
-    this.applyscholarshipService.insertData( this.applyScholarship.applyScholarshipForm);
+    this.applyscholarshipService.insertData(this.applyScholarship.applyScholarshipForm);
   }
 }
+
+

@@ -1,3 +1,4 @@
+import { ApplicationTrackingService } from './services/application-tracking.service';
 import { DocumentsService } from './services/documents.service';
 import { AddressService } from './services/address.service';
 import { ParentService } from './services/parent.service';
@@ -110,6 +111,7 @@ import { DocumentRequestComponent } from './content/pages/document-request/docum
 import { DocumentrequestService } from './services/documentrequest.service';
 import { ApplicationDocumentComponent } from './content/pages/application-document/application-document.component';
 import { ApplicationDocumentService } from './services/application-document.service';
+import { ApplicationTrackingComponent } from './../app/content/pages/application-tracking/application-tracking.component';
 //Router
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -142,6 +144,7 @@ const appRoutes: Routes = [
       { path: "family-and-address", component: FamilyAndAddressComponent },
       { path: "document-request", component: DocumentRequestComponent},
       { path: "application-document", component: ApplicationDocumentComponent},
+      { path: "application-tracking", component: ApplicationTrackingComponent},
     ]
   },
   { path: "news", component: MainNewsComponent },
@@ -212,7 +215,8 @@ export function startupServiceFactory(
     DateFormatPipe,
     DocumentsscreeningComponent,
     DocumentRequestComponent,
-    ApplicationDocumentComponent
+    ApplicationDocumentComponent,
+    ApplicationTrackingComponent
   ],
   imports: [
     BrowserModule,
@@ -268,6 +272,7 @@ export function startupServiceFactory(
     AddressService,
     SiblingService,
     DocumentsService,
+    ApplicationTrackingService,
     {
       provide: APP_INITIALIZER,
       useFactory: startupServiceFactory,

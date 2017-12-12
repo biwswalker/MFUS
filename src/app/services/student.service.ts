@@ -6,6 +6,7 @@ import { Injectable } from "@angular/core";
 import { Headers, Http, Response } from "@angular/http";
 import { StudentForm } from "../content/form/student-form";
 import "rxjs/add/operator/map";
+import { UtilsService } from './utils.service';
 
 @Injectable()
 export class StudentService {
@@ -13,7 +14,8 @@ export class StudentService {
   mainUrl = config.backendUrl;
 
   applyScholarshipForm: ApplyScholarshipForm = new ApplyScholarshipForm();
-  constructor(private http: Http) {}
+  constructor(private http: Http,
+              private utilsService: UtilsService) {}
 
   addStudent(form: AcStudent) {
     const url = this.mainUrl + "student";
@@ -31,6 +33,13 @@ export class StudentService {
         this.applyScholarshipForm.rftTitleName = res.json().rft_title;
         this.applyScholarshipForm.rftMajor = res.json().rft_major;
         this.applyScholarshipForm.rftSchool = res.json().rft_school;
+        if(this.applyScholarshipForm.acStudent.gender == "M") {
+          this.applyScholarshipForm.acStudent.gender = "ชาย";
+        }else{
+          this.applyScholarshipForm.acStudent.gender = "หญิง"
+        }
+        this.applyScholarshipForm.acStudent.birth_date = this.utilsService.displayDate(this.applyScholarshipForm.acStudent.birth_date);
+        this.applyScholarshipForm.age = this.utilsService.getAge(this.applyScholarshipForm.acStudent.birth_date);
         return this.applyScholarshipForm;
       });
   }

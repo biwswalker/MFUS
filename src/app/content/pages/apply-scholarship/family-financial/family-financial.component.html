@@ -14,7 +14,7 @@
         <div class="row overide-row">
             <div class="col-xs-12">
                 <label class="normal">ภาระหนี้สินครอบครัว</label>
-                <p-dataTable [value]="debtList" [immutable]=false>
+                <p-dataTable [value]="applyScholarship.applyScholarshipForm.debtList" [immutable]=false>
                     <p-column [sortable]="true" header="ลำดับ" field="seq">
                         <ng-template let-col let-obj="rowData" pTemplate="body">
                             {{obj.seq}}

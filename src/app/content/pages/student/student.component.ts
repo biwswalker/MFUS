@@ -235,6 +235,7 @@ export class StudentComponent implements OnInit {
   }
 
   onSubmit() {
+
     this.onAddStudent();
   }
 
@@ -243,6 +244,18 @@ export class StudentComponent implements OnInit {
   }
 
   onAddStudent() {
+    if (this.studentFormGroup.invalid) {
+      this.studentFormGroup.controls["personal_id"].markAsDirty();
+      this.studentFormGroup.controls["student_id"].markAsDirty();
+      this.studentFormGroup.controls["first_name_t"].markAsDirty();
+      this.studentFormGroup.controls["last_name_t"].markAsDirty();
+      this.studentFormGroup.controls["address"].markAsDirty();
+      this.studentFormGroup.controls["phone_no"].markAsDirty();
+      this.studentFormGroup.controls["email"].markAsDirty();
+      this.studentFormGroup.controls["image"].markAsDirty();
+      return;
+    }
+
     const value = this.studentFormGroup.value;
     value.profile_image = this.image;
     value.profile_name = this.studentEditForm.acStudent.personal_id;
@@ -258,7 +271,6 @@ export class StudentComponent implements OnInit {
       (res: Response) => {
         console.log(res.json())
         this.student_ref = res.json().student_ref;
-        // console.log(this.student_ref)//3
         this.addAcUser();
       },
       (error) => {

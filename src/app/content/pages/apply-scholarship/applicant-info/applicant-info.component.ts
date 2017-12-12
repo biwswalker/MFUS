@@ -1,3 +1,4 @@
+import { Validator } from 'codelyzer/walkerFactory/walkerFn';
 import { Validators } from '@angular/forms';
 import { FormControl, FormGroup } from '@angular/forms';
 import { StudentService } from './../../../../services/student.service';
@@ -19,7 +20,7 @@ export class ApplicantInfoComponent implements OnInit {
   msgs: Message[];
   //ชั้นปี
 
-  applicationInfo: FormGroup;
+  applicationInfoFormGroup: FormGroup;
   collageYears: SelectItem[];
   data: any;
 
@@ -43,24 +44,29 @@ export class ApplicantInfoComponent implements OnInit {
     this.validateForm();
   }
 
+  getApplicationInfo(){
+    const ref = this.applyScholarship.applyScholarshipForm.acStudent.student_ref;
+    this.applyscholarshipService.getApplicationData(ref)
+      .subscribe(()=>{})
+  }
+
   validateForm(){
-    console.log()
-    this.applicationInfo = new FormGroup({
+    this.applicationInfoFormGroup = new FormGroup({
       'collage_year': new FormControl(
         this.applyScholarship.applyScholarshipForm.apApplication.collage_year,
         Validators.compose([Validators.required])),
       'gpax': new FormControl(
         this.applyScholarship.applyScholarshipForm.apApplication.gpax,
-        Validators.compose([Validators.required, Validators.pattern(/^(?:[0-9]+(?:\.[0-9]{0,2})?)?$/)])),
+        Validators.compose([Validators.required, Validators.pattern(/^(?:[0-9]+(?:\.[0-9]{0,2})?)?$/), Validators.max(4)])),
       'advisor_name': new FormControl(
         this.applyScholarship.applyScholarshipForm.apApplication.advisor_name,
-        Validators.compose([Validators.required])),
+        Validators.compose([Validators.required, Validators.pattern(/^[ก-๙]+(?:\.[a-zA-Z0-9-]+)*$/)])),
       'phone_no': new FormControl(
         this.applyScholarship.applyScholarshipForm.acStudent.phone_no,
-        Validators.compose([Validators.required])),
+        Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/)])),
       'email': new FormControl(
         this.applyScholarship.applyScholarshipForm.acStudent.email,
-        Validators.compose([Validators.required])),
+        Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)])),
       'livelihood': new FormControl(
         this.applyScholarship.applyScholarshipForm.apApplication.livelihood,
         Validators.compose([Validators.required]))
@@ -75,6 +81,15 @@ export class ApplicantInfoComponent implements OnInit {
   }
 
   onNext() {
+    if (this.applicationInfoFormGroup.invalid) {
+      this.applicationInfoFormGroup.controls["collage_year"].markAsDirty();
+      this.applicationInfoFormGroup.controls["gpax"].markAsDirty();
+      this.applicationInfoFormGroup.controls["advisor_name"].markAsDirty();
+      this.applicationInfoFormGroup.controls["phone_no"].markAsDirty();
+      this.applicationInfoFormGroup.controls["email"].markAsDirty();
+      this.applicationInfoFormGroup.controls["livelihood"].markAsDirty();
+      return;
+    }
     this.addApplicationInfo();
     this.applyscholarshipService.nextIndex(1);
     this.applyScholarship.activeIndex = this.applyscholarshipService.getIndex();

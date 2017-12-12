@@ -22,6 +22,4 @@ export class SmScholarshipAnnouncement {
   public  update_user: string;
   public  update_datetime: Date;
 
-
-
 }

@@ -13,7 +13,6 @@ import { ApplyScholarshipComponent } from '../apply-scholarship.component';
 })
 export class FamilyFinancialComponent implements OnInit {
 
-  debtList: ApFamilyDebt[] = [];
   debt: ApFamilyDebt;
 
   constructor(public applyScholarship: ApplyScholarshipComponent,
@@ -25,24 +24,20 @@ export class FamilyFinancialComponent implements OnInit {
 
   addRow() {
     this.debt = new ApFamilyDebt();
-    this.debt.seq = this.debtList.length+1
-    let debtList = [...this.debtList];
+    this.debt.seq = this.applyScholarship.applyScholarshipForm.debtList.length+1
+    let debtList = [...this.applyScholarship.applyScholarshipForm.debtList];
     debtList.push(this.debt);
-    this.debtList = debtList;
+    this.applyScholarship.applyScholarshipForm.debtList = debtList;
     debtList = [];
   }
 
   deleteRow(obj: ApFamilyDebt) {
-   let index = this.debtList.indexOf(obj);
-   this.debtList.splice(index,1);
+   let index = this.applyScholarship.applyScholarshipForm.debtList.indexOf(obj);
+   this.applyScholarship.applyScholarshipForm.debtList.splice(index,1);
   }
 
-  addDebt() {
-    this.applyScholarship.applyScholarshipForm.debtList = this.debtList
-  }
 
   onNext() {
-    this.addDebt();
     console.log("data: ", this.applyScholarship.applyScholarshipForm)
     this.applyscholarshipService.nextIndex(3);
     this.applyScholarship.activeIndex = this.applyscholarshipService.getIndex();

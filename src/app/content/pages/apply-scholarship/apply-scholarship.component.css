@@ -1,0 +1,33 @@
+.upload-list {
+    height: 20px !important;
+    height: fit-content !important;
+}
+
+.first-column {
+    text-align: center !important;
+    width: 80px !important;
+}
+
+.circle-btn-plus {
+    border-radius: 50% !important;
+    width: 35px;
+    height: 35px;
+    background-color: #74fa5a !important;
+    float: right;
+}
+
+.circle-btn-minus {
+    border-radius: 50% !important;
+    width: 35px;
+    height: 35px;
+    background-color: #fffc4d !important;
+    float: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.ui-datatable-tablewrapper .ui-datatable-thead .ui-state-default {
+    line-height: 30px !important;
+}

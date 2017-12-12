@@ -1,3 +1,4 @@
+import { RftApplicationDocument } from './../models/rft-application-document';
 import { AcParent } from './../models/ac-parent';
 import { SmScholarshipAnnouncement } from './../models/sm-scholarship-announcement';
 import { ApFamilyFinancial } from '../models/ap-family-financial';
@@ -17,7 +18,6 @@ import { SmSponsors } from '../models/sm-sponsors';
 
 export class ApplyScholarshipForm {
 
-  // public acStudent: AcStudent;
   public apApplication: ApApplication;
   public apFamilyFinancial: ApFamilyFinancial;
   public apFamilyDebt: ApFamilyDebt;
@@ -34,12 +34,14 @@ export class ApplyScholarshipForm {
   public acStudent: AcStudent;
   public smScholarship: SmScholarship;
   public smSponsors: SmSponsors;
-  public scholarshipHistoryList;
+  public scholarshipHistoryList: ApScholarshipHistory[];
   public studentLoanFundList: ApStudentLoanFund[] = [];
   public debtList: ApFamilyDebt[] = [];
   public fileList: ApDocumentUpload[] = []
 
+  public fullname: string;
   public age: number;
+  public year: string;
 
   constructor() {
     this.apApplication = new ApApplication();
@@ -61,5 +63,6 @@ export class ApplyScholarshipForm {
     this.studentLoanFundList = [];
     this.debtList = [];
     this.fileList = [];
+    this.scholarshipHistoryList = [];
   }
 }

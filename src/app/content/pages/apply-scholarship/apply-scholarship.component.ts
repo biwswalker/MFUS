@@ -1,3 +1,4 @@
+import { DocumentDatatableForm } from './../../form/documentDatatable-form';
 import { StudentService } from './../../../services/student.service';
 import { SiblingService } from '../../../services/sibling.service';
 import { AddressService } from './../../../services/address.service';
@@ -15,6 +16,7 @@ import { MenuItem } from "primeng/primeng";
 import { Observable } from "rxjs/Rx";
 import { AcAddress } from '../../models/ac-address';
 import { AcSibling } from '../../models/ac-sibling';
+import { Response } from '@angular/http';
 
 @Component({
   selector: "app-apply-scholarship",
@@ -26,15 +28,17 @@ export class ApplyScholarshipComponent implements OnInit {
   activeIndex: number = 0;
 
   public applyScholarshipForm: ApplyScholarshipForm = new ApplyScholarshipForm();
+  public documentDatatableForm: DocumentDatatableForm[] = [];
 
   image: any;
 
   constructor(private applyscholarshipService: ApplyscholarshipService,
-              private studentService: StudentService,
-              private parentService: ParentService,
-              private addressService: AddressService,
-              private siblingService: SiblingService,
-              private utilService: UtilsService) {}
+    private studentService: StudentService,
+    private parentService: ParentService,
+    private addressService: AddressService,
+    private siblingService: SiblingService,
+    private utilService: UtilsService) {
+    }
 
   ngOnInit() {
     this.items = [
@@ -69,55 +73,74 @@ export class ApplyScholarshipComponent implements OnInit {
         }
       }
     ];
-    this.getApplyScholarshipInformation();
+    this.getData();
+    console.log(this.documentDatatableForm)
   }
 
-  getApplyScholarshipInformation() {
-    new Observable ((observer: Observer<boolean>) => {
-      setTimeout(() => {
-        this.studentService.findStudentByRef('5a03e52ce518a').subscribe((res: ApplyScholarshipForm)=>{
-          this.applyScholarshipForm.acStudent = res.acStudent;
-          this.applyScholarshipForm.rftMajor = res.rftMajor;
-          this.applyScholarshipForm.rftSchool = res.rftSchool;
-          this.applyScholarshipForm.rftTitleName = res.rftTitleName;
-            let birth_year = parseInt(
-              this.applyScholarshipForm.acStudent.birth_date
-                .toString()
-                .substring(3, 7)
-            );
-            let current_year = new Date().getFullYear() + 543;
-            this.applyScholarshipForm.age = current_year - birth_year;
-          if(res){
-            observer.next(true);
-          }
-        })
-      }, 1000);
-      setTimeout(() => {
-      this.addressService.getAddressByStudentRef(this.applyScholarshipForm.acStudent.student_ref).subscribe((res: AcAddress)=>{
-        this.applyScholarshipForm.acAddress = res;
-      })
-      }, 2000);
-      setTimeout(() => {
-        this.siblingService.getSiblingByStudentRef(this.applyScholarshipForm.acStudent.student_ref).subscribe((res: AcSibling[])=>{
-          for(let obj of res) {
-            this.applyScholarshipForm.acSibling = obj;
-          }
-        })
-        }, 3000);
-    }).subscribe()
+  // getApplyScholarshipInformation() {
+  //   new Observable ((observer: Observer<boolean>) => {
+  //     setTimeout(() => {
+  //       this.studentService.findStudentByRef('5a03e52ce518a').subscribe((res: ApplyScholarshipForm)=>{
+  //         this.applyScholarshipForm.acStudent = res.acStudent;
+  //         this.applyScholarshipForm.age = res.age;
+  //         this.applyScholarshipForm.rftMajor = res.rftMajor;
+  //         this.applyScholarshipForm.rftSchool = res.rftSchool;
+  //         this.applyScholarshipForm.rftTitleName = res.rftTitleName;
+  //         this.applyScholarshipForm.fullname = res.acStudent.first_name_t + " " + res.acStudent.last_name_t
+  //         if(res){
+  //           observer.next(true);
+  //         }
+  //       })
+  //     }, 1000);
+  //     setTimeout(() => {
+  //     this.addressService.getAddressByStudentRef(this.applyScholarshipForm.acStudent.student_ref).subscribe((res: AcAddress)=>{
+  //       this.applyScholarshipForm.acAddress = res;
+  //     })
+  //     }, 2000);
+  //     setTimeout(() => {
+  //       this.siblingService.getSiblingByStudentRef(this.applyScholarshipForm.acStudent.student_ref).subscribe((res: AcSibling[])=>{
+  //         for(let obj of res) {
+  //           this.applyScholarshipForm.acSibling = obj;
+  //         }
+  //       })
+  //       }, 3000);
+  //   }).subscribe()
+  // }
+
+  getData() {
+    this.applyscholarshipService.findStudentByRef('5a03e52ce518a').subscribe((res:ApplyScholarshipForm) => {
+      console.log(res)
+      this.applyScholarshipForm.acStudent = res.acStudent;
+      this.applyScholarshipForm.age = res.age;
+      this.applyScholarshipForm.rftMajor = res.rftMajor;
+      this.applyScholarshipForm.rftSchool = res.rftSchool;
+      this.applyScholarshipForm.rftTitleName = res.rftTitleName;
+      this.applyScholarshipForm.fullname = res.acStudent.first_name_t + " " + res.acStudent.last_name_t;
+    });
   }
 
-  getApplyScholarshipInfo() {
-    this.applyscholarshipService.getApplyscholarshipData(
-      this.applyScholarshipForm
-    );
-  }
+  // getApplyScholarshipInformation() {
+  //   this.getStudentData()
+
+
+  //   this.addressService.getAddressByStudentRef(this.applyScholarshipForm.acStudent.student_ref).subscribe((res: AcAddress) => {
+  //     this.applyScholarshipForm.acAddress = res;
+
+  //     setTimeout(() => {
+  //       this.siblingService.getSiblingByStudentRef(this.applyScholarshipForm.acStudent.student_ref).subscribe((res: AcSibling[]) => {
+  //         for (let obj of res) {
+  //           this.applyScholarshipForm.acSibling = obj;
+  //         }
+  //       })
+  //     }, 3000);
+  //   }).subscribe()
+  // }
 
   onNext() {
     this.activeIndex++;
     this.applyscholarshipService.nextIndex(this.activeIndex);
     this.activeIndex = this.applyscholarshipService.getIndex();
-    this.applyScholarshipForm = this.applyscholarshipService.getData();
+    // this.applyScholarshipForm = this.applyscholarshipService.getData();
   }
 
   onPrevious() {

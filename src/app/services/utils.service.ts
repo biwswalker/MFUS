@@ -13,12 +13,14 @@ import { SmScholarship } from '../content/models/sm-scholarship';
 import { SmScholarshipAnnouncement } from '../content/models/sm-scholarship-announcement';
 import { RftApplicationDocument } from '../content/models/rft-application-document';
 
-const url: string = config.backendUrl;
 
 @Injectable()
 export class UtilsService {
-  private mainUrl: string = config.backendUrl;
-  url = this.mainUrl;
+
+  mainUrl = config.backendUrl;
+
+  districtList: RftDistrict[] = [];
+
 
   constructor(private http: Http,private startupService: StartupService) { }
 
@@ -30,6 +32,13 @@ export class UtilsService {
     return date + '/' + month + '/' + year
   }
 
+  public displayDate(dateParam: string) {
+    const date = dateParam.substring(0, 2);
+    const month = dateParam.substring(2, 4);
+    const year = dateParam.substring(4, 8);
+    return date + '/' + month + '/' + year
+  }
+
   // 20/08/2017
   public displayDateToString(date: string, month: string, year: string): string {
     return date + '/' + month + '/' + year
@@ -37,6 +46,13 @@ export class UtilsService {
 
   public convertStringToDate(date: any, month: any, year: any): Date {
     return new Date(year, month - 1, date);
+  }
+
+  getAge(date){
+    const year = date.substring(6, 10);
+    const d = new Date();
+    const age = (d.getUTCFullYear()+543) - year;
+    return age;
   }
 
   public convertStringDbToDate(dateParam: any): Date {
@@ -69,7 +85,7 @@ export class UtilsService {
   getProvinces(): Observable<RftProvince[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.url+'province', options)
+    return this.http.get(this.mainUrl+'province', options)
       .map(
       (res: Response) => {
         console.log(res.json());
@@ -82,7 +98,7 @@ export class UtilsService {
     console.log(ref)
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.url+'province-by-ref/'+ref, options)
+    return this.http.get(this.mainUrl+'province-by-ref/'+ref, options)
       .map(
       (res: Response) => {
         console.log(res)
@@ -94,7 +110,7 @@ export class UtilsService {
   getDistrictByRef(ref: string): Observable<RftDistrict> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.url+'district-by-ref/'+ref, options)
+    return this.http.get(this.mainUrl+'district-by-ref/'+ref, options)
       .map(
       (res: Response) => {
         return res.json();
@@ -105,7 +121,7 @@ export class UtilsService {
   getSubDistrictByRef(ref: string): Observable<RftSubDistrict> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.url+'subdistrict-by-ref/'+ref, options)
+    return this.http.get(this.mainUrl+'subdistrict-by-ref/'+ref, options)
       .map(
       (res: Response) => {
         return res.json();
@@ -120,7 +136,7 @@ export class UtilsService {
   getDistricts(): Observable<RftDistrict[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.url+'district', options)
+    return this.http.get(this.mainUrl+'district', options)
       .map(
       (res: Response) => {
         return res.json();
@@ -133,26 +149,27 @@ export class UtilsService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let criteria = '/province_ref=' + ref;
-    return this.http.get(this.url+'atpdistrict' + criteria, options)
+    return this.http.get(this.mainUrl+'atpdistrict' + criteria, options)
       .map(
       (res: Response) => {
+        console.log(res.json())
         return res.json();
       }
       );
   }
 
   getDistrictListByProvinceRef(ref: string):RftDistrict[]{
-    let districtList = [];
+
     this.getDistrictsByProvinceRef(ref).subscribe((res: RftDistrict[]) => {
-      districtList.push(...res);
+      this.districtList.push(...res);
     });
-    return districtList;
+    return this.districtList;
   }
 
   getSubDistricts(): Observable<RftSubDistrict[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.url+'subdistrict', options)
+    return this.http.get(this.mainUrl+'subdistrict', options)
       .map(
       (res: Response) => {
         return res.json();
@@ -164,7 +181,7 @@ export class UtilsService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let criteria = '/district_ref=' + ref;
-    return this.http.get(this.url+'atpsubdistrict' + criteria, options)
+    return this.http.get(this.mainUrl+'atpsubdistrict' + criteria, options)
       .map(
       (res: Response) => {
         return res.json();
@@ -183,7 +200,7 @@ export class UtilsService {
   getTitleList(): Observable<RftTitleName[]> {
     const headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    return this.http.get(this.url+'titlename', options)
+    return this.http.get(this.mainUrl+'titlename', options)
       .map(
         (res:Response)=>{
           return res.json()
@@ -334,7 +351,7 @@ return days;
   getScholarshipList(): Observable<SmScholarshipAnnouncement[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(url+'scholarship-announcement', options)
+    return this.http.get(this.mainUrl+'scholarship-announcement', options)
       .map(
       (res: Response) => {
         return res.json();
@@ -345,7 +362,7 @@ return days;
   getDocument(): Observable<RftApplicationDocument[]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(url+'application-document', options)
+    return this.http.get(this.mainUrl+'application-document', options)
       .map(
       (res: Response) => {
         return res.json();

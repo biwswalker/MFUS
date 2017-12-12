@@ -1,0 +1,47 @@
+<div class="content">
+    <div class="content-header-blue">ติดตามผลการสมัคร</div>
+    <div class="underline-blue"></div>
+    <div class="row overide-row">
+        <div class="col-xs-2">
+            <label for="" class="normal">ปีการศึกษา * </label>
+            <input type="text" name="year" [(ngModel)]="applicationTrackingCriteriaForm.collage_year" maxlength="4" style="width: 122px;" pInputText>
+        </div>
+        <div class="col-xs-3">
+            <label for="" class="normal">รหัสใบสมัคร</label>
+            <input type="text" name="application_code" [(ngModel)]="applicationTrackingCriteriaForm.application_code" pInputText>
+        </div>
+        <div class="col-xs-3"></div>
+        <div class="col-xs-4">
+            <label class="normal ">สถานะ</label>
+            <p-dropdown [options]="status" [(ngModel)]="applicationTrackingCriteriaForm.status" pDropDown></p-dropdown>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-8">
+            <label class="normal">ชื่อทุนการศึกษา</label>
+            <p-autoComplete [suggestions]="scholarshipList" name="scholarship_announcement_name" [(ngModel)]="applicationTrackingCriteriaForm.smScholarshipAnnouncement" [dropdown]="true" (completeMethod)="autocompleteScholarship($event)" (onDropdownClick)="handleCompleteClickautocompleteScholarship($event)"
+                field="scholarship_name" size="35" forceselection="true" name="autocompleteScholarship">
+            </p-autoComplete>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-12">
+            <label for="" class="normal"></label>
+            <button type="submit" label="ค้นหา" (click)="onSearch()" pButton></button>
+            <button type="submit" label="รีเซ็ต" pButton></button>
+        </div>
+    </div>
+    <div class="space"></div>
+    <div class="row overide-row">
+        <div class="col-xs-12">
+            <p-dataTable>
+                <p-column header="ลำดับ"></p-column>
+                <p-column header="ปีการศึกษา"></p-column>
+                <p-column header="เลขใบสมัคร"></p-column>
+                <p-column header="ชื่อทุนการศึกษา"></p-column>
+                <p-column header="วันที่ปิดรับสมัคร"></p-column>
+                <p-column header="สถานะ"></p-column>
+            </p-dataTable>
+        </div>
+    </div>
+</div>

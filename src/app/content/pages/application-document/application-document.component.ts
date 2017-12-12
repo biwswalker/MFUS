@@ -26,6 +26,7 @@ export class ApplicationDocumentComponent implements OnInit {
   formList: ApplicationDocumentForm[] = [];
   statusList: SelectItem[];
 
+
   image: any;
   fileList: FileList;
   binaryString: string;
@@ -63,15 +64,15 @@ export class ApplicationDocumentComponent implements OnInit {
       'document_code': new FormControl(this.form.rftApplicationDocument.document_code,Validators.required),
       'active_flag': new FormControl(this.form.rftApplicationDocument.active_flag, Validators.required ),
       'document_name': new FormControl(this.form.rftApplicationDocument.document_name, Validators.required ),
-      'pdf_name': new FormControl(this.form.rftApplicationDocument.pdf_name, Validators.required ),     
+      'pdf_name': new FormControl(this.form.rftApplicationDocument.pdf_name, Validators.required ),
     });
   }
-  
+
   initEditData(){
-    this.form = new ApplicationDocumentForm();  
+    this.form = new ApplicationDocumentForm();
     this.form.rftApplicationDocument.active_flag = 'Y';
     this.form.rftApplicationDocument.create_user = 'noei'
-    this.form.rftApplicationDocument.update_user = 'noei'  
+    this.form.rftApplicationDocument.update_user = 'noei'
   }
 
   initSearchData(){
@@ -94,7 +95,7 @@ export class ApplicationDocumentComponent implements OnInit {
 
   onAddApplicationDocument(){
     this.ngProgress.start();
-  
+
     const value = this.formGroup.value;
     value.active_flag = 'Y';
     this.form.rftApplicationDocument.document_code = value.document_code;
@@ -108,9 +109,9 @@ export class ApplicationDocumentComponent implements OnInit {
         this.initEditData();
         this.getMaxCode();
         this.showSuccess('บันทึกข้อมูลเอกสารเรียบร้อยแล้ว รหัสอ้างอิงคือ '+ref);
-     
+
         this.ngProgress.done();
-      
+
       },
       (error)=>{
         let message = 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง';
@@ -122,7 +123,7 @@ export class ApplicationDocumentComponent implements OnInit {
         return;
       }
     );
-    
+
   }
 
   onUpdateApplicationDocument(){
@@ -143,7 +144,7 @@ export class ApplicationDocumentComponent implements OnInit {
         this.showError(message);
         this.ngProgress.done();
         return;
-      }      
+      }
     );
   }
 
@@ -159,13 +160,13 @@ export class ApplicationDocumentComponent implements OnInit {
         reader.readAsBinaryString(this.file);
       }
     }
-   
+
   }
 
   handleReaderLoaded(readerEvent) {
     console.log("handleReaderLoaded..................");
     this.binaryString = readerEvent.target.result;
-    this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);    
+    this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
     this.form.rftApplicationDocument.pdf_name = this.file.name;
     this.form.rftApplicationDocument.pdf_file = btoa(this.binaryString)
     console.log(this.form.rftApplicationDocument.pdf_file);
@@ -195,7 +196,7 @@ export class ApplicationDocumentComponent implements OnInit {
 
   onSearch(){
     this.ngProgress.start();
-  
+
     this.formList = [];
     let resultList: ApplicationDocumentForm[] = [];
     this.applicationDocumentService.searchApplicationDocument(this.criteriaForm)
@@ -219,7 +220,7 @@ export class ApplicationDocumentComponent implements OnInit {
     this.mode = 'I';
     this.initEditData();
    this.getMaxCode();
-    
+
   }
 
   onRowSelect(event){

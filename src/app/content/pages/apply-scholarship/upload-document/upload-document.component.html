@@ -1,17 +1,17 @@
 <div class="row overide-row">
     <div class="col-xs-12">
         <p-dataTable [value]="documentList" [immutable]=false>
-            <p-column>
+            <p-column header="ลำดับ" [style]="{'width':'10%','text-align':'center','height':'20px'}">
                 <ng-template let-col let-obj="rowIndex" pTemplate="body">
                     {{obj+1}}
                 </ng-template>
             </p-column>
-            <p-column header="รายการเอกสาร">
+            <p-column header="รายการเอกสาร" class="ui-datatable-header">
                 <ng-template let-col let-obj="rowData" pTemplate="body">
                     {{obj.document_name}}
                 </ng-template>
             </p-column>
-            <p-column header="สถานะ">
+            <p-column header="สถานะ" [style]="{'width':'15%','text-align':'center'}">
                 <ng-template let-col let-obj="rowData" pTemplate="body">
                     <label pButton class="btn-positive" label="อัพโหลด" (change)="upload($event, obj.document_ref)">
                         <input type="file"
@@ -20,16 +20,18 @@
                           </label>
                 </ng-template>
             </p-column>
-            <p-column>
+            <p-column header="ชื่อไฟล์">
                 <ng-template let-col let-obj="rowData" pTemplate="body">
-
+                    {{obj.pdf_file}}
                 </ng-template>
             </p-column>
         </p-dataTable>
     </div>
-    <div class="row">
+
+    <div class="row overide-row">
+        <div class="space"></div>
         <div class="col-xs-12">
-            <button type="button" (click)="onNext()" label="ถัดไป" pButton></button>
+            <button type="button" (click)="onNext()" label="บันทึก" style="float:right" pButton></button>
         </div>
     </div>
 </div>
