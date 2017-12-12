@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { ApplicationTrackingService } from './services/application-tracking.service';
+=======
+import { LoginComponent } from './content/pages/login/login.component';
+>>>>>>> 89803588fcc3c9de8e3d6a7f4cf3e4b32782161f
 import { DocumentsService } from './services/documents.service';
 import { AddressService } from './services/address.service';
 import { ParentService } from './services/parent.service';
@@ -111,7 +115,13 @@ import { DocumentRequestComponent } from './content/pages/document-request/docum
 import { DocumentrequestService } from './services/documentrequest.service';
 import { ApplicationDocumentComponent } from './content/pages/application-document/application-document.component';
 import { ApplicationDocumentService } from './services/application-document.service';
+<<<<<<< HEAD
 import { ApplicationTrackingComponent } from './../app/content/pages/application-tracking/application-tracking.component';
+=======
+
+import { CurrencyMaskModule } from "ng2-currency-mask";
+import { IntervieweesSelectionComponent } from './content/pages/interviewees-selection/interviewees-selection.component';
+>>>>>>> 89803588fcc3c9de8e3d6a7f4cf3e4b32782161f
 //Router
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -144,7 +154,11 @@ const appRoutes: Routes = [
       { path: "family-and-address", component: FamilyAndAddressComponent },
       { path: "document-request", component: DocumentRequestComponent},
       { path: "application-document", component: ApplicationDocumentComponent},
+<<<<<<< HEAD
       { path: "application-tracking", component: ApplicationTrackingComponent},
+=======
+      { path: "interviewees-selection", component: IntervieweesSelectionComponent},
+>>>>>>> 89803588fcc3c9de8e3d6a7f4cf3e4b32782161f
     ]
   },
   { path: "news", component: MainNewsComponent },
@@ -216,7 +230,12 @@ export function startupServiceFactory(
     DocumentsscreeningComponent,
     DocumentRequestComponent,
     ApplicationDocumentComponent,
+<<<<<<< HEAD
     ApplicationTrackingComponent
+=======
+    IntervieweesSelectionComponent,
+    LoginComponent
+>>>>>>> 89803588fcc3c9de8e3d6a7f4cf3e4b32782161f
   ],
   imports: [
     BrowserModule,
@@ -249,6 +268,7 @@ export function startupServiceFactory(
     DataListModule,
     ProgressBarModule,
     NgProgressModule,
+    CurrencyMaskModule,
   ],
   providers: [
     AuthenticationService,

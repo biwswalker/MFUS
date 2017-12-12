@@ -12,10 +12,23 @@
 .input-address{
   width:700px;
 }
+.input-postcode{
+  width:70px;
+}
+.input-phone{
+  width:150px;
+}
+.input-occupation, .input-position, .input-mail{
+  width:300px;
+}
 
 .land-amt{
   width:100px;
   text-align: right;
+}
+.input-income{
+  width:120px;
+  text-align:right;
 }
 .fake-label{
   display: block;

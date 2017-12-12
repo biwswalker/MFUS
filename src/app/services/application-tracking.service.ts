@@ -31,10 +31,10 @@ export class ApplicationTrackingService {
       criteria = criteria + "registration_start_date=" + '' + '&' + "registration_end_date=" + '' + '&';
     }
     if (form.status == "1") {
-      criteria = criteria + "registration_start_date=" + '' + '&' + "registration_end_date=" + '' + '&';
+      criteria = criteria + "registration_end_date=" + '' + '&' + "announce_interview_date=" + '' + '&';
     }
     if (form.status == "2") {
-      criteria = criteria + "registration_start_date=" + '' + '&' + "registration_end_date=" + '' + '&';
+      criteria = criteria + "announce_interview_date=" + '' + '&' + "registration_end_date=" + '' + '&';
     }
     if (form.status == "3") {
       criteria = criteria + "registration_start_date=" + '' + '&' + "registration_end_date=" + '' + '&';

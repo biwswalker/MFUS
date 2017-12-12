@@ -55,7 +55,9 @@
         <input type="text" pInputText
         class="relationship-remark"
         style="width:430px"
+        maxlength="100"
         formControlName="because"
+        [attr.disabled]="(thisForm.acParent.relationship_status != '2')?'':null"
         [(ngModel)]="thisForm.acParent.because">
       </div>
       <div class="col-xs-12">
@@ -81,8 +83,10 @@
     <div class="col-xs-5">
       <label class="normal">เลขประจำตัวประชาชน *</label>
       <input type="text" pInputText
-      name="father_pid"
       class="personal-id"
+      maxlength="13"
+      minlength="13"
+      pattern="\d*"
       formControlName="father_pid"
       [(ngModel)]="thisForm.acParent.father_pid"
       >
@@ -108,8 +112,12 @@
       <label class="fake-label"></label>
       <label class="normal-inline">เมื่อ พ.ศ.</label>
       <input type="text" pInputText
-      name="father-die-year"
       class="input-year"
+      [attr.disabled]="(thisForm.acParent.father_status != '2')?'':null"
+      pattern="\d*"
+      maxlength="4"
+      minlength="4"
+      placeholder="ปี พ.ศ."
       formControlName="father_died_year"
       [(ngModel)]="thisForm.acParent.father_died_year"
       >
@@ -122,6 +130,7 @@
       <label class="normal">ชื่อ-นามสกุล *</label>
       <input type="text" pInputText
       class="input-name"
+      maxlength="50"
       formControlName="father_name"
       [(ngModel)]="thisForm.acParent.father_name" >
     </div>
@@ -143,10 +152,11 @@
         [(ngModel)]="dadDay"
         [disabled]="!dadMonth">
         </p-dropdown>
-        <input type="number" pInputText
+        <input type="text" pInputText
         class="input-year"
-        minlength="4"
+        pattern="\d*"
         maxlength="4"
+        minlength="4"
         placeholder="ปี พ.ศ."
         formControlName="dadYear"
         [(ngModel)]="dadYear">
@@ -160,6 +170,7 @@
       <input type="text" pInputText
       class="input-address"
       name="father-address"
+      maxlength="200"
       formControlName="father_address"
       [(ngModel)]="thisForm.acParent.father_address" >
     </div>
@@ -170,7 +181,8 @@
       <label class="normal">จังหวัด *</label>
       <p-autoComplete field="province_name_t" [(ngModel)]="dadProvince" [suggestions]="fProvinceList"
         [size]="25" (onSelect)="selectProvince(0)" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(0)"
-        (completeMethod)="autocompleteProvince($event)"
+        (completeMethod)="autocompleteProvince($event,1)"
+        maxlength="30"
         formControlName="father_province">
         <ng-template let-obj pTemplate="obj">
           {{obj.province_name_t}}
@@ -183,6 +195,7 @@
         [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(0)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(0)"
         [disabled]="!dadProvince.province_ref"
         (completeMethod)="autocompleteDistrict($event)"
+        maxlength="30"
         formControlName="father_district">
         <ng-template let-obj pTemplate="obj">
           {{obj.district_name_t}}
@@ -198,6 +211,7 @@
         (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(0)" forceSelection="true"
         [disabled]="!dadDistrict.district_ref"
         (onDropdownClick)="handleCompleteClickSubDistrict(0)"
+        maxlength="30"
         formControlName="father_sub_district">
         <ng-template let-obj pTemplate="obj">
           {{obj.sub_district_name_t}}
@@ -208,6 +222,7 @@
       <label class="normal">รหัสไปรษณีย์</label>
       <input type="text" pInputText class="input-postcode"
       name="father-postcode"
+      maxlength="5"
       formControlName="father_postcode"
       [(ngModel)]="thisForm.acParent.father_postcode"
       disabled
@@ -218,15 +233,18 @@
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">เบอร์โทรศัพท์</label>
-      <input type="text" pInputText
-      class="input-postcode"
+      <input type="tel" pInputText
+      class="input-phone"
+      maxlength="10"
       formControlName="father_phone"
       [(ngModel)]="thisForm.acParent.father_phone">
     </div>
     <div class="col-xs-7">
       <label class="normal">อีเมล</label>
-      <input type="text" pInputText
-      class="input-postcode"
+      <input type="email" pInputText
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+      class="input-mail"
+      maxlength="50"
       formControlName="father_email"
       [(ngModel)]="thisForm.acParent.father_email">
     </div>
@@ -236,14 +254,16 @@
     <div class="col-xs-5">
       <label class="normal">อาชีพ</label>
       <input type="text" pInputText
-      class="input-postcode"
+      class="input-occupation"
+      maxlength="50"
       formControlName="father_occupation"
       [(ngModel)]="thisForm.acParent.father_occupation">
     </div>
     <div class="col-xs-7">
       <label class="normal">ตำแหน่ง</label>
       <input type="text" pInputText
-      class="input-postcode"
+      class="input-position"
+      maxlength="50"
       formControlName="father_position"
       [(ngModel)]="thisForm.acParent.father_position">
     </div>
@@ -254,6 +274,7 @@
       <label class="normal">สถานที่ทำงาน</label>
       <input type="text" pInputText
       class="input-address"
+      maxlength="200"
       name="father-workaddress"
       formControlName="father_work_address"
       [(ngModel)]="thisForm.acParent.father_work_address">
@@ -263,15 +284,17 @@
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
-      <input type="text" pInputText
-      class="input-postcode"
+      <input type="tel" pInputText
+      class="input-phone"
+      maxlength="15"
       formControlName="father_work_phone"
       [(ngModel)]="thisForm.acParent.father_work_phone">
     </div>
     <div class="col-xs-7">
       <label class="normal">แฟ็กซ์</label>
-      <input type="text" pInputText
-      class="input-postcode"
+      <input type="tel" pInputText
+      class="input-phone"
+      maxlength="15"
       formControlName="father_work_fax"
       [(ngModel)]="thisForm.acParent.father_work_fax">
     </div>
@@ -300,7 +323,12 @@
         <label class="normal-inline">จำนวน</label>
         <input type="text" pInputText
         class="land-amt"
-        name="father-land-amt"
+        step="any"
+        pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+        min="0"
+        max="99.99"
+        maxlength="5"
+        alt="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
         formControlName="father_land_all"
         [(ngModel)]="thisForm.acParent.father_land_all">
         <label class="normal-inline">ไร่</label>
@@ -309,7 +337,12 @@
         <label class="normal-inline">เป็นเจ้าของ</label>
         <input type="text" pInputText
         class="land-amt"
-        name="father-land-amt"
+        step="any"
+        pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+        min="0"
+        max="99.99"
+        maxlength="5"
+        title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
         formControlName="father_land_own"
         [(ngModel)]="thisForm.acParent.father_land_own">
         <label class="normal-inline">ไร่</label>
@@ -318,10 +351,32 @@
         <label class="normal-inline">เช่า</label>
         <input type="text" pInputText
         class="land-amt"
-        name="father-land-amt"
+        step="any"
+        pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+        min="0"
+        max="99.99"
+        maxlength="5"
+        title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
         formControlName="father_land_rent"
         [(ngModel)]="thisForm.acParent.father_land_rent">
         <label class="normal-inline">ไร่</label>
+      </div>
+    </div>
+  </div>
+  <div class="row overide-row">
+    <div class="col-xs-12">
+      <label class="normal">รายได้เฉลี่ย/เดือน</label>
+      <div class="col-xs-12">
+        <input type="text" class="input-income"
+        pInputText
+        currencyMask
+        [options]="{ prefix: '', thousands: ',', decimal: '.' }"
+        min="0"
+        max="999999.99"
+        maxlength="10"
+        title="กรอกได้สูงสุดไม่เกิน 999,999.99 บาท"
+        formControlName="father_income_monthly"
+        [(ngModel)]="thisForm.acParent.father_income_monthly">
       </div>
     </div>
   </div>
@@ -338,8 +393,10 @@
     <div class="col-xs-5">
       <label class="normal">เลขประจำตัวประชาชน *</label>
       <input type="text" pInputText
-      name="mother_pid"
       class="personal-id"
+      pattern="\d*"
+      maxlength="13"
+      minlength="13"
       formControlName="mother_pid"
       [(ngModel)]="thisForm.acParent.mother_pid">
     </div>
@@ -362,7 +419,11 @@
       <label class="fake-label"></label>
       <label class="normal-inline">เมื่อ พ.ศ.</label>
       <input type="text" pInputText
-      name="mother-die-year"
+      [attr.disabled]="(thisForm.acParent.mother_status != '2')?'':null"
+      pattern="\d*"
+      maxlength="4"
+      minlength="4"
+      placeholder="ปี พ.ศ."
       class="input-year"
       formControlName="mother_died_year"
       [(ngModel)]="thisForm.acParent.mother_died_year">
@@ -374,14 +435,14 @@
       <label class="normal">ชื่อ-นามสกุล *</label>
       <input type="text" pInputText
       class="input-name"
-      name="mother-name"
+      maxlength="50"
       formControlName="mother_name"
       [(ngModel)]="thisForm.acParent.mother_name">
     </div>
     <div class="col-xs-7">
       <label class="normal">วันเกิด(เดือน/วัน/ปี) *</label>
       <div>
-        <p-dropdown name="motherBirthMonth"
+        <p-dropdown
           placeholder="เดือน"
           optionField="birth-month"
           [options]="momDropdownMonths"
@@ -396,10 +457,11 @@
           [(ngModel)]="momDay"
           [disabled]="!momMonth">
         </p-dropdown>
-        <input type="number" pInputText
+        <input type="text" pInputText
         class="input-year"
-        minlength="4"
+        pattern="\d*"
         maxlength="4"
+        minlength="4"
         placeholder="ปี พ.ศ."
         formControlName="momYear"
         [(ngModel)]="momYear">
@@ -413,6 +475,7 @@
       <input type="text" pInputText
       class="input-address"
       name="mother-address"
+      maxlength="200"
       formControlName="mother_address"
       [(ngModel)]="thisForm.acParent.mother_address">
     </div>
@@ -424,6 +487,7 @@
       <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="momProvince" [suggestions]="mProvinceList"
         [size]="25" (onSelect)="selectProvince(1)" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(1)"
         (completeMethod)="autocompleteProvince($event)"
+        maxlength="30"
         formControlName="mother_province">
         <ng-template let-obj pTemplate="obj">
           {{obj.province_name_t}}
@@ -435,6 +499,7 @@
       <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="momDistrict" [suggestions]="mDistrictList"
         [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(1)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(1)"
         [disabled]="!momProvince.province_ref"
+        maxlength="30"
         (completeMethod)="autocompleteDistrict($event)"
         formControlName="mother_district">
         <ng-template let-obj pTemplate="obj">
@@ -450,6 +515,7 @@
       <p-autoComplete field="sub_district_name_t" [(ngModel)]="momSubDistrict" [suggestions]="mSubDistrictList"
         (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(1)" forceSelection="true"
         [disabled]="!momDistrict.district_ref"
+        maxlength="30"
         (onDropdownClick)="handleCompleteClickSubDistrict(1)"
         formControlName="mother_sub_district">
         <ng-template let-obj pTemplate="obj"
@@ -462,7 +528,7 @@
       <label class="normal">รหัสไปรษณีย์</label>
       <input type="text" pInputText
       class="input-postcode"
-      name="mother-postcode"
+      maxlength="5"
       formControlName="mother_postcode"
       [(ngModel)]="thisForm.acParent.mother_postcode"
       disabled>
@@ -473,17 +539,18 @@
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">เบอร์โทรศัพท์</label>
-      <input type="text" pInputText
-      class="input-postcode"
-      name="mother-postcode"
+      <input type="tel" pInputText
+      class="input-phone"
+      maxlength="10"
       formControlName="mother_phone"
       [(ngModel)]="thisForm.acParent.mother_phone">
     </div>
     <div class="col-xs-7">
       <label class="normal">อีเมล</label>
-      <input type="text" pInputText
-      class="input-postcode"
-      name="mother-postcode"
+      <input type="email" pInputText
+      class="input-mail"
+      maxlength="50"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
       formControlName="mother_email"
       [(ngModel)]="thisForm.acParent.mother_email">
     </div>
@@ -493,16 +560,16 @@
     <div class="col-xs-5">
       <label class="normal">อาชีพ</label>
       <input type="text" pInputText
-      class="input-postcode"
-      name="mother-postcode"
+      class="input-occupation"
+      maxlength="50"
       formControlName="mother_occupation"
       [(ngModel)]="thisForm.acParent.mother_occupation">
     </div>
     <div class="col-xs-7">
       <label class="normal">ตำแหน่ง</label>
       <input type="text" pInputText
-      class="input-postcode"
-      name="mother-postcode"
+      class="input-position"
+      maxlength="50"
       formControlName="mother_position"
       [(ngModel)]="thisForm.acParent.mother_position">
     </div>
@@ -513,7 +580,7 @@
       <label class="normal">สถานที่ทำงาน</label>
       <input type="text" pInputText
       class="input-address"
-      name="mother-workaddress"
+      maxlength="200"
       formControlName="mother_work_address"
       [(ngModel)]="thisForm.acParent.mother_work_address">
     </div>
@@ -522,17 +589,17 @@
   <div class="row overide-row">
     <div class="col-xs-5">
       <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
-      <input type="text" pInputText
-      class="input-postcode"
-      name="mother-postcode"
+      <input type="tel" pInputText
+      class="input-phone"
+      maxlength="15"
       formControlName="mother_work_phone"
       [(ngModel)]="thisForm.acParent.mother_work_phone">
     </div>
     <div class="col-xs-7">
       <label class="normal">แฟ็กซ์</label>
-      <input type="text" pInputText
-      class="input-postcode"
-      name="mother-postcode"
+      <input type="tel" pInputText
+      class="input-phone"
+      maxlength="15"
       formControlName="mother_work_fax"
       [(ngModel)]="thisForm.acParent.mother_work_fax">
     </div>
@@ -561,7 +628,12 @@
         <label class="normal-inline">จำนวน</label>
         <input type="text" pInputText
         class="land-amt"
-        name="mother-land-amt"
+        step="any"
+        pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+        min="0"
+        max="99.99"
+        maxlength="5"
+        title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
         formControlName="mother_land_all"
         [(ngModel)]="thisForm.acParent.mother_land_all">
         <label class="normal-inline">ไร่</label>
@@ -570,7 +642,12 @@
         <label class="normal-inline">เป็นเจ้าของ</label>
         <input type="text" pInputText
         class="land-amt"
-        name="mother-land-amt"
+        step="any"
+        pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+        min="0"
+        max="99.99"
+        maxlength="5"
+        title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
         formControlName="mother_land_own"
         [(ngModel)]="thisForm.acParent.mother_land_own">
         <label class="normal-inline">ไร่</label>
@@ -579,10 +656,33 @@
         <label class="normal-inline">เช่า</label>
         <input type="text" pInputText
         class="land-amt"
-        name="mother-land-amt"
+        step="any"
+        pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+        min="0"
+        max="99.99"
+        maxlength="5"
+        title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
         formControlName="mother_land_rent"
         [(ngModel)]="thisForm.acParent.mother_land_rent">
         <label class="normal-inline">ไร่</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row overide-row">
+    <div class="col-xs-12">
+      <label class="normal">รายได้เฉลี่ย/เดือน</label>
+      <div class="col-xs-12">
+        <input type="text" class="input-income"
+        pInputText
+        currencyMask
+        [options]="{ prefix: '', thousands: ',', decimal: '.' }"
+        min="0"
+        max="999999.99"
+        maxlength="10"
+        title="กรอกได้สูงสุดไม่เกิน 999,999.99 บาท"
+        formControlName="mother_income_monthly"
+        [(ngModel)]="thisForm.acParent.mother_income_monthly">
       </div>
     </div>
   </div>
@@ -599,7 +699,7 @@
     <div class="col-xs-5">
       <label class="normal">ความสัมพันธ์ *</label>
       <input type="text" pInputText
-      name="patrol_relationship"
+      maxlength="50"
       class="relationship"
       formControlName="patrol_relationship"
       [(ngModel)]="thisForm.acParent.patrol_relationship">
@@ -610,7 +710,9 @@
     <div class="col-xs-5">
       <label class="normal">เลขประจำตัวประชาชน *</label>
       <input type="text" pInputText
-      name="patrol_pid"
+      pattern="\d*"
+      maxlength="13"
+      minlength="13"
       class="personal-id"
       formControlName="patrol_pid"
       [(ngModel)]="thisForm.acParent.patrol_pid">
@@ -634,8 +736,11 @@
       <label class="fake-label"></label>
       <label class="normal-inline">เมื่อ พ.ศ.</label>
       <input type="text" pInputText
-      name="patrol-die-year"
-      class="input-year"
+      [attr.disabled]="(thisForm.acParent.patrol_status != '2')?'':null"
+      pattern="\d*"
+      maxlength="4"
+      minlength="4"
+      placeholder="ปี พ.ศ."
       formControlName="patrol_died_year"
       [(ngModel)]="thisForm.acParent.patrol_died_year">
     </div>
@@ -646,6 +751,7 @@
       <label class="normal">ชื่อ-นามสกุล *</label>
       <input type="text" pInputText
       class="input-name"
+      maxlength="50"
       formControlName="patrol_name"
       [(ngModel)]="thisForm.acParent.patrol_name">
     </div>
@@ -667,10 +773,11 @@
         [(ngModel)]="patrolDay"
         [disabled]="!patrolMonth">
         </p-dropdown>
-        <input type="number" pInputText
+        <input type="text" pInputText
         class="input-year"
-        minlength="4"
+        pattern="\d*"
         maxlength="4"
+        minlength="4"
         placeholder="ปี พ.ศ."
         formControlName="patrolYear"
         [(ngModel)]="patrolYear">
@@ -683,7 +790,7 @@
       <label class="normal">ที่อยู่ *</label>
       <input type="text" pInputText
       class="input-address"
-      name="patrol-address"
+      maxlength="200"
       formControlName="patrol_address"
       [(ngModel)]="thisForm.acParent.patrol_address">
     </div>
@@ -695,6 +802,7 @@
       <p-autoComplete field="province_name_t" [(ngModel)]="patrolProvince" [suggestions]="pProvinceList"
         [size]="25" (onSelect)="selectProvince(2)" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(2)"
         (completeMethod)="autocompleteProvince($event)"
+        maxlength="30"
         formControlName="patrol_province">
         <ng-template let-obj pTemplate="obj">
           {{obj.province_name_t}}
@@ -707,6 +815,7 @@
         [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(2)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(2)"
         [disabled]="!patrolProvince.province_ref"
         (completeMethod)="autocompleteDistrict($event)"
+        maxlength="30"
         formControlName="patrol_district">
         <ng-template let-obj pTemplate="obj">
           {{obj.district_name_t}}
@@ -722,6 +831,7 @@
         (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(2)" forceSelection="true"
         [disabled]="!patrolDistrict.district_ref"
         (onDropdownClick)="handleCompleteClickSubDistrict(2)"
+        maxlength="30"
         formControlName="patrol_sub_district">
         <ng-template let-obj pTemplate="obj">
           {{obj.sub_district_name_t}}
@@ -732,7 +842,7 @@
       <label class="normal">รหัสไปรษณีย์</label>
       <input type="text" pInputText
       class="input-postcode"
-      name="patrol-postcode"
+      maxlength="5"
       formControlName="patrol_postcode"
       [(ngModel)]="thisForm.acParent.patrol_postcode"
       disabled>
@@ -744,16 +854,17 @@
     <div class="col-xs-5">
       <label class="normal">เบอร์โทรศัพท์ *</label>
       <input type="text" pInputText
-      class="input-postcode"
-      name="patrol-postcode"
+      class="input-phone"
+      maxlength="10"
       formControlName="patrol_phone"
       [(ngModel)]="thisForm.acParent.patrol_phone">
     </div>
     <div class="col-xs-7">
       <label class="normal">อีเมล</label>
       <input type="text" pInputText
-      class="input-postcode"
-      name="patrol-postcode"
+      class="input-mail"
+      maxlength="50"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
       formControlName="patrol_email"
       [(ngModel)]="thisForm.acParent.patrol_email">
     </div>
@@ -763,16 +874,16 @@
     <div class="col-xs-5">
       <label class="normal">อาชีพ</label>
       <input type="text" pInputText
-      class="input-postcode"
-      name="patrol-postcode"
+      class="input-occupation"
+      maxlength="50"
       formControlName="patrol_occupation"
       [(ngModel)]="thisForm.acParent.patrol_occupation">
     </div>
     <div class="col-xs-7">
       <label class="normal">ตำแหน่ง</label>
       <input type="text" pInputText
-      class="input-postcode"
-      name="patrol-postcode"
+      class="input-position"
+      maxlength="50"
       formControlName="patrol_position"
       [(ngModel)]="thisForm.acParent.patrol_position">
     </div>
@@ -783,7 +894,7 @@
       <label class="normal">สถานที่ทำงาน</label>
       <input type="text" pInputText
       class="input-address"
-      name="patrol-workaddress"
+      maxlength="200"
       formControlName="patrol_work_address"
       [(ngModel)]="thisForm.acParent.patrol_work_address">
     </div>
@@ -793,16 +904,16 @@
     <div class="col-xs-5">
       <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
       <input type="text" pInputText
-      class="input-postcode"
-      name="patrol-postcode"
+      class="input-phone"
+      maxlength="15"
       formControlName="patrol_work_phone"
       [(ngModel)]="thisForm.acParent.patrol_work_phone">
     </div>
     <div class="col-xs-7">
       <label class="normal">แฟ็กซ์</label>
       <input type="text" pInputText
-      class="input-postcode"
-      name="patrol-postcode"
+      class="input-phone"
+      maxlength="15"
       formControlName="patrol_work_fax"
       [(ngModel)]="thisForm.acParent.patrol_work_fax">
     </div>
@@ -831,7 +942,12 @@
         <label class="normal-inline">จำนวน</label>
         <input type="text" pInputText
         class="land-amt"
-        name="patrol-land-amt"
+        step="any"
+        pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+        min="0"
+        max="99.99"
+        maxlength="5"
+        title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
         formControlName="patrol_land_all"
         [(ngModel)]="thisForm.acParent.patrol_land_all">
         <label class="normal-inline">ไร่</label>
@@ -840,7 +956,12 @@
         <label class="normal-inline">เป็นเจ้าของ</label>
         <input type="text" pInputText
         class="land-amt"
-        name="patrol-land-amt"
+        step="any"
+        pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+        min="0"
+        max="99.99"
+        maxlength="5"
+        title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
         formControlName="patrol_land_own"
         [(ngModel)]="thisForm.acParent.patrol_land_own">
         <label class="normal-inline">ไร่</label>
@@ -849,10 +970,33 @@
         <label class="normal-inline">เช่า</label>
         <input type="text" pInputText
         class="land-amt"
-        name="patrol-land-amt"
+        step="any"
+        pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+        min="0"
+        max="99.99"
+        maxlength="5"
+        title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
         formControlName="patrol_land_rent"
         [(ngModel)]="thisForm.acParent.patrol_land_rent">
         <label class="normal-inline">ไร่</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row overide-row">
+    <div class="col-xs-12">
+      <label class="normal">รายได้เฉลี่ย/เดือน</label>
+      <div class="col-xs-12">
+        <input type="text" class="input-income"
+        pInputText
+        currencyMask
+        [options]="{ prefix: '', thousands: ',', decimal: '.' }"
+        min="0"
+        max="999999.99"
+        maxlength="10"
+        title="กรอกได้สูงสุดไม่เกิน 999,999.99 บาท"
+        formControlName="patrol_income_monthly"
+        [(ngModel)]="thisForm.acParent.patrol_income_monthly">
       </div>
     </div>
   </div>
