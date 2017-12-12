@@ -12,6 +12,7 @@ export class IntervieweesSelectionComponent implements OnInit {
   constructor(private scholarshipService: ScholarshipService) { }
 
   ngOnInit() {
+
   }
 
 }
