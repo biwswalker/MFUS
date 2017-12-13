@@ -64,7 +64,6 @@ import { StepComponent } from "./content/pages/tag/step/step.component";
 import { Step03Component } from "./content/pages/tag/step/step03/step03.component";
 import { Step02Component } from "./content/pages/tag/step/step02/step02.component";
 import { Step01Component } from "./content/pages/tag/step/step01/step01.component";
-import { InterviewselectComponent } from "./content/pages/interviewselect/interviewselect.component";
 import { AutocompleteComponent } from "./content/pages/tag/autocomplete/autocomplete.component";
 import { DropdownComponent } from "./content/pages/tag/dropdown/dropdown.component";
 import { TextareaComponent } from "./content/pages/tag/textarea/textarea.component";
@@ -187,7 +186,6 @@ export function startupServiceFactory(
     ScholarshipAnnouncementDetailComponent,
     OfficerComponent,
     ReguserComponent,
-    InterviewselectComponent,
     StepComponent,
     Step01Component,
     Step02Component,
