@@ -48,5 +48,18 @@ export class ScholarshipannouncementService {
 
   }
 
+  scholarshipAnnounceListonSearchPage(criYear: number){
+    let listScholarshipAnnounce = [];
+    // listScholarshipAnnounce.push({'scholarship_name':'ไม่ระบุ','announcement_ref': null});
+
+    setTimeout(() => {
+      this.searchScholarshipAnnouncementFromYear(criYear.toString()).subscribe(
+        (res: any[]) =>{
+          listScholarshipAnnounce.push(...res);
+        }
+      );
+    },100);
+    return listScholarshipAnnounce;
+  }
 
 }

@@ -1,3 +1,4 @@
+import { CalendarTh } from './content/models/calendar-th';
 import { ApplicationTrackingService } from './services/application-tracking.service';
 import { LoginComponent } from './content/pages/login/login.component';
 import { DocumentsService } from './services/documents.service';
@@ -276,6 +277,7 @@ export function startupServiceFactory(
     SiblingService,
     DocumentsService,
     ApplicationTrackingService,
+    CalendarTh,
     {
       provide: APP_INITIALIZER,
       useFactory: startupServiceFactory,
