@@ -1,4 +1,4 @@
-export class CalendarTh {
+export class CalendarModel {
 
   th: any;
 

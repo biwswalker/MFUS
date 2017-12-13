@@ -1,4 +1,5 @@
-import { CalendarTh } from './../../models/calendar-th';
+import { CalendarModel } from './../../models/calendar-model';
+
 import { SmScholarshipAnnouncement } from './../../models/sm-scholarship-announcement';
 import { ScholarshipannouncementService } from './../../../services/scholarshipannouncement.service';
 
@@ -11,13 +12,13 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   templateUrl: './interviewees-selection.component.html',
   styleUrls: ['./interviewees-selection.component.css','../pages.component.css']
 })
-export class IntervieweesSelectionComponent extends CalendarTh implements OnInit {
+export class IntervieweesSelectionComponent extends CalendarModel implements OnInit {
   scholarshipAnnounceList: any[] = [];
   listScholarshipAnnounce: any[] = [];
   scholarshipAnnouncement: any;
   applicationList: any[] = [];
   criYear : number;
-  constructor(private calendarTh: CalendarTh, private scholarshipannouncementService: ScholarshipannouncementService){
+  constructor(private scholarshipannouncementService: ScholarshipannouncementService){
     super();
  }
 
