@@ -11,15 +11,18 @@ export class DocumentRequestForm {
   public smScholarshipAnnoucement: SmScholarshipAnnouncement;
   public smScholarship: SmScholarship;
   public smDocumentRequestDetail : SmDocumentRequestDetail[];
+  public documentUploadList : ApDocumentUpload[];
   public sortField: string;
 
   //for display
   public applicationCode: string;
   public scholarshipName: string;
+  public requestDoc: number;
 
   constructor() {
     this.smDocumentRequest = new SmDocumentRequest();
     this.smDocumentRequestDetail = [];
+    this.documentUploadList = [];
     this.sortField = "";
   }
 

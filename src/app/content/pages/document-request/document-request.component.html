@@ -2,11 +2,10 @@
   <div class="row">
   <div class="content-header-blue">
     <p>บันทึกข้อมูลเอกสารเพิ่มเติม</p>
-    <div class="underline-blue"></div>
   </div>
 </div>
 <div class="row">
-  <form (ngSubmit)="onSubmit()">
+  <p-growl [(value)]="msgs"></p-growl>
   <p-dataScroller [value]="documentList" [rows]="10" [lazy]="true">
     <ng-template let-doc pTemplate="item" class="">
         <div class="ng-temp-panel row">
@@ -26,19 +25,20 @@
       </div>    
       <div class="ng-temp-panel"> 
       <div class="ui-grid ui-grid-responsive ui-fluid">
-          <p-dataList [value]="doc.smDocumentRequestDetail">
-              <ng-template let-detail pTemplate="item">
+          <p-dataList [value]="doc.smDocumentRequestDetail" [emptyMessage]="emptyMessage">
+              <ng-template let-detail pTemplate="item"  let-i="index">
                 <div class="ui-grid ui-grid-responsive ui-fluid content-layout">
                   <div class="ui-grid-row">
                     <div class="ui-grid-col-1 doc-detail-checkbox">
-                      <input type="checkbox" [checked]="true">
+                      <input [checked]="detail.upload_flag" type="checkbox">
                     </div>
-                    <div class="ui-grid-col-11 doc-datalist">
-                          <span> {{detail.document_name}}
-                              <label pButton class="doc-upload" label="อัพโหลด"  (change)="onUpload($event,detail)">
-                                  <input type="file" accept=" application/pdf" class="display-none">
-                              </label>
-                          </span>                     
+                    <div class="ui-grid-col-11 doc-datalist">                        
+                          <span> {{detail.document_name}}  </span> 
+                          <br/>
+                          <label pButton class="doc-upload" label="เลือกไฟล์"  (change)="onUpload($event,detail,i)">
+                            <input type="file" accept=" application/pdf" class="display-none">
+                        </label>    
+                         {{detail.file_name}}                                           
                     </div>
                   </div>
                 </div>                 
@@ -55,7 +55,8 @@
           <span class="content-red-normal">{{doc.smDocumentRequest.due_date}}</span>
         </div>
         <div class="center">
-            <button pButton type="submit" class="btn-positive small-btn" label="บันทึก"></button>
+            <button *ngIf="doc.requestDoc > 1" pButton type="submit" class="btn-positive small-btn" label="ส่งเอกสาร" (click)="onSubmit(doc)"></button>
+            <button *ngIf="doc.requestDoc < 1" pButton type="submit" class="btn-positive small-btn" label="อ่านแล้ว" (click)="onSubmit(doc)"></button>
         </div>
         </div>
       </div>
@@ -63,6 +64,6 @@
     </ng-template>
     
   </p-dataScroller>
-</form>
+  <span *ngIf="documentList.length < 1">ไม่มีเอกสารค้าง</span>
 </div>
   </div>

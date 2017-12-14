@@ -10,10 +10,6 @@
 .doc-upload{
     width:100px;
     font-weight: normal;
-    padding: 0px;
-    margin: 0px;
-    background: transparent;
-    color: rgb(32, 14, 148);
 }
 
 .doc-message{
@@ -33,3 +29,6 @@
        width: 100px;
    } 
 
+   .ui-datalist .ui-datalist-emptymessage{
+        background: #F1F1F1 !important;
+   }

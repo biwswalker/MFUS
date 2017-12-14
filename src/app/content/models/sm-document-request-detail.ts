@@ -9,5 +9,5 @@ export class SmDocumentRequestDetail {
  public application_ref: string;
  public document_name: string;
  public upload_flag: boolean;
-
+ public file_name: string;
 }

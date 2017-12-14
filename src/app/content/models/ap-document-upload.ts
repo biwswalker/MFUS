@@ -11,4 +11,6 @@ public create_datetime: Date;
 public update_user: string;
 public update_datetime: Date;
 
+public document_request_ref: string;
+
 }
