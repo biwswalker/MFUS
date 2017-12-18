@@ -1,0 +1,79 @@
+<form [formGroup]="thisFormGroup" (ngSubmit)="onSearchButtonOnClick()" >
+  <div class="content">
+    <div class="content-header-blue">
+      <p>บันทึกข้อมูลผู้มีสิทธิ์สัมภาษณ์</p>
+      <div class="underline-blue"></div>
+    </div>
+
+    <div class="row overide-row">
+        <div class="col-xs-2">
+            <label class="normal">ประจำปี *</label>
+            <div>
+              <input  type="text" class="input-year" pattern="\d*"
+              maxlength="4"
+              minlength="4"
+              placeholder="ปี ค.ศ."
+              [(ngModel)]="thisForm.year"
+              formControlName="announce_year"
+              pInputText>
+            </div>
+        </div>
+        <div class="col-xs-10">
+            <label class="normal">ทุนการศึกษา</label>
+          <div>
+            <p-autoComplete
+            name="autocompleteScholarships"
+            field="name_and_round"
+            [suggestions]="scholarshipAnnounceList"
+            [size]="40"
+            forceselection="true"
+            [dropdown]="true"
+            [(ngModel)]="scholarshipAnnouncement"
+            formControlName="announce_scholarship"
+            (onDropdownClick)="handleCompleteClickScholarship()"
+            (completeMethod)="autocompleteScholarship($event)">
+            <ng-template let-obj pTemplate="obj">
+              {{obj.name_and_round}}
+            </ng-template>
+          </p-autoComplete>
+          </div>
+          </div>
+
+
+      </div>
+    <div class="row overide-row">
+      <div class="col-xs-4">
+        <label class="normal">วันที่เริ่มสัมภาษณ์</label>
+        <p-calendar [showIcon]="true"
+        [locale]="th"
+        formControlName="start_interview_date"
+        [(ngModel)]="thisForm.interview_start_date"></p-calendar>
+      </div>
+      <div class="col-xs-6">
+          <label class="normal">วันที่สิ้นสุดสัมภาษณ์</label>
+        <p-calendar [showIcon]="true"
+        [locale]="th"
+        formControlName="end_interview_date"
+        [(ngModel)]="thisForm.interview_end_date"></p-calendar>
+      </div>
+    </div>
+
+    <div class="row overide-row btn-row">
+        <div class="col-xs-12">
+            <button pButton type="submit" class="btn-positive" label="ค้นหา"></button>
+            <button pButton type="button" class="btn-normal" label="เริ่มใหม่"></button>
+        </div>
+    </div>
+
+    <div class="row overide-row">
+        <p-dataTable [value]="applicationList">
+            <p-column field="vin" header="ปี"></p-column>
+            <p-column field="year" header="ทุนการศึกษา"></p-column>
+            <p-column field="brand" header="รอบ"></p-column>
+            <p-column field="color" header="วันสัมภาษณ์"></p-column>
+            <p-column field="color" header="ผู้สมัคร"></p-column>
+            <p-column field="color" header="ผู้มีสิทธิ์สัมภาษณ์"></p-column>
+        </p-dataTable>
+    </div>
+  </div>
+</form>

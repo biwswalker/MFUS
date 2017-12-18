@@ -1,3 +1,4 @@
+import { InterviewSelectionService } from './services/interview-selection.service';
 import { CalendarModel } from './content/models/calendar-model';
 
 import { ApplicationTrackingService } from './services/application-tracking.service';
@@ -115,9 +116,9 @@ import { ApplicationDocumentComponent } from './content/pages/application-docume
 import { ApplicationDocumentService } from './services/application-document.service';
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
-import { IntervieweesSelectionComponent } from './content/pages/interviewees-selection/interviewees-selection.component';
 import { ScholarshipEarningComponent } from './content/pages/scholarship-earning/scholarship-earning.component';
 import { AutocompleteService } from './services/autocomplete.service';
+import { InterviewSelectionComponent } from './content/pages/interview-selection/interview-selection.component';
 //Router
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -150,8 +151,7 @@ const appRoutes: Routes = [
       { path: "family-and-address", component: FamilyAndAddressComponent },
       { path: "document-request", component: DocumentRequestComponent},
       { path: "application-document", component: ApplicationDocumentComponent},
-      { path: "interviewees-selection", component: IntervieweesSelectionComponent},
-      { path: "scholarship-earning", component: ScholarshipEarningComponent},
+      { path: "interviewees-selection", component: InterviewSelectionComponent},
     ]
   },
   { path: "news", component: MainNewsComponent },
@@ -222,9 +222,8 @@ export function startupServiceFactory(
     DocumentsscreeningComponent,
     DocumentRequestComponent,
     ApplicationDocumentComponent,
-    IntervieweesSelectionComponent,
-    LoginComponent,
-    ScholarshipEarningComponent,
+    InterviewSelectionComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -283,6 +282,7 @@ export function startupServiceFactory(
     DocumentsService,
     ApplicationTrackingService,
     CalendarModel,
+    InterviewSelectionService,
     {
       provide: APP_INITIALIZER,
       useFactory: startupServiceFactory,
