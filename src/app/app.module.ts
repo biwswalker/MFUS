@@ -1,3 +1,4 @@
+import { InterviewSelectionService } from './services/interview-selection.service';
 import { CalendarModel } from './content/models/calendar-model';
 
 import { ApplicationTrackingService } from './services/application-tracking.service';
@@ -279,6 +280,7 @@ export function startupServiceFactory(
     DocumentsService,
     ApplicationTrackingService,
     CalendarModel,
+    InterviewSelectionService,
     {
       provide: APP_INITIALIZER,
       useFactory: startupServiceFactory,

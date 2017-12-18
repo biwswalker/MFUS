@@ -1,3 +1,4 @@
+import { InterviewSelectionService } from './../../../services/interview-selection.service';
 import { InterviewSelectionForm } from './../../form/interview-selection-form';
 import { FormGroup,FormControl } from '@angular/forms';
 import { CalendarModel } from './../../models/calendar-model';
@@ -23,7 +24,8 @@ export class InterviewSelectionComponent extends CalendarModel implements OnInit
   listScholarshipAnnounce: any[] = [];
   scholarshipAnnouncement: any;
   applicationList: any[] = [];
-  constructor(private scholarshipannouncementService: ScholarshipannouncementService){
+  constructor(private scholarshipannouncementService: ScholarshipannouncementService,
+              private interviewSelectionService: InterviewSelectionService){
     super();
  }
 
@@ -84,5 +86,6 @@ export class InterviewSelectionComponent extends CalendarModel implements OnInit
       this.thisForm.announce_ref = this.scholarshipAnnouncement.announcement_ref;
     }
     console.log('announce ref: '+this.thisForm.announce_ref);
+    // this.interviewSelectionService.getInterviewSelectionList(this.thisForm).subscribe();
   }
 }
