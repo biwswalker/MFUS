@@ -1,3 +1,5 @@
+import { InterviewSelectionForm } from './../../form/interview-selection-form';
+import { FormGroup,FormControl } from '@angular/forms';
 import { CalendarModel } from './../../models/calendar-model';
 
 import { SmScholarshipAnnouncement } from './../../models/sm-scholarship-announcement';
@@ -6,32 +8,43 @@ import { ScholarshipannouncementService } from './../../../services/scholarshipa
 import { SelectItem } from 'primeng/primeng';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
+
 @Component({
-  selector: 'app-interviewees-selection',
+  selector: 'app-interview-selection',
   encapsulation: ViewEncapsulation.None,
-  templateUrl: './interviewees-selection.component.html',
-  styleUrls: ['./interviewees-selection.component.css','../pages.component.css']
+  templateUrl: './interview-selection.component.html',
+  styleUrls: ['./interview-selection.component.css','../pages.component.css']
 })
-export class IntervieweesSelectionComponent extends CalendarModel implements OnInit {
+export class InterviewSelectionComponent extends CalendarModel implements OnInit {
+
+  thisForm: InterviewSelectionForm = new InterviewSelectionForm();
+  thisFormGroup: FormGroup;
   scholarshipAnnounceList: any[] = [];
   listScholarshipAnnounce: any[] = [];
   scholarshipAnnouncement: any;
   applicationList: any[] = [];
-  criYear : number;
   constructor(private scholarshipannouncementService: ScholarshipannouncementService){
     super();
  }
 
   ngOnInit() {
-    this.criYear = (new Date()).getFullYear();
-    this.criYear = this.criYear;
+    this.thisForm.year = (new Date()).getFullYear();
     this.setupScholarshipAnnounceList();
+    this.validatorForm();
   }
 
+  validatorForm() {
+    this.thisFormGroup = new FormGroup({
+      announce_year: new FormControl(this.thisForm.year),
+      announce_scholarship: new FormControl(this.thisForm.announce_ref),
+      start_interview_date: new FormControl(this.thisForm.interview_start_date),
+      end_interview_date: new FormControl(this.thisForm.interview_end_date)}
+    );
+    }
   setupScholarshipAnnounceList(){
     this.listScholarshipAnnounce = [];
 
-    this.listScholarshipAnnounce = this.scholarshipannouncementService.scholarshipAnnounceListonSearchPage(this.criYear);
+    this.listScholarshipAnnounce = this.scholarshipannouncementService.scholarshipAnnounceListonSearchPage(this.thisForm.year);
     console.log(this.listScholarshipAnnounce);
   }
 
@@ -61,24 +74,15 @@ export class IntervieweesSelectionComponent extends CalendarModel implements OnI
       }, 100);
     }
 
-  //  // Autocomplete Selected
-   selectScholarship() {
-  //   console.log("selectProvince");
-  //   if (index == 0) {
-  //     // this.thisForm.homeProvince = new RftProvince();
-  //     this.homeDistrict = new RftDistrict();
-  //     this.homeSubDistrict = new RftSubDistrict();
-  //     this.thisForm.acAddress.home_postcode = null;
-  //     this.utilsService
-  //       .getDistrictsByProvinceRef(this.homeProvince.province_ref)
-  //       .subscribe((res: RftDistrict[]) => {
-  //         this.homeListDistrict = [];
-  //         this.homeListDistrict.push(...res);
-  //       });
-  //   }
-  }
+
 
   onSearchButtonOnClick(){
-
+    console.log("onSearchButtonOnClick");
+    console.log(this.thisForm);
+    console.log(this.scholarshipAnnouncement);
+    if(this.scholarshipAnnouncement != null){
+      this.thisForm.announce_ref = this.scholarshipAnnouncement.announcement_ref;
+    }
+    console.log('announce ref: '+this.thisForm.announce_ref);
   }
 }

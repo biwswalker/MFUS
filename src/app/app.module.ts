@@ -115,7 +115,7 @@ import { ApplicationDocumentComponent } from './content/pages/application-docume
 import { ApplicationDocumentService } from './services/application-document.service';
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
-import { IntervieweesSelectionComponent } from './content/pages/interviewees-selection/interviewees-selection.component';
+import { InterviewSelectionComponent } from './content/pages/interview-selection/interview-selection.component';
 //Router
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -148,7 +148,7 @@ const appRoutes: Routes = [
       { path: "family-and-address", component: FamilyAndAddressComponent },
       { path: "document-request", component: DocumentRequestComponent},
       { path: "application-document", component: ApplicationDocumentComponent},
-      { path: "interviewees-selection", component: IntervieweesSelectionComponent},
+      { path: "interviewees-selection", component: InterviewSelectionComponent},
     ]
   },
   { path: "news", component: MainNewsComponent },
@@ -219,7 +219,7 @@ export function startupServiceFactory(
     DocumentsscreeningComponent,
     DocumentRequestComponent,
     ApplicationDocumentComponent,
-    IntervieweesSelectionComponent,
+    InterviewSelectionComponent,
     LoginComponent
   ],
   imports: [
