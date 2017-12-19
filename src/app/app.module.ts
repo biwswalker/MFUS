@@ -117,6 +117,8 @@ import { ApplicationDocumentComponent } from './content/pages/application-docume
 import { ApplicationDocumentService } from './services/application-document.service';
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
+import { ScholarshipEarningComponent } from './content/pages/scholarship-earning/scholarship-earning.component';
+import { AutocompleteService } from './services/autocomplete.service';
 import { InterviewSelectionComponent } from './content/pages/interview-selection/interview-selection.component';
 //Router
 const appRoutes: Routes = [
@@ -290,7 +292,8 @@ export function startupServiceFactory(
       multi: true
     },
     TitleNameService,
-    ApplicationDocumentService
+    ApplicationDocumentService,
+    AutocompleteService
   ],
   bootstrap: [AppComponent]
 })
