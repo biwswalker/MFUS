@@ -10,13 +10,13 @@ export class InterviewSelectionService {
   url = this.mainUrl;
   constructor(private http: Http) { }
 
-  getInterviewSelectionList(form:InterviewSelectionForm){
+  getInterviewSelectionList(form:InterviewSelectionForm):Observable<any[]>{
       const body = JSON.stringify(form);
       const headers = new Headers({ 'Content-Type': 'application/json' });
       console.log(body);
-      this.http.post(this.url+'interview-selection-list', body, { headers: headers }).subscribe(
+      return this.http.post(this.url+'interview-selection-list', body, { headers: headers }).map(
         (res: Response) => {
-        console.log(res.json);
+          return res.json();
         }
       );
     }

@@ -46,15 +46,18 @@
         <label class="normal">วันที่เริ่มสัมภาษณ์</label>
         <p-calendar [showIcon]="true"
         [locale]="th"
+        dateFormat="dd-mm-yy"
+        (onSelect)="dateSelected($event,1)"
         formControlName="start_interview_date"
-        [(ngModel)]="thisForm.interview_start_date"></p-calendar>
+        [(ngModel)]="beginDate"></p-calendar>
       </div>
       <div class="col-xs-6">
           <label class="normal">วันที่สิ้นสุดสัมภาษณ์</label>
         <p-calendar [showIcon]="true"
         [locale]="th"
         formControlName="end_interview_date"
-        [(ngModel)]="thisForm.interview_end_date"></p-calendar>
+        (onSelect)="dateSelected($event,2)"
+        [(ngModel)]="endDate"></p-calendar>
       </div>
     </div>
 
