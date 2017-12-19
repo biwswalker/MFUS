@@ -6,6 +6,8 @@ export class ScholarshipForm {
   public smSponsors: SmSponsors;
   public index: number;
 
+  public sortField: string;
+
   constructor() {
 
     this.smScholarship = new SmScholarship();
