@@ -118,6 +118,7 @@ import { ApplicationDocumentService } from './services/application-document.serv
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { ScholarshipEarningComponent } from './content/pages/scholarship-earning/scholarship-earning.component';
 import { InterviewSelectionComponent } from './content/pages/interview-selection/interview-selection.component';
+import { HttpClientModule } from '@angular/common/http';
 //Router
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -230,6 +231,7 @@ export function startupServiceFactory(
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     HttpModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
