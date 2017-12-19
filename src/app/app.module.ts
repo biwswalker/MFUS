@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { InterviewSelectionService } from './services/interview-selection.service';
 import { CalendarModel } from './content/models/calendar-model';
 
@@ -283,6 +284,7 @@ export function startupServiceFactory(
     ApplicationTrackingService,
     CalendarModel,
     InterviewSelectionService,
+    DatePipe,
     {
       provide: APP_INITIALIZER,
       useFactory: startupServiceFactory,

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { InterviewSelectionService } from './../../../services/interview-selection.service';
 import { InterviewSelectionForm } from './../../form/interview-selection-form';
 import { FormGroup,FormControl } from '@angular/forms';
@@ -24,8 +25,12 @@ export class InterviewSelectionComponent extends CalendarModel implements OnInit
   listScholarshipAnnounce: any[] = [];
   scholarshipAnnouncement: any;
   applicationList: any[] = [];
+
+  beginDate: Date;
+  endDate: Date;
   constructor(private scholarshipannouncementService: ScholarshipannouncementService,
-              private interviewSelectionService: InterviewSelectionService){
+              private interviewSelectionService: InterviewSelectionService,
+              public datepipe: DatePipe){
     super();
  }
 
@@ -80,12 +85,20 @@ export class InterviewSelectionComponent extends CalendarModel implements OnInit
 
   onSearchButtonOnClick(){
     console.log("onSearchButtonOnClick");
-    console.log(this.thisForm);
-    console.log(this.scholarshipAnnouncement);
     if(this.scholarshipAnnouncement != null){
       this.thisForm.announce_ref = this.scholarshipAnnouncement.announcement_ref;
     }
-    console.log('announce ref: '+this.thisForm.announce_ref);
-    // this.interviewSelectionService.getInterviewSelectionList(this.thisForm).subscribe();
+
+    this.interviewSelectionService.getInterviewSelectionList(this.thisForm).subscribe();
+  }
+
+  dateSelected($event,$seq){
+    console.log('dateSelected');
+    if($seq == 1){
+      this.thisForm.interview_start_date = this.datepipe.transform($event, 'yyyy-MM-dd');
+    }else{
+      this.thisForm.interview_end_date = this.datepipe.transform($event, 'yyyy-MM-dd');
+    }
+
   }
 }
