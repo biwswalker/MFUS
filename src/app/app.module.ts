@@ -119,6 +119,9 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
 import { ScholarshipEarningComponent } from './content/pages/scholarship-earning/scholarship-earning.component';
 import { InterviewSelectionComponent } from './content/pages/interview-selection/interview-selection.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfigurationsService } from './services/configurations.service';
+import { LoginService } from './services/login.service';
+import { EnsureIsAuthenticationService } from './services/ensure-is-authentication.service';
 //Router
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -287,6 +290,9 @@ export function startupServiceFactory(
     CalendarModel,
     InterviewSelectionService,
     DatePipe,
+    ConfigurationsService,
+    LoginService,
+    EnsureIsAuthenticationService,
     {
       provide: APP_INITIALIZER,
       useFactory: startupServiceFactory,
