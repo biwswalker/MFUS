@@ -114,10 +114,8 @@ import { DocumentRequestComponent } from './content/pages/document-request/docum
 import { DocumentrequestService } from './services/documentrequest.service';
 import { ApplicationDocumentComponent } from './content/pages/application-document/application-document.component';
 import { ApplicationDocumentService } from './services/application-document.service';
-
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { ScholarshipEarningComponent } from './content/pages/scholarship-earning/scholarship-earning.component';
-import { AutocompleteService } from './services/autocomplete.service';
 import { InterviewSelectionComponent } from './content/pages/interview-selection/interview-selection.component';
 //Router
 const appRoutes: Routes = [
@@ -152,6 +150,7 @@ const appRoutes: Routes = [
       { path: "document-request", component: DocumentRequestComponent},
       { path: "application-document", component: ApplicationDocumentComponent},
       { path: "interviewees-selection", component: InterviewSelectionComponent},
+      { path: "scholarship-earning", component: ScholarshipEarningComponent},
     ]
   },
   { path: "news", component: MainNewsComponent },
@@ -223,7 +222,8 @@ export function startupServiceFactory(
     DocumentRequestComponent,
     ApplicationDocumentComponent,
     InterviewSelectionComponent,
-    LoginComponent
+    LoginComponent,
+    ScholarshipEarningComponent
   ],
   imports: [
     BrowserModule,
@@ -291,7 +291,6 @@ export function startupServiceFactory(
     },
     TitleNameService,
     ApplicationDocumentService,
-    AutocompleteService
   ],
   bootstrap: [AppComponent]
 })
