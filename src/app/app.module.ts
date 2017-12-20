@@ -1,3 +1,4 @@
+import { ConfigurationsService } from './services/configurations.service';
 import { DatePipe } from '@angular/common';
 import { InterviewSelectionService } from './services/interview-selection.service';
 import { CalendarModel } from './content/models/calendar-model';
@@ -287,6 +288,7 @@ export function startupServiceFactory(
     CalendarModel,
     InterviewSelectionService,
     DatePipe,
+    ConfigurationsService,
     {
       provide: APP_INITIALIZER,
       useFactory: startupServiceFactory,

@@ -89,7 +89,7 @@ export class InterviewSelectionComponent extends CalendarModel implements OnInit
       this.thisForm.announce_ref = this.scholarshipAnnouncement.announcement_ref;
     }
 
-    this.interviewSelectionService.getInterviewSelectionList(this.thisForm).subscribe();
+    // this.interviewSelectionService.getInterviewSelectionList(this.thisForm).subscribe();
   }
 
   dateSelected($event,$seq){
