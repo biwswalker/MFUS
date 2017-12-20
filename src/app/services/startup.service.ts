@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { config } from './../app.config';
 import { Injectable } from "@angular/core";
 import { RequestOptions, Headers, Http, Response } from '@angular/http';
+import { ConfigurationsService } from './configurations.service';
 
 const url: string = config.backendUrl;
 
@@ -12,19 +13,9 @@ export class StartupService {
 
   public provinceList: RftProvince[] = [];
 
-  constructor(private http: Http) {}
+  constructor(private configuration: ConfigurationsService) { }
 
   loadProvinces(): Promise<RftProvince[]> {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.get(url+'province', options)
-      .map(
-      (res: Response) => {
-     //   console.log(res.json());
-        return res.json();
-      }
-      ).toPromise()
-      .then((data: any) => this.provinceList = data)
-      .catch((err: any) => Promise.resolve());
+    return this.configuration.serviceMethodGet('province').toPromise().then((data: any) => this.provinceList = data)
   }
 }
