@@ -1,3 +1,4 @@
+import { ConfigurationsService } from './configurations.service';
 import { InterviewSelectionForm } from './../content/form/interview-selection-form';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
@@ -6,18 +7,9 @@ import { config } from './../app.config';
 
 @Injectable()
 export class InterviewSelectionService {
-  private mainUrl: string = config.backendUrl;
-  url = this.mainUrl;
-  constructor(private http: Http) { }
+  constructor(private configurationsService: ConfigurationsService) { }
 
-  getInterviewSelectionList(form:InterviewSelectionForm):Observable<any[]>{
-      const body = JSON.stringify(form);
-      const headers = new Headers({ 'Content-Type': 'application/json' });
-      console.log(body);
-      return this.http.post(this.url+'interview-selection-list', body, { headers: headers }).map(
-        (res: Response) => {
-          return res.json();
-        }
-      );
+  getInterviewSelectionList(form:InterviewSelectionForm){
+      return this.configurationsService.serviceMethodPost('interview-selection-list', form);
     }
 }

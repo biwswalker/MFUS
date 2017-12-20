@@ -1,3 +1,35 @@
+<<<<<<< HEAD
+=======
+import { ConfigurationsService } from './services/configurations.service';
+import { DatePipe } from '@angular/common';
+import { InterviewSelectionService } from './services/interview-selection.service';
+import { CalendarModel } from './content/models/calendar-model';
+
+import { ApplicationTrackingService } from './services/application-tracking.service';
+import { LoginComponent } from './content/pages/login/login.component';
+import { DocumentsService } from './services/documents.service';
+import { AddressService } from './services/address.service';
+import { ParentService } from './services/parent.service';
+import { DocumentsscreeningComponent } from './content/pages/documentsscreening/documentsscreening.component';
+import { EducationLevelService } from './services/educationlevel.service';
+import { UploadDocumentComponent } from './content/pages/apply-scholarship/upload-document/upload-document.component';
+
+import { StartupService } from "./services/startup.service";
+import { ApplyscholarshipService } from "./services/applyscholarship.service";
+
+import { TitlenameComponent } from "./content/pages/titlename/titlename.component";
+import { SchoolComponent } from "./content/pages/school/school.component";
+import { MajorComponent } from "./content/pages/major/major.component";
+import { NewsComponent } from "./content/pages/news/news.component";
+import { ScholarshipannouncementService } from "./services/scholarshipannouncement.service";
+import { ScholarshipService } from "./services/scholarship.service";
+import { TitleNameService } from "./services/titlename.service";
+import { NewsService } from "./services/news.service";
+import { SponsorsService } from "./services/sponsors.service";
+import { MajorService } from "./services/major.service";
+import { SchoolService } from "./services/school.service";
+import { RouterModule, Routes } from "@angular/router";
+>>>>>>> 62d77b3dbf22333cf71da0a6587d9a2cd5a088ba
 import { NgModule, APP_INITIALIZER } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
