@@ -1,12 +1,43 @@
-<div class="content">
-  <div>
-    <input type="text"
-           pInputText
-           [(ngModel)]="username" />
+<div class="content center">
+  <div class="content-header-blue">
+    <p>เข้าสู่ระบบ</p>
+    <div class="underline-blue"></div>
+  </div>
+  <div class="welcomb">ยินดีต้อนรับกลับเข้าสู่ระบบ!</div>
+  <form [formGroup]="group">
+    <div class="margin-input">
+      <input type="text"
+             size="30"
+             pInputText
+             placeholder="ชื่อผู้ใช้"
+             formControlName="username"
+             name="username" />
+    </div>
+    <div class="margin-input">
+      <input type="password"
+             size="30"
+             pInputText
+             placeholder="รหัสผ่าน"
+             formControlName="password"
+             name="password" />
+    </div>
+  </form>
+  <div class="fail-box">
+    <div class="failed-logedin"
+         *ngIf="logedinFalse">ไม่สามารถเข้าสู่ระบบได้ {{failReson}}</div>
+  </div>
+  <div class="margin-btn">
+    <button pButton
+            type="button"
+            class="btn-normal"
+            (click)="onLogingIn()"
+            [disabled]="group.invalid"
+            label="เข้าสู่ระบบ"></button>
   </div>
   <div>
-    <input type="password"
-           pInputText
-           [(ngModel)]="password" />
+    <a href="/login/#">ลืมระหัสผ่าน?</a>
+  </div>
+  <div>
+    <a href="/register">ลงทะเบียนผู้ใช้</a>
   </div>
 </div>

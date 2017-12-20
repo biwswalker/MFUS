@@ -1,0 +1,47 @@
+input {
+    border-radius: 13px;
+}
+
+button.btn-normal {
+    width: 250px;
+}
+
+button.btn-normal:disabled,
+button.btn-normal[disabled] {
+    background-color: #22468b;
+    opacity: .7;
+}
+
+div.content {
+    padding: 60px 400px 60px 400px;
+}
+
+div.margin-input {
+    margin: 15px 5px 15px 5px
+}
+
+div.margin-btn {
+    margin: 0px 5px 5px 5px
+}
+
+div.welcomb {
+    margin-top: 30px;
+    font-size: 2.3rem;
+    font-weight: 200;
+    color: #1978b7;
+}
+
+div.fail-box {
+    margin: 10px 5px 5px 5px;
+    height: 20px;
+}
+
+div.failed-logedin {
+    font-size: 18px;
+    font-weight: 200;
+    color: #f00a0a;
+}
+
+a {
+    font-size: 18px
+}

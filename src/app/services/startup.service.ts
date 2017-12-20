@@ -16,6 +16,6 @@ export class StartupService {
   constructor(private configuration: ConfigurationsService) { }
 
   loadProvinces(): Promise<RftProvince[]> {
-    return this.configuration.serviceMethodGet('province').toPromise().then((data: any) => this.provinceList = data)
+    return this.configuration.serviceMethodGet('province').toPromise().then((data: any) => this.provinceList = data).catch(error => console.log(error))
   }
 }

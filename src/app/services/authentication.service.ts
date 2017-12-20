@@ -1,3 +1,4 @@
+import { AcUser } from '../content/models/ac-user';
 import { config } from '../app.config';
 import { Subject } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
@@ -20,12 +21,12 @@ export class AuthenticationService {
   setStageStatus(stage) {
     this.isActiveStage.next(stage);
   }
-  
+
   logout() {
     this.isActiveStage.next(false);
   }
 
-  login(user): Promise<any> {
+  login(user: AcUser): Promise<any> {
     return this.requestService.serviceMethodPost('login', user).toPromise()
   }
 
@@ -36,6 +37,17 @@ export class AuthenticationService {
     return this.http.post(this.url + 'ensure', { headers: headers }).toPromise()
   }
 
-  
+  nowRoleStage(): Subject<any> {
+    return this.isRoleStage;
+  }
+
+  setRoleStage(stage) {
+    this.isRoleStage.next(stage);
+  }
+
+  defultRole(stage) {
+    this.isRoleStage.next('USER');
+  }
+
 
 }
